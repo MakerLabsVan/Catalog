@@ -1,5 +1,6 @@
 # Catalog and Kiosk 
 
-# Contributers:
+### Contributers:
 Andrew Song
+
 Sunny
