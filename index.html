@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Angular Web App</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+        crossorigin="anonymous">
+
+</head>
+
+<style>
+    
+    #map-well {
+        height: 600px;
+    }
+    
+    #accordion {
+        height: 600px;
+        border-radius: 5px;
+        border-bottom: 1px solid lightgrey;
+        border-top: 1px solid lightgrey;
+        border-left: 1px solid lightgrey;
+        border-right: 1px solid lightgrey;
+    }
+    
+    .panel {
+        display: block;
+        overflow: auto;
+        border: 0;
+    }
+    
+    #searchbar {
+        background: none;
+    }
+    
+    #searchpanel {
+        margin-bottom: 10px;
+    }
+    
+    #logo {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-left: 1px;
+    }
+    
+    #panel-bg {
+        background: #4D4D4D;
+    }
+    
+    .panel-title {
+        color: white;
+    }
+</style>
+
+<body>
+    <div ng-app="myApp">
+        <div class="container" ng-controller="MainCtrl">
+            <div class="row" id="logo">
+                <img src="assets/makerlabs.png" alt="makerlablogo" height="60px">
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <!-- accordion start -->
+                    <div class="panel-group" id="accordion">
+                        <div class="panel panel-default" id="searchpanel">
+                            <div class="panel-heading" id="searchbar">
+                                <div class="row">
+                                    <form action="" method="">
+                                        <div class="col-md-8 col-md-push-1">
+                                            <input type="text" name="search" id="inv_search" class="form-control" placeholder="Search...">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <button type="submit" class="btn btn-default" id="submit_btn">
+                                            <span class="
+glyphicon glyphicon-search"></span></button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" id="panel-bg">
+                                <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+        {{ categories.studio }}</a>
+      </h4>
+                            </div>
+                            <div id="collapse1" class="panel-collapse collapse">
+                                <div class="panel-body" ng-controller="UserCtrl">
+                                    <p>Name: {{ user.details.Andrew.username }}</p>
+                                    <p>Id: {{ user.details.Andrew.id }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" id="panel-bg">
+                                <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+        {{ categories.tools }}</a>
+      </h4>
+                            </div>
+                            <!-- long overflow data -->
+                            <div id="collapse2" class="panel-collapse collapse">
+                                <div class="panel-body" ng-controller="UserCtrl" style="height:400px; overflow-y:scroll">
+                                    <p>Name: {{ user.details.Sunny.username }}</p>
+                                    <p>Id: {{ user.details.Sunny.id }}</p>
+                                    <hr>
+                                    <p>Name: {{ user.details.Sunny.username }}</p>
+                                    <p>Id: {{ user.details.Sunny.id }}</p>
+                                    <hr>
+                                    <p>Name: {{ user.details.Sunny.username }}</p>
+                                    <p>Id: {{ user.details.Sunny.id }}</p>
+                                    <hr>
+                                    <p>Name: {{ user.details.Sunny.username }}</p>
+                                    <p>Id: {{ user.details.Sunny.id }}</p>
+                                    <hr>
+                                    <p>Name: {{ user.details.Sunny.username }}</p>
+                                    <p>Id: {{ user.details.Sunny.id }}</p>
+                                    <hr>
+                                    <p>Name: {{ user.details.Sunny.username }}</p>
+                                    <p>Id: {{ user.details.Sunny.id }}</p>
+                                    <hr>
+                                    <p>Name: {{ user.details.Sunny.username }}</p>
+                                    <p>Id: {{ user.details.Sunny.id }}</p>
+                                    <hr>
+                                    <p>Name: {{ user.details.Sunny.username }}</p>
+                                    <p>Id: {{ user.details.Sunny.id }}</p>
+                                    <hr>
+                                    <p>Name: {{ user.details.Sunny.username }}</p>
+                                    <p>Id: {{ user.details.Sunny.id }}</p>
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" id="panel-bg">
+                                <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+        {{ categories.cons }}</a>
+      </h4>
+                            </div>
+                            <div id="collapse3" class="panel-collapse collapse">
+                                <div class="panel-body" ng-controller="UserCtrl">
+                                    <p>Name: {{ user.details.Brian.username }}</p>
+                                    <p>Id: {{ user.details.Brian.id }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" id="panel-bg">
+                                <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+        {{ categories.mats }}</a>
+      </h4>
+                            </div>
+                            <div id="collapse4" class="panel-collapse collapse">
+                                <div class="panel-body" ng-controller="UserCtrl">
+                                    <p>Name: {{ user.details.Brian.username }}</p>
+                                    <p>Id: {{ user.details.Brian.id }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="well well-lg" id="map-well">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script src="app/components/index/index.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
