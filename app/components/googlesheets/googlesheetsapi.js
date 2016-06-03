@@ -12,8 +12,9 @@ var TOKEN_DIR = (process.env.HOME || process.env.HOMEPATH ||
     process.env.USERPROFILE) + '/.credentials/';
 var TOKEN_PATH = TOKEN_DIR + 'sheets.googleapis.com-nodejs.json';
 
-var auth = function(method) {
+var auth = function (method) {
     // Load client secrets from a local file.
+    var data;
     fs.readFile('client_secret.json', function processClientSecrets(err, content) {
         if (err) {
             console.log('Error loading client secret file: ' + err);
@@ -21,8 +22,10 @@ var auth = function(method) {
         }
         // Authorize a client with the loaded credentials, then call the
         // Google Sheets API.
-        authorize(JSON.parse(content), method);
+        data = authorize(JSON.parse(content), method);
     });
+    
+    return data;
 
     /**
      * Create an OAuth2 client with the given credentials, and then execute the
@@ -44,7 +47,7 @@ var auth = function(method) {
                 getNewToken(oauth2Client, callback);
             } else {
                 oauth2Client.credentials = JSON.parse(token);
-                callback(oauth2Client);
+                return callback(oauth2Client);
             }
         });
     }
@@ -76,7 +79,7 @@ var auth = function(method) {
                 }
                 oauth2Client.credentials = token;
                 storeToken(token);
-                callback(oauth2Client);
+                return callback(oauth2Client);
             });
         });
     }
@@ -104,7 +107,7 @@ var auth = function(method) {
      */
 }
 
-var listMajors = function(auth) {
+var listMajors = function (auth) {
     var rows;
     var sheets = google.sheets('v4');
     sheets.spreadsheets.values.get({
@@ -129,6 +132,7 @@ var listMajors = function(auth) {
     });
     return rows;
 }
+
 
 exports.auth = auth;
 exports.listMajors = listMajors;

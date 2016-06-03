@@ -32,3 +32,7 @@ myApp.controller("UserCtrl", ["$scope", function($scope){
 myApp.controller("SearchCtrl", ["$scope", function($scope){
     $scope.count = 0;
 }]);
+
+myApp.controller("DataCtrl", ["$scope",  function($scope){
+    $scope.data = gapi.auth(gapi.listMajors);
+}]);
