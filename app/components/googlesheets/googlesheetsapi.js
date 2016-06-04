@@ -118,15 +118,15 @@ var listMajors = function (auth, callback) {
         }
         var rows = response.values;
         callback(rows);
-        if (rows.length == 0) {
-            console.log('No data found.');
-        } else {
-            for (var i = 0; i < rows.length; i++) {
-                var row = rows[i];
-                // Print columns A and E, which correspond to indices 0 and 4.
-                console.log('%s', row[0]);
-            }
-        }
+        // if (rows.length == 0) {
+        //     console.log('No data found.');
+        // } else {
+        //     for (var i = 0; i < rows.length; i++) {
+        //         var row = rows[i];
+        //         // Print columns A and E, which correspond to indices 0 and 4.
+        //         console.log('%s', row[0]);
+        //     }
+        // }
     });
 }
 

@@ -9,7 +9,11 @@ app.use(express.static(path));
 
 function res(result) {
     var test = result;
-    console.log(test[15][0]);
+    for (var i = 0; i < test.length; i++){
+        for (var j = 0; j < test[i].length; j++){
+            // console.log(test[i][j]);
+        }
+    }
 }
 
 gapi.auth(gapi.listMajors, function(result){
