@@ -1,14 +1,12 @@
-
-
 //item will be place in the map as shapes
 var circleData = [
   { "cx": 400, "cy": 400, "radius": 50, "color" : "green" },
   { "cx": 400, "cy": 300, "radius": 50, "color" : "purple" }];
 
 var rectangleData = [
-  {"rx":0,"ry":0,"height":50, "width":50,"color":"blue"},
-  {"rx":200, "ry":200,"height":50,"width":50,"color":"red"},
-  {"rx":400, "ry":400,"height":50,"width":50,"color":"green"}];
+  {"rx":0,"ry":0,"height":50, "width":50,"color":"blue","id":"material 1"},
+  {"rx":200, "ry":200,"height":50,"width":50,"color":"red","id":"material 2"},
+  {"rx":400, "ry":400,"height":50,"width":50,"color":"green","id":"material 3"}];
 
 var polyData =  [{
     "points":[
@@ -30,30 +28,31 @@ var circles = svgContainer.selectAll("circle")
   .enter()
   .append("circle");
 
-  var circleAttributes = circles
-    .attr("cx", function (d) { return d.cx; })
-    .attr("cy", function (d) { return d.cy; })
-    .attr("r", function (d) { return d.radius; })
-    .style("fill", function(d) { return d.color; });
+var circleAttributes = circles
+  .attr("cx", function (d) { return d.cx; })
+  .attr("cy", function (d) { return d.cy; })
+  .attr("r", function (d) { return d.radius; })
+  .style("fill", function(d) { return d.color; });
 
 //add rectangles to svg
 var rectangles = svgContainer.selectAll("rect")
   .data(rectangleData)
   .enter()
-  .append("rect")
-  .on("mouseover",function(){//Need to fix translation
-    d3.select(this).transition().attr("transform","scale(1.2)")
-  })
-  .on("mouseout",function(){
-    d3.select(this).transition().attr("transform","scale(1)")
-  });
+  .append("rect");
 
-var rectangleAttributes = rectangles
+var rectangleAttributes = rectangles //modify to accept data from source
   .attr("x", function (d) { return d.rx; })
   .attr("y", function (d) { return d.ry; })
   .attr("height", function (d) { return d.height; })
   .attr("width", function (d) { return d.width; })
-  .style("fill", function(d) { return d.color; });
+  .attr('id',function (d) { return d.id; })
+  .style("fill", function(d) { return d.color; })
+  .on("mouseover",function(d){//Need to fix translation
+    d3.select(this).transition().style("opacity", 1);
+  })
+  .on("mouseout",function(){
+    d3.select(this).transition().style("opacity", 0.5);
+  });
 
 var poly = svgContainer.selectAll("polygon")
   .data(polyData)
@@ -61,9 +60,7 @@ var poly = svgContainer.selectAll("polygon")
   .append("polygon");
 
 var polyAttributes = poly
-  //Needs fixing, formate of points needs trasnformation
-  //.attr("points",function(d) {
-  //      return d.map(function(d) { return [d.x,d.y].join(","); }).join(" ");})
+  //Needs fixing, format of "points" needs trasnformation
   .attr("points", "100,50, 200,150, 300,50" )
   .attr("stroke-width", "2px")
   .attr("stroke", "black");
