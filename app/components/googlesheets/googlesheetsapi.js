@@ -12,9 +12,9 @@ var TOKEN_DIR = (process.env.HOME || process.env.HOMEPATH ||
     process.env.USERPROFILE) + '/.credentials/';
 var TOKEN_PATH = TOKEN_DIR + 'sheets.googleapis.com-nodejs.json';
 
-var auth = function (method) {
+
+var auth = function (method, callback) {
     // Load client secrets from a local file.
-    var data;
     fs.readFile('client_secret.json', function processClientSecrets(err, content) {
         if (err) {
             console.log('Error loading client secret file: ' + err);
@@ -22,10 +22,8 @@ var auth = function (method) {
         }
         // Authorize a client with the loaded credentials, then call the
         // Google Sheets API.
-        data = authorize(JSON.parse(content), method);
+        authorize(JSON.parse(content), method, callback);
     });
-    
-    return data;
 
     /**
      * Create an OAuth2 client with the given credentials, and then execute the
@@ -34,7 +32,7 @@ var auth = function (method) {
      * @param {Object} credentials The authorization client credentials.
      * @param {function} callback The callback to call with the authorized client.
      */
-    function authorize(credentials, callback) {
+    function authorize(credentials, callback, callback2) {
         var clientSecret = credentials.installed.client_secret;
         var clientId = credentials.installed.client_id;
         var redirectUrl = credentials.installed.redirect_uris[0];
@@ -47,7 +45,7 @@ var auth = function (method) {
                 getNewToken(oauth2Client, callback);
             } else {
                 oauth2Client.credentials = JSON.parse(token);
-                return callback(oauth2Client);
+                callback(oauth2Client, callback2);
             }
         });
     }
@@ -60,7 +58,7 @@ var auth = function (method) {
      * @param {getEventsCallback} callback The callback to call with the authorized
      *     client.
      */
-    function getNewToken(oauth2Client, callback) {
+    function getNewToken(oauth2Client, callback, callback2) {
         var authUrl = oauth2Client.generateAuthUrl({
             access_type: 'offline',
             scope: SCOPES
@@ -79,7 +77,7 @@ var auth = function (method) {
                 }
                 oauth2Client.credentials = token;
                 storeToken(token);
-                return callback(oauth2Client);
+                callback(oauth2Client, callback2);
             });
         });
     }
@@ -107,8 +105,7 @@ var auth = function (method) {
      */
 }
 
-var listMajors = function (auth) {
-    var rows;
+var listMajors = function (auth, callback) {
     var sheets = google.sheets('v4');
     sheets.spreadsheets.values.get({
         auth: auth,
@@ -119,7 +116,8 @@ var listMajors = function (auth) {
             console.log('The API returned an error: ' + err);
             return;
         }
-        rows = response.values;
+        var rows = response.values;
+        callback(rows);
         if (rows.length == 0) {
             console.log('No data found.');
         } else {
@@ -130,9 +128,7 @@ var listMajors = function (auth) {
             }
         }
     });
-    return rows;
 }
-
 
 exports.auth = auth;
 exports.listMajors = listMajors;
