@@ -7,21 +7,21 @@ var gapi = require(path + "/app/components/googlesheets/googlesheetsapi.js");
 app.use("/", router);
 app.use(express.static(path));
 
-function res(result) {
-    var test = result;
-    for (var i = 0; i < test.length; i++){
-        for (var j = 0; j < test[i].length; j++){
-            // console.log(test[i][j]);
-        }
-    }
+function getData(fn) {
+    gapi.auth(gapi.listMajors, function (result) {
+        fn(result);
+    });
 }
-
-gapi.auth(gapi.listMajors, function(result){
-    res(result);
-});
 
 app.get("/", function (req, res) {
     res.sendFile(path + '/views/index.html');
+});
+
+app.get("/getData", function (req, res) {
+    getData(function (result) {
+        console.log(result);
+        return res.json(result);
+    });
 });
 
 app.listen(3000, function () {
