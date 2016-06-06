@@ -88,6 +88,9 @@ glyphicon glyphicon-search"></span></button>
                                 <div class="panel-body" ng-controller="UserCtrl">
                                     <p>Name: {{ user.details.Andrew.username }}</p>
                                     <p>Id: {{ user.details.Andrew.id }}</p>
+                                    <div ng-controller="DataCtrl">
+                                        <p>{{ data }}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -142,6 +145,7 @@ glyphicon glyphicon-search"></span></button>
                                 <div class="panel-body" ng-controller="UserCtrl">
                                     <p>Name: {{ user.details.Brian.username }}</p>
                                     <p>Id: {{ user.details.Brian.id }}</p>
+                                    <p>Data: {{ data }}</p>
                                 </div>
                             </div>
                         </div>
