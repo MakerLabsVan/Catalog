@@ -49,6 +49,11 @@
     .panel-title {
         color: white;
     }
+    
+    .panel-body {
+        height: 400px;
+        overflow-y: scroll;
+    }
 </style>
 
 <body>
@@ -65,13 +70,8 @@
                             <div class="panel-heading" id="searchbar">
                                 <div class="row">
                                     <form action="" method="">
-                                        <div class="col-md-8 col-md-push-1">
+                                        <div class="col-md-12">
                                             <input type="text" name="search" id="inv_search" class="form-control" placeholder="Search...">
-                                        </div>
-                                        <div class="col-md-4">
-                                            <button type="submit" class="btn btn-default" id="submit_btn">
-                                            <span class="
-glyphicon glyphicon-search"></span></button>
                                         </div>
                                     </form>
                                 </div>
@@ -84,13 +84,12 @@ glyphicon glyphicon-search"></span></button>
         {{ categories.studio }}</a>
       </h4>
                             </div>
-                            <div id="collapse1" class="panel-collapse collapse">
-                                <div class="panel-body" ng-controller="UserCtrl">
-                                    <p>Name: {{ user.details.Andrew.username }}</p>
-                                    <p>Id: {{ user.details.Andrew.id }}</p>
-                                    <div ng-controller="DataCtrl">
-                                        <p>{{ data }}</p>
-                                    </div>
+                            <div id="collapse1" class="panel-collapse collapse in">
+                                <div class="panel-body" ng-controller="DataCtrl">
+                                    <!-- sheet data -->
+                                    <p ng-repeat="object in data">
+                                        {{ object[1] === "Studio" ? object[0] : "" }}
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -103,34 +102,10 @@ glyphicon glyphicon-search"></span></button>
                             </div>
                             <!-- long overflow data -->
                             <div id="collapse2" class="panel-collapse collapse">
-                                <div class="panel-body" ng-controller="UserCtrl" style="height:400px; overflow-y:scroll">
-                                    <p>Name: {{ user.details.Sunny.username }}</p>
-                                    <p>Id: {{ user.details.Sunny.id }}</p>
-                                    <hr>
-                                    <p>Name: {{ user.details.Sunny.username }}</p>
-                                    <p>Id: {{ user.details.Sunny.id }}</p>
-                                    <hr>
-                                    <p>Name: {{ user.details.Sunny.username }}</p>
-                                    <p>Id: {{ user.details.Sunny.id }}</p>
-                                    <hr>
-                                    <p>Name: {{ user.details.Sunny.username }}</p>
-                                    <p>Id: {{ user.details.Sunny.id }}</p>
-                                    <hr>
-                                    <p>Name: {{ user.details.Sunny.username }}</p>
-                                    <p>Id: {{ user.details.Sunny.id }}</p>
-                                    <hr>
-                                    <p>Name: {{ user.details.Sunny.username }}</p>
-                                    <p>Id: {{ user.details.Sunny.id }}</p>
-                                    <hr>
-                                    <p>Name: {{ user.details.Sunny.username }}</p>
-                                    <p>Id: {{ user.details.Sunny.id }}</p>
-                                    <hr>
-                                    <p>Name: {{ user.details.Sunny.username }}</p>
-                                    <p>Id: {{ user.details.Sunny.id }}</p>
-                                    <hr>
-                                    <p>Name: {{ user.details.Sunny.username }}</p>
-                                    <p>Id: {{ user.details.Sunny.id }}</p>
-                                    <hr>
+                                <div class="panel-body" ng-controller="DataCtrl">
+                                    <p ng-repeat="object in data">
+                                        {{ object[1] === "Tool" ? object[0] : "" }}
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -142,10 +117,10 @@ glyphicon glyphicon-search"></span></button>
       </h4>
                             </div>
                             <div id="collapse3" class="panel-collapse collapse">
-                                <div class="panel-body" ng-controller="UserCtrl">
-                                    <p>Name: {{ user.details.Brian.username }}</p>
-                                    <p>Id: {{ user.details.Brian.id }}</p>
-                                    <p>Data: {{ data }}</p>
+                                <div class="panel-body" ng-controller="DataCtrl">
+                                    <p ng-repeat="object in data">
+                                        {{ object[1] === "Consumable" ? object[0] : "" }}
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -157,9 +132,10 @@ glyphicon glyphicon-search"></span></button>
       </h4>
                             </div>
                             <div id="collapse4" class="panel-collapse collapse">
-                                <div class="panel-body" ng-controller="UserCtrl">
-                                    <p>Name: {{ user.details.Brian.username }}</p>
-                                    <p>Id: {{ user.details.Brian.id }}</p>
+                                <div class="panel-body" ng-controller="DataCtrl">
+                                    <p ng-repeat="object in data">
+                                        {{ object[1] === "Material" ? object[0] : "" }}
+                                    </p>
                                 </div>
                             </div>
                         </div>
