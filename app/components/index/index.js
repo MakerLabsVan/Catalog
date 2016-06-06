@@ -9,14 +9,14 @@ myApp.controller("MainCtrl", ["$scope", function ($scope) {
     };
 }]);
 
-myApp.controller("UserCtrl", ["$scope", function($scope){
+myApp.controller("UserCtrl", ["$scope", function ($scope) {
     // namespace user details
     $scope.user = {};
     // details is arbitrary naming scheme
     $scope.user.details = {
         "Andrew": {
             "username": "Andrew Song",
-            "id": "89101112"        
+            "id": "89101112"
         },
         "Sunny": {
             "username": "Sunny L",
@@ -27,10 +27,24 @@ myApp.controller("UserCtrl", ["$scope", function($scope){
             "id": "654321"
         }
     };
+
 }]);
 
-myApp.controller("SearchCtrl", ["$scope", function($scope){
+myApp.controller("SearchCtrl", ["$scope", function ($scope) {
     $scope.count = 0;
 }]);
 
 
+myApp.controller("DataCtrl", ['$scope', '$http', function ($scope, $http) {
+    $http({
+        method: 'GET',
+        url: '//localhost:3000/getData'
+    })
+        .success(function (data, status, header, config) {
+            // success data
+            $scope.data = data[0][0];
+        })
+        .error(function (data, status, header, config) {
+            // something went wrong
+        });
+}]);
