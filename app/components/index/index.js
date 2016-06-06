@@ -30,11 +30,6 @@ myApp.controller("UserCtrl", ["$scope", function ($scope) {
 
 }]);
 
-myApp.controller("SearchCtrl", ["$scope", function ($scope) {
-    $scope.count = 0;
-}]);
-
-
 myApp.controller("DataCtrl", ['$scope', '$http', function ($scope, $http) {
     $http({
         method: 'GET',
@@ -42,9 +37,16 @@ myApp.controller("DataCtrl", ['$scope', '$http', function ($scope, $http) {
     })
         .success(function (data, status, header, config) {
             // success data
-            $scope.data = data[0][0];
+            $scope.data = data;
         })
         .error(function (data, status, header, config) {
             // something went wrong
         });
 }]);
+
+
+// myApp.filter('listData', function () {
+//     return function (input) {
+//         console.log(input);
+//     }
+// });
