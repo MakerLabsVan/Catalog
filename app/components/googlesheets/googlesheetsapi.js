@@ -1,4 +1,6 @@
 var sheetKey = "14Lrt2cn8rBfT0E0F85ucr7BL91-g8MhTnY3v6ajVF-M";
+var sheetKeyPrivate = "1MJpC2n-ekpnRXaLsb7B4dI6VOQIzn1eZO61I7sy2yiA";
+
 
 var fs = require('fs');
 var readline = require('readline');
@@ -109,7 +111,7 @@ var listMajors = function (auth, callback) {
     var sheets = google.sheets('v4');
     sheets.spreadsheets.values.get({
         auth: auth,
-        spreadsheetId: sheetKey,
+        spreadsheetId: sheetKeyPrivate,
         range: 'A2:E',
     }, function (err, response) {
         if (err) {
