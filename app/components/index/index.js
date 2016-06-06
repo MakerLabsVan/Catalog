@@ -43,10 +43,3 @@ myApp.controller("DataCtrl", ['$scope', '$http', function ($scope, $http) {
             // something went wrong
         });
 }]);
-
-
-// myApp.filter('listData', function () {
-//     return function (input) {
-//         console.log(input);
-//     }
-// });

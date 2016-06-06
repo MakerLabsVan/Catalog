@@ -19,7 +19,6 @@ app.get("/", function (req, res) {
 
 app.get("/getData", function (req, res) {
     getData(function (result) {
-        console.log(result);
         return res.json(result);
     });
 });
