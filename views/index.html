@@ -70,7 +70,12 @@
                             <div class="panel-heading" id="searchbar">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <input type="search" class="form-control" placeholder="Search here" ng-model="queryTerm">
+                                        <input type="search" class="form-control" placeholder="Search here" ng-model="queryTerm" ng-change="changeH()">
+                                        <div id="searchSection" style="height:0px; overflow-y:scroll">
+                                            <div ng-repeat="object in data">
+                                                {{ queryTerm.length == 0 ? '' : object[0].toLowerCase().indexOf(queryTerm.toLowerCase()) != -1 ? object[0] : '' }}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -79,21 +84,18 @@
                             <div class="panel-heading" id="panel-bg">
                                 <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-        {{ categories.studio }} ( {{ studioSize }} )</a>
+        {{ categories.studio }} ( {{ modelStdSize }} )</a>
       </h4>
                             </div>
-                            <div id="collapse1" class="panel-collapse collapse in">
+                            <div id="collapse1" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <!-- sheet data -->
                                     <p ng-repeat="object in data">
-                                        {{ queryTerm.length == 0
-                                                ? object[1] === "Studio"
-                                                    ? object[0]
-                                                    : ''
-                                                : object[1] === "Studio" && object[0].toLowerCase().indexOf(queryTerm.toLowerCase()) != -1
-                                                    ? object[0]
-                                                    : ''
-                                        }}
+                                        <a ng-href="{{ object[0] }}" style="color:black">
+                                            {{ object[1] === "Studio" ? object[0] : '' }}
+                                        <!-- {{ queryTerm.length == 0 ? object[1] === "Studio" ? object[0] : '' : object[1] === "Studio" && object[0].toLowerCase().indexOf(queryTerm.toLowerCase())
+                                        != -1 ? object[0] : '' }} -->
+                                        </a>
                                     </p>
                                 </div>
                             </div>
@@ -109,14 +111,7 @@
                             <div id="collapse2" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <p ng-repeat="object in data">
-                                        {{ queryTerm.length == 0
-                                                ? object[1] === "Tool"
-                                                    ? object[0]
-                                                    : ''
-                                                : object[1] === "Tool" && object[0].toLowerCase().indexOf(queryTerm.toLowerCase()) != -1
-                                                    ? object[0]
-                                                    : ''
-                                        }}
+                                        {{ object[1] === "Tool" ? object[0] : '' }}
                                     </p>
                                 </div>
                             </div>
@@ -131,14 +126,7 @@
                             <div id="collapse3" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <p ng-repeat="object in data">
-                                        {{ queryTerm.length == 0
-                                                ? object[1] === "Consumable"
-                                                    ? object[0]
-                                                    : ''
-                                                : object[1] === "Consumable" && object[0].toLowerCase().indexOf(queryTerm.toLowerCase()) != -1
-                                                    ? object[0]
-                                                    : ''
-                                        }}
+                                        {{ object[1] === "Consumable" ? object[0] : '' }}
                                     </p>
                                 </div>
                             </div>
@@ -153,14 +141,7 @@
                             <div id="collapse4" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <p ng-repeat="object in data">
-                                        {{ queryTerm.length == 0
-                                                ? object[1] === "Material"
-                                                    ? object[0]
-                                                    : ''
-                                                : object[1] === "Material" && object[0].toLowerCase().indexOf(queryTerm.toLowerCase()) != -1
-                                                    ? object[0]
-                                                    : ''
-                                        }}
+                                        {{ object[1] === "Material" ? object[0] : '' }}
                                     </p>
                                 </div>
                             </div>

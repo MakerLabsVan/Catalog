@@ -8,6 +8,17 @@ myApp.controller("MainCtrl", ["$scope", '$http', function ($scope, $http) {
         "mats": "Materials"
     };
 
+    $scope.queryTerm = '';
+
+    $scope.changeH = function () {
+        if ($scope.queryTerm.length == 0) {
+            document.getElementById("searchSection").style.height = '0px';
+        } else {
+            document.getElementById("searchSection").style.height = '300px';
+        }
+    }
+
+
     $http({
         method: 'GET',
         url: '//localhost:3000/getData'
@@ -26,7 +37,7 @@ myApp.controller("MainCtrl", ["$scope", '$http', function ($scope, $http) {
                 if (data[i][1] === "Consumable") contemp++;
                 if (data[i][1] === "Material") mattemp++;
             }
-            $scope.studioSize = studtemp;
+            $scope.modelStdSize = studtemp;
             $scope.toolSize = tooltemp;
             $scope.matSize = mattemp;
             $scope.conSize = contemp;
@@ -37,5 +48,4 @@ myApp.controller("MainCtrl", ["$scope", '$http', function ($scope, $http) {
             alert("Something went wrong! Please call for help!");
         });
 
-    $scope.queryTerm = '';
 }]);
