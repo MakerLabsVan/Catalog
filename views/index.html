@@ -69,11 +69,9 @@
                         <div class="panel panel-default" id="searchpanel">
                             <div class="panel-heading" id="searchbar">
                                 <div class="row">
-                                    <form action="" method="">
-                                        <div class="col-md-12">
-                                            <input type="text" name="search" id="inv_search" class="form-control" placeholder="Search...">
-                                        </div>
-                                    </form>
+                                    <div class="col-md-12">
+                                        <input type="search" class="form-control" placeholder="Search here" ng-model="queryTerm">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -85,10 +83,17 @@
       </h4>
                             </div>
                             <div id="collapse1" class="panel-collapse collapse in">
-                                <div class="panel-body" ng-controller="DataCtrl">
+                                <div class="panel-body">
                                     <!-- sheet data -->
                                     <p ng-repeat="object in data">
-                                        {{ object[1] === "Studio" ? object[0] : "" }}
+                                        {{ queryTerm.length == 0
+                                                ? object[1] === "Studio"
+                                                    ? object[0]
+                                                    : ''
+                                                : object[1] === "Studio" && object[0].toLowerCase().indexOf(queryTerm.toLowerCase()) != -1
+                                                    ? object[0]
+                                                    : ''
+                                                    }}
                                     </p>
                                 </div>
                             </div>
@@ -102,7 +107,7 @@
                             </div>
                             <!-- long overflow data -->
                             <div id="collapse2" class="panel-collapse collapse">
-                                <div class="panel-body" ng-controller="DataCtrl">
+                                <div class="panel-body">
                                     <p ng-repeat="object in data">
                                         {{ object[1] === "Tool" ? object[0] : "" }}
                                     </p>
@@ -117,7 +122,7 @@
       </h4>
                             </div>
                             <div id="collapse3" class="panel-collapse collapse">
-                                <div class="panel-body" ng-controller="DataCtrl">
+                                <div class="panel-body">
                                     <p ng-repeat="object in data">
                                         {{ object[1] === "Consumable" ? object[0] : "" }}
                                     </p>
@@ -132,7 +137,7 @@
       </h4>
                             </div>
                             <div id="collapse4" class="panel-collapse collapse">
-                                <div class="panel-body" ng-controller="DataCtrl">
+                                <div class="panel-body">
                                     <p ng-repeat="object in data">
                                         {{ object[1] === "Material" ? object[0] : "" }}
                                     </p>
