@@ -9,14 +9,16 @@ myApp.controller("MainCtrl", ["$scope", '$http', function ($scope, $http) {
     };
 
     $scope.queryTerm = '';
-
+    
     $scope.changeH = function () {
+        // if searching but no click = 
         if ($scope.queryTerm.length == 0) {
             document.getElementById("searchSection").style.height = '0px';
         } else {
-            document.getElementById("searchSection").style.height = '300px';
+            document.getElementById("searchSection").style.height = '370px';
         }
     }
+    
 
 
     $http({

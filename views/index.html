@@ -51,7 +51,7 @@
     }
     
     .panel-body {
-        height: 400px;
+        height: 370px;
         overflow-y: scroll;
     }
 </style>
@@ -72,8 +72,11 @@
                                     <div class="col-md-12">
                                         <input type="search" class="form-control" placeholder="Search here" ng-model="queryTerm" ng-change="changeH()">
                                         <div id="searchSection" style="height:0px; overflow-y:scroll">
+                                            <hr/>
                                             <div ng-repeat="object in data">
+                                                <a ng-href="{{ object[0] }}" style="color:black">
                                                 {{ queryTerm.length == 0 ? '' : object[0].toLowerCase().indexOf(queryTerm.toLowerCase()) != -1 ? object[0] : '' }}
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -84,7 +87,7 @@
                             <div class="panel-heading" id="panel-bg">
                                 <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-        {{ categories.studio }} ( {{ modelStdSize }} )</a>
+        {{ categories.studio }}</a>
       </h4>
                             </div>
                             <div id="collapse1" class="panel-collapse collapse">
@@ -93,8 +96,6 @@
                                     <p ng-repeat="object in data">
                                         <a ng-href="{{ object[0] }}" style="color:black">
                                             {{ object[1] === "Studio" ? object[0] : '' }}
-                                        <!-- {{ queryTerm.length == 0 ? object[1] === "Studio" ? object[0] : '' : object[1] === "Studio" && object[0].toLowerCase().indexOf(queryTerm.toLowerCase())
-                                        != -1 ? object[0] : '' }} -->
                                         </a>
                                     </p>
                                 </div>
@@ -104,7 +105,7 @@
                             <div class="panel-heading" id="panel-bg">
                                 <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-        {{ categories.tools }} ( {{ toolSize }} )</a>
+        {{ categories.tools }}</a>
       </h4>
                             </div>
                             <!-- long overflow data -->
@@ -120,7 +121,7 @@
                             <div class="panel-heading" id="panel-bg">
                                 <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-        {{ categories.cons }} ( {{ conSize }} )</a>
+        {{ categories.cons }}</a>
       </h4>
                             </div>
                             <div id="collapse3" class="panel-collapse collapse">
@@ -135,7 +136,7 @@
                             <div class="panel-heading" id="panel-bg">
                                 <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
-        {{ categories.mats }} ( {{ matSize }} )</a>
+        {{ categories.mats }}</a>
       </h4>
                             </div>
                             <div id="collapse4" class="panel-collapse collapse">
