@@ -93,7 +93,7 @@
                                                 : object[1] === "Studio" && object[0].toLowerCase().indexOf(queryTerm.toLowerCase()) != -1
                                                     ? object[0]
                                                     : ''
-                                                    }}
+                                        }}
                                     </p>
                                 </div>
                             </div>
@@ -109,7 +109,14 @@
                             <div id="collapse2" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <p ng-repeat="object in data">
-                                        {{ object[1] === "Tool" ? object[0] : "" }}
+                                        {{ queryTerm.length == 0
+                                                ? object[1] === "Tool"
+                                                    ? object[0]
+                                                    : ''
+                                                : object[1] === "Tool" && object[0].toLowerCase().indexOf(queryTerm.toLowerCase()) != -1
+                                                    ? object[0]
+                                                    : ''
+                                        }}
                                     </p>
                                 </div>
                             </div>
@@ -124,7 +131,14 @@
                             <div id="collapse3" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <p ng-repeat="object in data">
-                                        {{ object[1] === "Consumable" ? object[0] : "" }}
+                                        {{ queryTerm.length == 0
+                                                ? object[1] === "Consumable"
+                                                    ? object[0]
+                                                    : ''
+                                                : object[1] === "Consumable" && object[0].toLowerCase().indexOf(queryTerm.toLowerCase()) != -1
+                                                    ? object[0]
+                                                    : ''
+                                        }}
                                     </p>
                                 </div>
                             </div>
@@ -139,7 +153,14 @@
                             <div id="collapse4" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <p ng-repeat="object in data">
-                                        {{ object[1] === "Material" ? object[0] : "" }}
+                                        {{ queryTerm.length == 0
+                                                ? object[1] === "Material"
+                                                    ? object[0]
+                                                    : ''
+                                                : object[1] === "Material" && object[0].toLowerCase().indexOf(queryTerm.toLowerCase()) != -1
+                                                    ? object[0]
+                                                    : ''
+                                        }}
                                     </p>
                                 </div>
                             </div>
