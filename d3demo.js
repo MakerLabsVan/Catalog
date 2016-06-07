@@ -1,12 +1,12 @@
-//item will be place in the map as shapes
+//Fake map information
 var circleData = [
-  { "cx": 400, "cy": 400, "radius": 50, "color" : "green" },
-  { "cx": 400, "cy": 300, "radius": 50, "color" : "purple" }];
+  { "cx": 400, "cy": 400, "radius": 50, "id" : "material 1" },
+  { "cx": 400, "cy": 300, "radius": 50, "id" : "material 2" }];
 
 var rectangleData = [
-  {"rx":0,"ry":0,"height":50, "width":50,"color":"blue","id":"material 1"},
-  {"rx":200, "ry":200,"height":50,"width":50,"color":"red","id":"material 2"},
-  {"rx":400, "ry":400,"height":50,"width":50,"color":"green","id":"material 3"}];
+  {"rx":100,"ry":100,"height":50, "width":50,"id":"studio 1"},
+  {"rx":200, "ry":200,"height":50,"width":50,"id":"studio 2"},
+  {"rx":400, "ry":400,"height":50,"width":50,"id":"studio 3"}];
 
 var polyData =  [{
     "points":[
@@ -16,12 +16,27 @@ var polyData =  [{
       {"x":150,"y":150}
     ]}];
 
-
-//Container for map and items
+//Container for map and map information
 var svgContainer =d3.select("body").append("svg")
-  .attr("width", 700)
+  .attr("width", 500)
   .attr("height",500)
   .style("border","1px solid black");
+
+//Circles are used to represent materials/consumables/tools
+
+var circleText = svgContainer.selectAll("text")
+  .data(circleData)
+  .enter()
+  .append("text")
+
+var circleTestLabels = circleText
+  .attr("x", function(d) { return d.cx; })
+  .attr("y", function(d) { return d.cy; })
+  .text( function (d) { return "( " + d.cx + ", " + d.cy +" )"; })
+  .attr("font-family", "sans-serif")
+  .attr("font-size", "20px")
+  .attr("fill", "red")
+  .attr("visibility","hidden");
 
 var circles = svgContainer.selectAll("circle")
   .data(circleData)
@@ -32,9 +47,18 @@ var circleAttributes = circles
   .attr("cx", function (d) { return d.cx; })
   .attr("cy", function (d) { return d.cy; })
   .attr("r", function (d) { return d.radius; })
-  .style("fill", function(d) { return d.color; });
+  .attr('id',function (d) { return d.id; })
+  .style("opacity",0.5)
+  .style("cursor","pointer")
+  .on("mouseover",function(d){//Need to fix translation
+    d3.select(this).transition().style("opacity", 1)
+  })
+  .on("mouseout",function(){
+    d3.select(this).transition().style("opacity", 0.5)
+  });
 
-//add rectangles to svg
+
+//Rectangles represent studio spaces
 var rectangles = svgContainer.selectAll("rect")
   .data(rectangleData)
   .enter()
@@ -46,25 +70,26 @@ var rectangleAttributes = rectangles //modify to accept data from source
   .attr("height", function (d) { return d.height; })
   .attr("width", function (d) { return d.width; })
   .attr('id',function (d) { return d.id; })
-  .style("fill", function(d) { return d.color; })
+  .style("opacity",0.5)
+  .style("cursor","pointer")
   .on("mouseover",function(d){//Need to fix translation
-    d3.select(this).transition().style("opacity", 1);
+    d3.select(this).transition().style("opacity", 1)
   })
   .on("mouseout",function(){
     d3.select(this).transition().style("opacity", 0.5);
   });
 
-var poly = svgContainer.selectAll("polygon")
-  .data(polyData)
-  .enter()
-  .append("polygon");
-
-var polyAttributes = poly
-  //Needs fixing, format of "points" needs trasnformation
-  .attr("points", "100,50, 200,150, 300,50" )
-  .attr("stroke-width", "2px")
-  .attr("stroke", "black");
-
+//Polygon data have yet to be generated
+/*
+d3.json("polygon.json", function(data) {
+  svgContainer.selectAll("polygon")
+  .data(data.Polygons)
+  .enter().append("polygon")
+  .attr("points",function(d) {
+    return d.points.map(function(d) { return [d.x,d.y].join(","); }).join(" ");
+  })
+})
+*/
 
 //Add map and add to svgContainer
 var level1= d3.xml("level1.svg", "image/svg+xml", function(error, xml) {
@@ -75,7 +100,16 @@ var level1= d3.xml("level1.svg", "image/svg+xml", function(error, xml) {
   svgImage
       .attr('width', 700)
       .attr('height', 500)
+      .attr("preserveAspectRatio", "xMinYMin meet")
+      .attr("viewBox", "0 0 500 700")
       .classed("svg-content-responsive",true);
   });
+
+function highlightItem(){
+
+
+}
+
+
 
 d3.select("body").append("p").text("compiled");
