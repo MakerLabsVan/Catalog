@@ -1,12 +1,12 @@
 //Fake map information
 var circleData = [
-  { "cx": 400, "cy": 400, "radius": 50, "id" : "material 1" },
-  { "cx": 400, "cy": 300, "radius": 50, "id" : "material 2" }];
+  { "cx": 400, "cy": 400, "radius": 50, "id" : "material1" },
+  { "cx": 400, "cy": 300, "radius": 50, "id" : "material2" }];
 
 var rectangleData = [
-  {"rx":100,"ry":100,"height":50, "width":50,"id":"studio 1"},
-  {"rx":200, "ry":200,"height":50,"width":50,"id":"studio 2"},
-  {"rx":400, "ry":400,"height":50,"width":50,"id":"studio 3"}];
+  {"rx":100,"ry":100,"height":50, "width":50,"id":"studio1","color":"blue"},
+  {"rx":200, "ry":200,"height":50,"width":50,"id":"studio2","color":"blue"},
+  {"rx":400, "ry":400,"height":50,"width":50,"id":"studio3","color":"blue"}];
 
 var polyData =  [{
     "points":[
@@ -20,6 +20,7 @@ var polyData =  [{
 var svgContainer =d3.select("body").append("svg")
   .attr("width", 500)
   .attr("height",500)
+  .attr("id", "container")
   .style("border","1px solid black");
 
 //Circles are used to represent materials/consumables/tools
@@ -73,7 +74,7 @@ var rectangleAttributes = rectangles //modify to accept data from source
   .style("opacity",0.5)
   .style("cursor","pointer")
   .on("mouseover",function(d){//Need to fix translation
-    d3.select(this).transition().style("opacity", 1)
+    d3.select(this).transition().style("opacity", 1);
   })
   .on("mouseout",function(){
     d3.select(this).transition().style("opacity", 0.5);
@@ -105,9 +106,17 @@ var level1= d3.xml("level1.svg", "image/svg+xml", function(error, xml) {
       .classed("svg-content-responsive",true);
   });
 
-function highlightItem(){
 
+function highlightItem(name){
+  svgContainer.select("rect#studio1")
+  .attr('fill',"red")
+  .style("opacity",1);
+}
 
+function dehighlightItem(name){
+  svgContainer.select("rect#studio1")
+  .attr('fill',"none")
+  .style("opacity",0.5);
 }
 
 
