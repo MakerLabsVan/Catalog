@@ -15,15 +15,25 @@ function getData(fn) {
     });
 }
 
+function getReadRes(fn) {
+    gapi.auth(gapi.sheetWrite, function (result) {
+        fn(result);
+    });
+}
+
+getReadRes(function(response){
+    console.log(response);
+})
+
 app.get("/", function (req, res) {
     res.sendFile(path + '/views/index.html');
 });
 
-app.get("/input", function(req, res){
+app.get("/input", function (req, res) {
     res.sendFile(path + '/views/input.html');
 });
 
-app.post("/input", function(req, res){
+app.post("/input", function (req, res) {
     console.log(req.body);
 })
 

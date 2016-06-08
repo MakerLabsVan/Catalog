@@ -1,4 +1,5 @@
 var sheetKeyPrivate = "1MJpC2n-ekpnRXaLsb7B4dI6VOQIzn1eZO61I7sy2yiA";
+var sheetKeyPublic = "14Lrt2cn8rBfT0E0F85ucr7BL91-g8MhTnY3v6ajVF-M";
 
 var fs = require('fs');
 var readline = require('readline');
@@ -111,16 +112,37 @@ var listMajors = function (auth, callback) {
     sheets.spreadsheets.values.get({
         auth: auth,
         spreadsheetId: sheetKeyPrivate,
-        range: 'A2:E',
+        range: 'A2:N',
     }, function (err, response) {
         if (err) {
             console.log('The API returned an error: ' + err);
             return;
         }
         var rows = response.values;
+        // console.log(rows);
         callback(rows);
     });
 }
 
+// 2016-06-08: 68 true entries
+// empty row is 68 + 2 (offset by 2)
+
+var sheetWrite = function (auth, callback) {
+    var sheets = google.sheets('v4');
+    sheets.spreadsheets.values.update({
+        auth: auth,
+        spreadsheetId: sheetKeyPublic,
+        range: 'A2:E',
+        valueInputOption: "USER_ENTERED",
+    }, function (err, response) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        callback(response);
+    });
+};
+
+exports.sheetWrite = sheetWrite;
 exports.auth = auth;
 exports.listMajors = listMajors;
