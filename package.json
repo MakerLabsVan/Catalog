@@ -17,6 +17,8 @@
     "googleapis": "^7.1.0",
     "node": "0.0.0",
     "pug": "^2.0.0-beta2",
-    "requirejs": "^2.2.0"
+    "requirejs": "^2.2.0",
+    "winston": "^2.2.0",
+    "winston-google-spreadsheet": "0.0.5"
   }
 }
