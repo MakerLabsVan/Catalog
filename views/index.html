@@ -112,8 +112,10 @@
                             <!-- long overflow data -->
                             <div id="collapse2" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    <p ng-repeat="object in data">
-                                        {{ object[1] === "Tool" ? object[0] : '' }}
+                                     <p ng-repeat="object in data">
+                                        <a ng-href="{{ object[0] }}" style="color:black">
+                                            {{ object[1] === "Tool" ? object[0] : '' }}
+                                        </a>
                                     </p>
                                 </div>
                             </div>
@@ -127,8 +129,10 @@
                             </div>
                             <div id="collapse3" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    <p ng-repeat="object in data">
-                                        {{ object[1] === "Consumable" ? object[0] : '' }}
+                                     <p ng-repeat="object in data">
+                                        <a ng-href="{{ object[0] }}" style="color:black">
+                                            {{ object[1] === "Consumable" ? object[0] : '' }}
+                                        </a>
                                     </p>
                                 </div>
                             </div>
@@ -142,8 +146,10 @@
                             </div>
                             <div id="collapse4" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    <p ng-repeat="object in data">
-                                        {{ object[1] === "Material" ? object[0] : '' }}
+                                     <p ng-repeat="object in data">
+                                        <a ng-href="{{ object[0] }}" style="color:black">
+                                            {{ object[1] === "Material" ? object[0] : '' }}
+                                        </a>
                                     </p>
                                 </div>
                             </div>

@@ -123,5 +123,9 @@ var listMajors = function (auth, callback) {
     });
 }
 
+var writeToCell = function (auth, callback) {
+    
+}
+
 exports.auth = auth;
 exports.listMajors = listMajors;

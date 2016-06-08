@@ -1,6 +1,6 @@
 var myApp = angular.module("myApp", []);
 
-myApp.controller("MainCtrl", ["$scope", '$http', function ($scope, $http) {
+myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http, $sce) {
     $scope.categories = {
         "studio": "Studios",
         "tools": "Tools",
@@ -19,8 +19,6 @@ myApp.controller("MainCtrl", ["$scope", '$http', function ($scope, $http) {
             document.getElementById("searchSection").style.height = '370px';
         }
     };
-
-    $scope.wellClass = ['well', 'well-sm'];
 
     $http({
         method: 'GET',
