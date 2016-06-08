@@ -134,6 +134,14 @@ var sheetWrite = function (auth, callback) {
         spreadsheetId: sheetKeyPublic,
         range: 'A2:E',
         valueInputOption: "USER_ENTERED",
+        resource: {
+            // "range" : "Sheet1!A2:A2",
+            "majorDimension": "ROWS",
+            "values": [
+                ["Item", "More", "Memes", "Dank", "Harry"],
+                ["Too", "Many", "Memes", "Holy","Lord"]
+            ],
+        }
     }, function (err, response) {
         if (err) {
             console.log(err);

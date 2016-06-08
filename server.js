@@ -21,9 +21,9 @@ function getReadRes(fn) {
     });
 }
 
-getReadRes(function(response){
-    console.log(response);
-})
+// getReadRes(function(response){
+//     console.log(response);
+// })
 
 app.get("/", function (req, res) {
     res.sendFile(path + '/views/index.html');
