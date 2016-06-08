@@ -17,6 +17,10 @@ app.get("/", function (req, res) {
     res.sendFile(path + '/views/index.html');
 });
 
+app.get("/input", function(req, res){
+    res.sendFile(path + '/views/input.html');
+});
+
 app.get("/getData", function (req, res) {
     getData(function (result) {
         return res.json(result);

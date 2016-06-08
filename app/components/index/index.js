@@ -9,7 +9,8 @@ myApp.controller("MainCtrl", ["$scope", '$http', function ($scope, $http) {
     };
 
     $scope.queryTerm = '';
-    
+    $scope.inputQuery = '';
+
     $scope.changeH = function () {
         // if searching but no click = 
         if ($scope.queryTerm.length == 0) {
@@ -17,9 +18,9 @@ myApp.controller("MainCtrl", ["$scope", '$http', function ($scope, $http) {
         } else {
             document.getElementById("searchSection").style.height = '370px';
         }
-    }
-    
+    };
 
+    $scope.wellClass = ['well', 'well-sm'];
 
     $http({
         method: 'GET',
