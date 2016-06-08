@@ -122,9 +122,5 @@ var listMajors = function (auth, callback) {
     });
 }
 
-auth(listMajors, function (result) {
-    console.log(result);
-
-});
 exports.auth = auth;
 exports.listMajors = listMajors;

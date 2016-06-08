@@ -48,5 +48,18 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
             // something went wrong
             alert("Something went wrong! Please call for help!");
         });
+        
+    $scope.post = function() {
+        $http.post('/input', $scope.formData)
+            .success(function(data){
+              console.log(data);  
+            })
+            .error(function(data){
+                console.log(data);
+            })
+    };
+        
+        
+
 
 }]);

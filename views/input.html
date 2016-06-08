@@ -10,9 +10,8 @@
 
 <style>
     #logo {
-        margin-left:25px;
+        margin-left: 25px;
     }
-
 </style>
 
 <body>
@@ -33,6 +32,15 @@
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
                     <input type="text" class="form-control" placeholder="Search for your item here..." ng-model="inputQuery" id="searchBar" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <form ng-submit="post()">
+                        <input class="form-control" type="text" ng-model="formData.desc" placeholder="Enter description" />
+                        <input class="form-control" type="text" ng-model="formData.title" placeholder="Enter your title" />
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
                 </div>
             </div>
             <hr>
