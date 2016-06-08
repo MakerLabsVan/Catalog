@@ -1,6 +1,4 @@
-var sheetKey = "14Lrt2cn8rBfT0E0F85ucr7BL91-g8MhTnY3v6ajVF-M";
 var sheetKeyPrivate = "1MJpC2n-ekpnRXaLsb7B4dI6VOQIzn1eZO61I7sy2yiA";
-
 
 var fs = require('fs');
 var readline = require('readline');
