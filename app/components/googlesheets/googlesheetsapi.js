@@ -124,8 +124,8 @@ var listMajors = function (auth, callback) {
     });
 }
 
-// 2016-06-08: 68 true entries
-// empty row is 68 + 2 (offset by 2)
+// you can get entries by looking at the number of entries in the array
+// and + 2 to get the next empty row
 
 var sheetWrite = function (auth, message) {
     var sheets = google.sheets('v4');
@@ -135,14 +135,6 @@ var sheetWrite = function (auth, message) {
         range: 'A2:E',
         valueInputOption: "USER_ENTERED",
         resource: message,
-        // resource: {
-        //     // "range" : "Sheet1!A2:A2",
-        //     "majorDimension": "ROWS",
-        //     "values": [
-        //         ["Item", "More", "Memes", "Dank", "Harry"],
-        //         ["Too", "Many", "Memes", "Holy","Lord"]
-        //     ],
-        // }
     }, function (err, response) {
         if (err) {
             console.log(err);
