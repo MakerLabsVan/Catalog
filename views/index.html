@@ -161,7 +161,11 @@
                 <div class="col-md-8">
                     <div class="well well-lg" id="map-well">
                         <script type="text/javascript">
-                            init();
+                            // scrollWidth, scrollHeight retrieves the width and height
+                            // this is not responsive; loads at start
+                            var containerW = document.getElementById("map-well").scrollWidth - 50;
+                        var containerH = document.getElementById("map-well").scrollHeight - 50;
+                            init(containerW, containerH);
                         </script>
                     </div>
                 </div>
