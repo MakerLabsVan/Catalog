@@ -57,6 +57,8 @@
 </style>
 
 <body>
+    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="../d3_files/d3demo.js"></script>
     <div ng-app="myApp">
         <div class="container" ng-controller="MainCtrl">
             <div class="row" id="logo">
@@ -112,7 +114,7 @@
                             <!-- long overflow data -->
                             <div id="collapse2" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                     <p ng-repeat="object in data">
+                                    <p ng-repeat="object in data">
                                         <a ng-href="{{ object[0] }}" style="color:black">
                                             {{ object[1] === "Tool" ? object[0] : '' }}
                                         </a>
@@ -129,7 +131,7 @@
                             </div>
                             <div id="collapse3" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                     <p ng-repeat="object in data">
+                                    <p ng-repeat="object in data">
                                         <a ng-href="{{ object[0] }}" style="color:black">
                                             {{ object[1] === "Consumable" ? object[0] : '' }}
                                         </a>
@@ -146,7 +148,7 @@
                             </div>
                             <div id="collapse4" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                     <p ng-repeat="object in data">
+                                    <p ng-repeat="object in data">
                                         <a ng-href="{{ object[0] }}" style="color:black">
                                             {{ object[1] === "Material" ? object[0] : '' }}
                                         </a>
@@ -158,6 +160,9 @@
                 </div>
                 <div class="col-md-8">
                     <div class="well well-lg" id="map-well">
+                        <script type="text/javascript">
+                            init();
+                        </script>
                     </div>
                 </div>
             </div>
