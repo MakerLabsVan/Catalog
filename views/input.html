@@ -12,6 +12,11 @@
     #logo {
         margin-left: 25px;
     }
+    
+    .form-control {
+        /* apply a tag to input stuff if search bar should not have this margin  */
+        margin-bottom: 5px;
+    }
 </style>
 
 <body>
@@ -34,26 +39,44 @@
                     <input type="text" class="form-control" placeholder="Search for your item here..." ng-model="inputQuery" id="searchBar" />
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-4 col-md-offset-4">
-                    <form ng-submit="post()">
-                        <input class="form-control" type="text" ng-model="formData.desc" placeholder="Enter description" />
-                        <input class="form-control" type="text" ng-model="formData.title" placeholder="Enter your title" />
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>
-            </div>
             <hr>
-            <div class="container" style="height:500px;overflow-y:scroll">
+            <div class="container">
                 <div class="row">
-                    <div ng-repeat="object in data">
-                        <a ng-href="{{ object[0] }}" style="color:black;">
+                    <div class="col-md-4">
+                        <div style="height:500px;overflow-y:scroll">
+                            <div ng-repeat="object in data">
+                                <a ng-href="{{ object[0] }}" style="color:black;">
                                                 {{ inputQuery.length == 0 
                                                     ? object[0]
                                                     : object[0].toLowerCase().indexOf(inputQuery.toLowerCase()) != -1 
                                                         ? object[0] 
                                                         : '' }}
                         </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8 well well-sm" style="height:500px">
+                        <!-- input form here
+                            For test data using the public sheet key we need:
+                            Name, Type, Loc(x, y), Qty, Dimension
+                        -->
+                        <div class="col-md-9">
+                            <form class="form-horizontal" ng-submit="port()">
+                                <div class="form-group">
+                                    <label class="control-label">Name:</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="text" name="formData.Name" placeholder="Enter the name..." />
+                                    </div>
+                                </div>
+                                <input class="form-control" type="text" name="formData.Type" placeholder="Enter the type..." />
+                                <input class="form-control" type="text" name="formData.Loc" placeholder="Enter the location in x, y (no braces)..." />
+                                <input class="form-control" type="text" name="formData.Qty" placeholder="Enter the quantity..." />
+                                <input class="form-control" type="text" name="formData.Dim" placeholder="Enter the dimensions..." />
+                                <div class="col-md-offset-5">
+                                    <button type="submit" class="btn btn-primary">button</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
