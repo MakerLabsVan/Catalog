@@ -17,6 +17,10 @@
         /* apply a tag to input stuff if search bar should not have this margin  */
         margin-bottom: 5px;
     }
+    
+    .tab-content {
+        margin-top: 10px;
+    }
 </style>
 
 <body>
@@ -56,36 +60,71 @@
                         </div>
                     </div>
                     <div class="col-md-8 well well-sm" style="height:500px">
-                        <!-- input form here
-                            For test data using the public sheet key we need:
-                            Name, Type, Loc(x, y), Qty, Dimension
-                        -->
-                        <div class="col-md-9">
-                            <form class="form-horizontal" ng-submit="port()">
-                                <div class="form-group">
-                                    <label class="control-label">Name:</label>
-                                    <div class="col-md-10">
-                                        <input class="form-control" type="text" name="formData.Name" placeholder="Enter the name..." />
+                        <div role="tabpanel">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active">
+                                    <a href="#studioIn" aria-controls="home" role="tab" data-toggle="tab">Studio</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#matIn" aria-controls="tab" role="tab" data-toggle="tab">Material</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#toolIn" aria-controls="tab" role="tab" data-toggle="tab">Tool</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#conIn" aria-controls="tab" role="tab" data-toggle="tab">Consumable</a>
+                                </li>
+                            </ul>
+
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane active" id="studioIn">
+                                    <div class="container-fluid">
+                                        <form class="form-horizontal" ng-submit="port()">
+                                            <div class="form-group">
+                                                <div class="col-md-1">
+                                                    <label for="formData.NameIn" class="control-label">Name:</label>
+                                                </div>
+                                                <div class="col-md-10 col-md-push-1">
+                                                    <input class="form-control" type="text" name="formData.Name" value="" id="formData.NameIn" placeholder="Enter the item name..."
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-1">
+                                                    <label for="formData.LocIn" class="control-label">Location: </label>
+                                                </div>
+                                                <div class="col-md-3 col-md-push-1">
+                                                    <input class="form-control" type="text" name="formData.Loc" value="" id="formData.LocIn" placeholder="Pick location on map?"
+                                                    />
+                                                </div>
+                                            </div>
+
+                                        </form>
                                     </div>
                                 </div>
-                                <input class="form-control" type="text" name="formData.Type" placeholder="Enter the type..." />
-                                <input class="form-control" type="text" name="formData.Loc" placeholder="Enter the location in x, y (no braces)..." />
-                                <input class="form-control" type="text" name="formData.Qty" placeholder="Enter the quantity..." />
-                                <input class="form-control" type="text" name="formData.Dim" placeholder="Enter the dimensions..." />
-                                <div class="col-md-offset-5">
-                                    <button type="submit" class="btn btn-primary">button</button>
+                                <div role="tabpanel" class="tab-pane" id="matIn">
+                                    Material Tab
                                 </div>
-                            </form>
+                                <div role="tabpanel" class="tab-pane" id="toolIn">
+                                    Tool Tab
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="conIn">
+                                    Consumables Tab
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
-            crossorigin="anonymous"></script>
-        <script src="../app/components/index/index.js"></script>
+    </div>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous"></script>
+    <script src="../app/components/index/index.js"></script>
 </body>
 
 </html>
