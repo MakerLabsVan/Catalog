@@ -12,6 +12,11 @@
     #logo {
         margin-left: 25px;
     }
+    
+    .form-control {
+        /* apply a tag to input stuff if search bar should not have this margin  */
+        margin-bottom: 5px;
+    }
 </style>
 
 <body>
@@ -52,9 +57,26 @@
                     </div>
                     <div class="col-md-8 well well-sm" style="height:500px">
                         <!-- input form here
-                        
+                            For test data using the public sheet key we need:
+                            Name, Type, Loc(x, y), Qty, Dimension
                         -->
-                        
+                        <div class="col-md-9">
+                            <form class="form-horizontal" ng-submit="port()">
+                                <div class="form-group">
+                                    <label class="control-label">Name:</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="text" name="formData.Name" placeholder="Enter the name..." />
+                                    </div>
+                                </div>
+                                <input class="form-control" type="text" name="formData.Type" placeholder="Enter the type..." />
+                                <input class="form-control" type="text" name="formData.Loc" placeholder="Enter the location in x, y (no braces)..." />
+                                <input class="form-control" type="text" name="formData.Qty" placeholder="Enter the quantity..." />
+                                <input class="form-control" type="text" name="formData.Dim" placeholder="Enter the dimensions..." />
+                                <div class="col-md-offset-5">
+                                    <button type="submit" class="btn btn-primary">button</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
