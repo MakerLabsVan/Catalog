@@ -58,6 +58,8 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
             eg below. formData is parent and in the input element in the html
             the desc in formData.desc is the child
     */
+    $scope.formData = { Type: "Studio" };
+
 
     $scope.stdSet = function () {
         $scope.formData = { Type: "Studio" };

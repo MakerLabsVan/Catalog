@@ -17,10 +17,6 @@ function getData(fn) {
 
 gapi.auth(gapi.prompt);
 
-function write(message){
-    gapi.auth(gapi.sheetWrite, message);
-}
-
 /*
     message must be in this format:
     {
@@ -43,6 +39,10 @@ var testData = {
 // THIS WORKS
 // gapi.auth(gapi.sheetWrite, testData);
 
+function parse(message) {
+    gapi.auth(gapi.sheetWrite, message);
+}
+
 app.get("/", function (req, res) {
     res.sendFile(path + '/views/index.html');
 });
@@ -50,6 +50,7 @@ app.get("/", function (req, res) {
 app.get("/input", function (req, res) {
     res.sendFile(path + '/views/input.html');
 });
+
 
 app.post("/input", function (req, res) {
     var stdData = {
