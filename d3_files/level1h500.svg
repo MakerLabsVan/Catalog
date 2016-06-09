@@ -14,7 +14,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="level1-2.svg">
+   sodipodi:docname="level1h500.svg">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -24,11 +24,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.50111113"
-     inkscape:cx="590.0343"
-     inkscape:cy="407.00614"
+     inkscape:zoom="1.0432223"
+     inkscape:cx="234.70925"
+     inkscape:cy="290.2814"
      inkscape:document-units="in"
-     inkscape:current-layer="layer3"
+     inkscape:current-layer="g3439"
      showgrid="false"
      units="px"
      inkscape:window-width="1366"
@@ -49,7 +49,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -246,13 +246,11 @@
          width="6.3464279"
          id="rect5130"
          style="display:inline;opacity:1;fill:#ff0000;fill-opacity:1;stroke:none" />
-      <rect
-         style="display:inline;opacity:1;fill:#ffff00;fill-opacity:1;stroke:none"
-         id="rect5132"
-         width="147.14598"
-         height="18.76634"
-         x="577.64856"
-         y="682.08716" />
+      <path
+         style="display:inline;opacity:0.5;fill:#ffff00;fill-opacity:1;stroke:none"
+         d="M 298.48828 315.28906 L 282.34766 319.00781 L 265.4043 319.00781 L 265.4043 327.62891 L 282.34766 327.62891 L 298.48828 331.34766 L 383.9082 331.34766 L 383.9082 327.02148 L 383.9082 319.61523 L 383.9082 315.28906 L 298.48828 315.28906 z "
+         transform="matrix(2.1764912,0,0,2.1764912,0,-12.228703)"
+         id="rect5132" />
       <rect
          style="display:inline;opacity:1;fill:#ff0000;fill-opacity:1;stroke:none"
          id="rect5136"
@@ -555,11 +553,6 @@
          width="5.9154763"
          id="rect5230"
          style="display:inline;opacity:1;fill:#ff0000;fill-opacity:1;stroke:none" />
-      <path
-         inkscape:connector-curvature="0"
-         id="rect5232"
-         d="m 649.65568,673.9954 -40.86739,9.41458 0,16.12011 40.86739,9.41458 185.91875,0 0,-9.41458 0,-16.12011 0,-9.41458 -185.91875,0 z"
-         style="display:inline;opacity:1;fill:#ffff00;fill-opacity:1;stroke:none" />
       <rect
          y="796.74286"
          x="219.52888"

@@ -1,8 +1,8 @@
 //Fake map information
 var rectangleData = [
-  {"rx":0,"ry":0,"height":10, "width":50,"id":"studio1"},
-  {"rx":200, "ry":200,"height":50,"width":50,"id":"studio2"},
-  {"rx":400, "ry":400,"height":50,"width":50,"id":"studio3"}];
+  {"rx":0,"ry":20,"height":5, "width":10,"id":"studio1"},
+  {"rx":20, "ry":70,"height":5,"width":15,"id":"studio2"},
+  {"rx":69, "ry":69,"height":5,"width":5,"id":"studio3"}];
 
 //html object that the map is contained in
 var container = "#map-well";
@@ -15,15 +15,30 @@ function init(width, height){
     .attr("height",height)
     .attr("id", "svgMapContainer")
     .style("border","1px solid black");
+
+    //Add map and add to svgContainer
+    var level1= d3.xml("../d3_files/level1h500.svg", "image/svg+xml", function(error, xml) {
+      svgContainer.node().appendChild(document.importNode(xml.documentElement, true));
+      var floor1 = svgContainer.selectAll('svg')
+          .attr("x",0)
+          .attr("y",0)
+          .attr('width', width)
+          .attr('height', height)//TODO:Fix scaling, currently it doesn't fit to container
+          //.attr("preserveAspectRatio", "xMinYMin meet")
+          .attr("id","map");
+
+          console.log(d3.select("svg#map").width)
+      });
+
     //Rectangles represent studio spaces
   var rectangles = svgContainer.selectAll("rect")
     .data(rectangleData)
     .enter()
     .append("rect")
-    .attr("x", function (d) { return d.rx; }) //TODO: Map coordinates such that it scaling does not affect it
-    .attr("y", function (d) { return d.ry; })
-    .attr("height", function (d) { return d.height; })//TODO: Map height and width when container scales
-    .attr("width", function (d) { return d.width; })
+    .attr("x", function (d) { return (d.rx/10)*(500/1088)+"in"; })//Assumes that dimensions are in ft, 500 is the pixel height of map
+    .attr("y", function (d) { return (d.ry/10)*(500/1088)+"in"; })
+    .attr("height", function (d) { return (d.height/10)*(500/1088)+"in"; })
+    .attr("width", function (d) { return (d.width/10)*(500/1088)+"in"; })
     .attr('id',function (d) { return d.id; })
     .attr("floor", function(d) { return d.floor; })
     .style("color","blue")
@@ -36,17 +51,6 @@ function init(width, height){
       d3.select(this).transition().style("opacity", 0.5);
     });
 
-  //Add map and add to svgContainer
-  var level1= d3.xml("../d3_files/level1h500.svg", "image/svg+xml", function(error, xml) {
-    svgContainer.node().appendChild(document.importNode(xml.documentElement, true));
-    var floor1 = svgContainer.select('svg')
-        .attr("x",0)
-        .attr("y",0)
-        .attr('width', "100%")
-        .attr('height', "100%")//TODO:Fix scaling, currently it doesn't fit to container
-        .attr("preserveAspectRatio", "xMinYMin meet");
-
-    });
 };
 
 function showFloor1(){
