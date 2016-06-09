@@ -49,23 +49,25 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
             alert("Something went wrong! Please call for help!");
         });
 
-        /*
-        To use:
-            Create form tag and add ng-submit=post() to call this function
-            Then add input such as text and add ng-models to them.
-            The ng-models should be named such as:
-                <parent.child>
-                eg below. formData is parent and in the input element in the html
-                the desc in formData.desc is the child
-        */
-        
-    $scope.post = function () {
+    /*
+    To use:
+        Create form tag and add ng-submit=post() to call this function
+        Then add input such as text and add ng-models to them.
+        The ng-models should be named such as:
+            <parent.child>
+            eg below. formData is parent and in the input element in the html
+            the desc in formData.desc is the child
+    */
+
+    $scope.stdSet = function () {
+        $scope.formData = { Type: "Studio" };
+    }
+
+    $scope.stdPost = function () {
         $http.post('/input', $scope.formData)
             .success(function (data) {
-                console.log(data);
             })
             .error(function (data) {
-                console.log(data);
             })
     };
 

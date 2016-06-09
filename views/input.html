@@ -64,7 +64,7 @@
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs" role="tablist">
                                 <li role="presentation" class="active">
-                                    <a href="#studioIn" aria-controls="home" role="tab" data-toggle="tab">Studio</a>
+                                    <a href="#studioIn" aria-controls="home" role="tab" data-toggle="tab" ng-click="stdSet()">Studio</a>
                                 </li>
                                 <li role="presentation">
                                     <a href="#matIn" aria-controls="tab" role="tab" data-toggle="tab">Material</a>
@@ -81,13 +81,21 @@
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane active" id="studioIn">
                                     <div class="container-fluid">
-                                        <form class="form-horizontal" ng-submit="port()">
+                                        <form class="form-horizontal" ng-submit="stdPost()">
+                                            <div class="form-group">
+                                                <div class="col-md-1">
+                                                    <label for="formData.Type" class="control-label">Type:</label>
+                                                </div>
+                                                <div class="col-md-2 col-md-offset-1">
+                                                    <input class="form-control" type="text" ng-model="formData.Type" id="formData.Type" placeholder="Studio" disabled/>
+                                                </div>
+                                            </div>
                                             <div class="form-group">
                                                 <div class="col-md-1">
                                                     <label for="formData.NameIn" class="control-label">Name:</label>
                                                 </div>
-                                                <div class="col-md-10 col-md-push-1">
-                                                    <input class="form-control" type="text" name="formData.Name" value="" id="formData.NameIn" placeholder="Enter the item name..."
+                                                <div class="col-md-10 col-md-offset-1">
+                                                    <input class="form-control" type="text" ng-model="formData.Name" id="formData.NameIn" placeholder="Enter the item name..."
                                                     />
                                                 </div>
                                             </div>
@@ -95,22 +103,27 @@
                                                 <div class="col-md-1">
                                                     <label for="formData.LocIn" class="control-label">Location: </label>
                                                 </div>
-                                                <div class="col-md-3 col-md-push-1">
-                                                    <input class="form-control" type="text" name="formData.Loc" value="" id="formData.LocIn" placeholder="Pick location on map?"
-                                                    />
-                                                </div>
-
-                                                <div class="col-md-1 col-md-push-1" style="margin-left:80px">
-                                                    <label for="formData.LocIn" class="control-label">Location: </label>
-                                                </div>
-                                                <div class="col-md-3 col-md-push-2">
-                                                    <input class="form-control" type="text" name="formData.Loc" value="" id="formData.LocIn" placeholder="Pick location on map?"
-                                                    />
+                                                <div class="col-md-5 col-md-offset-1">
+                                                    <input class="form-control" type="text" ng-model="formData.Loc" id="formData.LocIn" placeholder="Pick location on map?" />
                                                 </div>
                                             </div>
-
-
-
+                                            <div class="form-group">
+                                                <div class="col-md-2">
+                                                    <label for="formData.DimW" class="control-label">Dimensions/Units: W x L / U </label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input class="form-control" type="text" ng-model="formData.DimW" id="formData.DimW" placeholder="Width" />
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input class="form-control" type="text" ng-model="formData.DimL" id="formData.DimL" placeholder="Length" />
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input class="form-control " type="text" ng-model="formData.DimU" id="formData.DimU" placeholder="Units" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1 col-md-offset-10">
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>
@@ -133,7 +146,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous "></script>
     <script src="../app/components/index/index.js"></script>
 </body>
 

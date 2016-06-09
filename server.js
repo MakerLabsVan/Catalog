@@ -17,12 +17,16 @@ function getData(fn) {
 
 gapi.auth(gapi.prompt);
 
+function write(message){
+    gapi.auth(gapi.sheetWrite, message);
+}
+
 /*
     message must be in this format:
     {
         OPTIONAL -> "range" : "A1 notation",
         "majorDimension" : "ROWS or COLS",
-        "values" [
+        "values": [
             Array ie: ["Item", "Item2", "Item 3"],
                       ["Second Arr Item", "etc"]
         ],        
@@ -48,6 +52,12 @@ app.get("/input", function (req, res) {
 });
 
 app.post("/input", function (req, res) {
+    var stdData = {
+        "majorDimension": "ROWS",
+        "values": [
+            [req.body.Name, "Studio", "X", "Y", "1", req.body.DimW, req.body.DimL, "null", req.body.DimU, "null", "null", "null"]
+        ]
+    }
     console.log(req.body);
 })
 
