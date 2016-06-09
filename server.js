@@ -15,12 +15,27 @@ function getData(fn) {
     });
 }
 
-function getReadRes(fn) {
-    gapi.auth(gapi.sheetWrite, function (result) {
-        fn(result);
-    });
-}
 
+/*
+    message must be in this format:
+    {
+        OPTIONAL -> "range" : "A1 notation",
+        "majorDimension" : "ROWS or COLS",
+        "values" [
+            Array ie: ["Item", "Item2", "Item 3"],
+                      ["Second Arr Item", "etc"]
+        ],        
+    }
+*/
+var testData = {
+    "majorDimension": "ROWS",
+    "values": [
+        ["Item", "More", "Memes", "Dank", "Harry"],
+        ["Too", "Many", "Memes", "Holy", "Lord"]
+    ],
+}
+// THIS WORKS
+// gapi.auth(gapi.sheetWrite, testData);
 
 app.get("/", function (req, res) {
     res.sendFile(path + '/views/index.html');

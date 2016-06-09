@@ -15,7 +15,7 @@ var TOKEN_PATH = TOKEN_DIR + 'sheets.googleapis.com-nodejs.json';
 
 
 
-var auth = function (method, callback) {
+var auth = function (method, callback2) {
     // Load client secrets from a local file.
     fs.readFile('client_secret.json', function processClientSecrets(err, content) {
         if (err) {
@@ -24,7 +24,7 @@ var auth = function (method, callback) {
         }
         // Authorize a client with the loaded credentials, then call the
         // Google Sheets API.
-        authorize(JSON.parse(content), method, callback);
+        authorize(JSON.parse(content), method, callback2);
     });
 
     /**
@@ -127,27 +127,28 @@ var listMajors = function (auth, callback) {
 // 2016-06-08: 68 true entries
 // empty row is 68 + 2 (offset by 2)
 
-var sheetWrite = function (auth, callback) {
+var sheetWrite = function (auth, message) {
     var sheets = google.sheets('v4');
     sheets.spreadsheets.values.update({
         auth: auth,
         spreadsheetId: sheetKeyPublic,
         range: 'A2:E',
         valueInputOption: "USER_ENTERED",
-        resource: {
-            // "range" : "Sheet1!A2:A2",
-            "majorDimension": "ROWS",
-            "values": [
-                ["Item", "More", "Memes", "Dank", "Harry"],
-                ["Too", "Many", "Memes", "Holy","Lord"]
-            ],
-        }
+        resource: message,
+        // resource: {
+        //     // "range" : "Sheet1!A2:A2",
+        //     "majorDimension": "ROWS",
+        //     "values": [
+        //         ["Item", "More", "Memes", "Dank", "Harry"],
+        //         ["Too", "Many", "Memes", "Holy","Lord"]
+        //     ],
+        // }
     }, function (err, response) {
         if (err) {
             console.log(err);
             return;
         }
-        callback(response);
+        console.log(response);
     });
 };
 
