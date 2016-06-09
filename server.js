@@ -39,8 +39,15 @@ var testData = {
 // THIS WORKS
 // gapi.auth(gapi.sheetWrite, testData);
 
-function parse(message) {
-    gapi.auth(gapi.sheetWrite, message);
+function parse(req) {
+    var stdData = {
+        "majorDimension": "ROWS",
+        "values": [
+            [req.body.Name, req.body.Type, req.body.LocX, req.body.LocY, req.body.Floor, req.body.DimW, req.body.DimL, req.body.DimH, req.body.DimU, req.body.Weight, req.body.Qty, req.body.Price]
+        ]
+    }
+    console.log(stdData);
+    // gapi.auth(gapi.sheetWrite, stdData);
 }
 
 app.get("/", function (req, res) {
@@ -53,13 +60,7 @@ app.get("/input", function (req, res) {
 
 
 app.post("/input", function (req, res) {
-    var stdData = {
-        "majorDimension": "ROWS",
-        "values": [
-            [req.body.Name, "Studio", "X", "Y", "1", req.body.DimW, req.body.DimL, "null", req.body.DimU, "null", "null", "null"]
-        ]
-    }
-    console.log(req.body);
+    parse(req);
 })
 
 app.get("/getData", function (req, res) {

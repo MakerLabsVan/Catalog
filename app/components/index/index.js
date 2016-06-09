@@ -58,14 +58,24 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
             eg below. formData is parent and in the input element in the html
             the desc in formData.desc is the child
     */
-    $scope.formData = { Type: "Studio" };
 
-
-    $scope.stdSet = function () {
-        $scope.formData = { Type: "Studio" };
-    }
 
     $scope.stdPost = function () {
+        $scope.formData = {
+            Name: '',
+            Type: 'Studio',
+            LocX: '',
+            LocY: '',
+            Floor: '',
+            DimW: '',
+            DimL: '',
+            DimH: '',
+            DimU: '',
+            Weight: '',
+            WUnit: '',
+            Qty: '',
+            Price: ''
+        };
         $http.post('/input', $scope.formData)
             .success(function (data) {
             })
@@ -73,7 +83,27 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
             })
     };
 
-
-
+    $scope.matPost = function () {
+        $scope.formData = {
+            Name: '',
+            Type: 'Material',
+            LocX: '',
+            LocY: '',
+            Floor: '',
+            DimW: '',
+            DimL: '',
+            DimH: '',
+            DimU: '',
+            Weight: '',
+            WUnit: '',
+            Qty: '',
+            Price: ''
+        };
+        $http.post('/input', $scope.formData)
+            .success(function (data) {
+            })
+            .error(function (data) {
+            })
+    };
 
 }]);

@@ -64,7 +64,7 @@
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs" role="tablist">
                                 <li role="presentation" class="active">
-                                    <a href="#studioIn" aria-controls="home" role="tab" data-toggle="tab" ng-click="stdSet()">Studio</a>
+                                    <a href="#studioIn" aria-controls="home" role="tab" data-toggle="tab">Studio</a>
                                 </li>
                                 <li role="presentation">
                                     <a href="#matIn" aria-controls="tab" role="tab" data-toggle="tab">Material</a>
@@ -108,7 +108,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <div class="col-md-2">
+                                                <div class="col-md-3">
                                                     <label for="formData.DimW" class="control-label">Dimensions/Units: W x L / U </label>
                                                 </div>
                                                 <div class="col-md-2">
@@ -128,7 +128,66 @@
                                     </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="matIn">
-                                    Material Tab
+                                    <div class="container-fluid">
+                                        <form class="form-horizontal" ng-submit="matPost()">
+                                            <div class="form-group">
+                                                <div class="col-md-1">
+                                                    <label for="formData.Type" class="control-label">Type:</label>
+                                                </div>
+                                                <div class="col-md-2 col-md-offset-1">
+                                                    <input class="form-control" type="text" ng-model="formData.Type" id="formData.Type" placeholder="Material" disabled/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-1">
+                                                    <label for="formData.NameIn" class="control-label">Name:</label>
+                                                </div>
+                                                <div class="col-md-10 col-md-offset-1">
+                                                    <input class="form-control" type="text" ng-model="formData.Name" id="formData.NameIn" placeholder="Enter the item name..."
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-1">
+                                                    <label for="formData.LocIn" class="control-label">Location: </label>
+                                                </div>
+                                                <div class="col-md-5 col-md-offset-1">
+                                                    <input class="form-control" type="text" ng-model="formData.Loc" id="formData.LocIn" placeholder="Pick location on map?" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-1">
+                                                    <label for="formData.Weight" class="control-label">Weight/Unit: </label>
+                                                </div>
+                                                <div class="col-md-4 col-md-offset-1">
+                                                    <input class="form-control" type="text" ng-model="formData.Weight" id="formData.Weight" placeholder="Weight" />
+                                                </div>
+                                                <div class="col-md-2 col-md-offset-1">
+                                                    <input class="form-control" type="text" ng-model="formData.WUnit" id="formData.WUnit" placeholder="Unit" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-3">
+                                                    <label for="formData.DimW" class="control-label">Dimensions/Units: W x L x H / U </label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input class="form-control" type="text" ng-model="formData.DimW" id="formData.DimW" placeholder="Width" />
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input class="form-control" type="text" ng-model="formData.DimL" id="formData.DimL" placeholder="Length" />
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input class="form-control" type="text" ng-model="formData.DimH" id="formData.DimH" placeholder="Height" />
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input class="form-control " type="text" ng-model="formData.DimU" id="formData.DimU" placeholder="Units" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1 col-md-offset-10">
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="toolIn">
                                     Tool Tab
