@@ -77,7 +77,7 @@
                                         <div id="searchSection" style="height:0px; overflow-y:scroll">
                                             <hr/>
                                             <div ng-repeat="object in data">
-                                                <a ng-href="{{ object[0] }}" style="color:black">
+                                                <a ng-href="#" style="color:black">
                                                 {{ queryTerm.length == 0 ? '' : object[0].toLowerCase().indexOf(queryTerm.toLowerCase()) != -1 ? object[0] : '' }}
                                                 </a>
                                             </div>
@@ -97,7 +97,7 @@
                                 <div class="panel-body">
                                     <!-- sheet data -->
                                     <p ng-repeat="object in data">
-                                        <a ng-href="{{ object[0] }}" style="color:black">
+                                        <a ng-href="#" style="color:black">
                                             {{ object[1] === "Studio" ? object[0] : '' }}
                                         </a>
                                     </p>
@@ -115,7 +115,7 @@
                             <div id="collapse2" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <p ng-repeat="object in data">
-                                        <a ng-href="{{ object[0] }}" style="color:black">
+                                        <a ng-href="#" style="color:black">
                                             {{ object[1] === "Tool" ? object[0] : '' }}
                                         </a>
                                     </p>
@@ -132,7 +132,7 @@
                             <div id="collapse3" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <p ng-repeat="object in data">
-                                        <a ng-href="{{ object[0] }}" style="color:black">
+                                        <a ng-href="#" style="color:black">
                                             {{ object[1] === "Consumable" ? object[0] : '' }}
                                         </a>
                                     </p>
@@ -149,7 +149,7 @@
                             <div id="collapse4" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <p ng-repeat="object in data">
-                                        <a ng-href="{{ object[0] }}" style="color:black">
+                                        <a ng-href="#" style="color:black">
                                             {{ object[1] === "Material" ? object[0] : '' }}
                                         </a>
                                     </p>

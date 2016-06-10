@@ -27,7 +27,7 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
         .success(function (data, status, header, config) {
             // success data
             $scope.data = data;
-
+            
             var studtemp = 0;
             var tooltemp = 0;
             var mattemp = 0;
