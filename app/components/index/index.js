@@ -74,5 +74,7 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
             .error(function (data) {
             })
     };
+    
+    
 
 }]);

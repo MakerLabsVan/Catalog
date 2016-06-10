@@ -146,6 +146,16 @@ var sheetWrite = function (auth, message, row) {
     });
 };
 
+var deleteEntry = function(auth, entry, row){
+    /*
+    index in the data array of the entry can be passed and used to 'update' as an empty row.
+    when reading, it will not account for the empty row
+    */
+    
+    var selRow = 'A' + String(row + 2) + ':M';
+    
+};
+
 exports.sheetWrite = sheetWrite;
 exports.auth = auth;
 exports.listMajors = listMajors;

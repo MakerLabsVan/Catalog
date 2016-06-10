@@ -44,11 +44,19 @@ function parse(req, row) {
     var stdData = {
         "majorDimension": "ROWS",
         "values": [
-            [req.body.Name, req.body.Type, req.body.LocX, req.body.LocY, req.body.Floor, req.body.DimW, req.body.DimL, req.body.DimH, req.body.DimU, req.body.Weight, req.body.Qty, req.body.Price]
+            [req.body.Name, req.body.Type, req.body.LocX, req.body.LocY, req.body.Floor, req.body.DimW, req.body.DimL, req.body.DimH, req.body.DimU, req.body.Weight, req.body.WUnit, req.body.Qty, req.body.Price]
         ]
     }
     console.log(stdData);
     gapi.auth(gapi.sheetWrite, stdData, row);
+};
+
+function delEntry(req, data){
+    // finding the entry
+    var index;
+    for (var i = 0; i < data.length; i++){
+        
+    }
 }
 
 app.get("/", function (req, res) {
@@ -59,12 +67,15 @@ app.get("/input", function (req, res) {
     res.sendFile(path + '/views/input.html');
 });
 
-
 app.post("/input", function (req, res) {
     getData(function (result) {
         console.log(result.length);
         parse(req, result.length);
     });
+});
+
+app.post("/delete", function (req, res) {
+
 });
 
 app.get("/getData", function (req, res) {
