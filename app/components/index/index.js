@@ -27,7 +27,7 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
         .success(function (data, status, header, config) {
             // success data
             $scope.data = data;
-            
+
             var studtemp = 0;
             var tooltemp = 0;
             var mattemp = 0;
@@ -59,23 +59,7 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
             the desc in formData.desc is the child
     */
 
-
     $scope.stdPost = function () {
-        $scope.formData = {
-            Name: '',
-            Type: 'Studio',
-            LocX: '',
-            LocY: '',
-            Floor: '',
-            DimW: '',
-            DimL: '',
-            DimH: '',
-            DimU: '',
-            Weight: '',
-            WUnit: '',
-            Qty: '',
-            Price: ''
-        };
         $http.post('/input', $scope.formData)
             .success(function (data) {
             })
@@ -84,22 +68,7 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
     };
 
     $scope.matPost = function () {
-        $scope.formData = {
-            Name: '',
-            Type: 'Material',
-            LocX: '',
-            LocY: '',
-            Floor: '',
-            DimW: '',
-            DimL: '',
-            DimH: '',
-            DimU: '',
-            Weight: '',
-            WUnit: '',
-            Qty: '',
-            Price: ''
-        };
-        $http.post('/input', $scope.formData)
+        $http.post('/input', $scope.matForm)
             .success(function (data) {
             })
             .error(function (data) {

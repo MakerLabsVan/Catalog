@@ -127,8 +127,8 @@ var listMajors = function (auth, callback) {
 // and + 2 to get the next empty row
 
 var sheetWrite = function (auth, message, row) {
-
-    var nextRow = 'A' + row + '2' + ':M';
+    
+    var nextRow = 'A' + String(row + 2) + ':M';
 
     var sheets = google.sheets('v4');
     sheets.spreadsheets.values.update({
