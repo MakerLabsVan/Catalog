@@ -39,7 +39,8 @@ var testData = {
 // THIS WORKS
 // gapi.auth(gapi.sheetWrite, testData);
 
-function parse(req) {
+function parse(req, row) {
+    // row is the length from data + 2
     var stdData = {
         "majorDimension": "ROWS",
         "values": [
@@ -47,7 +48,7 @@ function parse(req) {
         ]
     }
     console.log(stdData);
-    // gapi.auth(gapi.sheetWrite, stdData);
+    gapi.auth(gapi.sheetWrite, stdData, row);
 }
 
 app.get("/", function (req, res) {
@@ -60,8 +61,11 @@ app.get("/input", function (req, res) {
 
 
 app.post("/input", function (req, res) {
-    parse(req);
-})
+    getData(function (result) {
+        console.log(result.length);
+        parse(req, result.length);
+    });
+});
 
 app.get("/getData", function (req, res) {
     getData(function (result) {
