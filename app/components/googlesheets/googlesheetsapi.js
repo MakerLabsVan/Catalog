@@ -144,6 +144,11 @@ var sheetWrite = function (auth, message) {
     });
 };
 
+var prompt = function(auth){
+    console.log("Prompt for auth: ");
+}
+
+exports.prompt = prompt;
 exports.sheetWrite = sheetWrite;
 exports.auth = auth;
 exports.listMajors = listMajors;

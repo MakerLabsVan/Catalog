@@ -15,13 +15,14 @@ function getData(fn) {
     });
 }
 
+gapi.auth(gapi.prompt);
 
 /*
     message must be in this format:
     {
         OPTIONAL -> "range" : "A1 notation",
         "majorDimension" : "ROWS or COLS",
-        "values" [
+        "values": [
             Array ie: ["Item", "Item2", "Item 3"],
                       ["Second Arr Item", "etc"]
         ],        
@@ -34,8 +35,20 @@ var testData = {
         ["Too", "Many", "Memes", "Holy", "Lord"]
     ],
 }
+
 // THIS WORKS
 // gapi.auth(gapi.sheetWrite, testData);
+
+function parse(req) {
+    var stdData = {
+        "majorDimension": "ROWS",
+        "values": [
+            [req.body.Name, req.body.Type, req.body.LocX, req.body.LocY, req.body.Floor, req.body.DimW, req.body.DimL, req.body.DimH, req.body.DimU, req.body.Weight, req.body.Qty, req.body.Price]
+        ]
+    }
+    console.log(stdData);
+    // gapi.auth(gapi.sheetWrite, stdData);
+}
 
 app.get("/", function (req, res) {
     res.sendFile(path + '/views/index.html');
@@ -45,8 +58,9 @@ app.get("/input", function (req, res) {
     res.sendFile(path + '/views/input.html');
 });
 
+
 app.post("/input", function (req, res) {
-    console.log(req.body);
+    parse(req);
 })
 
 app.get("/getData", function (req, res) {
