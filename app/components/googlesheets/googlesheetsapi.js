@@ -112,14 +112,13 @@ var listMajors = function (auth, callback) {
     sheets.spreadsheets.values.get({
         auth: auth,
         spreadsheetId: sheetKeyPrivate,
-        range: 'A2:N',
+        range: 'A2:N2',
     }, function (err, response) {
         if (err) {
             console.log('The API returned an error: ' + err);
             return;
         }
         var rows = response.values;
-        // console.log(rows);
         callback(rows);
     });
 }
@@ -144,11 +143,6 @@ var sheetWrite = function (auth, message) {
     });
 };
 
-var prompt = function(auth){
-    console.log("Prompt for auth: ");
-}
-
-exports.prompt = prompt;
 exports.sheetWrite = sheetWrite;
 exports.auth = auth;
 exports.listMajors = listMajors;
