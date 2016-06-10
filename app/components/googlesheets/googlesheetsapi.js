@@ -112,7 +112,7 @@ var listMajors = function (auth, callback) {
     sheets.spreadsheets.values.get({
         auth: auth,
         spreadsheetId: sheetKeyPrivate,
-        range: 'A2:N2',
+        range: 'A2:N',
     }, function (err, response) {
         if (err) {
             console.log('The API returned an error: ' + err);

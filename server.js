@@ -15,9 +15,7 @@ function getData(fn) {
     });
 }
 
-getData(function(result){
-    console.log(result);
-})
+
 /*
     message must be in this format:
     {
@@ -28,7 +26,7 @@ getData(function(result){
                       ["Second Arr Item", "etc"]
         ],        
     }
-*/
+    
 var testData = {
     "majorDimension": "ROWS",
     "values": [
@@ -36,6 +34,7 @@ var testData = {
         ["Too", "Many", "Memes", "Holy", "Lord"]
     ],
 }
+*/
 
 // THIS WORKS
 // gapi.auth(gapi.sheetWrite, testData);
