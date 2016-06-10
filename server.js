@@ -51,12 +51,15 @@ function parse(req, row) {
     gapi.auth(gapi.sheetWrite, stdData, row);
 };
 
-function delEntry(req, data){
+function delEntry(result, entry) {
     // finding the entry
-    var index;
-    for (var i = 0; i < data.length; i++){
-        
+    var index = 0;
+    for (index; index < result.length; index++) {
+        if (result[index][0] === entry) {
+            break;
+        }
     }
+    gapi.auth(gapi.deleteEntry, index);
 }
 
 app.get("/", function (req, res) {
@@ -75,11 +78,15 @@ app.post("/input", function (req, res) {
 });
 
 app.post("/delete", function (req, res) {
-
+    console.log(req.body.Entry);
+    getData(function (result) {
+        delEntry(result, req.body.Entry);
+    })
 });
 
 app.get("/getData", function (req, res) {
     getData(function (result) {
+        console.log(result.length);
         return res.json(result);
     });
 });

@@ -111,7 +111,7 @@ var listMajors = function (auth, callback) {
     var sheets = google.sheets('v4');
     sheets.spreadsheets.values.get({
         auth: auth,
-        spreadsheetId: sheetKeyPrivate,
+        spreadsheetId: sheetKeyPublic,
         range: 'A2:M',
     }, function (err, response) {
         if (err) {
@@ -127,13 +127,13 @@ var listMajors = function (auth, callback) {
 // and + 2 to get the next empty row
 
 var sheetWrite = function (auth, message, row) {
-    
+
     var nextRow = 'A' + String(row + 2) + ':M';
 
     var sheets = google.sheets('v4');
     sheets.spreadsheets.values.update({
         auth: auth,
-        spreadsheetId: sheetKeyPrivate,
+        spreadsheetId: sheetKeyPublic,
         range: nextRow,
         valueInputOption: "USER_ENTERED",
         resource: message,
@@ -146,16 +146,39 @@ var sheetWrite = function (auth, message, row) {
     });
 };
 
-var deleteEntry = function(auth, entry, row){
-    /*
-    index in the data array of the entry can be passed and used to 'update' as an empty row.
-    when reading, it will not account for the empty row
-    */
-    
-    var selRow = 'A' + String(row + 2) + ':M';
-    
+var deleteEntry = function (auth, index) {
+
+    var row = index + 1;
+
+    var body = {
+        "requests": [
+            {
+                "deleteDimension": {
+                    "range": {
+                        "dimension": "ROWS",
+                        "startIndex": row,
+                        "endIndex": row + 1
+                    }
+                }
+            }
+        ]
+    };
+
+    var sheets = google.sheets('v4');
+    sheets.spreadsheets.batchUpdate({
+        auth: auth,
+        spreadsheetId: sheetKeyPublic,
+        resource: body,
+    }, function (err, response) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+    })
+
 };
 
+exports.deleteEntry = deleteEntry;
 exports.sheetWrite = sheetWrite;
 exports.auth = auth;
 exports.listMajors = listMajors;

@@ -74,7 +74,16 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
             .error(function (data) {
             })
     };
-    
-    
+
+    $scope.deletePost = function () {
+        $http.post('/delete', $scope.deleteName)
+            .success(function (data) {
+                console.log(data);
+            })
+            .error(function (data) {
+            })
+    };
+
+
 
 }]);

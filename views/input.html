@@ -206,7 +206,11 @@
                                     Consumables Tab
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="del">
-                                    Delete Tab
+                                    <form ng-submit="deletePost()">
+                                        <div class="col-md-5"><input class="form-control" type="text" ng-model="deleteName.Entry" placeholder="Name of entry to delete..."
+                                            /></div>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
