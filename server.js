@@ -15,8 +15,9 @@ function getData(fn) {
     });
 }
 
-gapi.auth(gapi.prompt);
-
+getData(function(result){
+    console.log(result);
+})
 /*
     message must be in this format:
     {
