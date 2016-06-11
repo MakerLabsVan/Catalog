@@ -111,7 +111,7 @@ var listMajors = function (auth, callback) {
     var sheets = google.sheets('v4');
     sheets.spreadsheets.values.get({
         auth: auth,
-        spreadsheetId: sheetKeyPublic,
+        spreadsheetId: sheetKeyPrivate,
         range: 'A2:M',
     }, function (err, response) {
         if (err) {
@@ -133,7 +133,7 @@ var sheetWrite = function (auth, message, row) {
     var sheets = google.sheets('v4');
     sheets.spreadsheets.values.update({
         auth: auth,
-        spreadsheetId: sheetKeyPublic,
+        spreadsheetId: sheetKeyPrivate,
         range: nextRow,
         valueInputOption: "USER_ENTERED",
         resource: message,
@@ -167,7 +167,7 @@ var deleteEntry = function (auth, index) {
     var sheets = google.sheets('v4');
     sheets.spreadsheets.batchUpdate({
         auth: auth,
-        spreadsheetId: sheetKeyPublic,
+        spreadsheetId: sheetKeyPrivate,
         resource: body,
     }, function (err, response) {
         if (err) {

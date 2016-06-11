@@ -49,7 +49,7 @@
                     <div class="col-md-4">
                         <div style="height:500px;overflow-y:scroll">
                             <div ng-repeat="object in data">
-                                <a ng-href="#" style="color:black;">
+                                <a ng-href="#item" aria-controls="tab" role="tab" data-toggle="tab" style="color:black;">
                                                 {{ inputQuery.length == 0 
                                                     ? object[0]
                                                     : object[0].toLowerCase().indexOf(inputQuery.toLowerCase()) != -1 
@@ -74,9 +74,6 @@
                                 </li>
                                 <li role="presentation">
                                     <a href="#conIn" aria-controls="tab" role="tab" data-toggle="tab">Consumable</a>
-                                </li>
-                                <li role="presentation">
-                                    <a href="#del" aria-controls="tab" role="tab" data-toggle="tab">Delete</a>
                                 </li>
                             </ul>
                             <!-- Tab panes -->
@@ -211,6 +208,9 @@
                                             /></div>
                                         <button type="submit" class="btn btn-primary">Submit</button>
                                     </form>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="item">
+                                    Item Tab
                                 </div>
                             </div>
                         </div>
