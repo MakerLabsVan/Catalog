@@ -20,60 +20,64 @@ function init(width, height){
       marker.style("visibility", "visible");
     });
 
-    //Add map and add to svgContainer
-    var level1= d3.xml("../d3_files/level1.svg", "image/svg+xml", function(xml) {
-      svgContainer.node().appendChild(document.importNode(xml.documentElement, true));
-      svgContainer.select('svg')
-          .attr("cx",0)
-          .attr("cy",0)
-          .attr('height', height)//TODO:Fix scaling, currently it doesn't fit to container
-          .attr('width', width)
-          .attr("preserveAspectRatio", "xMinYMin meet")
-          .attr("id","map");
-    });
+      //Add map and add to svgContainer
+      var level1= d3.xml("../d3_files/level1.svg", "image/svg+xml", function(xml) {
+        svgContainer.node().appendChild(document.importNode(xml.documentElement, true));
+        svgContainer.select('svg')
+            .attr("cx",0)
+            .attr("cy",0)
+            .attr('height', height)
+            .attr('width', width)
+            .attr("preserveAspectRatio", "xMinYMin meet")
+            .attr("id","map");
+      });
 
-  var tooltip = svgContainer
-    .append("text")
-    .attr("x", 50)
-    .attr("y", 50)
-    .attr("font-family", "sans-serif")
-    .attr("font-size", "20px")
-    .attr("fill", "red")
-    .attr("visibility","hidden");
+    var tooltip = svgContainer
+      .append("text")
+      .attr("x", 50)
+      .attr("y", 50)
+      .attr("font-family", "sans-serif")
+      .attr("font-size", "20px")
+      .attr("fill", "red")
+      .attr("visibility","hidden");
 
-  var marker = svgContainer
-    .append("circle")
-    .attr("r", "0.5in")
-    .attr("fill", "red")
-    .style("visibility","hidden")
-    .attr("id","marker");
+    var marker = svgContainer
+      .append("circle")
+      .attr("r", 10)
+      .attr("fill", "blue")
+      .style("visibility","hidden")
+      .attr("id","marker");
 
+    var aspect1 = 1.25385;
+    var aspect2 = 0.85035;
+    if (width/height > aspect1){var scaleFactor=height/1088.246}
+    else {var scaleFactor=width/1364.490;}
 
-    //Rectangles represent studio spaces
-  var rectangles = svgContainer.selectAll("rect")
-    .data(rectangleData)
-    .enter()
-    .append("rect")
-    .attr("x", function (d) { return (d.rx/10)*(height/1088)+"in"; })//Assumes that dimensions are in ft, 500 is the pixel height of map
-    .attr("y", function (d) { return (d.ry/10)*(height/1088)+"in"; })
-    .attr("height", function (d) { return (d.height/10)*(height/1088)+"in"; })
-    .attr("width", function (d) { return (d.width/10)*(height/1088)+"in"; })
-    .attr('id',function (d) { return d.id; })
-    .attr("floor", function(d) { return d.floor; })
-    .style("color","blue")
-    .style("opacity",0.5)
-    .style("cursor","pointer")
-    .on("mouseover",function(d){
-      d3.select(this).transition().style("opacity", 1);
-    })
-    .on("click", function(d){
-      tooltip.attr("x",d3.mouse(this)[0]+10+"px").attr("y",d3.mouse(this)[1]+30+"px");
-      tooltip.text(d.id);
-      return tooltip.style("visibility", "visible");
-    })
-    .on("mouseout",function(){
-      d3.select(this).transition().style("opacity", 0.5);
-    });
+      //Rectangles represent studio spaces
+    var rectangles = svgContainer.selectAll("rect")
+      .data(rectangleData)
+      .enter()
+      .append("rect")
+      .attr("x", function (d) { return (d.rx/10)*scaleFactor+"in"; })//Assumes that dimensions are in ft, 500 is the pixel height of map
+      .attr("y", function (d) { return (d.ry/10)*scaleFactor+"in"; })
+      .attr("height", function (d) { return (d.height/10)*scaleFactor+"in"; })
+      .attr("width", function (d) { return (d.width/10)*scaleFactor+"in"; })
+      .attr('id',function (d) { return d.id; })
+      .attr("floor", function(d) { return d.floor; })
+      .style("color","blue")
+      .style("opacity",0.5)
+      .style("cursor","pointer")
+      .on("mouseover",function(d){
+        d3.select(this).transition().style("opacity", 1);
+      })
+      .on("click", function(d){
+        tooltip.attr("x",d3.mouse(this)[0]+10+"px").attr("y",d3.mouse(this)[1]+30+"px");
+        tooltip.text(d.id);
+        return tooltip.style("visibility", "visible");
+      })
+      .on("mouseout",function(){
+        d3.select(this).transition().style("opacity", 0.5);
+      });
 };
 
 function showFloor1(){
