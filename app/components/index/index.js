@@ -67,14 +67,6 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
             })
     };
 
-    $scope.matPost = function () {
-        $http.post('/input', $scope.matForm)
-            .success(function (data) {
-            })
-            .error(function (data) {
-            })
-    };
-
     $scope.deletePost = function () {
         $http.post('/delete', $scope.deleteName)
             .success(function (data) {
