@@ -59,13 +59,20 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
             the desc in formData.desc is the child
     */
 
+    $scope.clearForm = function () {
+        $scope.formData = null;
+    }
+
     $scope.stdPost = function () {
         $http.post('/input', $scope.formData)
             .success(function (data) {
             })
             .error(function (data) {
             })
+
+        $scope.clearForm();
     };
+
 
     $scope.deletePost = function () {
         $http.post('/delete', $scope.deleteName)
