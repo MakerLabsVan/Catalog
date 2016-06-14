@@ -75,9 +75,6 @@
                                 <li role="presentation">
                                     <a href="#conIn" aria-controls="tab" role="tab" data-toggle="tab">Consumable</a>
                                 </li>
-                                <li role="presentation">
-                                    <a href="#del" aria-controls="tab" role="tab" data-toggle="tab">Delete</a>
-                                </li>
                             </ul>
                             <!-- Tab panes -->
                             <div class="tab-content">
@@ -272,14 +269,6 @@
                                 <div role="tabpanel" class="tab-pane" id="conIn">
                                     Consumables Tab
                                 </div>
-                                <div role="tabpanel" class="tab-pane" id="del">
-                                    <form ng-submit="deletePost()">
-                                        <div class="col-md-5"><input class="form-control" type="text" ng-model="deleteName.Entry" placeholder="Name of entry to delete..."
-                                            /></div>
-                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                    </form>
-                                </div>
-
                             </div>
                         </div>
                     </div>

@@ -77,9 +77,10 @@ app.post("/input", function (req, res) {
 });
 
 app.post("/delete", function (req, res) {
-    console.log(req.body.Entry);
     getData(function (result) {
-        delEntry(result, req.body.Entry);
+        console.log(result);
+        delEntry(result, req.body[0]);
+        // result.body[0] is the item name
     })
 });
 
