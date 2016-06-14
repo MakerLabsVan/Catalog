@@ -1,7 +1,7 @@
 var myApp = angular.module("myApp", ['ui.bootstrap']);
 
 myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http, $sce) {
-    
+
     $scope.categories = {
         "studio": "Studios",
         "tools": "Tools",
@@ -11,8 +11,8 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
 
     $scope.queryTerm = '';
     $scope.inputQuery = '';
-    
-    
+
+
     $scope.entryProps = "/views/entryTpls.html";
 
     $scope.changeH = function () {

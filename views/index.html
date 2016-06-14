@@ -9,10 +9,6 @@
 
 </head>
 
-<style>
-
-</style>
-
 <body>
     <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="../d3_files/d3demo.js"></script>
@@ -35,7 +31,7 @@
                                             <hr/>
                                             <div ng-repeat="object in data">
                                                 <div uib-popover-template="entryProps" popover-placement="right" popover-trigger="outsideClick" popover-title="{{ object[0] }}"
-                                                    id="entryPO">
+                                                    popover-append-to-body="true" id="entryPO">
                                                     {{ queryTerm.length == 0 ? '' : object[0].toLowerCase().indexOf(queryTerm.toLowerCase()) != -1 ? object[0] : '' }}
                                                 </div>
                                             </div>
