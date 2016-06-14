@@ -1,6 +1,7 @@
-var myApp = angular.module("myApp", []);
+var myApp = angular.module("myApp", ['ui.bootstrap']);
 
 myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http, $sce) {
+    
     $scope.categories = {
         "studio": "Studios",
         "tools": "Tools",
@@ -10,6 +11,9 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
 
     $scope.queryTerm = '';
     $scope.inputQuery = '';
+    
+    
+    $scope.entryProps = "/views/entryTpls.html";
 
     $scope.changeH = function () {
         // if searching but no click = 
@@ -69,7 +73,6 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
             })
             .error(function (data) {
             })
-
         $scope.clearForm();
     };
 

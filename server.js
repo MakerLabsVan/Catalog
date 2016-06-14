@@ -72,7 +72,6 @@ app.get("/input", function (req, res) {
 
 app.post("/input", function (req, res) {
     getData(function (result) {
-        console.log(result.length);
         parse(req, result.length);
     });
 });
@@ -86,7 +85,6 @@ app.post("/delete", function (req, res) {
 
 app.get("/getData", function (req, res) {
     getData(function (result) {
-        console.log(result.length);
         return res.json(result);
     });
 });
