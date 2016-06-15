@@ -14,6 +14,7 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
     ]
 
     $scope.queryTerm = '';
+    $scope.inputQuery = '';
 
     $scope.entryProps = "/views/entryTpls.html";
     $scope.adminProps = "/views/adminEntry.html";
