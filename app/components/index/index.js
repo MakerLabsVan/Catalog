@@ -1,4 +1,4 @@
-var myApp = angular.module("myApp", ['ui.bootstrap']);
+var myApp = angular.module("myApp", ['ui.bootstrap','d3mapp']);
 
 myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http, $sce) {
 
@@ -16,7 +16,7 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
     $scope.entryProps = "/views/entryTpls.html";
 
     $scope.changeH = function () {
-        // if searching but no click = 
+        // if searching but no click =
         if ($scope.queryTerm.length == 0) {
             document.getElementById("searchSection").style.height = '0px';
         } else {
