@@ -9,9 +9,11 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
         "mats": "Materials"
     };
 
-    $scope.queryTerm = '';
-    $scope.inputQuery = '';
+    $scope.entryProperties = [
+        "Name", "Type", "Subtype", "Location x (ft)", "Location y (ft)", "Floor", "Width", "Length", "Depth", "Units", "Weight", "Weight Unit", "Quantity"
+    ]
 
+    $scope.queryTerm = '';
 
     $scope.entryProps = "/views/entryTpls.html";
     $scope.adminProps = "/views/adminEntry.html";
@@ -24,8 +26,7 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
             document.getElementById("searchSection").style.height = '370px';
         }
     };
-    
-    
+
     // make into var func or add callback
     $http({
         method: 'GET',
@@ -61,12 +62,14 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
             .error(function (data) {
             })
     };
+
+
 }]);
 
-myApp.filter('details', function() {
-    return function(object){
+myApp.filter('details', function () {
+    return function (object) {
         var out = [];
-        if (object[1] === "Studio"){
+        if (object[1] === "Studio") {
             out.push(object[3]);
             out.push(object[4]);
             out.push(object[5]);
@@ -74,7 +77,7 @@ myApp.filter('details', function() {
             out.push(object[7]);
             out.push(object[9]);
         }
-        
+
         // if (object[1] === "Studio"){
         //     out.push(object[3]);
         //     out.push(object[4]);
@@ -83,6 +86,6 @@ myApp.filter('details', function() {
         //     out.push(object[7]);
         //     out.push(object[9]);
         // }
-        
+
     }
 })

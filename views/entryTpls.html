@@ -1,5 +1,5 @@
 <div>
     <div ng-repeat="prop in object track by $index">
-        {{ prop }}
+        {{ prop !== '' ? entryProperties[$index] : '' }} {{ prop }}
     </div>
 </div>
