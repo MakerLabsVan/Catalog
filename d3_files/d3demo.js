@@ -5,7 +5,7 @@ var rectangleData = [
   {"rx":69, "ry":69,"height":5,"width":5,"id":"studio3"}];
 
 //html object that the map is contained in
-var container = "#map-well";
+var container = "#firstFloorWell";
 
 //initialize map
 function init(width, height){
