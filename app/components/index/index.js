@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 var myApp = angular.module("myApp", ['ui.bootstrap','d3mapping']);
+=======
+var myApp = angular.module("myApp", ['ui.bootstrap', 'popoverApp']);
+>>>>>>> 8c8b202e452b63488fe6ef695e59f05972c9ba76
 
 myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http, $sce) {
 
@@ -9,11 +13,15 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
         "mats": "Materials"
     };
 
+    $scope.entryProperties = [
+        "Name", "Type", "Subtype", "Location x (ft)", "Location y (ft)", "Floor", "Width", "Length", "Depth", "Units", "Weight", "Weight Unit", "Quantity"
+    ]
+
     $scope.queryTerm = '';
     $scope.inputQuery = '';
 
-
     $scope.entryProps = "/views/entryTpls.html";
+    $scope.adminProps = "/views/adminEntry.html";
 
     $scope.changeH = function () {
         // if searching but no click =
@@ -23,7 +31,6 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
             document.getElementById("searchSection").style.height = '370px';
         }
     };
-
 
     $http({
         method: 'GET',
@@ -38,21 +45,9 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
             alert("Something went wrong! Please call for help!");
         });
 
-
-
-    /*
-    To use:
-        Create form tag and add ng-submit=post() to call this function
-        Then add input such as text and add ng-models to them.
-        The ng-models should be named such as:
-            <parent.child>
-            eg below. formData is parent and in the input element in the html
-            the desc in formData.desc is the child
-    */
-
     $scope.clearForm = function () {
         $scope.formData = null;
-    }
+    };
 
     $scope.stdPost = function () {
         $http.post('/input', $scope.formData)
@@ -74,4 +69,5 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
 
 
 
+    $scope.emptyDiv = document.getElementById("entryPO");
 }]);

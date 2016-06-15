@@ -26,7 +26,8 @@ function getData(fn) {
                       ["Second Arr Item", "etc"]
         ],        
     }
-    
+
+ex.
 var testData = {
     "majorDimension": "ROWS",
     "values": [
@@ -35,9 +36,6 @@ var testData = {
     ],
 }
 */
-
-// THIS WORKS
-// gapi.auth(gapi.sheetWrite, testData);
 
 function parse(req, row) {
     // row is the length from data + 2
@@ -78,7 +76,6 @@ app.post("/input", function (req, res) {
 
 app.post("/delete", function (req, res) {
     getData(function (result) {
-        console.log(result);
         delEntry(result, req.body[0]);
         // result.body[0] is the item name
     })
