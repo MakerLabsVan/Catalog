@@ -1,6 +1,9 @@
- #firstFloorWell {
+ #firstFloorWell,
+ #secondFloorWell {
         height: 600px;
         background: white;
+        border-radius: 0px;
+        border-top: 0px;
     }
     
     #accordion {
