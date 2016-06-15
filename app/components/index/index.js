@@ -63,5 +63,5 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
             })
     };
 
-
+    $scope.emptyDiv = document.getElementById("entryPO");
 }]);
