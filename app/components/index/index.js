@@ -1,4 +1,4 @@
-var myApp = angular.module("myApp", ['ui.bootstrap']);
+var myApp = angular.module("myApp", ['ui.bootstrap', 'popoverApp']);
 
 myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http, $sce) {
 
@@ -23,8 +23,9 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
             document.getElementById("searchSection").style.height = '370px';
         }
     };
-
-
+    
+    
+    // make into var func or add callback
     $http({
         method: 'GET',
         url: '//localhost:3000/getData'
@@ -71,7 +72,18 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
             .error(function (data) {
             })
     };
-
-
-
 }]);
+
+myApp.filter('details', function() {
+    return function(object){
+        var out = [];
+        if (object[1] === "Studio"){
+            out.push(object[3]);
+            out.push(object[4]);
+            out.push(object[5]);
+            out.push(object[6]);
+            out.push(object[7]);
+            out.push(object[9]);
+        }
+    }
+})
