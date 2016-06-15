@@ -33,7 +33,7 @@
                                         <div id="searchSection">
                                             <hr/>
                                             <div ng-repeat="object in data">
-                                                <div uib-popover-template="entryProps" popover-placement="right" popover-trigger="outsideClick" popover-title="{{ object[0] }}"
+                                                <div uib-popover-template="entryProps" popover-placement="left" popover-trigger="outsideClick" popover-title="{{ object[0] }}"
                                                     popover-append-to-body="true" id="entryPO">
                                                     {{ queryTerm.length == 0 ? '' : object[0].toLowerCase().indexOf(queryTerm.toLowerCase()) != -1 ? object[0] : '' }}
                                                 </div>
@@ -53,12 +53,12 @@
                             <div id="collapse1" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <!-- sheet data -->
-                                    <p ng-repeat="object in data">
-                                        <a uib-popover-template="entryProps" popover-placement="right" popover-trigger="outsideClick" popover-title="{{ object[0] }}"
+                                    <div ng-repeat="object in data">
+                                        <div uib-popover-template="entryProps" popover-placement="left" popover-trigger="outsideClick" popover-title="{{ object[0] }}"
                                             style="color:black" id="entryPO">
                                             {{ object[1] === "Studio" ? object[0] : '' }}
-                                        </a>
-                                    </p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -72,12 +72,12 @@
                             <!-- long overflow data -->
                             <div id="collapse2" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    <p ng-repeat="object in data">
-                                        <a uib-popover-template="entryProps" popover-placement="right" popover-trigger="outsideClick" popover-title="{{ object[0] }}"
+                                    <div ng-repeat="object in data">
+                                        <div uib-popover-template="entryProps" popover-placement="left" popover-trigger="outsideClick" popover-title="{{ object[0] }}"
                                             style="color:black" id="entryPO">
                                             {{ object[1] === "Tool" ? object[0] : '' }}
-                                        </a>
-                                    </p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -90,12 +90,12 @@
                             </div>
                             <div id="collapse3" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    <p ng-repeat="object in data">
-                                        <a uib-popover-template="entryProps" popover-placement="right" popover-trigger="outsideClick" popover-title="{{ object[0] }}"
+                                    <div ng-repeat="object in data">
+                                        <div uib-popover-template="entryProps" popover-placement="left" popover-trigger="outsideClick" popover-title="{{ object[0] }}"
                                             style="color:black" id="entryPO">
                                             {{ object[1] === "Consumable" ? object[0] : '' }}
-                                        </a>
-                                    </p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -108,12 +108,12 @@
                             </div>
                             <div id="collapse4" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    <p ng-repeat="object in data">
-                                        <a uib-popover-template="entryProps" popover-placement="right" popover-trigger="outsideClick" popover-title="{{ object[0] }}"
+                                    <div ng-repeat="object in data">
+                                        <div uib-popover-template="entryProps" popover-placement="left" popover-trigger="outsideClick" popover-title="{{ object[0] }}"
                                             style="color:black" id="entryPO">
                                             {{ object[1] === "Material" ? object[0] : '' }}
-                                        </a>
-                                    </p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
