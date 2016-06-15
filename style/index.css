@@ -53,3 +53,15 @@
         color:black;
         width:150px;
     }
+    
+    #popContent {
+        width:250px;
+        height:300px;
+        overflow-y:scroll;
+    }
+    
+    #popContentName {
+        position:absolute;
+        right:12%;
+    }
+    

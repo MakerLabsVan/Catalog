@@ -1,5 +1,5 @@
-<div style="width:250px;height:300px;overflow-y:scroll">
+<div id="popContent">
     <div ng-repeat="prop in object track by $index">
-        {{ prop !== '' ? entryProperties[$index] + ': ' : '' }} {{ prop }}
+        <strong>{{ prop !== '' ? entryProperties[$index] + ': ' : '' }}</strong> <span id="popContentName">{{ prop }}</span>
     </div>
 </div>
