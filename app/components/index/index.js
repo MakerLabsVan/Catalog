@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-var myApp = angular.module("myApp", ['ui.bootstrap','d3mapping']);
-=======
-var myApp = angular.module("myApp", ['ui.bootstrap', 'popoverApp']);
->>>>>>> 8c8b202e452b63488fe6ef695e59f05972c9ba76
+var myApp = angular.module("myApp", ['ui.bootstrap', 'popoverApp','d3mapping']);
 
 myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http, $sce) {
 
