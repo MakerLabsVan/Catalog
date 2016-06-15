@@ -12,12 +12,15 @@
 <body>
     <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="../d3_files/d3demo.js"></script>
+
     <div ng-app="myApp">
         <div class="container" ng-controller="MainCtrl">
+            <br>
             <div class="row" id="logo">
                 <img src="assets/makerlabs.png" alt="makerlablogo" height="60px">
                 <a href="input">Input</a>
             </div>
+            <br>
             <div class="row">
                 <div class="col-md-4">
                     <!-- accordion start -->
@@ -27,7 +30,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <input type="search" class="form-control" placeholder="Search here" ng-model="queryTerm" ng-change="changeH()" />
-                                        <div id="searchSection" style="height:0px; overflow-y:scroll">
+                                        <div id="searchSection">
                                             <hr/>
                                             <div ng-repeat="object in data">
                                                 <div uib-popover-template="entryProps" popover-placement="right" popover-trigger="outsideClick" popover-title="{{ object[0] }}"
@@ -43,16 +46,16 @@
                         <div class="panel panel-default">
                             <div class="panel-heading" id="panel-bg">
                                 <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
         {{ categories.studio }}</a>
-      </h4>
+                                </h4>
                             </div>
                             <div id="collapse1" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <!-- sheet data -->
                                     <p ng-repeat="object in data">
                                         <a uib-popover-template="entryProps" popover-placement="right" popover-trigger="outsideClick" popover-title="{{ object[0] }}"
-                                            style="color:black">
+                                            style="color:black" id="entryPO">
                                             {{ object[1] === "Studio" ? object[0] : '' }}
                                         </a>
                                     </p>
@@ -62,16 +65,16 @@
                         <div class="panel panel-default">
                             <div class="panel-heading" id="panel-bg">
                                 <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
         {{ categories.tools }}</a>
-      </h4>
+                                </h4>
                             </div>
                             <!-- long overflow data -->
                             <div id="collapse2" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <p ng-repeat="object in data">
                                         <a uib-popover-template="entryProps" popover-placement="right" popover-trigger="outsideClick" popover-title="{{ object[0] }}"
-                                            style="color:black">
+                                            style="color:black" id="entryPO">
                                             {{ object[1] === "Tool" ? object[0] : '' }}
                                         </a>
                                     </p>
@@ -81,15 +84,15 @@
                         <div class="panel panel-default">
                             <div class="panel-heading" id="panel-bg">
                                 <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
         {{ categories.cons }}</a>
-      </h4>
+                                </h4>
                             </div>
                             <div id="collapse3" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <p ng-repeat="object in data">
                                         <a uib-popover-template="entryProps" popover-placement="right" popover-trigger="outsideClick" popover-title="{{ object[0] }}"
-                                            style="color:black">
+                                            style="color:black" id="entryPO">
                                             {{ object[1] === "Consumable" ? object[0] : '' }}
                                         </a>
                                     </p>
@@ -99,15 +102,15 @@
                         <div class="panel panel-default">
                             <div class="panel-heading" id="panel-bg">
                                 <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
         {{ categories.mats }}</a>
-      </h4>
+                                </h4>
                             </div>
                             <div id="collapse4" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <p ng-repeat="object in data">
                                         <a uib-popover-template="entryProps" popover-placement="right" popover-trigger="outsideClick" popover-title="{{ object[0] }}"
-                                            style="color:black">
+                                            style="color:black" id="entryPO">
                                             {{ object[1] === "Material" ? object[0] : '' }}
                                         </a>
                                     </p>
@@ -130,7 +133,6 @@
             </div>
         </div>
     </div>
-
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"

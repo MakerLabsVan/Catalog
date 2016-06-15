@@ -25,6 +25,12 @@
         margin-bottom: 10px;
     }
     
+    #searchSection {
+        height:0px;
+        overflow-y:scroll;
+        
+    }
+    
     #logo {
         margin-top: 10px;
         margin-bottom: 10px;
@@ -51,7 +57,7 @@
     
     #entryPO {
         color:black;
-        width:150px;
+        width:100px;
     }
     
     #popContent {

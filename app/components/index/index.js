@@ -28,7 +28,6 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
         }
     };
 
-    // make into var func or add callback
     $http({
         method: 'GET',
         url: '//localhost:3000/getData'
@@ -44,7 +43,7 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
 
     $scope.clearForm = function () {
         $scope.formData = null;
-    }
+    };
 
     $scope.stdPost = function () {
         $http.post('/input', $scope.formData)
