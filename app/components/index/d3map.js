@@ -1,4 +1,4 @@
-var app = angular.module("d3mapp", []);
+var app = angular.module("d3mapping", []);
 
 app.controller("mapController", ["$scope", '$http', "$sce", function ($scope, $http, $sce) {
     $http({
@@ -12,22 +12,25 @@ app.controller("mapController", ["$scope", '$http', "$sce", function ($scope, $h
             $scope.studioData = [];
             $scope.itemData=[];
             for (var i = 0; i < data.length; i++) {
-//{"rx":0,"ry":20,"height":5, "width":10,"id":"studio1"}
                 if (data[i][1] === "Studio") {
-                  var obj ={ "rx:" + data[i][3] +"," +
-                            "ry:" + data[i][4] + "," +
-                            "floor:" + data[i][5] + "," +
-                            "width:" + data[i][6] + "," +
-                            "height:" + data[i][7] + "," +
-                            "id:" + "\"" + data[i][0] + "\"" };
+                    var obj = {"rx": data[i][3],
+                      "ry": data[i][4],
+                      "floor":data[i][5],
+                      "height": data[i][7],
+                       "width": data[i][6],
+                       "id":  data[i][0]};
                     $scope.studioData = $scope.studioData.concat(obj);
-                    console.log($scope.studioData)
-                }
+               }
                 else {
-
+                  var obj = {"x": data[i][3],
+                    "y": data[i][4],
+                    "floor":data[i][5],
+                    "height": data[i][7],
+                     "width": data[i][6],
+                     "id":  data[i][0]};
+                     $scope.itemData = $scope.itemData.concat(obj);
                 }
               }
-
         })
         .error(function (data, status, header, config) {
             // something went wrong
