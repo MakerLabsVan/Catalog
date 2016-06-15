@@ -14,6 +14,7 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
 
 
     $scope.entryProps = "/views/entryTpls.html";
+    $scope.adminProps = "/views/adminEntry.html";
 
     $scope.changeH = function () {
         // if searching but no click = 
