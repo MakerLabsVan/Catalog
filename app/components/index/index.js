@@ -1,4 +1,4 @@
-var myApp = angular.module("myApp", ['ui.bootstrap','d3mapp']);
+var myApp = angular.module("myApp", ['ui.bootstrap','d3mapping']);
 
 myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http, $sce) {
 
