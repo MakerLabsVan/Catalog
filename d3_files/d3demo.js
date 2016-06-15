@@ -15,9 +15,9 @@ function init(width, height){
   if (width/height > aspectL1){var scaleL1=height/1088.246; }
   else {var scaleL1=width/1364.490;}
   //Container for map and map information
-  var svgContainer=d3.select(container).append("svg")
+  var svgContainer = d3.select(container).append("svg")
     .attr("width", width)
-    .attr("height",height)
+    .attr("height", height)
     .attr("id", "svgMapContainer")
     .style("border","1px solid black")
     .on("click", function(){
@@ -85,24 +85,24 @@ function init(width, height){
       });
 };
 
-function showFloor1(){
+function showFloor1() {
   d3.select(container).selectAll("svg")
-    .attr("visibility","visible");
+    .attr("visibility", "visible");
 }
 
-function hideFloor1(){
+function hideFloor1() {
   d3.select(container).selectAll("svg")
-    .attr("visibility","hidden");
+    .attr("visibility", "hidden");
 }
 //ObjId is the name of the object
-function highlightItem(objId){
+function highlightItem(objId) {
   d3.select(container).select("rect#" + objId)
-  .attr('fill',"red")
-  .style("opacity",1);
+    .attr('fill', "red")
+    .style("opacity", 1);
 }
 
-function dehighlightItem(objId){
+function dehighlightItem(objId) {
   d3.select(container).select("rect#" + objId)
-  .attr('fill',"none")
-  .style("opacity",0.5);
+    .attr('fill', "none")
+    .style("opacity", 0.5);
 }

@@ -1,6 +1,7 @@
-var myApp = angular.module("myApp", []);
+var myApp = angular.module("myApp", ['ui.bootstrap']);
 
 myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http, $sce) {
+
     $scope.categories = {
         "studio": "Studios",
         "tools": "Tools",
@@ -11,6 +12,9 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
     $scope.queryTerm = '';
     $scope.inputQuery = '';
 
+
+    $scope.entryProps = "/views/entryTpls.html";
+
     $scope.changeH = function () {
         // if searching but no click = 
         if ($scope.queryTerm.length == 0) {
@@ -20,6 +24,7 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
         }
     };
 
+
     $http({
         method: 'GET',
         url: '//localhost:3000/getData'
@@ -27,27 +32,13 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
         .success(function (data, status, header, config) {
             // success data
             $scope.data = data;
-
-            var studtemp = 0;
-            var tooltemp = 0;
-            var mattemp = 0;
-            var contemp = 0;
-            for (var i = 0; i < data.length; i++) {
-                if (data[i][1] === "Studio") studtemp++;
-                if (data[i][1] === "Tool") tooltemp++;
-                if (data[i][1] === "Consumable") contemp++;
-                if (data[i][1] === "Material") mattemp++;
-            }
-            $scope.modelStdSize = studtemp;
-            $scope.toolSize = tooltemp;
-            $scope.matSize = mattemp;
-            $scope.conSize = contemp;
-
         })
         .error(function (data, status, header, config) {
             // something went wrong
             alert("Something went wrong! Please call for help!");
         });
+
+
 
     /*
     To use:
@@ -59,51 +50,28 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
             the desc in formData.desc is the child
     */
 
+    $scope.clearForm = function () {
+        $scope.formData = null;
+    }
 
     $scope.stdPost = function () {
-        $scope.formData = {
-            Name: '',
-            Type: 'Studio',
-            LocX: '',
-            LocY: '',
-            Floor: '',
-            DimW: '',
-            DimL: '',
-            DimH: '',
-            DimU: '',
-            Weight: '',
-            WUnit: '',
-            Qty: '',
-            Price: ''
-        };
         $http.post('/input', $scope.formData)
+            .success(function (data) {
+            })
+            .error(function (data) {
+            })
+        $scope.clearForm();
+    };
+
+
+    $scope.deletePost = function () {
+        $http.post('/delete', this.object)
             .success(function (data) {
             })
             .error(function (data) {
             })
     };
 
-    $scope.matPost = function () {
-        $scope.formData = {
-            Name: '',
-            Type: 'Material',
-            LocX: '',
-            LocY: '',
-            Floor: '',
-            DimW: '',
-            DimL: '',
-            DimH: '',
-            DimU: '',
-            Weight: '',
-            WUnit: '',
-            Qty: '',
-            Price: ''
-        };
-        $http.post('/input', $scope.formData)
-            .success(function (data) {
-            })
-            .error(function (data) {
-            })
-    };
+
 
 }]);

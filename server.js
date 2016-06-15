@@ -39,15 +39,27 @@ var testData = {
 // THIS WORKS
 // gapi.auth(gapi.sheetWrite, testData);
 
-function parse(req) {
+function parse(req, row) {
+    // row is the length from data + 2
     var stdData = {
         "majorDimension": "ROWS",
         "values": [
-            [req.body.Name, req.body.Type, req.body.LocX, req.body.LocY, req.body.Floor, req.body.DimW, req.body.DimL, req.body.DimH, req.body.DimU, req.body.Weight, req.body.Qty, req.body.Price]
+            [req.body.Name, req.body.Type, req.body.Subtype, req.body.LocX, req.body.LocY, req.body.Floor, req.body.DimW, req.body.DimL, req.body.DimH, req.body.DimU, req.body.Weight, req.body.WUnit, req.body.Qty, req.body.Price]
         ]
     }
     console.log(stdData);
-    // gapi.auth(gapi.sheetWrite, stdData);
+    gapi.auth(gapi.sheetWrite, stdData, row);
+};
+
+function delEntry(result, entry) {
+    // finding the entry
+    var index = 0;
+    for (index; index < result.length; index++) {
+        if (result[index][0] === entry) {
+            break;
+        }
+    }
+    gapi.auth(gapi.deleteEntry, index);
 }
 
 app.get("/", function (req, res) {
@@ -58,10 +70,19 @@ app.get("/input", function (req, res) {
     res.sendFile(path + '/views/input.html');
 });
 
-
 app.post("/input", function (req, res) {
-    parse(req);
-})
+    getData(function (result) {
+        parse(req, result.length);
+    });
+});
+
+app.post("/delete", function (req, res) {
+    getData(function (result) {
+        console.log(result);
+        delEntry(result, req.body[0]);
+        // result.body[0] is the item name
+    })
+});
 
 app.get("/getData", function (req, res) {
     getData(function (result) {

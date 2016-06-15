@@ -5,56 +5,9 @@
     <title>Angular Web App</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
         crossorigin="anonymous">
+    <link rel="stylesheet" href="../style/index.css">
 
 </head>
-
-<style>
-    #map-well {
-        height: 600px;
-    }
-    
-    #accordion {
-        height: 600px;
-        border-radius: 5px;
-        border-bottom: 1px solid lightgrey;
-        border-top: 1px solid lightgrey;
-        border-left: 1px solid lightgrey;
-        border-right: 1px solid lightgrey;
-    }
-    
-    .panel {
-        display: block;
-        overflow: auto;
-        border: 0;
-    }
-    
-    #searchbar {
-        background: none;
-    }
-    
-    #searchpanel {
-        margin-bottom: 10px;
-    }
-    
-    #logo {
-        margin-top: 10px;
-        margin-bottom: 10px;
-        margin-left: 1px;
-    }
-    
-    #panel-bg {
-        background: #107CC2;
-    }
-    
-    .panel-title {
-        color: white;
-    }
-    
-    .panel-body {
-        height: 370px;
-        overflow-y: scroll;
-    }
-</style>
 
 <body>
     <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
@@ -73,13 +26,14 @@
                             <div class="panel-heading" id="searchbar">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <input type="search" class="form-control" placeholder="Search here" ng-model="queryTerm" ng-change="changeH()">
+                                        <input type="search" class="form-control" placeholder="Search here" ng-model="queryTerm" ng-change="changeH()" />
                                         <div id="searchSection" style="height:0px; overflow-y:scroll">
                                             <hr/>
                                             <div ng-repeat="object in data">
-                                                <a ng-href="{{ object[0] }}" style="color:black">
-                                                {{ queryTerm.length == 0 ? '' : object[0].toLowerCase().indexOf(queryTerm.toLowerCase()) != -1 ? object[0] : '' }}
-                                                </a>
+                                                <div uib-popover-template="entryProps" popover-placement="right" popover-trigger="outsideClick" popover-title="{{ object[0] }}" popover-append-to-body="true"
+                                                    id="entryPO">
+                                                    {{ queryTerm.length == 0 ? '' : object[0].toLowerCase().indexOf(queryTerm.toLowerCase()) != -1 ? object[0] : '' }}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -97,7 +51,8 @@
                                 <div class="panel-body">
                                     <!-- sheet data -->
                                     <p ng-repeat="object in data">
-                                        <a ng-href="{{ object[0] }}" style="color:black">
+                                        <a uib-popover-template="entryProps" popover-placement="right" popover-trigger="outsideClick" popover-title="{{ object[0] }}"
+                                            style="color:black">
                                             {{ object[1] === "Studio" ? object[0] : '' }}
                                         </a>
                                     </p>
@@ -115,7 +70,8 @@
                             <div id="collapse2" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <p ng-repeat="object in data">
-                                        <a ng-href="{{ object[0] }}" style="color:black">
+                                        <a uib-popover-template="entryProps" popover-placement="right" popover-trigger="outsideClick" popover-title="{{ object[0] }}"
+                                            style="color:black">
                                             {{ object[1] === "Tool" ? object[0] : '' }}
                                         </a>
                                     </p>
@@ -132,7 +88,8 @@
                             <div id="collapse3" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <p ng-repeat="object in data">
-                                        <a ng-href="{{ object[0] }}" style="color:black">
+                                        <a uib-popover-template="entryProps" popover-placement="right" popover-trigger="outsideClick" popover-title="{{ object[0] }}"
+                                            style="color:black">
                                             {{ object[1] === "Consumable" ? object[0] : '' }}
                                         </a>
                                     </p>
@@ -149,7 +106,8 @@
                             <div id="collapse4" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <p ng-repeat="object in data">
-                                        <a ng-href="{{ object[0] }}" style="color:black">
+                                        <a uib-popover-template="entryProps" popover-placement="right" popover-trigger="outsideClick" popover-title="{{ object[0] }}"
+                                            style="color:black">
                                             {{ object[1] === "Material" ? object[0] : '' }}
                                         </a>
                                     </p>
@@ -178,6 +136,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
         crossorigin="anonymous"></script>
     <script src="../app/components/index/index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.3.3/ui-bootstrap-tpls.min.js"></script>
 </body>
 
 </html>

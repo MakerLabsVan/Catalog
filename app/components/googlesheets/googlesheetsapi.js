@@ -15,7 +15,7 @@ var TOKEN_PATH = TOKEN_DIR + 'sheets.googleapis.com-nodejs.json';
 
 
 
-var auth = function (method, callback2) {
+var auth = function (method, callback2, callback3) {
     // Load client secrets from a local file.
     fs.readFile('client_secret.json', function processClientSecrets(err, content) {
         if (err) {
@@ -24,7 +24,7 @@ var auth = function (method, callback2) {
         }
         // Authorize a client with the loaded credentials, then call the
         // Google Sheets API.
-        authorize(JSON.parse(content), method, callback2);
+        authorize(JSON.parse(content), method, callback2, callback3);
     });
 
     /**
@@ -34,7 +34,7 @@ var auth = function (method, callback2) {
      * @param {Object} credentials The authorization client credentials.
      * @param {function} callback The callback to call with the authorized client.
      */
-    function authorize(credentials, callback, callback2) {
+    function authorize(credentials, callback, callback2, callback3) {
         var clientSecret = credentials.installed.client_secret;
         var clientId = credentials.installed.client_id;
         var redirectUrl = credentials.installed.redirect_uris[0];
@@ -47,7 +47,7 @@ var auth = function (method, callback2) {
                 getNewToken(oauth2Client, callback);
             } else {
                 oauth2Client.credentials = JSON.parse(token);
-                callback(oauth2Client, callback2);
+                callback(oauth2Client, callback2, callback3);
             }
         });
     }
@@ -60,7 +60,7 @@ var auth = function (method, callback2) {
      * @param {getEventsCallback} callback The callback to call with the authorized
      *     client.
      */
-    function getNewToken(oauth2Client, callback, callback2) {
+    function getNewToken(oauth2Client, callback, callback2, callback3) {
         var authUrl = oauth2Client.generateAuthUrl({
             access_type: 'offline',
             scope: SCOPES
@@ -79,7 +79,7 @@ var auth = function (method, callback2) {
                 }
                 oauth2Client.credentials = token;
                 storeToken(token);
-                callback(oauth2Client, callback2);
+                callback(oauth2Client, callback2, callback3);
             });
         });
     }
@@ -112,7 +112,7 @@ var listMajors = function (auth, callback) {
     sheets.spreadsheets.values.get({
         auth: auth,
         spreadsheetId: sheetKeyPrivate,
-        range: 'A2:N',
+        range: 'A2:M',
     }, function (err, response) {
         if (err) {
             console.log('The API returned an error: ' + err);
@@ -126,12 +126,15 @@ var listMajors = function (auth, callback) {
 // you can get entries by looking at the number of entries in the array
 // and + 2 to get the next empty row
 
-var sheetWrite = function (auth, message) {
+var sheetWrite = function (auth, message, row) {
+
+    var nextRow = 'A' + String(row + 2) + ':M';
+
     var sheets = google.sheets('v4');
     sheets.spreadsheets.values.update({
         auth: auth,
-        spreadsheetId: sheetKeyPublic,
-        range: 'A2:E',
+        spreadsheetId: sheetKeyPrivate,
+        range: nextRow,
         valueInputOption: "USER_ENTERED",
         resource: message,
     }, function (err, response) {
@@ -143,6 +146,39 @@ var sheetWrite = function (auth, message) {
     });
 };
 
+var deleteEntry = function (auth, index) {
+
+    var row = index + 1;
+
+    var body = {
+        "requests": [
+            {
+                "deleteDimension": {
+                    "range": {
+                        "dimension": "ROWS",
+                        "startIndex": row,
+                        "endIndex": row + 1
+                    }
+                }
+            }
+        ]
+    };
+
+    var sheets = google.sheets('v4');
+    sheets.spreadsheets.batchUpdate({
+        auth: auth,
+        spreadsheetId: sheetKeyPrivate,
+        resource: body,
+    }, function (err, response) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+    })
+
+};
+
+exports.deleteEntry = deleteEntry;
 exports.sheetWrite = sheetWrite;
 exports.auth = auth;
 exports.listMajors = listMajors;
