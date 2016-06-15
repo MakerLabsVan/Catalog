@@ -1,5 +1,5 @@
-<div>
+<div style="width:250px;height:300px;overflow-y:scroll">
     <div ng-repeat="prop in object track by $index">
-        {{ prop !== '' ? entryProperties[$index] : '' }} {{ prop }}
+        {{ prop !== '' ? entryProperties[$index] + ': ' : '' }} {{ prop }}
     </div>
 </div>
