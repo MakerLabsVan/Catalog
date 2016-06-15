@@ -65,27 +65,3 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
 
 
 }]);
-
-myApp.filter('details', function () {
-    return function (object) {
-        var out = [];
-        if (object[1] === "Studio") {
-            out.push(object[3]);
-            out.push(object[4]);
-            out.push(object[5]);
-            out.push(object[6]);
-            out.push(object[7]);
-            out.push(object[9]);
-        }
-
-        // if (object[1] === "Studio"){
-        //     out.push(object[3]);
-        //     out.push(object[4]);
-        //     out.push(object[5]);
-        //     out.push(object[6]);
-        //     out.push(object[7]);
-        //     out.push(object[9]);
-        // }
-
-    }
-})

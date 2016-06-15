@@ -22,16 +22,15 @@
             </div>
             <br>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-sm-4">
                     <!-- accordion start -->
                     <div class="panel-group" id="accordion">
                         <div class="panel panel-default" id="searchpanel">
                             <div class="panel-heading" id="searchbar">
                                 <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-sm-12">
                                         <input type="search" class="form-control" placeholder="Search here" ng-model="queryTerm" ng-change="changeH()" />
                                         <div id="searchSection">
-                                            <hr/>
                                             <div ng-repeat="object in data">
                                                 <div uib-popover-template="entryProps" popover-placement="left" popover-trigger="outsideClick" popover-title="{{ object[0] }}"
                                                     popover-append-to-body="true" id="entryPO">
@@ -50,7 +49,7 @@
         {{ categories.studio }}</a>
                                 </h4>
                             </div>
-                            <div id="collapse1" class="panel-collapse collapse">
+                            <div id="collapse1" class="panel-collapse collapse in">
                                 <div class="panel-body">
                                     <!-- sheet data -->
                                     <div ng-repeat="object in data">
@@ -119,7 +118,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-8">
+                <div class="col-sm-8">
                     <div class="well well-lg" id="map-well">
                         <script type="text/javascript">
                             // scrollWidth, scrollHeight retrieves the width and height
