@@ -64,3 +64,16 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
     };
 
 }]);
+
+myApp.directive("updateView", function () {
+    return {
+        scope: false,
+        link: function (scope) {
+            scope.$watch('data', function () {
+                if (scope.data != undefined) {
+                    console.log(scope.data[10]);
+                }
+            })
+        }
+    }
+})
