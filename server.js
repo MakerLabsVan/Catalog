@@ -27,7 +27,6 @@ function getData(fn) {
         ],
     }
 
-ex.
 var testData = {
     "majorDimension": "ROWS",
     "values": [
@@ -37,12 +36,15 @@ var testData = {
 }
 */
 
+// THIS WORKS
+// gapi.auth(gapi.sheetWrite, testData);
+
 function parse(req, row) {
     // row is the length from data + 2
     var stdData = {
         "majorDimension": "ROWS",
         "values": [
-            [req.body.Name, req.body.Type, req.body.Subtype, req.body.LocX, req.body.LocY, req.body.Floor, req.body.DimW, req.body.DimL, req.body.DimH, req.body.DimU, req.body.Weight, req.body.WUnit, req.body.Qty, req.body.Price]
+            [req.body.Name, req.body.Type, req.body.LocX, req.body.LocY, req.body.Floor, req.body.DimW, req.body.DimL, req.body.DimH, req.body.DimU, req.body.Weight, req.body.WUnit, req.body.Qty, req.body.Price]
         ]
     }
     console.log(stdData);
@@ -70,23 +72,25 @@ app.get("/input", function (req, res) {
 
 app.post("/input", function (req, res) {
     getData(function (result) {
+        console.log(result.length);
         parse(req, result.length);
     });
 });
 
 app.post("/delete", function (req, res) {
+    console.log(req.body.Entry);
     getData(function (result) {
-        delEntry(result, req.body[0]);
-        // result.body[0] is the item name
+        delEntry(result, req.body.Entry);
     })
 });
 
 app.get("/getData", function (req, res) {
     getData(function (result) {
+        console.log(result.length);
         return res.json(result);
     });
 });
 
-app.listen(process.env.PORT || 5000 function () {
+app.listen(process.env.PORT || 5000, function () {
     console.log("Live at Port 3000");
 });
