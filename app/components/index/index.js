@@ -1,4 +1,4 @@
-var myApp = angular.module("myApp", ['ui.bootstrap', 'popoverApp', 'd3mapping']);
+var myApp = angular.module("myApp", ['ui.bootstrap']);
 
 myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http, $sce) {
 
@@ -63,7 +63,4 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
             })
     };
 
-
-
-    $scope.emptyDiv = document.getElementById("entryPO");
 }]);

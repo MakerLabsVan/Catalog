@@ -1,79 +1,79 @@
 //Fake map information
 var rectangleData = [
-  {"rx":0,"ry":20,"height":5, "width":10,"id":"studio1"},
-  {"rx":20, "ry":70,"height":5,"width":15,"id":"studio2"},
-  {"rx":69, "ry":69,"height":5,"width":5,"id":"studio3"}];
+  { "rx": 0, "ry": 20, "height": 5, "width": 10, "id": "studio1" },
+  { "rx": 20, "ry": 70, "height": 5, "width": 15, "id": "studio2" },
+  { "rx": 69, "ry": 69, "height": 5, "width": 5, "id": "studio3" }];
 
 //initialize map
-function init(containerID,studioData,itemData,floorNum){
+function init(containerID, floorNum) {
   var width = document.getElementById(containerID).scrollWidth - 50;
   var height = document.getElementById(containerID).scrollHeight - 50;
 
   //Default floor 1 unless specified
-  if ( floorNum === 2){
+  if (floorNum === 2) {
     var aspect = 0.85035;//W=1364.490,H=1088.246
-    var floorFile="../d3_files/level2.svg"
+    var floorFile = "../d3_files/level2.svg"
   }
   else {
     var aspect = 1.25385;//W=1364.490,H=1088.2464
-    var floorFile="../d3_files/level1.svg"
+    var floorFile = "../d3_files/level1.svg"
   }
 
-  if (width/height > aspect){
-    var scale=height/1088.246;
+  if (width / height > aspect) {
+    var scale = height / 1088.246;
   }
   else {
-    var scale=width/1364.490;
+    var scale = width / 1364.490;
   }
   //Container for map and map information
-  var svgContainer = d3.select("#"+containerID).append("svg")
+  var svgContainer = d3.select("#" + containerID).append("svg")
     .attr("width", width)
     .attr("height", height)
     .attr("id", "svgMapContainer")
-    .on("click", function(){
-      marker.attr("x",d3.mouse(this)[0]+"px").attr("y",d3.mouse(this)[1]+"px");
+    .on("click", function () {
+      marker.attr("x", d3.mouse(this)[0] + "px").attr("y", d3.mouse(this)[1] + "px");
       marker.style("visibility", "visible");
     });
 
-    //Add map and add to svgContainer
-    var map= d3.xml(floorFile, "image/svg+xml", function(xml) {
-      svgContainer.node().appendChild(document.importNode(xml.documentElement, true));
-      svgContainer.select('svg')
-          .attr("x",0)
-          .attr("y",0)
-          .attr('height', height)
-          .attr('width', width)
-          .attr("preserveAspectRatio", "xMinYMin meet");
-    });
+  //Add map and add to svgContainer
+  var map = d3.xml(floorFile, "image/svg+xml", function (xml) {
+    svgContainer.node().appendChild(document.importNode(xml.documentElement, true));
+    svgContainer.select('svg')
+      .attr("x", 0)
+      .attr("y", 0)
+      .attr('height', height)
+      .attr('width', width)
+      .attr("preserveAspectRatio", "xMinYMin meet");
+  });
 
-    var marker = svgContainer
-      .append("svg:image")
-      .attr("xlink:href", "../d3_files/marker.svg")
-      .style("visibility","hidden")
-      .attr("id","marker")
-      .attr("x",50)
-      .attr("y",50)
-      .attr("width",50)
-      .attr("height",50);
-    //Rectangles represent studio spaces
-    var rectangles = svgContainer.selectAll("rect")
-      .data(rectangleData)
-      .enter()
-      .append("rect")
-      .attr("x", function (d) { return (d.rx/10)*scale+"in"; })//Assumes that dimensions are in ft, 500 is the pixel height of map
-      .attr("y", function (d) { return (d.ry/10)*scale+"in"; })
-      .attr("height", function (d) { return (d.height/10)*scale+"in"; })
-      .attr("width", function (d) { return (d.width/10)*scale+"in"; })
-      .attr('id',function (d) { return d.id; })
-      .style("color","blue")
-      .style("opacity",0.5)
-      .style("cursor","pointer")
-      .on("mouseover",function(d){
-        d3.select(this).transition().style("opacity", 1);
-      })
-      .on("mouseout",function(){
-        d3.select(this).transition().style("opacity", 0.5);
-      });
+  var marker = svgContainer
+    .append("svg:image")
+    .attr("xlink:href", "../d3_files/marker.svg")
+    .style("visibility", "hidden")
+    .attr("id", "marker")
+    .attr("x", 50)
+    .attr("y", 50)
+    .attr("width", 50)
+    .attr("height", 50);
+  //Rectangles represent studio spaces
+  var rectangles = svgContainer.selectAll("rect")
+    .data(rectangleData)
+    .enter()
+    .append("rect")
+    .attr("x", function (d) { return (d.rx / 10) * scale + "in"; })//Assumes that dimensions are in ft, 500 is the pixel height of map
+    .attr("y", function (d) { return (d.ry / 10) * scale + "in"; })
+    .attr("height", function (d) { return (d.height / 10) * scale + "in"; })
+    .attr("width", function (d) { return (d.width / 10) * scale + "in"; })
+    .attr('id', function (d) { return d.id; })
+    .style("color", "blue")
+    .style("opacity", 0.5)
+    .style("cursor", "pointer")
+    .on("mouseover", function (d) {
+      d3.select(this).transition().style("opacity", 1);
+    })
+    .on("mouseout", function () {
+      d3.select(this).transition().style("opacity", 0.5);
+    });
 };
 //ObjId is the name of the object
 function highlightItem(objId) {

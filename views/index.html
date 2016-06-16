@@ -120,7 +120,6 @@
                 </div>
 
                 <div class="col-sm-8">
-
                     <div role="tabpanel">
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist">
@@ -136,16 +135,15 @@
                             <div role="tabpanel" class="tab-pane active" id="firstFloor">
                                 <div class="well well-lg" id="firstFloorWell">
                                     <script type="text/javascript">
-                            // scrollWidth, scrollHeight retrieves the width and height
-                            // this is not responsive; loads at start
-                            init("map-well");
-
-                        </script>
+                                    init("firstFloorWell", 1);
+                                    </script>
                                 </div>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="secondFloor">
                                 <div class="well well-lg" id="secondFloorWell">
-                                    SECOND FLOOR
+                                    <script type="text/javascript">
+                                    init("secondFloorWell", 2);
+                                    </script>
                                 </div>
                             </div>
                         </div>

@@ -1,11 +1,11 @@
- #firstFloorWell,
- #secondFloorWell {
+ #firstFloorWell, #secondFloorWell, #firstFloor, #secondFloor {
+        width: auto;
         height: 600px;
         background: white;
         border-radius: 0px;
         border-top: 0px;
     }
-    
+
     #accordion {
         height: 600px;
         border-radius: 5px;
@@ -53,6 +53,19 @@
         height: 370px;
         overflow-y: scroll;
     }
+
+    #inputLogo {
+        margin-left: 25px;
+    }
+    
+    .form-control {
+        margin-bottom: 5px;
+    }
+    
+    .tab-content {
+        margin-top: 10px;
+    }
+
     
     .popover {
         width:400px;
