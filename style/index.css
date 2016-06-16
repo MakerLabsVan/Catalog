@@ -1,18 +1,19 @@
-#firstFloorWell,
-#secondFloorWell {
+ #firstFloorWell, #secondFloorWell, #firstFloor, #secondFloor {
+        width: auto;
         height: 600px;
         background: white;
-        border-radius: 0px;
+        border-radius : 0px;
         border-top: 0px;
     }
 
     #accordion {
-        height: 600px;
+        height: 640px;
         border-radius: 5px;
-        border-bottom: 1px solid lightgrey;
-        border-top: 1px solid lightgrey;
-        border-left: 1px solid lightgrey;
-        border-right: 1px solid lightgrey;
+        border: 1px solid lightgrey;
+    }
+
+    .tab-pane {
+        margin-top: 10px;
     }
 
     .panel {
@@ -36,8 +37,6 @@
     }
 
     #logo {
-        margin-top: 10px;
-        margin-bottom: 10px;
         margin-left: 1px;
     }
 
@@ -47,11 +46,20 @@
 
     .panel-title {
         color: black;
+        font-size: 20px;
     }
 
     .panel-body {
-        height: 370px;
+        height: 385px;
         overflow-y: scroll;
+    }
+
+    #inputLogo {
+        margin-left: 25px;
+    }
+
+    .form-control {
+        margin-bottom: 5px;
     }
 
     .popover {
@@ -63,6 +71,7 @@
         color:black;
         width:300px;
         margin-bottom: 20px;
+        font-size: 20px;
     }
 
     #popContent {
@@ -74,4 +83,8 @@
     #popContentName {
         position:absolute;
         right:12%;
+    }
+    .modal-body {
+        height:700px;
+        /*why is the map so small*/
     }

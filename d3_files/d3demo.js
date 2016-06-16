@@ -10,20 +10,20 @@ function drawMap(containerID,floorNum){
   var height = document.getElementById(containerID).scrollHeight - 50;
 
   //Default floor 1 unless specified
-  if ( floorNum === 2){
+  if (floorNum === 2) {
     var aspect = 0.85035;//W=1364.490,H=1088.246
-    var floorFile="../d3_files/level2.svg"
+    var floorFile = "../d3_files/level2.svg"
   }
   else {
     var aspect = 1.25385;//W=1364.490,H=1088.2464
-    var floorFile="../d3_files/level1.svg"
+    var floorFile = "../d3_files/level1.svg"
   }
   //hard coded object scaling
   if (width/height > aspect){
     var scale=height/1088.246;
   }
   else {
-    var scale=width/1364.490;
+    var scale = width / 1364.490;
   }
     var svgContainer = addContainer(containerID, width, height);
     var map = addMap(svgContainer, floorFile);

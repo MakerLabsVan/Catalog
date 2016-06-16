@@ -120,7 +120,4 @@ app.directive("makerMap",function(){
 
             }
         };
-
-
-
 })

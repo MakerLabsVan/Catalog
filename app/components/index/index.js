@@ -1,4 +1,4 @@
-var myApp = angular.module("myApp", ['ui.bootstrap', 'popoverApp', 'd3mapping']);
+var myApp = angular.module("myApp", ['ui.bootstrap']);
 
 myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http, $sce) {
 
@@ -24,7 +24,7 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
         if ($scope.queryTerm.length == 0) {
             document.getElementById("searchSection").style.height = '0px';
         } else {
-            document.getElementById("searchSection").style.height = '370px';
+            document.getElementById("searchSection").style.height = '385px';
         }
     };
 
@@ -63,7 +63,4 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
             })
     };
 
-
-
-    $scope.emptyDiv = document.getElementById("entryPO");
 }]);
