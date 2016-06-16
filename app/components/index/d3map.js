@@ -15,20 +15,20 @@ app.controller("mapController", ["$scope", '$http', "$sce", function ($scope, $h
             $scope.itemData=[];
             for (var i = 0; i < data.length; i++) {
                 if (data[i][1] === "Studio") {
-                    var obj = {"rx": data[i][3],
-                      "ry": data[i][4],
-                      "floor":data[i][5],
-                      "height": data[i][7],
-                       "width": data[i][6],
+                    var obj = {"rx": parseInt(data[i][3]),
+                      "ry": parseInt(data[i][4]),
+                      "floor":parseInt(data[i][5]),
+                      "height": parseInt(data[i][7]),
+                       "width": parseInt(data[i][6]),
                        "id":  data[i][0]};
                     $scope.studioData = $scope.studioData.concat(obj);
                }
                 else {
-                  var obj = {"x": data[i][3],
-                    "y": data[i][4],
-                    "floor":data[i][5],
-                    "height": data[i][7],
-                     "width": data[i][6],
+                  var obj = {"x": parseInt(data[i][3]),
+                    "y": parseInt(data[i][4]),
+                    "floor":parseInt(data[i][5]),
+                    "height": parseInt(data[i][7]),
+                     "width": parseInt(data[i][6]),
                      "id":  data[i][0]};
                      $scope.itemData = $scope.itemData.concat(obj);
                 }
@@ -45,20 +45,12 @@ app.controller("mapController", ["$scope", '$http', "$sce", function ($scope, $h
 }]);
 
 //Directives for D3, in progress, may not use
-var rectangleData = [
-  {"rx":0,"ry":20,"height":5, "width":10,"id":"studio1"},
-  {"rx":20, "ry":70,"height":5,"width":15,"id":"studio2"},
-  {"rx":69, "ry":69,"height":5,"width":5,"id":"studio3"}];
 var containerID="firstFloorWell";
 var floorNum=1;
 app.directive("makerMap",function(){
     return {
-
-            scope: { data: '=' },
+            scope: false,
             link: function(scope){
-              scope.$watch('data', function(data){
-                console.log(scope.data)
-              })
 
               var width = document.getElementById(containerID).scrollWidth - 50;
               var height = document.getElementById(containerID).scrollHeight - 50;
@@ -85,7 +77,7 @@ app.directive("makerMap",function(){
                 .attr("height", height)
                 .attr("id", "svgMapContainer")
                 .on("click", function(){
-                  marker.attr("x",d3.mouse(this)[0]+"px").attr("y",d3.mouse(this)[1]+"px");
+                  marker.attr("x",d3.mouse(this)[0]-25+"px").attr("y",d3.mouse(this)[1]-50+"px");
                   marker.style("visibility", "visible");
                 });
 
@@ -105,30 +97,31 @@ app.directive("makerMap",function(){
                   .attr("xlink:href", "../d3_files/marker.svg")
                   .style("visibility","hidden")
                   .attr("id","marker")
-                  .attr("x",50)
-                  .attr("y",50)
                   .attr("width",50)
                   .attr("height",50);
-                //Rectangles represent studio spaces
-                var rectangles = svgContainer.selectAll("rect")
-                  .data(rectangleData)
-                  .enter()
-                  .append("rect")
-                  .attr("x", function (d) { return (d.rx/10)*scale+"in"; })//Assumes that dimensions are in ft, 500 is the pixel height of map
-                  .attr("y", function (d) { return (d.ry/10)*scale+"in"; })
-                  .attr("height", function (d) { return (d.height/10)*scale+"in"; })
-                  .attr("width", function (d) { return (d.width/10)*scale+"in"; })
-                  .attr('id',function (d) { return d.id; })
-                  .style("color","blue")
-                  .style("opacity",0.5)
-                  .style("cursor","pointer")
-                  .on("mouseover",function(d){
-                    d3.select(this).transition().style("opacity", 1);
-                  })
-                  .on("mouseout",function(){
-                    d3.select(this).transition().style("opacity", 0.5);
-                  });
 
+                //Rectangles represent studio spaces
+                scope.$watchGroup(['studioData','itemData'], function(data){
+                  if (!data){return;}
+                  var rectangles = svgContainer.selectAll("svg")
+                    .data(data[0])
+                    .enter()
+                    .append("rect")
+                    .attr("x", function (d) { return (d.rx/10)*scale+"in"; })//Assumes that dimensions are in ft, 500 is the pixel height of map
+                    .attr("y", function (d) { return (d.ry/10)*scale+"in"; })
+                    .attr("height", function (d) { return (d.height/10)*scale+"in"; })
+                    .attr("width", function (d) { return (d.width/10)*scale+"in"; })
+                    .attr('id',function (d) { return d.id; })
+                    .style("color","blue")
+                    .style("opacity",0.5)
+                    .style("cursor","pointer")
+                    .on("mouseover",function(d){
+                      d3.select(this).transition().style("opacity", 1);
+                    })
+                    .on("mouseout",function(){
+                      d3.select(this).transition().style("opacity", 0.5);
+                    });
+                });
 
             }
         };

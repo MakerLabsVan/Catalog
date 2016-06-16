@@ -1,9 +1,9 @@
-//Fake map information
 var rectangleData = [
   {"rx":0,"ry":20,"height":5, "width":10,"id":"studio1"},
   {"rx":20, "ry":70,"height":5,"width":15,"id":"studio2"},
   {"rx":69, "ry":69,"height":5,"width":5,"id":"studio3"}];
-
+var containerID="firstFloorWell";
+var floorNum=1;
 //initialize map
 function init(containerID,floorNum){
   var width = document.getElementById(containerID).scrollWidth - 50;
@@ -56,32 +56,38 @@ function init(containerID,floorNum){
       .attr("width",50)
       .attr("height",50);
     //Rectangles represent studio spaces
-    var rectangles = svgContainer.selectAll("rect")
-      .data(rectangleData)
-      .enter()
-      .append("rect")
-      .attr("x", function (d) { return (d.rx/10)*scale+"in"; })//Assumes that dimensions are in ft, 500 is the pixel height of map
-      .attr("y", function (d) { return (d.ry/10)*scale+"in"; })
-      .attr("height", function (d) { return (d.height/10)*scale+"in"; })
-      .attr("width", function (d) { return (d.width/10)*scale+"in"; })
-      .attr('id',function (d) { return d.id; })
-      .style("color","blue")
-      .style("opacity",0.5)
-      .style("cursor","pointer")
-      .on("mouseover",function(d){
-        d3.select(this).transition().style("opacity", 1);
-      })
-      .on("mouseout",function(){
-        d3.select(this).transition().style("opacity", 0.5);
-      });
+    drawStudio(svgContainer,rectangleData)
 };
+
+
+function removeStudio(){}
+function drawStudio(svgContainer,studioData){
+  var rectangles = svgContainer.selectAll("rect")
+    .data(studioData)
+    .enter()
+    .append("rect")
+    //Dimensions and location of map needs to be scale and placed properly
+    .attr("x", function (d) { return (d.rx/10)*scale+"in"; })
+    .attr("y", function (d) { return (d.ry/10)*scale+"in"; })
+    .attr("height", function (d) { return (d.height/10)*scale+"in"; })
+    .attr("width", function (d) { return (d.width/10)*scale+"in"; })
+    .attr('id',function (d) { return d.id; })
+    .style("color","blue")
+    .style("opacity",0.5)
+    .style("cursor","pointer")
+    .on("mouseover",function(d){
+      d3.select(this).transition().style("opacity", 1);
+    })
+    .on("mouseout",function(){
+      d3.select(this).transition().style("opacity", 0.5);
+    });
+}
 //ObjId is the name of the object
 function highlightItem(objId) {
   d3.select("rect#" + objId)
     .attr('fill', "red")
     .style("opacity", 1);
 }
-
 function dehighlightItem(objId) {
   d3.select("rect#" + objId)
     .attr('fill', "none")
