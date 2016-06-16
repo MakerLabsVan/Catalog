@@ -11,6 +11,10 @@
         border-radius: 5px;
         border: 1px solid lightgrey;
     }
+
+    .tab-pane {
+        margin-top: 10px;
+    }
     
     .panel {
         display: block;
@@ -81,3 +85,7 @@
         right:12%;
     }
     
+    .modal-body {
+        height:700px;
+        /*why is the map so small*/
+    }
