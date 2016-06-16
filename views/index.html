@@ -131,24 +131,34 @@
                                 <a href="#secondFloor" aria-controls="secondFloor" role="tab" data-toggle="tab">Second Floor</a>
                             </li>
                         </ul>
+                        <div ng-app="d3mapping" ng-controller="mapController">
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="firstFloor">
                                 <div class="well well-lg" id="firstFloorWell">
+                                  {{test}}
+                                <maker-map data="data"></maker-map>
+
                                     <script type="text/javascript">
                             // scrollWidth, scrollHeight retrieves the width and height
                             // this is not responsive; loads at start
-                            init("map-well");
+
+                            console.log(document.getElementById("firstFloorWell").scrollWidth)
+                            //init("firstFloorWell",1);
 
                         </script>
                                 </div>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="secondFloor">
                                 <div class="well well-lg" id="secondFloorWell">
-                                    SECOND FLOOR
+                                  <script type="text/javascript">
+                                  console.log(document.getElementById("secondFloorWell").scrollWidth)
+                                    //init("secondFloorWell",2);
+                                    </script>
                                 </div>
                             </div>
                         </div>
+                      </div>
                     </div>
                 </div>
             </div>

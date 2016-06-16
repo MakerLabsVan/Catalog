@@ -1,11 +1,11 @@
- #firstFloorWell,
- #secondFloorWell {
+#firstFloorWell,
+#secondFloorWell {
         height: 600px;
         background: white;
         border-radius: 0px;
         border-top: 0px;
     }
-    
+
     #accordion {
         height: 600px;
         border-radius: 5px;
@@ -14,65 +14,64 @@
         border-left: 1px solid lightgrey;
         border-right: 1px solid lightgrey;
     }
-    
+
     .panel {
         display: block;
         overflow: auto;
         border: 0;
     }
-    
+
     #searchbar {
         background: none;
     }
-    
+
     #searchpanel {
         margin-bottom: 10px;
     }
-    
+
     #searchSection {
         height:0px;
         overflow-y:scroll;
-        
+
     }
-    
+
     #logo {
         margin-top: 10px;
         margin-bottom: 10px;
         margin-left: 1px;
     }
-    
+
     #panel-bg {
         background: white;
     }
-    
+
     .panel-title {
         color: black;
     }
-    
+
     .panel-body {
         height: 370px;
         overflow-y: scroll;
     }
-    
+
     .popover {
         width:400px;
         height:400px;
     }
-    
+
     #entryPO {
         color:black;
         width:300px;
         margin-bottom: 20px;
     }
-    
+
     #popContent {
         width:250px;
         height:300px;
         overflow-y:scroll;
     }
-    
+
     #popContentName {
         position:absolute;
         right:12%;
     }
-    

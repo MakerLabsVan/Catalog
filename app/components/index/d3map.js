@@ -1,11 +1,13 @@
 var app = angular.module("d3mapping", []);
 
 app.controller("mapController", ["$scope", '$http', "$sce", function ($scope, $http, $sce) {
+
     $http({
         method: 'GET',
         url: '//localhost:3000/getData'
     })
         .success(function (data, status, header, config) {
+
             // success data
             $scope.data = data;
             $scope.test= data[1][4]
@@ -31,94 +33,106 @@ app.controller("mapController", ["$scope", '$http', "$sce", function ($scope, $h
                      $scope.itemData = $scope.itemData.concat(obj);
                 }
               }
+
         })
         .error(function (data, status, header, config) {
             // something went wrong
             alert("Something went wrong! Please call for help!");
         });
+
+
+
 }]);
 
 //Directives for D3, in progress, may not use
-/**
-app.directive("makerLabsMap",function(){
-  var margin = 20,
-    width = 960,
-    height = 500 - .5 - margin;
-
+var rectangleData = [
+  {"rx":0,"ry":20,"height":5, "width":10,"id":"studio1"},
+  {"rx":20, "ry":70,"height":5,"width":15,"id":"studio2"},
+  {"rx":69, "ry":69,"height":5,"width":5,"id":"studio3"}];
+var containerID="firstFloorWell";
+var floorNum=1;
+app.directive("makerMap",function(){
     return {
-            scope: {
-              item: "@",
-              studio:"@"
-            },
+
+            scope: { data: '=' },
             link: function(scope){
+              scope.$watch('data', function(data){
+                console.log(scope.data)
+              })
 
-              var aspectL1 = 1.25385;//W=1364.490,H=1088.246
-              var aspectL2 = 0.85035; // W=925.374,H=1088.238
-              if (width/height > aspectL1){var scaleL1=height/1088.246; }
-              else {var scaleL1=width/1364.490;}
+              var width = document.getElementById(containerID).scrollWidth - 50;
+              var height = document.getElementById(containerID).scrollHeight - 50;
 
-              var svgContainer = d3.select("#map-well").append("svg")
+              //Default floor 1 unless specified
+              if ( floorNum === 2){
+                var aspect = 0.85035;//W=1364.490,H=1088.246
+                var floorFile="../d3_files/level2.svg"
+              }
+              else {
+                var aspect = 1.25385;//W=1364.490,H=1088.2464
+                var floorFile="../d3_files/level1.svg"
+              }
+
+              if (width/height > aspect){
+                var scale=height/1088.246;
+              }
+              else {
+                var scale=width/1364.490;
+              }
+              //Container for map and map information
+              var svgContainer = d3.select("#"+containerID).append("svg")
                 .attr("width", width)
                 .attr("height", height)
                 .attr("id", "svgMapContainer")
-                .style("border","1px solid black")
                 .on("click", function(){
                   marker.attr("x",d3.mouse(this)[0]+"px").attr("y",d3.mouse(this)[1]+"px");
                   marker.style("visibility", "visible");
                 });
 
                 //Add map and add to svgContainer
-                var level1= d3.xml("../d3_files/level1.svg", "image/svg+xml", function(xml) {
+                var map= d3.xml(floorFile, "image/svg+xml", function(xml) {
                   svgContainer.node().appendChild(document.importNode(xml.documentElement, true));
                   svgContainer.select('svg')
                       .attr("x",0)
                       .attr("y",0)
                       .attr('height', height)
                       .attr('width', width)
-                      .attr("preserveAspectRatio", "xMinYMin meet")
-                      .attr("id","level1");
+                      .attr("preserveAspectRatio", "xMinYMin meet");
                 });
 
                 var marker = svgContainer
-                .append("svg:image")
-                .attr("xlink:href", "../d3_files/marker.svg")
-                .style("visibility","hidden")
-                .attr("id","marker")
-                .attr("x",50)
-                .attr("y",50)
-                .attr("width",50)
-                .attr("height",50);
-
-                console.log(scope)
-                /*
+                  .append("svg:image")
+                  .attr("xlink:href", "../d3_files/marker.svg")
+                  .style("visibility","hidden")
+                  .attr("id","marker")
+                  .attr("x",50)
+                  .attr("y",50)
+                  .attr("width",50)
+                  .attr("height",50);
+                //Rectangles represent studio spaces
                 var rectangles = svgContainer.selectAll("rect")
-                  .data()
+                  .data(rectangleData)
                   .enter()
                   .append("rect")
-                  .attr("x", function (d) { return (d.rx/10)*scaleL1+"in"; })//Assumes that dimensions are in ft, 500 is the pixel height of map
-                  .attr("y", function (d) { return (d.ry/10)*scaleL1+"in"; })
-                  .attr("height", function (d) { return (d.height/10)*scaleL1+"in"; })
-                  .attr("width", function (d) { return (d.width/10)*scaleL1+"in"; })
+                  .attr("x", function (d) { return (d.rx/10)*scale+"in"; })//Assumes that dimensions are in ft, 500 is the pixel height of map
+                  .attr("y", function (d) { return (d.ry/10)*scale+"in"; })
+                  .attr("height", function (d) { return (d.height/10)*scale+"in"; })
+                  .attr("width", function (d) { return (d.width/10)*scale+"in"; })
                   .attr('id',function (d) { return d.id; })
-                  .attr("floor", function(d) { return d.floor; })
                   .style("color","blue")
                   .style("opacity",0.5)
                   .style("cursor","pointer")
                   .on("mouseover",function(d){
                     d3.select(this).transition().style("opacity", 1);
                   })
-                  .on("click", function(d){
-                    tooltip.attr("x",d3.mouse(this)[0]+10+"px").attr("y",d3.mouse(this)[1]+30+"px");
-                    tooltip.text(d.id);
-                    return tooltip.style("visibility", "visible");
-                  })
                   .on("mouseout",function(){
                     d3.select(this).transition().style("opacity", 0.5);
                   });
+
 
             }
         };
 
 
 
-})*/
+})

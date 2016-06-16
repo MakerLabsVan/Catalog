@@ -5,7 +5,7 @@ var rectangleData = [
   {"rx":69, "ry":69,"height":5,"width":5,"id":"studio3"}];
 
 //initialize map
-function init(containerID,studioData,itemData,floorNum){
+function init(containerID,floorNum){
   var width = document.getElementById(containerID).scrollWidth - 50;
   var height = document.getElementById(containerID).scrollHeight - 50;
 
