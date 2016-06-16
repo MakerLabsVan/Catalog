@@ -32,14 +32,17 @@ function drawMap(containerID,floorNum){
     markerOnClick(svgContainer, marker);
 };
 
+
+//Attach onClick to container to display marker at click location
 function markerOnClick(container, marker){
   container.on("click", function (){
-    var xPos = d3.mouse(this)[0]-marker.attr('width')/2
-    var yPos = d3.mouse(this)[1]-marker.attr('height')*1
+    var xPos = d3.mouse(this)[0]-marker.attr('width')/2;
+    var yPos = d3.mouse(this)[1]-marker.attr('height')*1;
     marker.attr("x",xPos).attr("y",yPos);
     marker.style("visibility", "visible");
   })
 }
+//Add a container within the container ID with given width and height
 function addContainer(containerID, width, height){
   return d3.select("#"+containerID).append("svg")
     .attr("width", width)
@@ -47,6 +50,7 @@ function addContainer(containerID, width, height){
     .attr("id", "svgMapContainer")
 }
 
+//Add the map svg to the container
 function addMap(container, filePath){
   d3.xml(filePath, "image/svg+xml", function(xml) {
     container.node().appendChild(document.importNode(xml.documentElement, true));
@@ -59,16 +63,7 @@ function addMap(container, filePath){
   });
 }
 
-function setPosition(object, x, y){
-  object
-  .attr('x',x)
-  .attr('y',x)
-}
-
-function returnPosition(object){
-  return [object.attr('x'),object.attr('y')];
-}
-
+//Add a SVG location marker object initially hidden
 function addMarker(container, x, y){
   return container
     .append("svg:image")
@@ -81,8 +76,13 @@ function addMarker(container, x, y){
     .attr("y",y);
 }
 
+//Add drag event to any studio on map
 function dragStudio(){}
+
+//Remove any studio from map
 function removeStudio(){}
+
+//Add a SVG for each studio
 function addStudio(svgContainer,studioData,scale){
   var rectangles = svgContainer.selectAll("rect")
     .data(studioData)
@@ -114,4 +114,16 @@ function dehighlightStudio(objId) {
   d3.select("rect#" + objId)
     .attr('fill', "none")
     .style("opacity", 0.5);
+}
+
+//Set the position of any object
+function setPosition(object, x, y){
+  object
+  .attr('x',x)
+  .attr('y',x);
+}
+
+//Return the position of any object
+function returnPosition(object){
+  return [object.attr('x'),object.attr('y')];
 }

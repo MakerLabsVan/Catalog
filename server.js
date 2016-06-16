@@ -24,7 +24,7 @@ function getData(fn) {
         "values": [
             Array ie: ["Item", "Item2", "Item 3"],
                       ["Second Arr Item", "etc"]
-        ],        
+        ],
     }
 
 ex.
@@ -87,6 +87,6 @@ app.get("/getData", function (req, res) {
     });
 });
 
-app.listen(3000, function () {
+app.listen(process.env.PORT || 5000 function () {
     console.log("Live at Port 3000");
 });
