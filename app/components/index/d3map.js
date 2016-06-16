@@ -7,7 +7,6 @@ app.controller("mapController", ["$scope", '$http', "$sce", function ($scope, $h
         url: '//localhost:3000/getData'
     })
         .success(function (data, status, header, config) {
-
             // success data
             $scope.data = data;
             $scope.test= data[1][4]
@@ -32,16 +31,12 @@ app.controller("mapController", ["$scope", '$http', "$sce", function ($scope, $h
                      "id":  data[i][0]};
                      $scope.itemData = $scope.itemData.concat(obj);
                 }
-              }
-
+            }
         })
         .error(function (data, status, header, config) {
             // something went wrong
             alert("Something went wrong! Please call for help!");
         });
-
-
-
 }]);
 
 //Directives for D3, in progress, may not use
