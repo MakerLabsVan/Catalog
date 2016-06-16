@@ -24,7 +24,7 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
         if ($scope.queryTerm.length == 0) {
             document.getElementById("searchSection").style.height = '0px';
         } else {
-            document.getElementById("searchSection").style.height = '370px';
+            document.getElementById("searchSection").style.height = '385px';
         }
     };
 
