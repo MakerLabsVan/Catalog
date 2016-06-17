@@ -15,27 +15,27 @@
     .tab-pane {
         margin-top: 10px;
     }
-    
+
     .panel {
         display: block;
         overflow: auto;
         border: 0;
     }
-    
+
     #searchbar {
         background: none;
     }
-    
+
     #searchpanel {
         margin-bottom: 10px;
     }
-    
+
     #searchSection {
         height:0px;
         overflow-y:scroll;
-        
+
     }
-    
+
     #logo {
         margin-left: 1px;
     }
@@ -43,12 +43,12 @@
     #panel-bg {
         background: white;
     }
-    
+
     .panel-title {
         color: black;
         font-size: 20px;
     }
-    
+
     .panel-body {
         height: 385px;
         overflow-y: scroll;
@@ -57,34 +57,33 @@
     #inputLogo {
         margin-left: 25px;
     }
-    
+
     .form-control {
         margin-bottom: 5px;
     }
-    
+
     .popover {
         width:400px;
         height:400px;
     }
-    
+
     #entryPO {
         color:black;
         width:300px;
         margin-bottom: 20px;
         font-size: 20px;
     }
-    
+
     #popContent {
         width:250px;
         height:300px;
         overflow-y:scroll;
     }
-    
+
     #popContentName {
         position:absolute;
         right:12%;
     }
-    
     .modal-body {
         height:700px;
         /*why is the map so small*/

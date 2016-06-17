@@ -23,10 +23,9 @@ function getData(fn) {
         "values": [
             Array ie: ["Item", "Item2", "Item 3"],
                       ["Second Arr Item", "etc"]
-        ],        
+        ],
     }
 
-ex.
 var testData = {
     "majorDimension": "ROWS",
     "values": [
@@ -36,12 +35,15 @@ var testData = {
 }
 */
 
+// THIS WORKS
+// gapi.auth(gapi.sheetWrite, testData);
+
 function parse(req, row) {
     // row is the length from data + 2
     var stdData = {
         "majorDimension": "ROWS",
         "values": [
-            [req.body.Name, req.body.Type, req.body.Subtype, req.body.LocX, req.body.LocY, req.body.Floor, req.body.DimW, req.body.DimL, req.body.DimH, req.body.DimU, req.body.Weight, req.body.WUnit, req.body.Qty, req.body.Price]
+            [req.body.Name, req.body.Type, req.body.LocX, req.body.LocY, req.body.Floor, req.body.DimW, req.body.DimL, req.body.DimH, req.body.DimU, req.body.Weight, req.body.WUnit, req.body.Qty, req.body.Price]
         ]
     }
     console.log(stdData);
@@ -69,6 +71,7 @@ app.get("/input", function (req, res) {
 
 app.post("/input", function (req, res) {
     getData(function (result) {
+        console.log(result.length);
         parse(req, result.length);
     });
 });
@@ -91,6 +94,6 @@ app.get("/getData", function (req, res) {
     });
 });
 
-app.listen(3000, function () {
+app.listen(process.env.PORT || 3000, function () {
     console.log("Live at Port 3000");
 });

@@ -1,4 +1,4 @@
-var myApp = angular.module("myApp", ['ui.bootstrap']);
+var myApp = angular.module("myApp", ['ui.bootstrap','d3mapping','popoverApp']);
 
 myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http, $sce) {
 
