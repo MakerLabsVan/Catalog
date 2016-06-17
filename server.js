@@ -86,11 +86,10 @@ app.post("/delete", function (req, res) {
 
 app.get("/getData", function (req, res) {
     getData(function (result) {
-        console.log(result.length);
         return res.json(result);
     });
 });
 
-app.listen(process.env.PORT || 5000, function () {
+app.listen(process.env.PORT || 3000, function () {
     console.log("Live at Port 3000");
 });
