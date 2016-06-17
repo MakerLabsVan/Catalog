@@ -50,14 +50,7 @@ function parse(req, row) {
     gapi.auth(gapi.sheetWrite, stdData, row);
 };
 
-function delEntry(result, entry) {
-    // finding the entry
-    var index = 0;
-    for (index; index < result.length; index++) {
-        if (result[index][0] === entry) {
-            break;
-        }
-    }
+function delEntry(index) {
     gapi.auth(gapi.deleteEntry, index);
 }
 
@@ -77,15 +70,7 @@ app.post("/input", function (req, res) {
 });
 
 app.post("/delete", function (req, res) {
-    console.log(req.body[0]);
-
-
-    // // change to use local data instead of getData call
-    // getData(function (result) {
-    //     console.log(req.body[0]);
-    //     delEntry(result, req.body[0]);
-    //     // result.body[0] is the item name
-    // })
+    console.log(req.body);
 });
 
 app.get("/getData", function (req, res) {

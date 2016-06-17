@@ -1,4 +1,4 @@
-var myApp = angular.module("myApp", ['ui.bootstrap','d3mapping','popoverApp']);
+var myApp = angular.module("myApp", ['ui.bootstrap', 'd3mapping', 'popoverApp']);
 
 myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http, $sce) {
 
@@ -54,15 +54,25 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
         $scope.clearForm();
     };
 
-// deletePost now sends object name and data array to server to avoid making another GET call
+
+    // deletePost now sends object name and data array to server to avoid making another GET call
     $scope.deletePost = function () {
         $scope.myObject = this.object;
         $scope.$watch(function () {
             return $scope.myObject;
         }, function () {
-            // console.log($scope.myObject);
-            $http.post('/delete', $scope.myObject)
+            console.log($scope.myObject);
+            console.log($scope.data);
+            $scope.index;
+            for (var i = 0; i < $scope.data.length; i++) {
+                if ($scope.myObject[0] === $scope.data[i][0]) {
+                    $scope.index = i;
+                    break;
+                }
+            }
+            $http.post('/delete', [$scope.index, $scope.myObject])
                 .success(function (data) {
+                    
                 })
                 .error(function (data) {
                 });
