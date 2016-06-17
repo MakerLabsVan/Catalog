@@ -54,18 +54,18 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
         $scope.clearForm();
     };
 
-    $scope.$watch('data', function() {
-        if ($scope.data != undefined){
-            console.log($scope.data);
-        }
-    });
-
+// deletePost now sends object name and data array to server to avoid making another GET call
     $scope.deletePost = function () {
-        $http.post('/delete', this.object)
-            .success(function (data) {
-            })
-            .error(function (data) {
-            })
+        $scope.myObject = this.object;
+        $scope.$watch(function () {
+            return $scope.myObject;
+        }, function () {
+            // console.log($scope.myObject);
+            $http.post('/delete', $scope.myObject)
+                .success(function (data) {
+                })
+                .error(function (data) {
+                });
+        })
     };
-
 }]);

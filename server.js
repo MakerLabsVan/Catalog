@@ -13,8 +13,7 @@ function getData(fn) {
     gapi.auth(gapi.listMajors, function (result) {
         fn(result);
     });
-}
-
+};
 
 /*
     message must be in this format:
@@ -75,11 +74,15 @@ app.post("/input", function (req, res) {
 });
 
 app.post("/delete", function (req, res) {
-    // change to use local data instead of getData call
-    getData(function (result) {
-        delEntry(result, req.body[0]);
-        // result.body[0] is the item name
-    })
+    console.log(req.body[0]);
+
+
+    // // change to use local data instead of getData call
+    // getData(function (result) {
+    //     console.log(req.body[0]);
+    //     delEntry(result, req.body[0]);
+    //     // result.body[0] is the item name
+    // })
 });
 
 app.get("/getData", function (req, res) {

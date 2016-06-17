@@ -147,9 +147,7 @@ var sheetWrite = function (auth, message, row) {
 };
 
 var deleteEntry = function (auth, index) {
-
     var row = index + 1;
-
     var body = {
         "requests": [
             {
