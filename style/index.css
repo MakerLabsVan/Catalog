@@ -1,5 +1,4 @@
- #firstFloorWell, #secondFloorWell, #firstFloor, #secondFloor {
-        width: auto;
+ #firstFloorWell, #secondFloorWell {
         height: 600px;
         background: white;
         border-radius : 0px;
@@ -8,14 +7,9 @@
 
     #accordion {
         height: 640px;
-        border-radius: 5px;
+        border-radius: 0px;
         border: 1px solid lightgrey;
     }
-
-    .tab-pane {
-        margin-top: 10px;
-    }
-
     .panel {
         display: block;
         overflow: auto;
@@ -67,8 +61,11 @@
         height:400px;
     }
 
+    a {
+        color: black;
+    }
+
     #entryPO {
-        color:black;
         width:300px;
         margin-bottom: 20px;
         font-size: 20px;
@@ -87,4 +84,21 @@
     .modal-body {
         height:700px;
         /*why is the map so small*/
+    }
+
+    #backChevron {
+        margin-top: 10px;
+    }
+
+    #inputResultBox {
+        height: 500px;
+        overflow-y: scroll;
+    }
+
+    #inputWell {
+        height:500px;
+    }
+
+    #studioIn, #matIn, #conIn, #toolIn {
+        margin-top: 10px;
     }

@@ -19,8 +19,8 @@
         <div class="container-fluid" id="searchBG" ng-controller="MainCtrl">
             <update-view></update-view>
             <div class="row">
-                <div class="col-sm-1" style="margin-top:10px">
-                    <a href="/" style="color:black">
+                <div class="col-sm-1" id="backChevron">
+                    <a href="/">
                         <span class="glyphicon glyphicon-chevron-left"></span>
                     </a>
                 </div>
@@ -37,7 +37,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-4">
-                        <div style="height:500px;overflow-y:scroll">
+                        <div id="inputResultBox">
                             <div ng-repeat="object in data">
                                 <div uib-popover-template="adminProps" popover-placement="right" popover-trigger="outsideClick" popover-title="{{ object[0] }}"
                                     popover-append-to-body="true" id="entryPO">
@@ -47,7 +47,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-8 well well-sm" style="height:500px">
+                    <div class="col-sm-8 well well-sm" id="inputWell">
                         <div role="tabpanel">
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs" role="tablist">
@@ -367,7 +367,7 @@
                                                     <input class="form-control" type="text" ng-model="formData.DimW" id="formData.DimW" placeholder="Width" />
                                                 </div>
                                                 <div class="col-sm-2">
-                                                    <input class="form-control" type="text" ng-model="formData.DimL" id="formData.DimL" placeholder="Length" />
+                                                    <input class="form-control" type="text" ng-model="formData.DimL" id="formData.DimL" placeholder="Length" /> 
                                                 </div>
                                                 <div class="col-sm-2">
                                                     <input class="form-control" type="text" ng-model="formData.DimH" id="formData.DimH" placeholder="Height" />

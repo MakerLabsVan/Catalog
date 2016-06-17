@@ -16,11 +16,10 @@ myApp.controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http
     $scope.queryTerm = '';
     $scope.inputQuery = '';
 
-    $scope.entryProps = "/views/entryTpls.html";
-    $scope.adminProps = "/views/adminEntry.html";
+    $scope.entryProps = "/views/entryTmpl.html";
+    $scope.adminProps = "/views/admin_entryTmpl.html";
 
-    $scope.changeH = function () {
-        // if searching but no click =
+    $scope.changeHeight = function () {
         if ($scope.queryTerm.length == 0) {
             document.getElementById("searchSection").style.height = '0px';
         } else {
