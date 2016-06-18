@@ -12,25 +12,27 @@
 
 
 <body>
+<<<<<<< HEAD
     <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="../d3_files/d3demo.js"></script>
+=======
+
+>>>>>>> 52ff82a96ec3b7ec4bafb5ea5f55a1e89a998c24
 
     <div ng-app="myApp">
-        <div class="container-fluid" id="searchBG" ng-controller="MainCtrl">
+        <div class="container-fluid" id="searchBG" ng-controller="inputCtrl">
             <div class="row">
-                <div class="col-sm-1" style="margin-top:10px">
-                    <a href="/" style="color:black">
-                        <span class="glyphicon glyphicon-chevron-left"></span> Return
+                <div class="col-sm-1" id="backChevron">
+                    <a href="/">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
                     </a>
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-6 col-sm-offset-4">
-                    <img src="../assets/makerlabs.png" alt="makerlabsinputLogo" id="inputLogo" />
-                </div>
+                <img src="../assets/makerlabs.png" alt="makerlabsinputLogo" />
             </div>
             <div class="row">
-                <div class="col-sm-6 col-sm-offset-3">
+                <div class="col-sm-4">
                     <input type="text" class="form-control" placeholder="Search for your item here..." ng-model="inputQuery" id="searchBar" />
                 </div>
             </div>
@@ -38,7 +40,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-4">
-                        <div style="height:500px;overflow-y:scroll">
+                        <div id="inputResultBox">
                             <div ng-repeat="object in data">
                                 <div uib-popover-template="adminProps" popover-placement="right" popover-trigger="outsideClick" popover-title="{{ object[0] }}"
                                     popover-append-to-body="true" id="entryPO">
@@ -48,7 +50,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-8 well well-sm" style="height:500px">
+                    <div class="col-sm-8 well well-sm" id="inputWell">
                         <div role="tabpanel">
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs" role="tablist">
@@ -106,7 +108,6 @@
                                                     <!--modal start-->
                                                     <div class="modal fade" id="locModal" role="dialog">
                                                         <div class="modal-dialog modal-lg">
-
                                                             <!--modal content-->
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
@@ -115,12 +116,8 @@
                                                                         Click anywhere to designate a location...
                                                                     </h4>
                                                                     <div class="modal-body" id="modalBody">
-                                                                        <div>
-                                                                            <!--the map is smaller than expected-->
-                                                                            <script type="text/javascript">
-                                                                            drawMap("modalBody", 1);
-                                                                            </script>
-                                                                        </div>
+                                                                        <!--modal body-->
+
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-default" data-dismiss="modal">Select</button>
@@ -132,10 +129,10 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <div class="col-sm-1">
+                                                <div class="col-sm-2">
                                                     <label for="formData.DimW" class="control-label">Dimensions/Units: <br /> W x L / U </label>
                                                 </div>
-                                                <div class="col-sm-2 col-sm-offset-1">
+                                                <div class="col-sm-2">
                                                     <input class="form-control" type="text" ng-model="formData.DimW" id="formData.DimW" placeholder="Width" />
                                                 </div>
                                                 <div class="col-sm-2">
@@ -190,13 +187,8 @@
                                                                     <h4 class="modal-title">
                                                                         Click anywhere to designate a location...
                                                                     </h4>
-                                                                    <div class="modal-body" id="matModalBody">
-                                                                        <div>
-                                                                            <!--the map is smaller than expected-->
-                                                                            <script type="text/javascript">
-                                                                            drawMap("matModalBody", 1);
-                                                                            </script>
-                                                                        </div>
+                                                                    <div class="modal-body">
+                                                                        <!--modal body-->
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-default" data-dismiss="modal">Select</button>
@@ -205,7 +197,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <div class="col-sm-1">
@@ -402,10 +394,19 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
         crossorigin="anonymous "></script>
+<<<<<<< HEAD
     <script src="../app/components/index/index.js"></script>
     <script src="../app/components/index/d3map.js"></script>
     <script src="../app/components/index/entryTpls.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.3.3/ui-bootstrap-tpls.min.js"></script>
+=======
+    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="../d3_files/d3demo.js"></script>
+    <script src="../app/components/index/d3map.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.3.3/ui-bootstrap-tpls.min.js"></script>
+    <script src="../app/components/index/index.js"></script>
+    <script src="../app/components/input/input.js"></script>
+>>>>>>> 52ff82a96ec3b7ec4bafb5ea5f55a1e89a998c24
 </body>
 
 </html>

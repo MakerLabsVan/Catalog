@@ -9,12 +9,11 @@ app.use("/", router);
 app.use(express.static(path));
 app.use(bodyParser.json());
 
-function getData(fn) {
+var getData = function (fn) {
     gapi.auth(gapi.listMajors, function (result) {
         fn(result);
     });
-}
-
+};
 
 /*
     message must be in this format:
@@ -39,7 +38,7 @@ var testData = {
 // THIS WORKS
 // gapi.auth(gapi.sheetWrite, testData);
 
-function parse(req, row) {
+var parse = function (req, row) {
     // row is the length from data + 2
     var stdData = {
         "majorDimension": "ROWS",
@@ -51,14 +50,7 @@ function parse(req, row) {
     gapi.auth(gapi.sheetWrite, stdData, row);
 };
 
-function delEntry(result, entry) {
-    // finding the entry
-    var index = 0;
-    for (index; index < result.length; index++) {
-        if (result[index][0] === entry) {
-            break;
-        }
-    }
+var delEntry = function (index) {
     gapi.auth(gapi.deleteEntry, index);
 }
 
@@ -78,10 +70,8 @@ app.post("/input", function (req, res) {
 });
 
 app.post("/delete", function (req, res) {
-    console.log(req.body.Entry);
-    getData(function (result) {
-        delEntry(result, req.body.Entry);
-    })
+    console.log(req.body[0]);
+    delEntry(req.body[0]);
 });
 
 app.get("/getData", function (req, res) {
