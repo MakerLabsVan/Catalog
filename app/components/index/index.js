@@ -15,7 +15,6 @@ angular.module("myApp", ['ui.bootstrap', 'd3mapping'])
                 alert("Something went wrong! Please call for help!");
             });
 
-
         $scope.categories = {
             "studio": "Studios",
             "tools": "Tools",
@@ -38,5 +37,8 @@ angular.module("myApp", ['ui.bootstrap', 'd3mapping'])
                 document.getElementById("searchSection").style.height = '385px';
             }
         };
+
+        drawMap("firstFloorWell", 1);
+
 
     }]);
