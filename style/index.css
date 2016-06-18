@@ -81,10 +81,6 @@
         position:absolute;
         right:12%;
     }
-    .modal-body {
-        height:700px;
-        /*why is the map so small*/
-    }
 
     #backChevron {
         margin-top: 10px;
@@ -101,4 +97,8 @@
 
     #studioIn, #matIn, #conIn, #toolIn {
         margin-top: 10px;
+    }
+
+    #modalBody {
+        height: 70%;
     }
