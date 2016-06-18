@@ -12,16 +12,18 @@ var mapConstructor = function( containerID, floorNum){
   this.container = d3.select("#"+containerID).append("svg")
     .attr("width", "100%")
     .attr("height", "100%"),
-/*
-  this.map =  d3.xml("/d3_files/level1.svg", "image/svg+xml", function(xml) {
-      this.container.node().appendChild(document.importNode(xml.documentElement, true));
-      this.container.select('svg')
-          .attr("x",0)
-          .attr("y",0)
-          .attr('height', "100%")
-          .attr('width', "100%")
-          .attr("preserveAspectRatio", "xMinYMin meet");
-    }),*/
+
+  // this.map =  d3.xml("/d3_files/level1.svg", "image/svg+xml", function(xml) {
+  //     console.log(d3.select(this.container));
+  //     d3.select(this.container).node().appendChild(document.importNode(xml.documentElement, true));
+  //     d3.select(this.container).select('svg')
+  //         .attr("x",0)
+  //         .attr("y",0)
+  //         .attr('height', "100%")
+  //         .attr('width', "100%")
+  //         .attr("preserveAspectRatio", "xMinYMin meet");
+  //   }),
+  this.map = addMap(this.container,"/d3_files/level1.svg"),
 
   this.marker = {
       icon: icon = this.container
@@ -33,7 +35,7 @@ var mapConstructor = function( containerID, floorNum){
         .attr("height",50),
 
       remove : function(){
-        icon.style("visibility",null);
+        icon.style("visibility",'hidden');
       },
 
       set : function( xPos, yPos ){
@@ -44,7 +46,7 @@ var mapConstructor = function( containerID, floorNum){
       },
 
       onClick : function(){
-        this.container.on("click", function (){
+        d3.select(this.container).on("click", function (){
           console.log("click!");
           var xPos = d3.mouse(this)[0]-icon.attr('width')/2;
           var yPos = d3.mouse(this)[1]-icon.attr('height')*1;
@@ -94,7 +96,7 @@ function drawMap(containerID,floorNum){
     var map = addMap(svgContainer, floorFile);
     var marker = addMarker(svgContainer, 50, 50);
     var studio = addStudio(svgContainer, rectangleData, scale);
-    markerOnClick(svgContainer, marker);
+    attachOnClick(svgContainer, marker);
     /*d3.select(svgContainer).on("resize",resizeMap)
     svgContainer.on("resize", function (){
       studio.attr({
@@ -109,7 +111,7 @@ function resizeMap(){
 };
 
 //Attach onClick to container to display marker at click location
-function markerOnClick(container, marker){
+function attachOnClick(container, marker){
   container.on("click", function (){
     var xPos = d3.mouse(this)[0]-marker.attr('width')/2;
     var yPos = d3.mouse(this)[1]-marker.attr('height')*1;
