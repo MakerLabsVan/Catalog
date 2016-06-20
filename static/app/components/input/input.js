@@ -47,13 +47,12 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
             $scope.data.splice($scope.index, 1);
         })
     };
-
 }]);
 
 angular.module("myApp").directive("editEntryForm", function () {
     return {
         replace: true,
-        template: '<input type="text" placeholder="{{ prop }}" id="ct-modal-edit"/>',
+        template: '<input class="form-control" type="text" value="{{prop}}" placeholder="{{ prop }}" id="ct-edit-entry"/>',
         link: function (scope, elem, attrs) {
             scope.$watch(scope, function () {
                 if (attrs.placeholder === '') {

@@ -112,7 +112,7 @@ var listMajors = function (auth, callback) {
     sheets.spreadsheets.values.get({
         auth: auth,
         spreadsheetId: sheetKeyPrivate,
-        range: 'A2:M',
+        range: 'A6:N',
     }, function (err, response) {
         if (err) {
             console.log('The API returned an error: ' + err);
@@ -128,7 +128,7 @@ var listMajors = function (auth, callback) {
 
 var sheetWrite = function (auth, message, row) {
 
-    var nextRow = 'A' + String(row + 2) + ':M';
+    var nextRow = 'A' + String(row + 6) + ':N';
 
     var sheets = google.sheets('v4');
     sheets.spreadsheets.values.update({
@@ -147,7 +147,7 @@ var sheetWrite = function (auth, message, row) {
 };
 
 var deleteEntry = function (auth, index) {
-    var row = index + 1;
+    var row = index + 5;
     var body = {
         "requests": [
             {
