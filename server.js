@@ -1,12 +1,13 @@
 var path = __dirname;
+var PORT = process.env.PORT || 3000
 var express = require('express');
 var app = express();
 var router = express.Router();
 var bodyParser = require('body-parser');
-var gapi = require(path + "/app/components/googlesheets/googlesheetsapi.js");
+var gapi = require(path + "/static/app/components/googlesheets/googlesheetsapi.js");
 
 app.use("/", router);
-app.use(express.static(path));
+app.use(express.static(path+'/static'));
 app.use(bodyParser.json());
 
 var getData = function (fn) {
@@ -55,11 +56,11 @@ var delEntry = function (index) {
 }
 
 app.get("/", function (req, res) {
-    res.sendFile(path + '/views/index.html');
+    res.sendFile(path + '/static/views/index.html');
 });
 
 app.get("/input", function (req, res) {
-    res.sendFile(path + '/views/input.html');
+    res.sendFile(path + '/static/views/input.html');
 });
 
 app.post("/input", function (req, res) {
@@ -80,6 +81,6 @@ app.get("/getData", function (req, res) {
     });
 });
 
-app.listen(process.env.PORT || 3000, function () {
+app.listen(PORT, function () {
     console.log("Live at Port 3000");
 });

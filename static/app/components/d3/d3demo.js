@@ -23,12 +23,12 @@ var mapConstructor = function( containerID, floorNum){
   //         .attr('width', "100%")
   //         .attr("preserveAspectRatio", "xMinYMin meet");
   //   }),
-  this.map = addMap(this.container,"/d3_files/level1.svg"),
+  this.map = addMap(this.container,"../assets/level1.svg"),
 
   this.marker = {
       icon: icon = this.container
         .append("svg:image")
-        .attr("xlink:href", "../d3_files/marker.svg")
+        .attr("xlink:href", "../assets/marker.svg")
         .style("visibility","hidden")
         .attr("id","marker")
         .attr("width",50)
@@ -78,11 +78,11 @@ function drawMap(containerID,floorNum){
   //Default floor 1 unless specified
   if (floorNum === 2) {
     var aspect = 0.85035;//W=1364.490,H=1088.246
-    var floorFile = "/d3_files/level2.svg"
+    var floorFile = "../assets/level2.svg"
   }
   else {
     var aspect = 1.25385;//W=1364.490,H=1088.2464
-    var floorFile = "/d3_files/level1.svg"
+    var floorFile = "../assets/level1.svg"
   }
   //hard coded object scaling
   if (width/height > aspect){
@@ -143,7 +143,7 @@ function addMap(container, filePath){
 function addMarker(container, x, y){
   return container
     .append("svg:image")
-    .attr("xlink:href", "../d3_files/marker.svg")
+    .attr("xlink:href", "/assets/marker.svg")
     .style("visibility","hidden")
     .attr("id","marker")
     .attr("width",50)
