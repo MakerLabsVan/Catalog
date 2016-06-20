@@ -14,7 +14,7 @@ angular.module("myApp", ['ui.bootstrap', 'd3mapping'])
                 // something went wrong
                 alert("Something went wrong! Please call for help!");
             });
-
+            
         $scope.categories = {
             "studio": "Studios",
             "tools": "Tools",

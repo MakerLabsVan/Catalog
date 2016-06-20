@@ -49,3 +49,17 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
     };
 
 }]);
+
+angular.module("myApp").directive("editEntryForm", function () {
+    return {
+        replace: true,
+        template: '<input type="text" placeholder="{{ prop }}" id="ct-modal-edit"/>',
+        link: function (scope, elem, attrs) {
+            scope.$watch(scope, function () {
+                if (attrs.placeholder === '') {
+                    elem.remove();
+                }
+            })
+        }
+    };
+})
