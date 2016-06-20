@@ -1,5 +1,5 @@
 <div id="popContent">
-    <div ng-repeat="prop in object">
+    <div ng-repeat="prop in object track by $index">
         <strong>{{ prop !== '' ? entryProperties[$index] + ': ' : '' }}</strong> <span id="popContentName">{{ prop }}</span>
     </div>
 </div>
