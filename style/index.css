@@ -93,6 +93,7 @@
 
     #inputWell {
         height:500px;
+        background:white;
     }
 
     #studioIn, #matIn, #conIn, #toolIn {
@@ -101,4 +102,15 @@
 
     #modalBody {
         height: 70%;
+    }
+    
+    #navTab {
+        margin: -10px;
+    }
+
+    #indexTabPanel {
+        border-radius: 5px;
+        border-top: 1px solid #DCDCDC;
+        border-left: 1px solid #DCDCDC;
+        border-right: 1px solid #DCDCDC;
     }
