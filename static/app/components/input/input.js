@@ -29,14 +29,11 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
         $scope.formData = null;
     };
 
-    // pass object as parameter instead of this
-    $scope.deletePost = function () {
-        $scope.myObject = this.object;
-
+    $scope.deletePost = function (objectName) {
         $scope.$watch('data', function () {
             $scope.index;
             for (var i = 0; i < $scope.data.length; i++) {
-                if ($scope.myObject[0] === $scope.data[i][0]) {
+                if (objectName === $scope.data[i][0]) {
                     $scope.index = i;
                     break;
                 }

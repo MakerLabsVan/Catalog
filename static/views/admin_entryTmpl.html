@@ -1,10 +1,10 @@
 <div id="popContent">
-    <div ng-repeat="prop in object track by $index">
+    <div ng-repeat="prop in object">
         <strong>{{ prop !== '' ? entryProperties[$index] + ': ' : '' }}</strong> <span id="popContentName">{{ prop }}</span>
     </div>
 </div>
 <div>
     <!-- Call delete and edit in this div body -->
-    <span class="glyphicon glyphicon-trash" ng-click="deletePost()"></span>
+    <span class="glyphicon glyphicon-trash" ng-click="deletePost(object[0])"></span>
     <span class="glyphicon glyphicon-pencil"></span>
 </div>
