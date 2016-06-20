@@ -8,27 +8,26 @@ var rectangleData = [
 
 var mapConstructor = function( containerID, floorNum){
   this.floorNum = floorNum,
-  //var container = containerID,
+  //Container object which contains all map objects
   this.container = d3.select("#"+containerID).append("svg")
     .attr("width", "100%")
-    .attr("height", "100%"),
-
-  // this.map =  d3.xml("/d3_files/level1.svg", "image/svg+xml", function(xml) {
-  //     console.log(d3.select(this.container));
-  //     d3.select(this.container).node().appendChild(document.importNode(xml.documentElement, true));
-  //     d3.select(this.container).select('svg')
-  //         .attr("x",0)
-  //         .attr("y",0)
-  //         .attr('height', "100%")
-  //         .attr('width', "100%")
-  //         .attr("preserveAspectRatio", "xMinYMin meet");
-  //   }),
-  this.map = addMap(this.container,"../assets/level1.svg"),
+    .attr("height", "100%")
+    .attr("id", "floor" + floorNum),
+  //Returns width of the map container
+  this.width = function(){
+    return this.container.node().getBoundingClientRect().width;
+  },
+  //Returns height of the map container
+  this.height = function(){
+    return this.container.node().getBoundingClientRect().height;
+  },
+  //
+  this.map = addMap(this.container,"/assets/level1.svg"),
 
   this.marker = {
       icon: icon = this.container
         .append("svg:image")
-        .attr("xlink:href", "../assets/marker.svg")
+        .attr("xlink:href", "/assets/marker.svg")
         .style("visibility","hidden")
         .attr("id","marker")
         .attr("width",50)
@@ -37,40 +36,51 @@ var mapConstructor = function( containerID, floorNum){
       remove : function(){
         icon.style("visibility",'hidden');
       },
-
       set : function( xPos, yPos ){
         icon
           .attr('x', xPos)
           .attr('y',yPos)
           .style('visibility',null);
       },
-
       onClick : function(){
-        d3.select(this.container).on("click", function (){
+        d3.select("svg#floor" + floorNum).on("click", function (){
           console.log("click!");
           var xPos = d3.mouse(this)[0]-icon.attr('width')/2;
           var yPos = d3.mouse(this)[1]-icon.attr('height')*1;
           icon.attr("x",xPos).attr("y",yPos);
+          icon.style('visibility',null);
       })}
   }
 
-  // this.studio :{
-  //   this.add = function(studioData){
-  //
-  //   },
-  //   this.remove = function(studioID){
-  //
-  //   },
-  //   this.highlight = function(studioID){
-  //
-  //   },
-  //   this.dehighlight = function (studioID){
-  //
-  //   }
-  // },
-  // this.item :{}
-};
+  this.studio = {
 
+    draw : function( testdata ){
+      d3.select("svg#floor" + floorNum)
+        .selectAll("rect")
+        .data(testdata)
+        .enter()
+        .append("rect")
+        .attr("x", function (d) { return d.rx/10 +"in"; })
+        .attr("y", function (d) { return d.ry/10 +"in"; })
+        .attr("height", function (d) { return d.height/10 +"in"; })
+        .attr("width", function (d) { return d.width/10 +"in"; })
+        .attr('id',function (d) { return d.id; })
+      },
+    resize : function(){
+      studios.style("visibility",'hidden');
+    },
+    remove : function( objID ){
+      d3.select( "rect#" + objID )
+        .style("visibility",'hidden');
+    },
+    set : function( objID, xPos, yPos ){
+      d3.select( "rect#" + objID )
+        .attr('x', xPos)
+        .attr('y',yPos)
+        .style('visibility',null);
+    }
+  }
+};
 function drawMap(containerID,floorNum){
   var width = document.getElementById(containerID).scrollWidth - 50;
   var height = document.getElementById(containerID).scrollHeight - 50;
@@ -78,11 +88,11 @@ function drawMap(containerID,floorNum){
   //Default floor 1 unless specified
   if (floorNum === 2) {
     var aspect = 0.85035;//W=1364.490,H=1088.246
-    var floorFile = "../assets/level2.svg"
+    var floorFile = "/assets/level2.svg"
   }
   else {
     var aspect = 1.25385;//W=1364.490,H=1088.2464
-    var floorFile = "../assets/level1.svg"
+    var floorFile = "/assets/level1.svg"
   }
   //hard coded object scaling
   if (width/height > aspect){
@@ -111,7 +121,7 @@ function resizeMap(){
 };
 
 //Attach onClick to container to display marker at click location
-function attachOnClick(container, marker){
+var attachOnClick = function(container, marker){
   container.on("click", function (){
     var xPos = d3.mouse(this)[0]-marker.attr('width')/2;
     var yPos = d3.mouse(this)[1]-marker.attr('height')*1;
@@ -120,14 +130,14 @@ function attachOnClick(container, marker){
   })
 };
 //Add a container within the container ID with given width and height
-function addContainer(containerID, width, height){
+var addContainer = function(containerID, width, height){
   return d3.select("#"+containerID).append("svg")
     .attr("width", "100%")
     .attr("height", "100%")
 };
 
 //Add the map svg to the container, can not change width height after initialize
-function addMap(container, filePath){
+var addMap = function(container, filePath){
   d3.xml(filePath, "image/svg+xml", function(xml) {
     container.node().appendChild(document.importNode(xml.documentElement, true));
     container.select('svg')
@@ -156,7 +166,7 @@ function addMarker(container, x, y){
 function dragStudio(){};
 
 //Add a SVG for each studio
-function addStudio(svgContainer,studioData,scale){
+var addStudio = function(svgContainer,studioData,scale){
   var rectangles = svgContainer.selectAll("rect")
     .data(studioData)
     .enter()

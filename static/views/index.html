@@ -156,11 +156,17 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.3.3/ui-bootstrap-tpls.min.js"></script>
     <!-- <script type="text/javascript">drawMap("secondFloorWell",2);</script> -->
     <!-- <script type="text/javascript">drawMap("firstFloorWell",1);</script>  -->
-    <script type="text/javascript">var map =new mapConstructor("firstFloorWell",1);
+    <script type="text/javascript">
+    var map =new mapConstructor("firstFloorWell",1);
     map.marker.remove();
-    map.marker.set(100,100);
     map.marker.onClick();
-    console.log(map.marker.icon);
+    map.marker.set(100,100);
+    var rectangleData = [
+      {"rx":0,"ry":20,"height":5, "width":10,"id":"studio1"},
+      {"rx":20, "ry":70,"height":5,"width":15,"id":"studio2"},
+      {"rx":69, "ry":69,"height":5,"width":5,"id":"studio3"}];
+    map.studio.draw(rectangleData);
+
     </script>
 </body>
 
