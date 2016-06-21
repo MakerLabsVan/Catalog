@@ -25,8 +25,10 @@ app.post("/input", function (req, res) {
     });
 });
 
+// TODO: sync JSON message keys
 app.post("/edit", function(req, res){
-    console.log(req.body);
+    console.log(req.body[0]);
+    // serverOps.parse(req);
 })
 
 app.post("/delete", function (req, res) {

@@ -13,7 +13,7 @@ var parse = function (req, row) {
     var stdData = {
         "majorDimension": "ROWS",
         "values": [
-            [req.body.Name, req.body.Type, req.body.LocX, req.body.LocY, req.body.Floor, req.body.DimW, req.body.DimL, req.body.DimH, req.body.DimU, req.body.Weight, req.body.WUnit, req.body.Qty, req.body.Price]
+            [req.body.Name, req.body.Type, req.body.Subtype, req.body.LocX, req.body.LocY, req.body.Floor, req.body.DimW, req.body.DimL, req.body.DimH, req.body.DimU, req.body.Weight, req.body.WUnit, req.body.Qty, req.body.Price]
         ]
     }
     console.log(stdData);
