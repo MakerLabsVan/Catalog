@@ -19,10 +19,11 @@ app.get("/input", function (req, res) {
 });
 
 app.post("/input", function (req, res) {
-    serverOps.getData(function (result) {
-        console.log(result.length);
-        serverOps.parse(req, result.length);
-    });
+    // serverOps.getData(function (result) {
+    //     console.log(result.length);
+    //     serverOps.parse(req, result.length);
+    // });
+    console.log(req.body);
 });
 
 // TODO: sync JSON message keys

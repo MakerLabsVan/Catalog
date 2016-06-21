@@ -14,12 +14,13 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
         });
 
     $scope.entryProperties = [
-        "Name", "Type", "Subtype", "Location x (ft)", "Location y (ft)", "Floor", "Width", "Length", "Depth", "Units", "Weight", "Weight Unit", "Quantity", "Price"
+        "Name", "Type", "Subtype", "Location x (ft)", "Location y (ft)", "Floor", "Width", "Length", "Height", "Units", "Weight", "Weight Unit", "Quantity", "Price"
     ];
 
     $scope.inputQuery = '';
     $scope.adminProps = "/views/admin_entryTmpl.html";
 
+    $scope.formData = {};
     $scope.stdPost = function () {
         $http.post('/input', $scope.formData)
             .success(function (data) {
@@ -64,8 +65,7 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
                 })
                 .error(function (data) {
                 })
-
         });
-    }
+    };
 
 }]);

@@ -37,7 +37,7 @@
                                                 <div>
                                                     <hr>
                                                     <div ng-repeat="object in data">
-                                                        <div uib-popover-template="adminProps" popover-placement="left" popover-trigger="outsideClick" popover-title="{{ object[0] }}"
+                                                        <div uib-popover-template="adminProps" popover-placement="right" popover-trigger="outsideClick" popover-title="{{ object[0] }}"
                                                             popover-append-to-body="true" id="entryPO">
                                                             {{ inputQuery.length == 0 ? object[0] : object[0].toLowerCase().indexOf(inputQuery.toLowerCase()) != -1 ? object[0] : ''
                                                             }}
@@ -71,79 +71,12 @@
                             <!-- Tab panes -->
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane active" id="studioIn">
-                                    <div class="container-fluid">
+                                    <div class="container">
                                         <form class="form-horizontal" ng-submit="stdPost()">
-                                            <div class="form-group">
-                                                <div class="col-sm-1">
-                                                    <label for="formData.Type" class="control-label">Type:</label>
-                                                </div>
-                                                <div class="col-sm-2 col-sm-offset-1">
-                                                    <input class="form-control" type="text" ng-model="formData.Type" id="formData.Type" placeholder="Studio" />
-                                                </div>
+                                            <div ng-repeat="prop in entryProperties">
+                                                <add-input></add-input>
                                             </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-1">
-                                                    <label for="formData.NameIn" class="control-label">Name:</label>
-                                                </div>
-                                                <div class="col-sm-9 col-sm-offset-1">
-                                                    <input class="form-control" type="text" ng-model="formData.Name" id="formData.NameIn" placeholder="Enter the item name..."
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-1">
-                                                    <label for="formData.LocIn" class="control-label">Location: </label>
-                                                </div>
-                                                <div class="col-sm-1 col-sm-offset-1">
-
-                                                    <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#locModal">
-                                                        <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-                                                    </button>
-
-                                                    <!--
-                                                    TODO:
-                                                    Reset location pin when switching between entry tabs and submit;
-                                                    Send pin location to ctrlr? to send to server as part of the JSON object;
-                                                    -->
-
-                                                    <!--modal start-->
-                                                    <div class="modal fade" id="locModal" role="dialog">
-                                                        <div class="modal-dialog modal-lg">
-                                                            <!--modal content-->
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <button type="button" class="btn btn-small btn-default close" data-dismiss="modal">&times;</button>
-                                                                    <h4 class="modal-title">
-                                                                        Click anywhere to designate a location...
-                                                                    </h4>
-                                                                    <div class="modal-body" id="modalBody">
-                                                                        <!--modal body-->
-
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Select</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-2">
-                                                    <label for="formData.DimW" class="control-label">Dimensions: <br /> W x L / U </label>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <input class="form-control" type="text" ng-model="formData.DimW" id="formData.DimW" placeholder="Width" />
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <input class="form-control" type="text" ng-model="formData.DimL" id="formData.DimL" placeholder="Length" />
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <input class="form-control " type="text" ng-model="formData.DimU" id="formData.DimU" placeholder="Units" />
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-1 col-sm-offset-10">
+                                            <div class="col-sm-1 col-sm-offset-5">
                                                 <button type="submit" class="btn btn-default">Submit</button>
                                             </div>
                                         </form>

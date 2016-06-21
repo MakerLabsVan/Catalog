@@ -10,4 +10,22 @@ angular.module("myApp").directive("editEntryForm", function () {
             });
         }
     };
-})
+});
+
+angular.module("myApp").directive("addInput", function () {
+    return {
+        replace: true,
+        templateUrl: 'templates/inputFormTmpl.html',
+        link: function (scope, elem, attrs) {
+            scope.$watch(scope, function () {
+                console.log(attrs);
+            });
+        }
+    }
+});
+
+angular.module("myApp").directive("modalLoc", function () {
+    return {
+        templateUrl: 'templates/modalLocTmpl.html',
+    }
+});
