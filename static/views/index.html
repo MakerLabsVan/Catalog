@@ -157,16 +157,22 @@
     <!-- <script type="text/javascript">drawMap("secondFloorWell",2);</script> -->
     <!-- <script type="text/javascript">drawMap("firstFloorWell",1);</script>  -->
     <script type="text/javascript">
-    var map =new mapConstructor("firstFloorWell",1);
-    map.marker.remove();
-    map.marker.onClick();
-    map.marker.set(100,100);
+    var map1 =new mapConstructor("firstFloorWell",1);
+    var map2 =new mapConstructor("secondFloorWell",2);
+    map2.marker.onClick();
+    map1.marker.onClick();
     var rectangleData = [
       {"rx":0,"ry":20,"height":5, "width":10,"id":"studio1"},
       {"rx":20, "ry":70,"height":5,"width":15,"id":"studio2"},
       {"rx":69, "ry":69,"height":5,"width":5,"id":"studio3"}];
-    map.studio.draw(rectangleData);
-
+      var rectangleData2 = [
+        {"rx":0,"ry":0,"height":5, "width":10,"id":"studio4"},
+        {"rx":20, "ry":70,"height":5,"width":15,"id":"studio5"},
+        {"rx":69, "ry":69,"height":5,"width":5,"id":"studio6"}];
+    console.log(map1.studio.draw(rectangleData));
+    console.log(map2.studio.draw(rectangleData2));
+    //console.log(map2.studio.draw(rectangleData));
+    //console.log(map2.studio.resize());
     </script>
 </body>
 
