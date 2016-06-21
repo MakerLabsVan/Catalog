@@ -49,7 +49,6 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
     };
 
     $scope.editFormData = {};
-
     $scope.editEntry = function (objectName) {
         $scope.$watch('data', function () {
             $scope.index;
@@ -70,17 +69,3 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
     }
 
 }]);
-
-angular.module("myApp").directive("editEntryForm", function () {
-    return {
-        replace: true,
-        templateUrl: 'templates/editEntryTmpl.html',
-        link: function (scope, elem, attrs) {
-            scope.$watch(scope, function () {
-                if (attrs.placeholder === '') {
-                    elem.remove();
-                }
-            });
-        }
-    };
-})

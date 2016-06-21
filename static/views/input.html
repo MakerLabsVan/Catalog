@@ -22,23 +22,31 @@
                 </div>
             </div>
             <div class="row">
-                <img src="../assets/makerlabs.png" alt="makerlabsinputLogo" />
+                <img src="/assets/makerlabs.png" alt="makerlabsinputLogo" />
             </div>
-            <div class="row">
-                <div class="col-sm-4">
-                    <input type="text" class="form-control" placeholder="Search for your item here..." ng-model="inputQuery" id="searchBar" />
-                </div>
-            </div>
-            <hr>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-4">
                         <div id="inputResultBox">
-                            <div ng-repeat="object in data">
-                                <div uib-popover-template="adminProps" popover-placement="right" popover-trigger="outsideClick" popover-title="{{ object[0] }}"
-                                    popover-append-to-body="true" id="entryPO">
-                                    {{ inputQuery.length == 0 ? object[0] : object[0].toLowerCase().indexOf(inputQuery.toLowerCase()) != -1 ? object[0] : ''
-                                    }}
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" id="searchbar">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <input type="search" class="form-control" placeholder="Search here" ng-model="inputQuery" />
+                                                <div>
+                                                    <hr>
+                                                    <div ng-repeat="object in data">
+                                                        <div uib-popover-template="adminProps" popover-placement="left" popover-trigger="outsideClick" popover-title="{{ object[0] }}"
+                                                            popover-append-to-body="true" id="entryPO">
+                                                            {{ inputQuery.length == 0 ? object[0] : object[0].toLowerCase().indexOf(inputQuery.toLowerCase()) != -1 ? object[0] : ''
+                                                            }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -393,6 +401,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.3.3/ui-bootstrap-tpls.min.js"></script>
     <script src="../app/components/index/index.js"></script>
     <script src="../app/components/input/input.js"></script>
+    <script src="../app/components/input/inputDirs.js"></script>
 </body>
 
 </html>
