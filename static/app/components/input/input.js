@@ -14,7 +14,7 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
         });
 
     $scope.entryProperties = [
-        "Name", "Type", "Subtype", "Location x (ft)", "Location y (ft)", "Floor", "Width", "Length", "Depth", "Units", "Weight", "Weight Unit", "Quantity"
+        "Name", "Type", "Subtype", "Location x (ft)", "Location y (ft)", "Floor", "Width", "Length", "Depth", "Units", "Weight", "Weight Unit", "Quantity", "Price"
     ];
 
     $scope.inputQuery = '';
@@ -60,7 +60,7 @@ angular.module("myApp").directive("editEntryForm", function () {
             scope.$watch(scope, function () {
                 if (attrs.placeholder === '') {
                     elem.remove();
-                    console.log(scope.editFormData);
+                    // console.log(scope.editFormData);
                 }
             });
         }
