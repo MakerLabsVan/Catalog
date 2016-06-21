@@ -128,7 +128,7 @@ var listMajors = function (auth, callback) {
 
 var sheetWrite = function (auth, message, row) {
 
-    var nextRow = 'A' + String(row + 6) + ':N';
+    var nextRow = 'A' + String(row + 2) + ':N';
 
     var sheets = google.sheets('v4');
     sheets.spreadsheets.values.update({
@@ -147,15 +147,14 @@ var sheetWrite = function (auth, message, row) {
 };
 
 var deleteEntry = function (auth, index) {
-    var row = index + 5;
     var body = {
         "requests": [
             {
                 "deleteDimension": {
                     "range": {
                         "dimension": "ROWS",
-                        "startIndex": row,
-                        "endIndex": row + 1
+                        "startIndex": index + 1,
+                        "endIndex": index + 2
                     }
                 }
             }
