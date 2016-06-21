@@ -56,16 +56,16 @@
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs" role="tablist" id="navTab">
                                 <li role="presentation" class="active">
-                                    <a href="#studioIn" aria-controls="home" role="tab" data-toggle="tab">Studio</a>
+                                    <a href="#studioIn" aria-controls="home" role="tab" data-toggle="tab" ng-click="formData = null">Studio</a>
                                 </li>
                                 <li role="presentation">
-                                    <a href="#matIn" aria-controls="tab" role="tab" data-toggle="tab">Material</a>
+                                    <a href="#matIn" aria-controls="tab" role="tab" data-toggle="tab" ng-click="formData = null">Material</a>
                                 </li>
                                 <li role="presentation">
-                                    <a href="#toolIn" aria-controls="tab" role="tab" data-toggle="tab">Tool</a>
+                                    <a href="#toolIn" aria-controls="tab" role="tab" data-toggle="tab" ng-click="formData = null">Tool</a>
                                 </li>
                                 <li role="presentation">
-                                    <a href="#conIn" aria-controls="tab" role="tab" data-toggle="tab">Consumable</a>
+                                    <a href="#conIn" aria-controls="tab" role="tab" data-toggle="tab" ng-click="formData = null">Consumable</a>
                                 </li>
                             </ul>
                             <!-- Tab panes -->
@@ -83,235 +83,36 @@
                                     </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="matIn">
-                                    <div class="container-fluid">
+                                    <div class="container">
                                         <form class="form-horizontal" ng-submit="stdPost()">
-                                            <div class="form-group">
-                                                <div class="col-sm-1">
-                                                    <label for="formData.Type" class="control-label">Type:</label>
-                                                </div>
-                                                <div class="col-sm-2 col-sm-offset-1">
-                                                    <input class="form-control" type="text" ng-model="formData.Type" id="formData.Type" placeholder="Material" />
-                                                </div>
+                                            <div ng-repeat="prop in entryProperties">
+                                                <add-input></add-input>
                                             </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-1">
-                                                    <label for="formData.NameIn" class="control-label">Name:</label>
-                                                </div>
-                                                <div class="col-sm-9 col-sm-offset-1">
-                                                    <input class="form-control" type="text" ng-model="formData.Name" id="formData.NameIn" placeholder="Enter the item name..."
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-1">
-                                                    <label for="formData.LocIn" class="control-label">Location: </label>
-                                                </div>
-                                                <div class="col-sm-4 col-sm-offset-1">
-                                                    <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#matLocModal">
-                                                        <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-                                                    </button>
-                                                    <!--modal start-->
-                                                    <div class="modal fade" id="matLocModal" role="dialog">
-                                                        <div class="modal-dialog modal-lg">
-
-                                                            <!--modal content-->
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <button type="button" class="btn btn-small btn-default close" data-dismiss="modal">&times;</button>
-                                                                    <h4 class="modal-title">
-                                                                        Click anywhere to designate a location...
-                                                                    </h4>
-                                                                    <div class="modal-body">
-                                                                        <!--modal body-->
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Select</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-1">
-                                                    <label for="formData.Weight" class="control-label">Weight/Unit: </label>
-                                                </div>
-                                                <div class="col-sm-4 col-sm-offset-1">
-                                                    <input class="form-control" type="text" ng-model="formData.Weight" id="formData.Weight" placeholder="Weight" />
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <input class="form-control" type="text" ng-model="formData.WUnit" id="formData.WUnit" placeholder="Unit" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-2">
-                                                    <label for="formData.DimW" class="control-label">Dimensions: <br/> W x L x H / U </label>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <input class="form-control" type="text" ng-model="formData.DimW" id="formData.DimW" placeholder="Width" />
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <input class="form-control" type="text" ng-model="formData.DimL" id="formData.DimL" placeholder="Length" />
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <input class="form-control" type="text" ng-model="formData.DimH" id="formData.DimH" placeholder="Height" />
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <input class="form-control " type="text" ng-model="formData.DimU" id="formData.DimU" placeholder="Units" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-1">
-                                                    <label for="formData.Qty" class="control-label">Quantity: </label>
-                                                </div>
-                                                <div class="col-sm-4 col-sm-offset-1">
-                                                    <input class="form-control" type="text" ng-model="formData.Qty" id="formData.Qty" placeholder="Quantity" />
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-1 col-sm-offset-10">
+                                            <div class="col-sm-1 col-sm-offset-5">
                                                 <button type="submit" class="btn btn-default">Submit</button>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="toolIn">
-                                    <div class="container-fluid">
+                                    <div class="container">
                                         <form class="form-horizontal" ng-submit="stdPost()">
-                                            <div class="form-group">
-                                                <div class="col-sm-1">
-                                                    <label for="formData.Type" class="control-label">Type:</label>
-                                                </div>
-                                                <div class="col-sm-2 col-sm-offset-1">
-                                                    <input class="form-control" type="text" ng-model="formData.Type" id="formData.Type" placeholder="Tool" />
-                                                </div>
+                                            <div ng-repeat="prop in entryProperties">
+                                                <add-input></add-input>
                                             </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-1">
-                                                    <label for="formData.NameIn" class="control-label">Name:</label>
-                                                </div>
-                                                <div class="col-sm-9 col-sm-offset-1">
-                                                    <input class="form-control" type="text" ng-model="formData.Name" id="formData.NameIn" placeholder="Enter the item name..."
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-1">
-                                                    <label for="formData.LocIn" class="control-label">Location: </label>
-                                                </div>
-                                                <div class="col-sm-4 col-sm-offset-1">
-                                                    <button type="button" class="btn btn-default btn-lg">
-                                                        <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-                                                    </button> </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-1">
-                                                    <label for="formData.Weight" class="control-label">Weight/Unit: </label>
-                                                </div>
-                                                <div class="col-sm-4 col-sm-offset-1">
-                                                    <input class="form-control" type="text" ng-model="formData.Weight" id="formData.Weight" placeholder="Weight" />
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <input class="form-control" type="text" ng-model="formData.WUnit" id="formData.WUnit" placeholder="Unit" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-2">
-                                                    <label for="formData.DimW" class="control-label">Dimensions: <br/> W x L x H / U </label>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <input class="form-control" type="text" ng-model="formData.DimW" id="formData.DimW" placeholder="Width" />
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <input class="form-control" type="text" ng-model="formData.DimL" id="formData.DimL" placeholder="Length" />
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <input class="form-control" type="text" ng-model="formData.DimH" id="formData.DimH" placeholder="Height" />
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <input class="form-control " type="text" ng-model="formData.DimU" id="formData.DimU" placeholder="Units" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-1">
-                                                    <label for="formData.Qty" class="control-label">Quantity: </label>
-                                                </div>
-                                                <div class="col-sm-4 col-sm-offset-1">
-                                                    <input class="form-control" type="text" ng-model="formData.Qty" id="formData.Qty" placeholder="Quantity" />
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-1 col-sm-offset-10">
+                                            <div class="col-sm-1 col-sm-offset-5">
                                                 <button type="submit" class="btn btn-default">Submit</button>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="conIn">
-                                    <div class="container-fluid">
+                                    <div class="container">
                                         <form class="form-horizontal" ng-submit="stdPost()">
-                                            <div class="form-group">
-                                                <div class="col-sm-1">
-                                                    <label for="formData.Type" class="control-label">Type:</label>
-                                                </div>
-                                                <div class="col-sm-3 col-sm-offset-1">
-                                                    <input class="form-control" type="text" ng-model="formData.Type" id="formData.Type" placeholder="Consumable" />
-                                                </div>
+                                            <div ng-repeat="prop in entryProperties">
+                                                <add-input></add-input>
                                             </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-1">
-                                                    <label for="formData.NameIn" class="control-label">Name:</label>
-                                                </div>
-                                                <div class="col-sm-9 col-sm-offset-1">
-                                                    <input class="form-control" type="text" ng-model="formData.Name" id="formData.NameIn" placeholder="Enter the item name..."
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-1">
-                                                    <label for="formData.LocIn" class="control-label">Location: </label>
-                                                </div>
-                                                <div class="col-sm-4 col-sm-offset-1">
-                                                    <button type="button" class="btn btn-default btn-lg">
-                                                        <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-                                                    </button> </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-1">
-                                                    <label for="formData.Weight" class="control-label">Weight/Unit: </label>
-                                                </div>
-                                                <div class="col-sm-4 col-sm-offset-1">
-                                                    <input class="form-control" type="text" ng-model="formData.Weight" id="formData.Weight" placeholder="Weight" />
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <input class="form-control" type="text" ng-model="formData.WUnit" id="formData.WUnit" placeholder="Unit" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-2">
-                                                    <label for="formData.DimW" class="control-label">Dimensions: <br/> W x L x H / U </label>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <input class="form-control" type="text" ng-model="formData.DimW" id="formData.DimW" placeholder="Width" />
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <input class="form-control" type="text" ng-model="formData.DimL" id="formData.DimL" placeholder="Length" />
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <input class="form-control" type="text" ng-model="formData.DimH" id="formData.DimH" placeholder="Height" />
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <input class="form-control " type="text" ng-model="formData.DimU" id="formData.DimU" placeholder="Units" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-1">
-                                                    <label for="formData.Qty" class="control-label">Quantity: </label>
-                                                </div>
-                                                <div class="col-sm-4 col-sm-offset-1">
-                                                    <input class="form-control" type="text" ng-model="formData.Qty" id="formData.Qty" placeholder="Quantity" />
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-1 col-sm-offset-10">
+                                            <div class="col-sm-1 col-sm-offset-5">
                                                 <button type="submit" class="btn btn-default">Submit</button>
                                             </div>
                                         </form>
