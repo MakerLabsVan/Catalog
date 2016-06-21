@@ -50,22 +50,12 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
     };
 
     $scope.editFormData = {};
-    $scope.editEntry = function (objectName) {
-        $scope.$watch('data', function () {
-            $scope.index;
-            for (var i = 0; i < $scope.data.length; i++) {
-                if (objectName === $scope.data[i][0]) {
-                    $scope.index = i;
-                    break;
-                }
-            }
-
-            $http.post('/edit', [$scope.editFormData, $scope.index])
-                .success(function (data) {
-                })
-                .error(function (data) {
-                })
-        });
+    $scope.editEntry = function () {
+        $http.post('/edit', $scope.editFormData)
+            .success(function (data) {
+            })
+            .error(function (data) {
+            })
     };
 
 }]);

@@ -18,7 +18,6 @@ angular.module("myApp").directive("addInput", function () {
         templateUrl: 'templates/inputFormTmpl.html',
         link: function (scope, elem, attrs) {
             scope.$watch(scope, function () {
-                console.log(attrs);
             });
         }
     }

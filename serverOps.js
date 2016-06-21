@@ -9,11 +9,10 @@ var getData = function (fn) {
 };
 
 var parse = function (req, row) {
-    // row is the length from data + 2
     var stdData = {
         "majorDimension": "ROWS",
         "values": [
-            [req.body.Name, req.body.Type, req.body.Subtype, req.body.LocX, req.body.LocY, req.body.Floor, req.body.DimW, req.body.DimL, req.body.DimH, req.body.DimU, req.body.Weight, req.body.WUnit, req.body.Qty, req.body.Price]
+            [req.body.Name, req.body.Type, req.body.Subtype, req.body['Location x (ft)'], req.body['Location y (ft)'], req.body.Floor, req.body.Width, req.body.Length, req.body.Height, req.body.Units, req.body.Weight, req.body['Weight Unit'], req.body.Quantity, req.body.Price]
         ]
     }
     console.log(stdData);
