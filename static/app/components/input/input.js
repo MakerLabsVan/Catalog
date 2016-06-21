@@ -47,18 +47,22 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
             $scope.data.splice($scope.index, 1);
         })
     };
+
+    $scope.editFormData = {};
+
 }]);
 
 angular.module("myApp").directive("editEntryForm", function () {
     return {
         replace: true,
-        template: '<input class="form-control" type="text" value="{{prop}}" placeholder="{{ prop }}" id="ct-edit-entry"/>',
+        templateUrl: 'templates/editEntryTmpl.html',
         link: function (scope, elem, attrs) {
             scope.$watch(scope, function () {
                 if (attrs.placeholder === '') {
                     elem.remove();
+                    console.log(scope.editFormData);
                 }
-            })
+            });
         }
     };
 })
