@@ -23,7 +23,7 @@ angular.module("myApp", ['ui.bootstrap', 'd3mapping'])
         };
 
         $scope.entryProperties = [
-            "Name", "Type", "Subtype", "Location x (ft)", "Location y (ft)", "Floor", "Width", "Length", "Depth", "Units", "Weight", "Weight Unit", "Quantity"
+            "Name", "Type", "Subtype", "Location x (ft)", "Location y (ft)", "Floor", "Width", "Length", "Depth", "Units", "Weight", "Weight Unit", "Quantity", "Price"
         ];
 
         $scope.queryTerm = '';

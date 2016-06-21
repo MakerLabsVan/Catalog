@@ -124,7 +124,7 @@ var listMajors = function (auth, callback) {
 }
 
 // you can get entries by looking at the number of entries in the array
-// and + 2 to get the next empty row
+// and + 6 to get the next empty row
 
 var sheetWrite = function (auth, message, row) {
 

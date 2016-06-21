@@ -25,6 +25,10 @@ app.post("/input", function (req, res) {
     });
 });
 
+app.post("/edit", function(req, res){
+    console.log(req.body);
+})
+
 app.post("/delete", function (req, res) {
     console.log(req.body[0]);
     serverOps.delEntry(req.body[0]);
