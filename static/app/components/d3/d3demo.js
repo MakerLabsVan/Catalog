@@ -9,12 +9,27 @@ var round5 = function( x )
 };
 
 var getScalingRatio= function( width, height, floorNum){
+  switch(floorNum) {
+    case 1:
+        var aspect = 1.25385;//W=1364.490,H=1088.2464
+    case 2:
+        var aspect = 0.85035;//W=1364.490,H=1088.246
+    default:
+        var aspect = 1.25385;//W=1364.490,H=1088.2464
+  }
 
+  if (width/height > aspect){
+    return height/1088.246;
+  }
+  else {
+    return width / 1364.490;
+  }
 };
+
 //Get file path for the floor level
-//Input floor number
-//Output file path of the map assets
-var getFile = function (floorNum){
+//Params floor number
+//Output file path of the map assets, default to floor 1 if no argument
+var getFilePath = function (floorNum){
   switch(floorNum) {
     case 1:
         return '/assets/level1.svg';
@@ -41,7 +56,7 @@ var mapConstructor = function( containerID, floorNum ,studioData){
     return this.container.node().getBoundingClientRect().height;
   },
   //Draws the map given filepath of the map svg
-  this.map = addMap(this.container,'/assets/level1.svg'),
+  this.map = addMap( this.container, getFilePath(floorNum)),
 
   //Marker inside map
   this.marker = {
@@ -104,7 +119,12 @@ var mapConstructor = function( containerID, floorNum ,studioData){
     },
 
     resize : function( scale ){
-      //list.attr('width',function(d){d.width*10})
+      //var scale = getScalingRatio(width,height(),floorNum)
+      this.list
+        .attr('width',function(d){ return d.width*scale })
+        .attr('height',function(d){ return d.height*scale })
+        .attr('x',function(d){ return d.rx*scale })
+        .attr('y',function(d){ return d.ry*scale})
     },
 
     remove : function( objID ){
