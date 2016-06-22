@@ -16,14 +16,14 @@ var getScalingRatio= function( width, height, floorNum){
         var aspect = 0.85035;//W=1364.490,H=1088.246
     default:
         var aspect = 1.25385;//W=1364.490,H=1088.2464
-  }
+  };
 
   if (width/height > aspect){
     return height/1088.246;
   }
   else {
     return width / 1364.490;
-  }
+  };
 };
 
 //Get file path for the floor level
@@ -119,12 +119,12 @@ var mapConstructor = function( containerID, floorNum ,studioData){
     },
 
     resize : function( scale ){
-      //var scale = getScalingRatio(width,height(),floorNum)
+      //var scale = getScalingRatio(this.this.width(),this.this.height(),floorNum)
       this.list
-        .attr('width',function(d){ return d.width*scale })
-        .attr('height',function(d){ return d.height*scale })
-        .attr('x',function(d){ return d.rx*scale })
-        .attr('y',function(d){ return d.ry*scale})
+        .attr('width',function(d){ return d.width*scale +'in'})
+        .attr('height',function(d){ return d.height*scale+'in' })
+        .attr('x',function(d){ return d.rx*scale+'in' })
+        .attr('y',function(d){ return d.ry*scale+'in'})
     },
 
     remove : function( objID ){
@@ -141,14 +141,12 @@ var mapConstructor = function( containerID, floorNum ,studioData){
 
     highlight : function( objID ){
       d3.select('rect#' + objId)
-        .attr('fill', 'red')
-        .style('opacity', null);
+        .attr('fill', 'red');
     },
 
     dehighlight : function ( objID ){
       d3.select('rect#' + objId)
-        .attr('fill', 'none')
-        .style('opacity', 0.5);
+        .attr('fill', 'none');
     }
   }
 };

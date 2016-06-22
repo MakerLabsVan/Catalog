@@ -126,6 +126,7 @@
                             </li>
                         </ul>
                         <div ng-app="d3mapping" ng-controller="mapController">
+                          <maker-map>
                             <!-- Tab panes -->
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane active" ng-model="fstFloorSize" id="firstFloor">
@@ -143,6 +144,7 @@
             </div>
         </div>
     </div>
+
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.3.3/ui-bootstrap-tpls.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
@@ -156,25 +158,22 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.3.3/ui-bootstrap-tpls.min.js"></script>
     <!-- <script type="text/javascript">drawMap("secondFloorWell",2);</script> -->
     <!-- <script type="text/javascript">drawMap("firstFloorWell",1);</script>  -->
-    <script type="text/javascript">
-    var map1 =new mapConstructor("firstFloorWell",1);
-    var map2 =new mapConstructor("secondFloorWell",2);
-    map2.marker.onClick();
-    map1.marker.onClick();
-    var rectangleData = [
-      {"rx":0,"ry":20,"height":5, "width":10,"id":"studio1"},
-      {"rx":20, "ry":70,"height":5,"width":15,"id":"studio2"},
-      {"rx":69, "ry":69,"height":5,"width":5,"id":"studio3"}];
-      var rectangleData2 = [
-        {"rx":0,"ry":0,"height":5, "width":10,"id":"studio4"},
-        {"rx":20, "ry":70,"height":5,"width":15,"id":"studio5"},
-        {"rx":69, "ry":69,"height":5,"width":5,"id":"studio6"}];
-    console.log(map1.studio.draw(rectangleData));
-    console.log(map2.studio.draw(rectangleData2));
-    map1.studio.resize(10);
-    //console.log(map2.studio.draw(rectangleData));
-    //console.log(map2.studio.resize());
+    <!-- Google Analytics -->
+    <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-XXXXX-Y', 'auto');
+
+    ga('create', 'UA-XXXXX-Y', 'auto', 'myTracker');
+
+    ga(function() {
+      // Logs the "myTracker" tracker object to the console.
+      h = ga.getByName('myTracker');
+    });
+    ga('send', 'pageview');
+    console.log(ga.q)
     </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
 </body>
 
 </html>
