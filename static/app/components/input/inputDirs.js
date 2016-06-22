@@ -17,8 +17,17 @@ angular.module("myApp").directive("addInput", function () {
         replace: true,
         templateUrl: 'templates/inputFormTmpl.html',
         link: function (scope, elem, attrs) {
+            scope.$watch(scope, function () {
+                // nested accessor to child nodes to read placeholder of ng-repeat elements
+                var toRemove = elem[0].childNodes[3].childNodes[1].placeholder;
+                if (toRemove === 'Location x (ft)' ||
+                    toRemove === 'Location y (ft)' ||
+                    toRemove === 'Floor') {
+                    elem.remove();
+                }
+            });
         }
-    }
+    };
 });
 
 angular.module("myApp").directive("modalLoc", function () {
