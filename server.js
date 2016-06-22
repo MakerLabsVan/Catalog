@@ -19,11 +19,7 @@ app.get("/input", function (req, res) {
 });
 
 app.post("/input", function (req, res) {
-    // serverOps.getData(function (result) {
-    //     console.log(result.length);
-    //     serverOps.parse(req, result.length);
-    // });
-    console.log(req.body);
+    serverOps.parse(req.body[0], req.body[1]);
 });
 
 app.post("/edit", function (req, res) {
