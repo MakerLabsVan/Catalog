@@ -17,21 +17,24 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
         "Name", "Type", "Subtype", "Location x (ft)", "Location y (ft)", "Floor", "Width", "Length", "Height", "Units", "Weight", "Weight Unit", "Quantity", "Price"
     ];
 
+    // $scope.entryProperties = [
+    //     "Name", "Type", "Subtype", "Width", "Length", "Height", "Units", "Weight", "Weight Unit", "Quantity", "Price"
+    // ];
+
     $scope.inputQuery = '';
     $scope.adminProps = "/views/admin_entryTmpl.html";
 
     $scope.formData = {};
     $scope.stdPost = function () {
-        $scope.$watch('data', function () {
-
-            $http.post('/input', [$scope.formData, $scope.data.length])
-                .success(function (data) {
-                })
-                .error(function (data) {
-                })
-            $scope.formData = null;
-        })
+        $http.post('/input', [$scope.formData, $scope.data.length])
+            .success(function (data) {
+            })
+            .error(function (data) {
+            })
+        $scope.formData = null;
     };
+
+    //TODO: remove watches
 
     $scope.deletePost = function (objectName) {
         $scope.$watch('data', function () {

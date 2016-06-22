@@ -86,13 +86,12 @@
     }
 
     #inputResultBox {
-        height: 500px;
+        height: 600px;
         border: 1px solid lightgrey;
         overflow-y: scroll;
     }
 
     #inputWell {
-        height:500px;
         background:white;
     }
 
@@ -103,7 +102,7 @@
     #modalBody {
         height: 70%;
     }
-    
+
     #navTab {
         margin: -10px;
     }
