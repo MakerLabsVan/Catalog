@@ -22,12 +22,15 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
 
     $scope.formData = {};
     $scope.stdPost = function () {
-        $http.post('/input', $scope.formData)
-            .success(function (data) {
-            })
-            .error(function (data) {
-            })
-        $scope.formData = null;
+        $scope.$watch('data', function () {
+
+            $http.post('/input', [$scope.formData, $scope.data.length])
+                .success(function (data) {
+                })
+                .error(function (data) {
+                })
+            $scope.formData = null;
+        })
     };
 
     $scope.deletePost = function (objectName) {
@@ -50,8 +53,19 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
     };
 
     $scope.editFormData = {};
-    $scope.editEntry = function () {
-        $http.post('/edit', $scope.editFormData)
+    $scope.editEntry = function (objectName) {
+        $scope.$watch('data', function () {
+
+        })
+        $scope.index;
+        for (var i = 0; i < $scope.data.length; i++) {
+            if (objectName === $scope.data[i][0]) {
+                $scope.index = i;
+                break;
+            }
+        }
+
+        $http.post('/edit', [$scope.editFormData, $scope.index])
             .success(function (data) {
             })
             .error(function (data) {

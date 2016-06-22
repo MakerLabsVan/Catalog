@@ -19,20 +19,16 @@ app.get("/input", function (req, res) {
 });
 
 app.post("/input", function (req, res) {
-    serverOps.getData(function (result) {
-        console.log(result.length);
-        serverOps.parse(req, result.length);
-    });
+    // serverOps.getData(function (result) {
+    //     console.log(result.length);
+    //     serverOps.parse(req, result.length);
+    // });
+    console.log(req.body);
 });
 
 // TODO: sync JSON message keys
 app.post("/edit", function (req, res) {
-    console.log(req.body);
-    serverOps.getData(function (result) {
-        console.log(result.length);
-        console.log(result.length - 6);
-        serverOps.parse(req, result.length - 6);
-    });
+    serverOps.parse(req.body[0], req.body[1]);
 })
 
 app.post("/delete", function (req, res) {
