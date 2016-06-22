@@ -1,9 +1,5 @@
 angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($scope, $http) {
-
-    $http({
-        method: 'GET',
-        url: '//localhost:3000/getData'
-    })
+    $http.get('http://localhost:3000/getData')
         .success(function (data, status, header, config) {
             // success data
             $scope.data = data;
@@ -17,16 +13,13 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
         "Name", "Type", "Subtype", "Location x (ft)", "Location y (ft)", "Floor", "Width", "Length", "Height", "Units", "Weight", "Weight Unit", "Quantity", "Price"
     ];
 
-    // $scope.entryProperties = [
-    //     "Name", "Type", "Subtype", "Width", "Length", "Height", "Units", "Weight", "Weight Unit", "Quantity", "Price"
-    // ];
 
     $scope.inputQuery = '';
     $scope.adminProps = "/views/admin_entryTmpl.html";
 
     $scope.formData = {};
     $scope.stdPost = function () {
-        $http.post('/input', [$scope.formData, $scope.data.length])
+        $http.post('//localhost:3000/new', [$scope.formData, $scope.data.length])
             .success(function (data) {
             })
             .error(function (data) {
@@ -46,7 +39,7 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
                 }
             }
 
-            $http.post('/delete', [$scope.index])
+            $http.post('//localhost:3000/delete', [$scope.index])
                 .success(function (data) {
                 })
                 .error(function (data) {
@@ -68,7 +61,7 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
             }
         }
 
-        $http.post('/edit', [$scope.editFormData, $scope.index])
+        $http.post('//localhost:3000/edit', [$scope.editFormData, $scope.index])
             .success(function (data) {
             })
             .error(function (data) {

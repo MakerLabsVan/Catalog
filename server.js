@@ -18,7 +18,7 @@ app.get("/input", function (req, res) {
     res.sendFile(path + '/static/views/input.html');
 });
 
-app.post("/input", function (req, res) {
+app.post("/new", function (req, res) {
     serverOps.parse(req.body[0], req.body[1]);
 });
 
