@@ -26,7 +26,6 @@ app.post("/input", function (req, res) {
     console.log(req.body);
 });
 
-// TODO: sync JSON message keys
 app.post("/edit", function (req, res) {
     serverOps.parse(req.body[0], req.body[1]);
 })

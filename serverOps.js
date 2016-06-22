@@ -15,8 +15,8 @@ var parse = function (req, row) {
             [req.Name, req.Type, req.Subtype, req['Location x (ft)'], req['Location y (ft)'], req.Floor, req.Width, req.Length, req.Height, req.Units, req.Weight, req['Weight Unit'], req.Quantity, req.Price]
         ]
     }
-    console.log(stdData);
-    // gapi.auth(gapi.sheetWrite, stdData, row);
+    console.log(stdData, row);
+    gapi.auth(gapi.sheetWrite, stdData, row);
 };
 
 var delEntry = function (index) {

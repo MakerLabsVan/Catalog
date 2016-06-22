@@ -125,7 +125,6 @@ var listMajors = function (auth, callback) {
 
 // you can get entries by looking at the number of entries in the array
 // and + 6 to get the next empty row
-
 var sheetWrite = function (auth, message, row) {
 
     var nextRow = 'A' + String(row + 6) + ':N';
