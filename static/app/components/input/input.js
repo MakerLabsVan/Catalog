@@ -20,11 +20,20 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
 
     $scope.formData = {};
     $scope.stdPost = function () {
+
+        var localEntry = [];
+        for (var prop in $scope.formData) {
+            if ($scope.formData.hasOwnProperty(prop)) {
+                localEntry.push($scope.formData[prop]);
+            }
+        }
+
         $http.post('/new', [$scope.formData, $scope.dataLength])
             .success(function (data, status, header, config) {
                 console.log(data, status);
                 // push to client array
                 $scope.dataLength++;
+                $scope.data.push(localEntry);
                 $scope.formData = {};
             })
             .error(function (data, status, header, config) {
