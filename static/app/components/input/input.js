@@ -1,5 +1,5 @@
 angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($scope, $http) {
-    $http.get('http://localhost:3000/getData')
+    $http.get('/getData')
         .success(function (data, status, header, config) {
             // success data
             $scope.data = data;
@@ -19,40 +19,17 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
 
     $scope.formData = {};
     $scope.stdPost = function () {
-        $http.post('//localhost:3000/new', [$scope.formData, $scope.data.length])
-            .success(function (data) {
+        $http.post('/new', [$scope.formData, $scope.data.length])
+            .success(function (data, status, header, config) {
+                console.log(data, status);
+                $scope.formData = null;
             })
-            .error(function (data) {
+            .error(function (data, status, header, config) {
+                console.log(data, status);
             })
-        $scope.formData = null;
     };
-
-    //TODO: remove watches
 
     $scope.deletePost = function (objectName) {
-        $scope.$watch('data', function () {
-            $scope.index;
-            for (var i = 0; i < $scope.data.length; i++) {
-                if (objectName === $scope.data[i][0]) {
-                    $scope.index = i;
-                    break;
-                }
-            }
-
-            $http.post('//localhost:3000/delete', [$scope.index])
-                .success(function (data) {
-                })
-                .error(function (data) {
-                });
-            $scope.data.splice($scope.index, 1);
-        })
-    };
-
-    $scope.editFormData = {};
-    $scope.editEntry = function (objectName) {
-        $scope.$watch('data', function () {
-
-        })
         $scope.index;
         for (var i = 0; i < $scope.data.length; i++) {
             if (objectName === $scope.data[i][0]) {
@@ -61,11 +38,34 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
             }
         }
 
-        $http.post('//localhost:3000/edit', [$scope.editFormData, $scope.index])
-            .success(function (data) {
+        $http.post('/delete', [$scope.index])
+            .success(function (data, status, header, config) {
+                console.log(data, status);
             })
-            .error(function (data) {
+            .error(function (data, status, header, config) {
+                console.log(data, status);
+            });
+        $scope.data.splice($scope.index, 1);
+    };
+
+    $scope.editFormData = {};
+    $scope.editEntry = function (objectName) {
+        $scope.index;
+        for (var i = 0; i < $scope.data.length; i++) {
+            if (objectName === $scope.data[i][0]) {
+                $scope.index = i;
+                break;
+            }
+        }
+
+        $http.post('/edit', [$scope.editFormData, $scope.index])
+            .success(function (data, status, header, config) {
+                console.log(data, status);
             })
+            .error(function (data, status, header, config) {
+                console.log(data, status);
+                console.log(status);
+            });
     };
 
 }]);

@@ -19,16 +19,22 @@ app.get("/input", function (req, res) {
 });
 
 app.post("/new", function (req, res) {
-    serverOps.parse(req.body[0], req.body[1]);
+    serverOps.parse(req.body[0], req.body[1], function(response){
+        return res.json(response);
+    });
 });
 
 app.post("/edit", function (req, res) {
-    serverOps.parse(req.body[0], req.body[1]);
+    serverOps.parse(req.body[0], req.body[1], function(response){
+        return res.json(response);
+    });
 })
 
 app.post("/delete", function (req, res) {
     console.log(req.body[0]);
-    serverOps.delEntry(req.body[0]);
+    serverOps.delEntry(req.body[0], function (result) {
+        return res.json(result);
+    });
 });
 
 app.get("/getData", function (req, res) {

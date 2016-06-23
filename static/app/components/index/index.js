@@ -2,10 +2,7 @@ angular.module("myApp", ['ui.bootstrap', 'd3mapping'])
 
     .controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http, $sce) {
 
-        $http({
-            method: 'GET',
-            url: '//localhost:3000/getData'
-        })
+        $http.get('/getData')
             .success(function (data, status, header, config) {
                 // success data
                 $scope.data = data;
@@ -14,7 +11,7 @@ angular.module("myApp", ['ui.bootstrap', 'd3mapping'])
                 // something went wrong
                 alert("Something went wrong! Please call for help!");
             });
-            
+
         $scope.categories = {
             "studio": "Studios",
             "tools": "Tools",
@@ -39,6 +36,4 @@ angular.module("myApp", ['ui.bootstrap', 'd3mapping'])
         };
 
         drawMap("firstFloorWell", 1);
-
-
     }]);
