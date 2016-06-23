@@ -1,3 +1,13 @@
+angular.module("myApp").directive("adminSearchRes", function () {
+    return {
+        replace: true,
+        templateUrl: 'templates/adminSearchResTmpl.html',
+        link: function (scope, elem, attrs) {
+        }
+    }
+})
+
+
 angular.module("myApp").directive("editEntryForm", function () {
     return {
         replace: true,

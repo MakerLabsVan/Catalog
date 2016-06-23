@@ -10,8 +10,6 @@
 </head>
 
 <body>
-
-
     <div ng-app="myApp">
         <div class="container" ng-controller="MainCtrl">
             <br>
@@ -30,12 +28,8 @@
                                     <div class="col-sm-12">
                                         <input type="search" class="form-control" placeholder="Search here" ng-model="queryTerm" ng-change="changeHeight()" />
                                         <div id="searchSection">
-                                            <hr>
                                             <div ng-repeat="object in data">
-                                                <div uib-popover-template="entryProps" popover-placement="left" popover-trigger="outsideClick" popover-title="{{ object[0] }}"
-                                                    popover-append-to-body="true" id="entryPO">
-                                                    {{ queryTerm.length == 0 ? '' : object[0].toLowerCase().indexOf(queryTerm.toLowerCase()) != -1 ? object[0] : '' }}
-                                                </div>
+                                                <index-search-res></index-search-res>
                                             </div>
                                         </div>
                                     </div>
@@ -150,6 +144,7 @@
         crossorigin="anonymous"></script>
     <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="../app/components/index/index.js"></script>
+    <script src="../app/components/index/indexDirs.js"></script>
     <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="../app/components/d3/d3demo.js"></script>
     <script src="../app/components/d3/d3map.js"></script>

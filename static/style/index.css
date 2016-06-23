@@ -65,8 +65,7 @@
     }
 
     #entryPO {
-        width:300px;
-        margin-bottom: 20px;
+        margin: 20px;
         font-size: 20px;
     }
 
@@ -74,11 +73,6 @@
         width:250px;
         height:300px;
         overflow-y:scroll;
-    }
-
-    #popContentName {
-        position:absolute;
-        right:12%;
     }
 
     #backChevron {

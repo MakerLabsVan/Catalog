@@ -27,22 +27,15 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-4">
-                        <div id="inputResultBox">
-                            <div class="panel-group">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading" id="searchbar">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <input type="search" class="form-control" placeholder="Search here" ng-model="inputQuery" />
-                                                <div>
-                                                    <hr>
-                                                    <div ng-repeat="object in data track by $index">
-                                                        <div uib-popover-template="adminProps" popover-placement="right" popover-trigger="outsideClick" popover-title="{{ object[0] }}"
-                                                            popover-append-to-body="true" id="entryPO">
-                                                            {{ inputQuery.length == 0 ? object[0] : object[0].toLowerCase().indexOf(inputQuery.toLowerCase()) != -1 ? object[0] : ''
-                                                            }}
-                                                        </div>
-                                                    </div>
+                        <div class="panel-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" id="searchbar">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <input type="search" class="form-control" placeholder="Search here" ng-model="inputQuery" />
+                                            <div id="inputResultBox">
+                                                <div ng-repeat="object in data track by $index">
+                                                    <admin-search-res></admin-search-res>
                                                 </div>
                                             </div>
                                         </div>
