@@ -36,7 +36,7 @@
                                                 <input type="search" class="form-control" placeholder="Search here" ng-model="inputQuery" />
                                                 <div>
                                                     <hr>
-                                                    <div ng-repeat="object in data">
+                                                    <div ng-repeat="object in data track by $index">
                                                         <div uib-popover-template="adminProps" popover-placement="right" popover-trigger="outsideClick" popover-title="{{ object[0] }}"
                                                             popover-append-to-body="true" id="entryPO">
                                                             {{ inputQuery.length == 0 ? object[0] : object[0].toLowerCase().indexOf(inputQuery.toLowerCase()) != -1 ? object[0] : ''
@@ -73,7 +73,7 @@
                                 <div role="tabpanel" class="tab-pane active" id="studioIn">
                                     <div class="container">
                                         <form class="form-horizontal" ng-submit="stdPost()">
-                                            <div ng-repeat="prop in entryProperties">
+                                            <div ng-repeat="prop in entryProperties track by $index">
                                                 <add-input></add-input>
                                             </div>
                                             <div class="col-sm-1 col-sm-offset-5">

@@ -3,6 +3,7 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
         .success(function (data, status, header, config) {
             // success data
             $scope.data = data;
+            $scope.dataLength = data.length;
         })
         .error(function (data, status, header, config) {
             // something went wrong
@@ -19,10 +20,12 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
 
     $scope.formData = {};
     $scope.stdPost = function () {
-        $http.post('/new', [$scope.formData, $scope.data.length])
+        $http.post('/new', [$scope.formData, $scope.dataLength])
             .success(function (data, status, header, config) {
                 console.log(data, status);
-                $scope.formData = null;
+                // push to client array
+                $scope.dataLength++;
+                $scope.formData = {};
             })
             .error(function (data, status, header, config) {
                 console.log(data, status);
@@ -31,7 +34,7 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
 
     $scope.deletePost = function (objectName) {
         $scope.index;
-        for (var i = 0; i < $scope.data.length; i++) {
+        for (var i = 0; i < $scope.dataLength; i++) {
             if (objectName === $scope.data[i][0]) {
                 $scope.index = i;
                 break;
@@ -41,6 +44,7 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
         $http.post('/delete', [$scope.index])
             .success(function (data, status, header, config) {
                 console.log(data, status);
+                $scope.dataLength--;
             })
             .error(function (data, status, header, config) {
                 console.log(data, status);
@@ -51,7 +55,7 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
     $scope.editFormData = {};
     $scope.editEntry = function (objectName) {
         $scope.index;
-        for (var i = 0; i < $scope.data.length; i++) {
+        for (var i = 0; i < $scope.dataLength; i++) {
             if (objectName === $scope.data[i][0]) {
                 $scope.index = i;
                 break;
@@ -61,10 +65,10 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
         $http.post('/edit', [$scope.editFormData, $scope.index])
             .success(function (data, status, header, config) {
                 console.log(data, status);
+                $scope.editFormData = {};
             })
             .error(function (data, status, header, config) {
                 console.log(data, status);
-                console.log(status);
             });
     };
 
