@@ -13,7 +13,7 @@ var parse = function (req, row, res) {
         stdData: {
             "majorDimension": "ROWS",
             "values": [
-                [req.Name, req.Type, req.Subtype, req['Location x (ft)'], req['Location y (ft)'], req.Floor, req.Width, req.Length, req.Height, req.Units, req.Weight, req['Weight Unit'], req.Quantity, req.Price]
+                [req.Name, req.Type, req.Subtype, req['Location x (ft)'], req['Location y (ft)'], req.Floor, req.Width, req.Length, req.Height, req.Units, req.Weight, req['Weight Unit'], req.Quantity, req.Price, req.Keywords]
             ]
         },
         row: row

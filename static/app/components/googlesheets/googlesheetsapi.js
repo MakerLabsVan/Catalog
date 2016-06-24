@@ -112,7 +112,7 @@ var listMajors = function (auth, callback) {
     sheets.spreadsheets.values.get({
         auth: auth,
         spreadsheetId: sheetKeyPrivate,
-        range: 'A6:N',
+        range: 'A6:O',
     }, function (err, response) {
         if (err) {
             console.log('The API returned an error: ' + err);
@@ -127,7 +127,7 @@ var listMajors = function (auth, callback) {
 // and + 6 to get the next empty row
 var sheetWrite = function (auth, body, resCallback) {
 
-    var nextRow = 'A' + String(body.row + 6) + ':N';
+    var nextRow = 'A' + String(body.row + 6) + ':O';
 
     var sheets = google.sheets('v4');
     sheets.spreadsheets.values.update({

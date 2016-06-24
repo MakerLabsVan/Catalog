@@ -40,7 +40,7 @@
                 </div>
                 <div class="modal-body">
                     <div ng-repeat="prop in object track by $index">
-                        <strong>{{ prop !== '' ? entryProperties[$index] + ': ' : '' }}</strong>
+                        <strong>{{ entryProperties[$index] }}</strong>
                         <edit-entry-form></edit-entry-form>
                     </div>
                 </div>

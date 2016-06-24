@@ -11,7 +11,7 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
         });
 
     $scope.entryProperties = [
-        "Name", "Type", "Subtype", "Location x (ft)", "Location y (ft)", "Floor", "Width", "Length", "Height", "Units", "Weight", "Weight Unit", "Quantity", "Price"
+        "Name", "Type", "Subtype", "Location x (ft)", "Location y (ft)", "Floor", "Width", "Length", "Height", "Units", "Weight", "Weight Unit", "Quantity", "Price", "Keywords"
     ];
 
 
