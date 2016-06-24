@@ -13,6 +13,7 @@
 <body>
     <div ng-app="myApp">
         <div class="container" ng-controller="MainCtrl">
+          <div ng-app="d3mapping" ng-controller="mapController">
             <br>
             <div class="row">
                 <img src="assets/makerlabs.png" alt="makerlablogo" height="60px">
@@ -48,7 +49,7 @@
                                     <!-- sheet data -->
                                     <div ng-repeat="object in data">
                                         <div uib-popover-template="entryProps" popover-placement="left" popover-trigger="outsideClick" popover-title="{{ object[0] }}"
-                                            id="entryPO">
+                                            id="entryPO" ng-click="showItemLoc(object[0])">
                                             {{ object[1] === "Studio" ? object[0] : '' }}
                                         </div>
                                     </div>
@@ -108,26 +109,26 @@
                         </div>
                     </div>
                 </div>
-                <div ng-app="d3mapping" ng-controller="mapController">
+
                     <div class="col-sm-8">
                         <div role="tabpanel" id="indexTabPanel">
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs" role="tablist">
                                 <li role="presentation" class="active">
-                                    <a href="#firstFloor" aria-controls="firstFloor" role="tab" data-toggle="tab" id="firstFloorTab">First Floor</a>
+                                    <a href="#firstFloor" aria-controls="firstFloor" role="tab" data-toggle="tab" id="firstFloorTab" >First Floor</a>
                                 </li>
                                 <li role="presentation">
-                                    <a href="#secondFloor" aria-controls="secondFloor" role="tab" data-toggle="tab" id="secondFloorTab" ng-click="resizeMap()">Second Floor</a>
+                                    <a href="#secondFloor" aria-controls="secondFloor" role="tab" data-toggle="tab" id="secondFloorTab" >Second Floor</a>
                                 </li>
                             </ul>
                             <maker-map></maker-map>
                             <!-- Tab panes -->
                             <div class="tab-content">
-                                <div role="tabpanel" class="tab-pane active" ng-model="fstFloorSize" id="firstFloor">
+                                <div role="tabpanel" class="tab-pane active" ng-model="fstFloorSize" id="firstFloor" ng-click="resizeMap()">
                                     <div class="well well-lg" id="firstFloorWell">
                                     </div>
                                 </div>
-                                <div role="tabpanel" class="tab-pane" ng-model="secFloorSize" id="secondFloor">
+                                <div role="tabpanel" class="tab-pane" ng-model="secFloorSize" id="secondFloor" ng-click="resizeMap()">
                                     <div class="well well-lg" id="secondFloorWell">
                                     </div>
                                 </div>
