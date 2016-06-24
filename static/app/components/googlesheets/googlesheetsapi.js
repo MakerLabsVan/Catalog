@@ -98,11 +98,6 @@ var auth = function (method, body, resCallback) {
         fs.writeFile(TOKEN_PATH, JSON.stringify(token));
         console.log('Token stored to ' + TOKEN_PATH);
     }
-
-    /**
-     * Print the names and majors of students in a sample spreadsheet:
-     * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
-     */
 }
 
 var listMajors = function (auth, callback) {
@@ -121,7 +116,7 @@ var listMajors = function (auth, callback) {
     });
 }
 // you can get entries by looking at the number of entries in the array
-// and + 6 to get the next empty row
+// and + 2 to get the next empty row
 var sheetWrite = function (auth, body, resCallback) {
 
     var nextRow = 'A' + String(body.row + 2) + ':O';

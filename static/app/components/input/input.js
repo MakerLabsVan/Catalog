@@ -85,20 +85,6 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
     // change type when clicking the category tabs and remove some labels
     $scope.setType = function (type) {
         $scope.formData['Type'] = type;
-        switch (type) {
-            case "Studio":
-                console.log("Studio!");
-                
-                break;
-            case "Material":
-                console.log("Material");
-                break;
-            case "Tool":
-                console.log("Tool!");
-                break;
-            case "Consumable":
-                console.log("Consumable!");
-        }
     }
 
 }]);
