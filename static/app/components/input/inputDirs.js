@@ -29,9 +29,28 @@ angular.module("myApp").directive("addInput", function () {
                     elem.remove();
                 }
 
-                if (toRemove.placeholder === 'Type'){
+                if (toRemove.placeholder === 'Type') {
                     toRemove.disabled = true;
                 }
+
+                switch (scope.formData.Type) {
+                    case "Studio":
+                        if (toRemove.placeholder === 'Height' ||
+                            toRemove.placeholder === 'Weight' ||
+                            toRemove.placeholder === 'Weight Unit') {
+                                elem.remove();
+                        }
+                        break;
+                    case "Material":
+                        elem.remove();
+                        break;
+                    case "Tool":
+                        elem.remove();
+                        break;
+                    case "Consumable":
+                        elem.remove();
+                }
+
             });
         }
     };
