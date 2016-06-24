@@ -65,7 +65,7 @@
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="studioIn">
                                 <div class="container-fluid">
-                                    <form class="form-horizontal" ng-submit="stdPost()">
+                                    <form class="form-horizontal" ng-submit="stdPost('Studio')">
                                         <div ng-repeat="prop in entryProperties track by $index">
                                             <add-input></add-input>
                                         </div>
@@ -77,7 +77,7 @@
                             </div>
                             <div role="tabpanel" class="tab-pane" id="matIn">
                                 <div class="container-fluid">
-                                    <form class="form-horizontal" ng-submit="stdPost()">
+                                    <form class="form-horizontal" ng-submit="stdPost('Material')">
                                         <div ng-repeat="prop in entryProperties track by $index">
                                             <add-input></add-input>
                                         </div>
@@ -89,7 +89,7 @@
                             </div>
                             <div role="tabpanel" class="tab-pane" id="toolIn">
                                 <div class="container-fluid">
-                                    <form class="form-horizontal" ng-submit="stdPost()">
+                                    <form class="form-horizontal" ng-submit="stdPost('Tool')">
                                         <div ng-repeat="prop in entryProperties track by $index">
                                             <add-input></add-input>
                                         </div>
@@ -101,7 +101,7 @@
                             </div>
                             <div role="tabpanel" class="tab-pane" id="conIn">
                                 <div class="container-fluid">
-                                    <form class="form-horizontal" ng-submit="stdPost()">
+                                    <form class="form-horizontal" ng-submit="stdPost('Consumable')">
                                         <div ng-repeat="prop in entryProperties track by $index">
                                             <add-input></add-input>
                                         </div>

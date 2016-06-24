@@ -21,7 +21,7 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
     $scope.adminProps = "/templates/admin_entryTmpl.html";
 
     $scope.formData = {};
-    $scope.stdPost = function () {
+    $scope.stdPost = function (type) {
         var localEntry = [];
         for (var prop in $scope.formData) {
             if ($scope.formData.hasOwnProperty(prop)) {
@@ -36,6 +36,7 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
                 $scope.dataLength++;
                 $scope.data.push(localEntry);
                 $scope.formData = {};
+                $scope.setType(type);
             })
             .error(function (data, status, header, config) {
                 console.log(data, status);
@@ -85,6 +86,6 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
     // change type when clicking the category tabs and remove some labels
     $scope.setType = function (type) {
         $scope.formData['Type'] = type;
-    }
+    };
 
 }]);

@@ -19,25 +19,33 @@ angular.module("myApp").directive("addInput", function () {
         templateUrl: 'templates/inputFormTmpl.html',
         link: function (scope, elem, attrs) {
             scope.$watch(scope, function () {
-                // nested accessor to child nodes to read placeholder of ng-repeat elements
-                var all_filter = [
-                    'Location x (ft)', 'Location y (ft)', 'Floor'
-                ];
+                var filters = {
+                    all_filter: [
+                        'Location x (ft)', 'Location y (ft)', 'Floor'
+                    ],
+                    std_filter: [
+                        'Height', 'Weight', 'Weight Unit'
+                    ]
+                };
 
-                var std_filter = [
-                    'Height', 'Weight', 'Weight Unit'
-                ]
+                var runFilter = function (filter) {
+                    for (var i in filter) {
+                        if (toRemove.placeholder === filter[i]) {
+                            elem.remove();
+                        }
+                    };
+                }
 
                 // access to attributes for the element's input field
                 var toRemove = elem[0].childNodes[3].childNodes[1];
-                for (var i in all_filter) {
-                    if (toRemove.placeholder === all_filter[i]) {
-                        elem.remove();
-                    }
-                };
+                runFilter(filters.all_filter);
 
                 if (toRemove.placeholder === 'Type') {
                     toRemove.disabled = true;
+                }
+
+                if (scope.formData['Type'] === 'Studio'){
+                    runFilter(filters.std_filter);
                 }
 
             });
