@@ -4,6 +4,8 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
             // success data
             $scope.data = data;
             $scope.dataLength = data.length;
+
+
         })
         .error(function (data, status, header, config) {
             // something went wrong
@@ -20,7 +22,6 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
 
     $scope.formData = {};
     $scope.stdPost = function () {
-
         var localEntry = [];
         for (var prop in $scope.formData) {
             if ($scope.formData.hasOwnProperty(prop)) {
@@ -80,5 +81,14 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
                 console.log(data, status);
             });
     };
+
+    // change type when clicking the category tabs
+    $scope.setType = function (type) {
+        $scope.formData['Type'] = type;
+    }
+
+    $scope.clearForm = function(){
+        $scope.formData = null;
+    }
 
 }]);
