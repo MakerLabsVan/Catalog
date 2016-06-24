@@ -35,5 +35,7 @@ angular.module("myApp", ['ui.bootstrap', 'd3mapping'])
             }
         };
 
-        drawMap("firstFloorWell", 1);
+        //drawMap("firstFloorWell", 1);
+
+
     }]);
