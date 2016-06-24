@@ -29,12 +29,20 @@ angular.module("myApp", ['ui.bootstrap', 'd3mapping'])
         $scope.changeHeight = function () {
             if ($scope.queryTerm.length == 0) {
                 document.getElementById("searchSection").style.height = '0px';
+
             } else {
-                document.getElementById("searchSection").style.height = '385px';
+                document.getElementById("searchSection").style.height = '40vh';
             }
         };
 
-        //drawMap("firstFloorWell", 1);
-
+        /*
+        Bootstrap panel collapse properties:
+        On expand:
+            a: aria-expanded="true"
+            div: class="... in" aria-expanded="true"
+        On collapse:
+            a: class="collapsed" aria-expanded="false"
+            div: aria-expanded="false"
+        */
 
     }]);

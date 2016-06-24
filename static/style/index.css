@@ -1,5 +1,5 @@
  #firstFloorWell, #secondFloorWell {
-        height: 600px;
+        height: 60vh;
         background: white;
         border-radius : 0px;
         border: 0px;
@@ -11,7 +11,7 @@
     }
 
     #accordion {
-        height: 640px;
+        height: 75vh;
         border-radius: 0px;
     }
     
@@ -38,7 +38,7 @@
     }
 
     .panel-body {
-        height: 385px;
+        height: 50vh;
         overflow-y: scroll;
     }
 
@@ -75,11 +75,12 @@
     }
 
     #inputResultBox {
-        height: 600px;
+        height: 60vh;
         overflow-y: scroll;
     }
 
     #inputWell {
+        height: 70vh;
         background:white;
     }
 
@@ -98,5 +99,9 @@
 
     #edit-modal-body {
         height: 50vh;
+        overflow-y: scroll;
+    }
+
+    #ct-input-forms {
         overflow-y: scroll;
     }
