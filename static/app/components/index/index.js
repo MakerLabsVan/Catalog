@@ -24,8 +24,7 @@ angular.module("myApp", ['ui.bootstrap', 'd3mapping'])
         ];
 
         $scope.queryTerm = '';
-
-        $scope.entryProps = "/views/entryTmpl.html";
+        $scope.entryProps = "templates/entryTmpl.html";
 
         $scope.changeHeight = function () {
             if ($scope.queryTerm.length == 0) {

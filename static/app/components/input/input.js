@@ -18,7 +18,7 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
 
 
     $scope.inputQuery = '';
-    $scope.adminProps = "/views/admin_entryTmpl.html";
+    $scope.adminProps = "/templates/admin_entryTmpl.html";
 
     $scope.formData = {};
     $scope.stdPost = function () {
@@ -85,10 +85,6 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
     // change type when clicking the category tabs
     $scope.setType = function (type) {
         $scope.formData['Type'] = type;
-    }
-
-    $scope.clearForm = function(){
-        $scope.formData = null;
     }
 
 }]);

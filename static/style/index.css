@@ -8,11 +8,9 @@
     #accordion {
         height: 640px;
         border-radius: 0px;
-        border: 1px solid lightgrey;
     }
     .panel {
-        display: block;
-        border: 0;
+        border: 1px solid lightgrey;
     }
 
     #searchbar {
@@ -26,7 +24,6 @@
     #searchSection {
         height:0px;
         overflow-y:scroll;
-
     }
 
     #logo {
@@ -93,10 +90,6 @@
         margin-top: 20px;
     }
 
-    #modalBody {
-        height: 70%;
-    }
-
     #navTab {
         margin: -10px;
     }
@@ -106,4 +99,9 @@
         border-top: 1px solid #DCDCDC;
         border-left: 1px solid #DCDCDC;
         border-right: 1px solid #DCDCDC;
+    }
+
+    #edit-modal-body {
+        height: 50vh;
+        overflow-y: scroll;
     }

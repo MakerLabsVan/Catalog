@@ -2,8 +2,6 @@ angular.module("myApp").directive("adminSearchRes", function () {
     return {
         replace: true,
         templateUrl: 'templates/adminSearchResTmpl.html',
-        link: function (scope, elem, attrs) {
-        }
     }
 })
 
@@ -38,17 +36,17 @@ angular.module("myApp").directive("addInput", function () {
                         if (toRemove.placeholder === 'Height' ||
                             toRemove.placeholder === 'Weight' ||
                             toRemove.placeholder === 'Weight Unit') {
-                                elem.remove();
+                            elem.remove();
                         }
                         break;
                     case "Material":
-                        elem.remove();
+                        // elem.remove();
                         break;
                     case "Tool":
-                        elem.remove();
+                        // elem.remove();
                         break;
                     case "Consumable":
-                        elem.remove();
+                    // elem.remove();
                 }
 
             });
