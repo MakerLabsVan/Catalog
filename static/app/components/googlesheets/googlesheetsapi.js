@@ -15,7 +15,7 @@ var TOKEN_PATH = TOKEN_DIR + 'sheets.googleapis.com-nodejs.json';
 
 
 
-var auth = function (method, callback2, callback3) {
+var auth = function (method, body, resCallback) {
     // Load client secrets from a local file.
     fs.readFile('client_secret.json', function processClientSecrets(err, content) {
         if (err) {
@@ -24,7 +24,7 @@ var auth = function (method, callback2, callback3) {
         }
         // Authorize a client with the loaded credentials, then call the
         // Google Sheets API.
-        authorize(JSON.parse(content), method, callback2, callback3);
+        authorize(JSON.parse(content), method, body, resCallback);
     });
 
     /**
@@ -34,7 +34,7 @@ var auth = function (method, callback2, callback3) {
      * @param {Object} credentials The authorization client credentials.
      * @param {function} callback The callback to call with the authorized client.
      */
-    function authorize(credentials, callback, callback2, callback3) {
+    function authorize(credentials, callback, body, resCallback) {
         var clientSecret = credentials.installed.client_secret;
         var clientId = credentials.installed.client_id;
         var redirectUrl = credentials.installed.redirect_uris[0];
@@ -44,10 +44,10 @@ var auth = function (method, callback2, callback3) {
         // Check if we have previously stored a token.
         fs.readFile(TOKEN_PATH, function (err, token) {
             if (err) {
-                getNewToken(oauth2Client, callback);
+                getNewToken(oauth2Client, callback, body, resCallback);
             } else {
                 oauth2Client.credentials = JSON.parse(token);
-                callback(oauth2Client, callback2, callback3);
+                callback(oauth2Client, body, resCallback);
             }
         });
     }
@@ -60,7 +60,7 @@ var auth = function (method, callback2, callback3) {
      * @param {getEventsCallback} callback The callback to call with the authorized
      *     client.
      */
-    function getNewToken(oauth2Client, callback, callback2, callback3) {
+    function getNewToken(oauth2Client, callback, body, resCallback) {
         var authUrl = oauth2Client.generateAuthUrl({
             access_type: 'offline',
             scope: SCOPES
@@ -79,7 +79,7 @@ var auth = function (method, callback2, callback3) {
                 }
                 oauth2Client.credentials = token;
                 storeToken(token);
-                callback(oauth2Client, callback2, callback3);
+                callback(oauth2Client, body, resCallback);
             });
         });
     }
@@ -112,7 +112,7 @@ var listMajors = function (auth, callback) {
     sheets.spreadsheets.values.get({
         auth: auth,
         spreadsheetId: sheetKeyPrivate,
-        range: 'A2:M',
+        range: 'A6:N',
     }, function (err, response) {
         if (err) {
             console.log('The API returned an error: ' + err);
@@ -124,11 +124,10 @@ var listMajors = function (auth, callback) {
 }
 
 // you can get entries by looking at the number of entries in the array
-// and + 2 to get the next empty row
+// and + 6 to get the next empty row
+var sheetWrite = function (auth, body, resCallback) {
 
-var sheetWrite = function (auth, message, row) {
-
-    var nextRow = 'A' + String(row + 2) + ':M';
+    var nextRow = 'A' + String(body.row + 6) + ':N';
 
     var sheets = google.sheets('v4');
     sheets.spreadsheets.values.update({
@@ -136,18 +135,19 @@ var sheetWrite = function (auth, message, row) {
         spreadsheetId: sheetKeyPrivate,
         range: nextRow,
         valueInputOption: "USER_ENTERED",
-        resource: message,
+        resource: body.stdData,
     }, function (err, response) {
         if (err) {
             console.log(err);
             return;
         }
         console.log(response);
+        resCallback(response);
     });
 };
 
-var deleteEntry = function (auth, index) {
-    var row = index + 1;
+var deleteEntry = function (auth, index, resCallback) {
+    var row = index + 5;
     var body = {
         "requests": [
             {
@@ -172,6 +172,7 @@ var deleteEntry = function (auth, index) {
             console.log(err);
             return;
         }
+        resCallback(response);
     })
 
 };

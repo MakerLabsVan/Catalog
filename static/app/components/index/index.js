@@ -2,10 +2,7 @@ angular.module("myApp", ['ui.bootstrap', 'd3mapping'])
 
     .controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http, $sce) {
 
-        $http({
-            method: 'GET',
-            url: '//localhost:3000/getData'
-        })
+        $http.get('/getData')
             .success(function (data, status, header, config) {
                 // success data
                 $scope.data = data;
@@ -23,7 +20,7 @@ angular.module("myApp", ['ui.bootstrap', 'd3mapping'])
         };
 
         $scope.entryProperties = [
-            "Name", "Type", "Subtype", "Location x (ft)", "Location y (ft)", "Floor", "Width", "Length", "Depth", "Units", "Weight", "Weight Unit", "Quantity"
+            "Name", "Type", "Subtype", "Location x (ft)", "Location y (ft)", "Floor", "Width", "Length", "Depth", "Units", "Weight", "Weight Unit", "Quantity", "Price"
         ];
 
         $scope.queryTerm = '';

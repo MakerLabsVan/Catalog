@@ -180,11 +180,6 @@ function drawMap(containerID,floorNum){
     attachOnClick(svgContainer, marker);
 };
 
-//Functions to create certain svg
-function resizeMap(){
-  //TODO: Change Container size and studios
-};
-
 //Attach onClick to container to display marker at click location
 var attachOnClick = function(container, marker){
   container.on('click', function (){

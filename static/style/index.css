@@ -12,7 +12,6 @@
     }
     .panel {
         display: block;
-        overflow: auto;
         border: 0;
     }
 
@@ -87,23 +86,23 @@
     }
 
     #inputResultBox {
-        height: 500px;
+        height: 600px;
+        border: 1px solid lightgrey;
         overflow-y: scroll;
     }
 
     #inputWell {
-        height:500px;
         background:white;
     }
 
     #studioIn, #matIn, #conIn, #toolIn {
-        margin-top: 10px;
+        margin-top: 20px;
     }
 
     #modalBody {
         height: 70%;
     }
-    
+
     #navTab {
         margin: -10px;
     }
