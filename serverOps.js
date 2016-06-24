@@ -18,14 +18,13 @@ var parse = function (req, row, res) {
         },
         row: row
     }
-
-    gapi.auth(gapi.sheetWrite, body, function(result){
+    gapi.auth(gapi.sheetWrite, body, function (result) {
         res(result);
     });
 };
 
 var delEntry = function (index, response) {
-    gapi.auth(gapi.deleteEntry, index, function(res){
+    gapi.auth(gapi.deleteEntry, index, function (res) {
         response(res);
     });
 }

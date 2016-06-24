@@ -2,6 +2,14 @@ angular.module("myApp").directive("adminSearchRes", function () {
     return {
         replace: true,
         templateUrl: 'templates/adminSearchResTmpl.html',
+        link: function (scope, elem, attrs) {
+            // scope.$watch('inputQuery', function () {
+            //     // accessor
+            //     if (document.getElementById('ct-srch-res-well').innerHTML === '') {
+            //         console.log("Found it!");
+            //     }
+            // });
+        }
     }
 })
 

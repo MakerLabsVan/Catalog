@@ -12,6 +12,7 @@ app.use(bodyParser.json());
 
 app.get("/", function (req, res) {
     res.sendFile(path + '/static/views/index.html');
+    console.log()
 });
 
 app.get("/input", function (req, res) {

@@ -18,6 +18,9 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
 
 
     $scope.inputQuery = '';
+    
+
+
     $scope.adminProps = "/templates/admin_entryTmpl.html";
 
     $scope.formData = {};

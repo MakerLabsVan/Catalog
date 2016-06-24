@@ -1,5 +1,5 @@
 var sheetKeyPrivate = "1MJpC2n-ekpnRXaLsb7B4dI6VOQIzn1eZO61I7sy2yiA";
-var sheetKeyPublic = "14Lrt2cn8rBfT0E0F85ucr7BL91-g8MhTnY3v6ajVF-M";
+var sheetKeyPublic = "1trhKqK2g4hIEqnn0Acn4a8iqakYTpdmDF-POaCdZpX8";
 
 var fs = require('fs');
 var readline = require('readline');
@@ -120,7 +120,6 @@ var listMajors = function (auth, callback) {
         callback(rows);
     });
 }
-
 // you can get entries by looking at the number of entries in the array
 // and + 6 to get the next empty row
 var sheetWrite = function (auth, body, resCallback) {

@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
+<meta http-equiv="refresh" content="3600; URL=http://localhost:3000">
 
 <head>
     <title>MakerLabs Catalog</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
         crossorigin="anonymous">
-    <link rel="stylesheet" href="../style/index.css">
-    <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico"/>
+    <link rel="stylesheet" href="/style/index.css">
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico" />
 
 </head>
 
@@ -14,7 +15,7 @@
     <div ng-app="myApp">
         <div class="container" ng-controller="MainCtrl">
             <br>
-            <div class="row" id="logo">
+            <div class="row">
                 <img src="assets/makerlabs.png" alt="makerlablogo" height="60px">
                 <a href="input">Input</a>
             </div>
@@ -51,7 +52,6 @@
                                             id="entryPO">
                                             {{ object[1] === "Studio" ? object[0] : '' }}
                                         </div>
-                                        <!--<category-res type="Studio"></category-res>-->
                                     </div>
                                 </div>
                             </div>
@@ -114,14 +114,14 @@
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist">
                             <li role="presentation" class="active">
-                                <a href="#firstFloor" aria-controls="firstFloor" role="tab" data-toggle="tab">First Floor</a>
+                                <a href="#firstFloor" aria-controls="firstFloor" role="tab" data-toggle="tab" id="firstFloorTab">First Floor</a>
                             </li>
                             <li role="presentation">
-                                <a href="#secondFloor" aria-controls="secondFloor" role="tab" data-toggle="tab">Second Floor</a>
+                                <a href="#secondFloor" aria-controls="secondFloor" role="tab" data-toggle="tab" id="secondFloorTab">Second Floor</a>
                             </li>
                         </ul>
                         <div ng-app="d3mapping" ng-controller="mapController">
-                          <maker-map>
+                            <maker-map></maker-map>
                             <!-- Tab panes -->
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane active" ng-model="fstFloorSize" id="firstFloor">

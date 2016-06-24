@@ -2,6 +2,11 @@
         height: 600px;
         background: white;
         border-radius : 0px;
+        border: 0px;
+    }
+
+    #firstFloorTab {
+        border-left: 0px;
         border-top: 0px;
     }
 
@@ -9,6 +14,7 @@
         height: 640px;
         border-radius: 0px;
     }
+    
     .panel {
         border: 1px solid lightgrey;
     }
@@ -17,17 +23,9 @@
         background: none;
     }
 
-    #searchpanel {
-        margin-bottom: 10px;
-    }
-
     #searchSection {
         height:0px;
         overflow-y:scroll;
-    }
-
-    #logo {
-        margin-left: 1px;
     }
 
     #panel-bg {
@@ -78,7 +76,6 @@
 
     #inputResultBox {
         height: 600px;
-        border: 1px solid lightgrey;
         overflow-y: scroll;
     }
 
@@ -96,9 +93,7 @@
 
     #indexTabPanel {
         border-radius: 5px;
-        border-top: 1px solid #DCDCDC;
-        border-left: 1px solid #DCDCDC;
-        border-right: 1px solid #DCDCDC;
+        border: 1px solid #DCDCDC;
     }
 
     #edit-modal-body {

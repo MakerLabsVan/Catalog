@@ -1,5 +1,7 @@
 <div uib-popover-template="adminProps" popover-placement="right" popover-trigger="outsideClick" popover-title="{{ object[0] }}"
     popover-append-to-body="true" id="entryPO">
+    <!--<div class="well well-sm" id="ct-srch-res-well">-->
     {{ inputQuery.length == 0 ? object[0] : object[0].toLowerCase().indexOf(inputQuery.toLowerCase()) != -1 ? object[0] : ''
     }}
+    <!--</div>-->
 </div>
