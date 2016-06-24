@@ -1,15 +1,7 @@
 angular.module("myApp").directive("adminSearchRes", function () {
     return {
         replace: true,
-        templateUrl: 'templates/adminSearchResTmpl.html',
-        link: function (scope, elem, attrs) {
-            // scope.$watch('inputQuery', function () {
-            //     // accessor
-            //     if (document.getElementById('ct-srch-res-well').innerHTML === '') {
-            //         console.log("Found it!");
-            //     }
-            // });
-        }
+        templateUrl: 'templates/adminSearchResTmpl.html'
     }
 })
 
@@ -37,24 +29,6 @@ angular.module("myApp").directive("addInput", function () {
 
                 if (toRemove.placeholder === 'Type') {
                     toRemove.disabled = true;
-                }
-
-                switch (scope.formData.Type) {
-                    case "Studio":
-                        if (toRemove.placeholder === 'Height' ||
-                            toRemove.placeholder === 'Weight' ||
-                            toRemove.placeholder === 'Weight Unit') {
-                            elem.remove();
-                        }
-                        break;
-                    case "Material":
-                        // elem.remove();
-                        break;
-                    case "Tool":
-                        // elem.remove();
-                        break;
-                    case "Consumable":
-                    // elem.remove();
                 }
 
             });
