@@ -32,10 +32,13 @@ var mapConstructor = function( containerID, floorNum ,studioData){
       },
 
       //Change the position and become visible
-      set : function( xPos, yPos ){
-        icon
-          .attr('x', xPos)
-          .attr('y',yPos)
+      set : function( xPos, yPos, width, height ){
+        var mark =d3.select('#marker' + floorNum);
+        var scale = getScalingRatio(width, height, floorNum);
+        var scale = scale/10;
+        mark
+          .attr('x', (xPos)*scale + 'in')
+          .attr('y', (yPos)*scale + 'in')
           .style('visibility',null);
       },
 
@@ -127,19 +130,18 @@ var round5 = function( x )
 };
 
 //Get Value to transform objects on map corresponding to the map SVG file
+//Default floor 1 aspect if no floorNum
 var getScalingRatio= function( width, height, floorNum){
-  switch(floorNum) {
-    case 1:
-        var aspect = 1.25385;//W=1364.490,H=1088.2464
-    case 2:
-        var aspect = 0.85035;//W=925.374,H=1088.246
-    default:
-        var aspect = 1.25385;//W=1364.490,H=1088.2464
-  };
-
-  if (width/height > aspect){
-    return height/1088.246;
+  if ( floorNum === 2 ) {
+    var aspect = 0.85035;//W=925.374,H=1088.246
   }else {
+    aspect = 1.25385;//W=1364.490,H=1088.2464
+  }
+
+  if (width/height >= aspect){
+    return height/1088.246;
+  }
+  else if ( width/height < aspect ) {
     if (floorNum === 2){
       return width/925.374;
     }else {
