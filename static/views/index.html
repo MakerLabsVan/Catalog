@@ -108,18 +108,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-8">
-                    <div role="tabpanel" id="indexTabPanel">
-                        <!-- Nav tabs -->
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" class="active">
-                                <a href="#firstFloor" aria-controls="firstFloor" role="tab" data-toggle="tab" id="firstFloorTab">First Floor</a>
-                            </li>
-                            <li role="presentation">
-                                <a href="#secondFloor" aria-controls="secondFloor" role="tab" data-toggle="tab" id="secondFloorTab">Second Floor</a>
-                            </li>
-                        </ul>
-                        <div ng-app="d3mapping" ng-controller="mapController">
+                <div ng-app="d3mapping" ng-controller="mapController">
+                    <div class="col-sm-8">
+                        <div role="tabpanel" id="indexTabPanel">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active">
+                                    <a href="#firstFloor" aria-controls="firstFloor" role="tab" data-toggle="tab" id="firstFloorTab">First Floor</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#secondFloor" aria-controls="secondFloor" role="tab" data-toggle="tab" id="secondFloorTab" ng-click="resizeMap()">Second Floor</a>
+                                </li>
+                            </ul>
                             <maker-map></maker-map>
                             <!-- Tab panes -->
                             <div class="tab-content">

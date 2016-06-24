@@ -3,43 +3,6 @@ var rectangleData = [
   {'rx':20, 'ry':70,'height':5,'width':15,'id':'studio2'},
   {'rx':69, 'ry':69,'height':5,'width':5,'id':'studio3'}];
 
-var round5 = function( x )
-{
-    return Math.ceil(x/5)*5;
-};
-
-var getScalingRatio= function( width, height, floorNum){
-  switch(floorNum) {
-    case 1:
-        var aspect = 1.25385;//W=1364.490,H=1088.2464
-    case 2:
-        var aspect = 0.85035;//W=1364.490,H=1088.246
-    default:
-        var aspect = 1.25385;//W=1364.490,H=1088.2464
-  };
-
-  if (width/height > aspect){
-    return height/1088.246;
-  }
-  else {
-    return width / 1364.490;
-  };
-};
-
-//Get file path for the floor level
-//Params floor number
-//Output file path of the map assets, default to floor 1 if no argument
-var getFilePath = function (floorNum){
-  switch(floorNum) {
-    case 1:
-        return '/assets/level1.svg';
-    case 2:
-        return '/assets/level2.svg';
-    default:
-        return '/assets/level1.svg';
-  }
-};
-
 var mapConstructor = function( containerID, floorNum ,studioData){
   this.floorNum = floorNum,
   //Container object which contains all map objects
@@ -103,28 +66,34 @@ var mapConstructor = function( containerID, floorNum ,studioData){
   this.studio = {
     //Draws all the studios in studioData
     data : data = [],
+
     list: list = d3.select('svg#floor' + floorNum).selectAll('rect'),
+
     draw : function ( studioData ){
      this.data = this.data.concat(studioData);
-     this.list = this.list.remove();
-     this.list = d3.select('svg#floor' + floorNum).selectAll('rect')
+     //this.list = this.list.remove();
+     this.list = this.list
       .data( this.data )
       .enter()
       .append('rect')
-      .attr('x', function (d) { return d.rx/10 +'in'; })
-      .attr('y', function (d) { return d.ry/10 +'in'; })
-      .attr('height', function (d) { return d.height/10 +'in'; })
-      .attr('width', function (d) { return d.width/10 +'in'; })
+      .attr('x', function (d) { return d.rx +'in'; })
+      .attr('y', function (d) { return d.ry +'in'; })
+      .attr('height', function (d) { return d.height +'in'; })
+      .attr('width', function (d) { return d.width +'in'; })
       .attr('id',function (d) { return d.id; })
+      .style('opacity',0.5)
     },
 
-    resize : function( scale ){
-      //var scale = getScalingRatio(this.this.width(),this.this.height(),floorNum)
-      this.list
-        .attr('width',function(d){ return d.width*scale +'in'})
-        .attr('height',function(d){ return d.height*scale+'in' })
-        .attr('x',function(d){ return d.rx*scale+'in' })
-        .attr('y',function(d){ return d.ry*scale+'in'})
+    resize : function( width, height ){
+      var scale = getScalingRatio(width, height, floorNum);
+      var scale = scale/10;
+      if (scale !== 0){
+        this.list
+          .attr('width',function(d){ return d.width*scale +'in'})
+          .attr('height',function(d){ return d.height*scale+'in' })
+          .attr('x',function(d){ return d.rx*scale+'in' })
+          .attr('y',function(d){ return d.ry*scale+'in'})
+      }
     },
 
     remove : function( objID ){
@@ -147,7 +116,50 @@ var mapConstructor = function( containerID, floorNum ,studioData){
     dehighlight : function ( objID ){
       d3.select('rect#' + objId)
         .attr('fill', 'none');
+    },
+  }
+};
+
+//Round to 5
+var round5 = function( x )
+{
+    return Math.ceil(x/5)*5;
+};
+
+//Get Value to transform objects on map corresponding to the map SVG file
+var getScalingRatio= function( width, height, floorNum){
+  switch(floorNum) {
+    case 1:
+        var aspect = 1.25385;//W=1364.490,H=1088.2464
+    case 2:
+        var aspect = 0.85035;//W=925.374,H=1088.246
+    default:
+        var aspect = 1.25385;//W=1364.490,H=1088.2464
+  };
+
+  if (width/height > aspect){
+    return height/1088.246;
+  }else {
+    if (floorNum === 2){
+      return width/925.374;
+    }else {
+      return width/1364.490;
     }
+
+  };
+};
+
+//Get file path for the floor level
+//Params floor number
+//Output file path of the map assets, default to floor 1 if no argument
+var getFilePath = function (floorNum){
+  switch(floorNum) {
+    case 1:
+        return '/assets/level1.svg';
+    case 2:
+        return '/assets/level2.svg';
+    default:
+        return '/assets/level1.svg';
   }
 };
 
