@@ -6,8 +6,16 @@ app.controller('mapController', ['$scope', '$http', '$sce', function ($scope, $h
     $scope.map2 = new mapConstructor('secondFloorWell', 2);
     $scope.map1.marker.set(200,100)
     $scope.resizeMap = function () {
-      $scope.map1.studio.resize($scope.map1.width(), $scope.map1.height());
-      $scope.map2.studio.resize($scope.map2.width(), $scope.map2.height());
+      if ($scope.map2.width() !== 0){
+        var width = $scope.map2.width();
+        var height = $scope.map2.height();
+      }
+      else {
+        var width = $scope.map1.width();
+        var height = $scope.map1.height();
+      }
+      $scope.map1.studio.resize( width, height);
+      $scope.map2.studio.resize( width, height);
     };
     $scope.showItemLoc = function(itemName){
           var elementPos = $scope.data.map(function(x) {return x[0]; }).indexOf(itemName);

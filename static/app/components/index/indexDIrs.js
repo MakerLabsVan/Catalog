@@ -1,6 +1,6 @@
 angular.module("myApp").directive("indexSearchRes", function () {
     return {
-        replace: true,
+        replace: false,
         templateUrl: 'templates/indexSearchResTmpl.html',
         link: function (scope, elem, attrs) {
         }
@@ -15,4 +15,4 @@ angular.module("myApp").directive("indexSearchRes", function () {
 //             document.getElementById("entryPO").innerHTML = "{{ object[1] === '" + String(attrs.type) + "' ? object[0] : '' }}";
 //         }
 //     }
-// })  
+// })
