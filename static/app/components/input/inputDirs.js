@@ -40,11 +40,29 @@ angular.module("myApp").directive("addInput", function () {
                 var toRemove = elem[0].childNodes[3].childNodes[1];
                 runFilter(filters.all_filter);
 
+                // at least name input
+                if (toRemove.placeholder === 'Name') {
+                    toRemove.required = true;
+                }
+
+                if (toRemove.placeholder === 'Width' ||
+                    toRemove.placeholder === 'Height' ||
+                    toRemove.placeholder === 'Length' ||
+                    toRemove.placeholder === 'Quantity' ||
+                    toRemove.placeholder === 'Price') {
+                    toRemove.type = 'number';
+                    toRemove.min = '0';
+                    toRemove.max = '10000';
+                }
+
+                // disable type input
                 if (toRemove.placeholder === 'Type') {
                     toRemove.disabled = true;
                 }
 
-                if (scope.formData['Type'] === 'Studio'){
+                // run input form filter for studio
+                // bug exists where it does not update on tab switch
+                if (scope.formData['Type'] === 'Studio') {
                     runFilter(filters.std_filter);
                 }
 

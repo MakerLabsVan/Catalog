@@ -1,5 +1,5 @@
  #firstFloorWell, #secondFloorWell {
-        height: 60vh;
+        height: 65vh;
         background: white;
         border-radius : 0px;
         border: 0px;
@@ -104,4 +104,8 @@
 
     #ct-input-forms {
         overflow-y: scroll;
+    }
+
+    #ct-index-detail-well {
+        height: 70vh;
     }

@@ -12,16 +12,17 @@
 
 <body>
     <div ng-app="myApp">
-        <div class="container" ng-controller="MainCtrl">
-          <div ng-app="d3mapping" ng-controller="mapController">
+        <div class="container-fluid" ng-controller="MainCtrl">
             <br>
             <div class="row">
-                <img src="assets/makerlabs.png" alt="makerlablogo" height="60px">
-                <a href="input">Input</a>
+                <div class="col-sm-offset-1">
+                    <img src="assets/makerlabs.png" alt="makerlablogo" height="60px">
+                    <a href="input">Input</a>
+                </div>
             </div>
             <br>
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-3 col-sm-offset-1">
                     <!-- accordion start -->
                     <div class="panel-group" id="accordion">
                         <div class="panel panel-default" id="searchpanel">
@@ -109,28 +110,30 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-sm-2">
+                    <div class="well" id="ct-index-detail-well">
+                    </div>
+                </div>
 
-                    <div class="col-sm-8">
-                        <div role="tabpanel" id="indexTabPanel">
-                            <!-- Nav tabs -->
-                            <ul class="nav nav-tabs" role="tablist">
-                                <li role="presentation" class="active">
-                                    <a href="#firstFloor" aria-controls="firstFloor" role="tab" data-toggle="tab" id="firstFloorTab" >First Floor</a>
-                                </li>
-                                <li role="presentation">
-                                    <a href="#secondFloor" aria-controls="secondFloor" role="tab" data-toggle="tab" id="secondFloorTab" >Second Floor</a>
-                                </li>
-                            </ul>
-                            <maker-map></maker-map>
-                            <!-- Tab panes -->
-                            <div class="tab-content">
-                                <div role="tabpanel" class="tab-pane active" ng-model="fstFloorSize" id="firstFloor" ng-click="resizeMap()">
-                                    <div class="well well-lg" id="firstFloorWell">
-                                    </div>
+                <div class="col-sm-5">
+                    <div role="tabpanel" id="indexTabPanel">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active">
+                                <a href="#firstFloor" aria-controls="firstFloor" role="tab" data-toggle="tab" id="firstFloorTab">First Floor</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#secondFloor" aria-controls="secondFloor" role="tab" data-toggle="tab" id="secondFloorTab">Second Floor</a>
+                            </li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" ng-model="fstFloorSize" id="firstFloor" ng-click="resizeMap()">
+                                <div class="well well-lg" id="firstFloorWell">
                                 </div>
-                                <div role="tabpanel" class="tab-pane" ng-model="secFloorSize" id="secondFloor" ng-click="resizeMap()">
-                                    <div class="well well-lg" id="secondFloorWell">
-                                    </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" ng-model="secFloorSize" id="secondFloor" ng-click="resizeMap()">
+                                <div class="well well-lg" id="secondFloorWell">
                                 </div>
                             </div>
                         </div>
