@@ -22,7 +22,7 @@
             </div>
             <br>
             <div class="row">
-                <div class="col-sm-3 col-sm-offset-1">
+                <div class="col-sm-2 col-sm-offset-1">
                     <!-- accordion start -->
                     <div class="panel-group" id="accordion">
                         <div class="panel panel-default" id="searchpanel">
@@ -39,6 +39,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="panel panel-default">
                             <div class="panel-heading" id="panel-bg">
                                 <h4 class="panel-title">
@@ -50,7 +51,7 @@
                                     <!-- sheet data -->
                                     <div ng-repeat="object in data">
                                         <div uib-popover-template="entryProps" popover-placement="left" popover-trigger="outsideClick" popover-title="{{ object[0] }}"
-                                            id="entryPO" ng-click="showItemLoc(object[0])">
+                                            id="entryPO">
                                             {{ object[1] === "Studio" ? object[0] : '' }}
                                         </div>
                                     </div>
@@ -110,30 +111,32 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-2">
-                    <div class="well" id="ct-index-detail-well">
+                <div class="col-sm-3">
+                    <div class="well well-sm" id="ct-index-detail-well">
                     </div>
                 </div>
-
-                <div class="col-sm-5">
-                    <div role="tabpanel" id="indexTabPanel">
-                        <!-- Nav tabs -->
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" class="active">
-                                <a href="#firstFloor" aria-controls="firstFloor" role="tab" data-toggle="tab" id="firstFloorTab">First Floor</a>
-                            </li>
-                            <li role="presentation">
-                                <a href="#secondFloor" aria-controls="secondFloor" role="tab" data-toggle="tab" id="secondFloorTab">Second Floor</a>
-                            </li>
-                        </ul>
-                        <!-- Tab panes -->
-                        <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane active" ng-model="fstFloorSize" id="firstFloor" ng-click="resizeMap()">
-                                <div class="well well-lg" id="firstFloorWell">
+                <div ng-controller="mapController">
+                    <div class="col-sm-5">
+                        <div role="tabpanel" id="indexTabPanel">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active">
+                                    <a href="#firstFloor" aria-controls="firstFloor" role="tab" data-toggle="tab" id="firstFloorTab" ng-click="resizeMap()">First Floor</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#secondFloor" aria-controls="secondFloor" role="tab" data-toggle="tab" id="secondFloorTab" ng-click="resizeMap()">Second Floor</a>
+                                </li>
+                            </ul>
+                            <maker-map></maker-map>
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane active" ng-model="fstFloorSize" id="firstFloor">
+                                    <div class="well well-lg" id="firstFloorWell">
+                                    </div>
                                 </div>
-                            </div>
-                            <div role="tabpanel" class="tab-pane" ng-model="secFloorSize" id="secondFloor" ng-click="resizeMap()">
-                                <div class="well well-lg" id="secondFloorWell">
+                                <div role="tabpanel" class="tab-pane" ng-model="secFloorSize" id="secondFloor">
+                                    <div class="well well-lg" id="secondFloorWell">
+                                    </div>
                                 </div>
                             </div>
                         </div>

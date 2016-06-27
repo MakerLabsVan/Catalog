@@ -1,8 +1,16 @@
- #firstFloorWell, #secondFloorWell {
+ #firstFloorWell {
         height: 65vh;
         background: white;
         border-radius : 0px;
         border: 0px;
+    }
+
+    #secondFloorWell {
+        height: 65vh;
+        background: white;
+        border-radius : 0px;
+        border: 0px;
+        margin-left: 110px;
     }
 
     #firstFloorTab {
@@ -108,4 +116,5 @@
 
     #ct-index-detail-well {
         height: 70vh;
+        background: white;
     }
