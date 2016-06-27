@@ -1,4 +1,4 @@
-angular.module("myApp", ['ui.bootstrap', 'd3mapping'])
+angular.module("myApp", ['d3mapping'])
 
     .controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http, $sce) {
 
@@ -24,25 +24,28 @@ angular.module("myApp", ['ui.bootstrap', 'd3mapping'])
         ];
 
         $scope.queryTerm = '';
-        $scope.entryProps = "templates/entryTmpl.html";
 
         $scope.changeHeight = function () {
             if ($scope.queryTerm.length == 0) {
                 document.getElementById("searchSection").style.height = '0px';
-
             } else {
-                document.getElementById("searchSection").style.height = '40vh';
+                document.getElementById("searchSection").style.height = '50vh';
             }
         };
 
-        /*
-        Bootstrap panel collapse properties:
-        On expand:
-            a: aria-expanded="true"
-            div: class="... in" aria-expanded="true"
-        On collapse:
-            a: class="collapsed" aria-expanded="false"
-            div: aria-expanded="false"
-        */
+        $scope.showEntryDetails = function (object) {
+            document.getElementById("ct-index-panel-title-detail").innerHTML = object[0];
+            var innerBody = document.getElementById("ct-index-panel-body-detail");
+            innerBody.innerHTML = '';
+            innerBody.innerHTML = 'THIS IS PLACE FOR IMAGE AND ??? <br /><br /><br /><hr />';
+            var i;
+            for (i = 1; i < object.length; i++) {
+                if (object[i] !== '') {
+                    innerBody.innerHTML += '<b>' + $scope.entryProperties[i] + ': </b>' + object[i] + '<br /><br />';
+                }
+            }
+
+        };
+
 
     }]);

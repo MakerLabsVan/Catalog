@@ -45,6 +45,7 @@ angular.module("myApp").directive("addInput", function () {
                     toRemove.required = true;
                 }
 
+                // numeric validation
                 if (toRemove.placeholder === 'Width' ||
                     toRemove.placeholder === 'Height' ||
                     toRemove.placeholder === 'Length' ||
@@ -76,3 +77,7 @@ angular.module("myApp").directive("modalLoc", function () {
         templateUrl: 'templates/modalLocTmpl.html',
     }
 });
+
+angular.module("myApp").directive("indexDetailPanel", function () {
+    
+})

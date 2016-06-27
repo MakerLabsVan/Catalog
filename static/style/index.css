@@ -1,5 +1,5 @@
  #firstFloorWell {
-        height: 65vh;
+        height: 70vh;
         background: white;
         border-radius : 0px;
         border: 0px;
@@ -10,6 +10,7 @@
         background: white;
         border-radius : 0px;
         border: 0px;
+        /*magic #*/
         margin-left: 110px;
     }
 
@@ -45,7 +46,7 @@
         font-size: 20px;
     }
 
-    .panel-body {
+    #ct-index-panel-body {
         height: 50vh;
         overflow-y: scroll;
     }
@@ -68,8 +69,11 @@
     }
 
     #entryPO {
-        margin: 20px;
         font-size: 20px;
+    }
+
+    #entryPO:hover {
+        cursor: pointer;
     }
 
     #popContent {
@@ -110,13 +114,14 @@
         overflow-y: scroll;
     }
 
-    #ct-input-forms {
+    #ct-input-forms {   
         overflow-y: scroll;
     }
 
-    #ct-index-detail-well {
-        height: 70vh;
+    #ct-index-panel-body-detail {
+        height: 72vh;
         background: white;
+        font-size: 20px;
     }
 
     #ct-panel-toggle:hover {

@@ -47,11 +47,10 @@
                                 </h4>
                             </div>
                             <div id="collapse1" class="panel-collapse collapse in">
-                                <div class="panel-body">
+                                <div class="panel-body" id="ct-index-panel-body">
                                     <!-- sheet data -->
                                     <div ng-repeat="object in data">
-                                        <div uib-popover-template="entryProps" popover-placement="left" popover-trigger="outsideClick" popover-title="{{ object[0] }}"
-                                            id="entryPO">
+                                        <div id="entryPO" ng-click="showEntryDetails(object)">
                                             {{ object[1] === "Studio" ? object[0] : '' }}
                                         </div>
                                     </div>
@@ -65,10 +64,9 @@
                                 </h4>
                             </div>
                             <div id="collapse2" class="panel-collapse collapse">
-                                <div class="panel-body">
+                                <div class="panel-body" id="ct-index-panel-body">
                                     <div ng-repeat="object in data">
-                                        <div uib-popover-template="entryProps" popover-placement="left" popover-trigger="outsideClick" popover-title="{{ object[0] }}"
-                                            id="entryPO">
+                                        <div ng-click="showEntryDetails(object)" id="entryPO">
                                             {{ object[1] === "Tool" ? object[0] : '' }}
                                         </div>
                                     </div>
@@ -82,10 +80,9 @@
                                 </h4>
                             </div>
                             <div id="collapse3" class="panel-collapse collapse">
-                                <div class="panel-body">
+                                <div class="panel-body" id="ct-index-panel-body">
                                     <div ng-repeat="object in data">
-                                        <div uib-popover-template="entryProps" popover-placement="left" popover-trigger="outsideClick" popover-title="{{ object[0] }}"
-                                            id="entryPO">
+                                        <div ng-click="showEntryDetails(object)" id="entryPO">
                                             {{ object[1] === "Consumable" ? object[0] : '' }}
                                         </div>
                                     </div>
@@ -99,10 +96,9 @@
                                 </h4>
                             </div>
                             <div id="collapse4" class="panel-collapse collapse">
-                                <div class="panel-body">
+                                <div class="panel-body" id="ct-index-panel-body">
                                     <div ng-repeat="object in data">
-                                        <div uib-popover-template="entryProps" popover-placement="left" popover-trigger="outsideClick" popover-title="{{ object[0] }}"
-                                            id="entryPO">
+                                        <div ng-click="showEntryDetails(object)" id="entryPO">
                                             {{ object[1] === "Material" ? object[0] : '' }}
                                         </div>
                                     </div>
@@ -112,7 +108,15 @@
                     </div>
                 </div>
                 <div class="col-sm-3">
-                    <div class="well well-sm" id="ct-index-detail-well">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title" id="ct-index-panel-title-detail">
+                                <!--panel title-->
+                            </h3>
+                        </div>
+                        <div class="panel-body" id="ct-index-panel-body-detail">
+                            <!--panel body-->
+                        </div>
                     </div>
                 </div>
                 <div ng-controller="mapController">
