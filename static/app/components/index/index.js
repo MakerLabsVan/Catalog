@@ -71,30 +71,46 @@ angular.module("myApp", ['d3mapping'])
             $scope.map2.studio.resize(width, height);
         };
 
+        $scope.lastStudio = null;
         //Highlight the studio given the name of the studio as aparam
         $scope.showStudioLoc = function (studioName) {
-            var elementPos = $scope.data.map(function (x) { return x[0]; }).indexOf(itemName);
+            if ( $scope.lastStudio !==null ){
+              if ($scope.lastStudio[5] === '1') {
+                  $scope.map1.studio.dehighlight($scope.lastStudio[0]);
+              }
+              else if ($scope.lastStudio[5] === '2') {
+                  $scope.map2.studio.dehighlight($scope.lastStudio[0]);
+              }
+            }
+            var elementPos = $scope.data.map(function (x) { return x[0]; }).indexOf(studioName);
             var objectFound = $scope.data[elementPos];
+            $scope.lastStudio = objectFound;
             if (objectFound === null) { return 'Not Found' }
             //TODO: Optimize it to not search
             if (objectFound[5] === '1') {
-                $scope.map1.studio.highlight(itemName);
+                $scope.map1.studio.highlight(objectFound[0]);
             }
             else if (objectFound[5] === '2') {
-                $scope.map2.studio.highlight(itemName);
+                $scope.map2.studio.highlight(objectFound[0]);
             }
         }
 
         //Place marker where the item
         $scope.showItemLoc = function (itemName) {
+            $scope.map1.marker.remove();
+            $scope.map2.marker.remove();
             var elementPos = $scope.data.map(function (x) { return x[0]; }).indexOf(itemName);
             var objectFound = $scope.data[elementPos];
             if (objectFound === null) { return 'Not Found' }
 
-            if (objectFound[5] === '1') {
+            if ( objectFound[3] === null || objectFound[4] === null){
+              $scope.map1.marker.remove();
+              $scope.map2.marker.remove();
+            }
+            if ( objectFound[5] === '1') {
                 $scope.map1.marker.set(parseInt(objectFound[3]), parseInt(objectFound[4]), $scope.map1.width(), $scope.map1.height())
             }
-            else if (objectFound[5] === '2') {
+            else if ( objectFound[5] === '2') {
                 $scope.map2.marker.set(parseInt(objectFound[3]), parseInt(objectFound[4]), $scope.map2.width(), $scope.map2.height())
             }
         }

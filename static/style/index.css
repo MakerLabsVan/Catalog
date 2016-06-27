@@ -6,7 +6,7 @@
     }
 
     #secondFloorWell {
-        height: 65vh;
+        height: 70vh;
         background: white;
         border-radius : 0px;
         border: 0px;
@@ -22,7 +22,7 @@
         height: 75vh;
         border-radius: 0px;
     }
-    
+
     .panel {
         border: 1px solid lightgrey;
     }
@@ -113,7 +113,7 @@
         overflow-y: scroll;
     }
 
-    #ct-input-forms {   
+    #ct-input-forms {
         overflow-y: scroll;
     }
 
