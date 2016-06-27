@@ -33,11 +33,14 @@ angular.module("myApp", ['d3mapping'])
             }
         };
 
+        $scope.assignColor = function () {
+        }
+
         $scope.showEntryDetails = function (object) {
             document.getElementById("ct-index-panel-title-detail").innerHTML = object[0];
             var innerBody = document.getElementById("ct-index-panel-body-detail");
             innerBody.innerHTML = '';
-            innerBody.innerHTML = 'THIS IS PLACE FOR IMAGE AND ??? <br /><br /><br /><hr />';
+            innerBody.innerHTML = 'Image <br /><br /><br /><hr />';
             var i;
             for (i = 1; i < object.length; i++) {
                 if (object[i] !== '') {
