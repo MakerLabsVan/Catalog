@@ -1,30 +1,39 @@
- #firstFloorWell {
+    body {
+        font-family: 'Raleway', sans-serif;
+    }
+
+ #firstFloorWell, #secondFloorWell {
         height: 70vh;
         background: white;
-        border-radius : 0px;
         border: 0px;
     }
 
-    #secondFloorWell {
-        height: 65vh;
-        background: white;
-        border-radius : 0px;
-        border: 0px;
-        /*magic #*/
-    }
-
-    #firstFloorTab {
-        border-left: 0px;
-        border-top: 0px;
-    }
-
-    #accordion {
-        height: 75vh;
-        border-radius: 0px;
+    a {
+        color: black;
     }
     
-    .panel {
-        border: 1px solid lightgrey;
+    #entryPO {
+        font-size: 20px;
+    }
+
+    #entryPO:hover {
+        cursor: pointer;
+    }
+
+    #std_panel-bg {
+        background: #F14A29;
+    }
+
+    #tl_panel-bg {
+        background: #107CC2;
+    }
+
+    #mat_panel-bg {
+        background: #F3902C;
+    }
+
+    #con_panel-bg {
+        background: #2BAC69;
     }
 
     #searchbar {
@@ -36,17 +45,13 @@
         overflow-y:scroll;
     }
 
-    #panel-bg {
-        background: white;
-    }
-
     .panel-title {
         color: black;
         font-size: 20px;
     }
 
     #ct-index-panel-body {
-        height: 50vh;
+        height: 53vh;
         overflow-y: scroll;
     }
 
@@ -56,29 +61,6 @@
 
     .form-control {
         margin-bottom: 5px;
-    }
-
-    .popover {
-        width:400px;
-        height:400px;
-    }
-
-    a {
-        color: black;
-    }
-
-    #entryPO {
-        font-size: 20px;
-    }
-
-    #entryPO:hover {
-        cursor: pointer;
-    }
-
-    #popContent {
-        width:250px;
-        height:300px;
-        overflow-y:scroll;
     }
 
     #backChevron {
@@ -103,11 +85,6 @@
         margin: -10px;
     }
 
-    #indexTabPanel {
-        border-radius: 5px;
-        border: 1px solid #DCDCDC;
-    }
-
     #edit-modal-body {
         height: 50vh;
         overflow-y: scroll;
@@ -125,4 +102,8 @@
 
     #ct-panel-toggle:hover {
         cursor: pointer;
+    }
+
+    #ct-index-object-name {
+        text-align: right;
     }

@@ -8,6 +8,7 @@
         crossorigin="anonymous">
     <link rel="stylesheet" href="/style/index.css">
     <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico" />
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 </head>
 
 <body>
@@ -15,33 +16,27 @@
         <div class="container-fluid" ng-controller="MainCtrl">
             <br>
             <div class="row">
-                <div class="col-sm-offset-1">
-                    <img src="assets/makerlabs.png" alt="makerlablogo" height="60px">
-                    <a href="input">Input</a>
-                </div>
+                <img src="assets/makerlabs.png" alt="makerlablogo" height="60px">
+                <a href="input">Input</a>
             </div>
             <br>
             <div class="row">
-                <div class="col-sm-2 col-sm-offset-1">
+                <div class="col-sm-3">
                     <!-- accordion start -->
                     <div class="panel-group" id="accordion">
-                        <div class="panel panel-default" id="searchpanel">
-                            <div class="panel-heading" id="searchbar">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <input type="search" class="form-control" placeholder="Search here" ng-model="queryTerm" ng-change="changeHeight()" />
-                                        <div id="searchSection">
-                                            <div ng-repeat="object in data">
-                                                <index-search-res></index-search-res>
-                                            </div>
-                                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <input type="search" class="form-control" placeholder="Search here" ng-model="queryTerm" ng-change="changeHeight()" />
+                                <div id="searchSection">
+                                    <div ng-repeat="object in data">
+                                        <index-search-res></index-search-res>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="panel panel-default">
-                            <div class="panel-heading" id="panel-bg">
+                            <div class="panel-heading" id="std_panel-bg">
                                 <h4 class="panel-title">
                                     <div data-toggle="collapse" data-parent="#accordion" href="#collapse1" id="ct-panel-toggle"> {{ categories.studio }} </div>
                                 </h4>
@@ -58,7 +53,7 @@
                             </div>
                         </div>
                         <div class="panel panel-default">
-                            <div class="panel-heading" id="panel-bg">
+                            <div class="panel-heading" id="tl_panel-bg">
                                 <h4 class="panel-title">
                                     <div data-toggle="collapse" data-parent="#accordion" href="#collapse2" id="ct-panel-toggle"> {{ categories.tools }} </div>
                                 </h4>
@@ -74,7 +69,7 @@
                             </div>
                         </div>
                         <div class="panel panel-default">
-                            <div class="panel-heading" id="panel-bg">
+                            <div class="panel-heading" id="con_panel-bg">
                                 <h4 class="panel-title">
                                     <div data-toggle="collapse" data-parent="#accordion" href="#collapse3" id="ct-panel-toggle"> {{ categories.cons }} </div>
                                 </h4>
@@ -90,7 +85,7 @@
                             </div>
                         </div>
                         <div class="panel panel-default">
-                            <div class="panel-heading" id="panel-bg">
+                            <div class="panel-heading" id="mat_panel-bg">
                                 <h4 class="panel-title">
                                     <div data-toggle="collapse" data-parent="#accordion" href="#collapse4" id="ct-panel-toggle"> {{ categories.mats }} </div>
                                 </h4>
@@ -117,23 +112,27 @@
                         </div>
                         <div class="panel-body" id="ct-index-panel-body-detail">
                             <!--panel body-->
-                            Cupidatat mollit do reprehenderit adipisicing irure. Ipsum cupidatat non nostrud laborum nisi dolore voluptate irure tempor do. Ea amet elit nisi ullamco.
+                            Cupidatat mollit do reprehenderit adipisicing irure. Ipsum cupidatat non nostrud laborum nisi dolore voluptate irure tempor
+                            do. Ea amet elit nisi ullamco.
                         </div>
                     </div>
                 </div>
                 <div ng-controller="mapController">
-                    <div class="col-sm-5">
+                    <div class="col-sm-6">
                         <div role="tabpanel" id="indexTabPanel">
                             <!-- Nav tabs -->
-                            <ul class="nav nav-tabs" role="tablist">
+                            <ul class="nav nav-tabs" role="tablist" id="map-nav-tabs">
                                 <li role="presentation" class="active">
-                                    <a href="#firstFloor" aria-controls="firstFloor" role="tab" data-toggle="tab" id="firstFloorTab" ng-click="resizeMap()">First Floor</a>
+                                    <a href="#firstFloor" aria-controls="firstFloor" role="tab" data-toggle="tab" ng-click="resizeMap()">
+                                        <h4>First Floor</h4>
+                                    </a>
                                 </li>
                                 <li role="presentation">
-                                    <a href="#secondFloor" aria-controls="secondFloor" role="tab" data-toggle="tab" id="secondFloorTab" ng-click="resizeMap()">Second Floor</a>
+                                    <a href="#secondFloor" aria-controls="secondFloor" role="tab" data-toggle="tab" ng-click="resizeMap()">
+                                        <h4>Second Floor</h4>
+                                    </a>
                                 </li>
                             </ul>
-                            <maker-map></maker-map>
                             <!-- Tab panes -->
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane active" ng-model="fstFloorSize" id="firstFloor">

@@ -33,22 +33,15 @@ angular.module("myApp", ['d3mapping'])
             }
         };
 
-        $scope.assignColor = function () {
-            var panelBg = document.getElementById('ct-panel-toggle');
-            if (panelBg.innerHTML === 'Studio'){
-                panelBg.style.color = ''
-            }
-        }
-
         $scope.showEntryDetails = function (object) {
-            document.getElementById("ct-index-panel-title-detail").innerHTML = object[0];
+            document.getElementById("ct-index-panel-title-detail").innerHTML = object[0] + ' <small>' + object[1] + '</small>';
             var innerBody = document.getElementById("ct-index-panel-body-detail");
             innerBody.innerHTML = '';
             innerBody.innerHTML = 'Image <br /><br /><br /><hr />';
             var i;
             for (i = 1; i < object.length; i++) {
                 if (object[i] !== '') {
-                    innerBody.innerHTML += '<b>' + $scope.entryProperties[i] + ': </b>' + object[i] + '<br /><br />';
+                    innerBody.innerHTML += '<div class="col-sm-6"><b>' + $scope.entryProperties[i] + '</div></b><div class="col-sm-6" id="ct-index-object-name">' + object[i] + '</div>';
                 }
             }
 
