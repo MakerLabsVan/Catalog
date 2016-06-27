@@ -34,6 +34,10 @@ angular.module("myApp", ['d3mapping'])
         };
 
         $scope.assignColor = function () {
+            var panelBg = document.getElementById('ct-panel-toggle');
+            if (panelBg.innerHTML === 'Studio'){
+                panelBg.style.color = ''
+            }
         }
 
         $scope.showEntryDetails = function (object) {
@@ -49,6 +53,8 @@ angular.module("myApp", ['d3mapping'])
             }
 
         };
+
+        // map ctrlr
         $scope.map1 = new mapConstructor('firstFloorWell', 1);
         $scope.map2 = new mapConstructor('secondFloorWell', 2);
 
