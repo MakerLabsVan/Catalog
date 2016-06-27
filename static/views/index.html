@@ -45,7 +45,7 @@
                                 <div class="panel-body" id="ct-index-panel-body">
                                     <!-- sheet data -->
                                     <div ng-repeat="object in data">
-                                        <div id="entryPO" ng-click="showEntryDetails(object)">
+                                        <div id="entryPO" ng-click="showEntryDetails(object);showStudioLoc(object[0])" role='tab' data-toggle="tab" id="secondFloorTab">
                                             {{ object[1] === "Studio" ? object[0] : '' }}
                                         </div>
                                     </div>
@@ -61,7 +61,7 @@
                             <div id="collapse2" class="panel-collapse collapse">
                                 <div class="panel-body" id="ct-index-panel-body">
                                     <div ng-repeat="object in data">
-                                        <div ng-click="showEntryDetails(object)" id="entryPO">
+                                        <div ng-click="showEntryDetails(object);showItemLoc(object[0])" id="entryPO">
                                             {{ object[1] === "Tool" ? object[0] : '' }}
                                         </div>
                                     </div>
@@ -77,7 +77,7 @@
                             <div id="collapse3" class="panel-collapse collapse">
                                 <div class="panel-body" id="ct-index-panel-body">
                                     <div ng-repeat="object in data">
-                                        <div ng-click="showEntryDetails(object)" id="entryPO">
+                                        <div ng-click="showEntryDetails(object);showItemLoc(object[0])" id="entryPO">
                                             {{ object[1] === "Consumable" ? object[0] : '' }}
                                         </div>
                                     </div>
@@ -93,7 +93,7 @@
                             <div id="collapse4" class="panel-collapse collapse">
                                 <div class="panel-body" id="ct-index-panel-body">
                                     <div ng-repeat="object in data">
-                                        <div ng-click="showEntryDetails(object)" id="entryPO">
+                                        <div ng-click="showEntryDetails(object);showItemLoc(object[0])" id="entryPO" >
                                             {{ object[1] === "Material" ? object[0] : '' }}
                                         </div>
                                     </div>
@@ -135,11 +135,11 @@
                             </ul>
                             <!-- Tab panes -->
                             <div class="tab-content">
-                                <div role="tabpanel" class="tab-pane active" ng-model="fstFloorSize" id="firstFloor">
+                                <div role="tabpanel" class="tab-pane active"  ng-model="fstFloorSize" id="firstFloor">
                                     <div class="well well-lg" id="firstFloorWell">
                                     </div>
                                 </div>
-                                <div role="tabpanel" class="tab-pane" ng-model="secFloorSize" id="secondFloor">
+                                <div role="tabpanel" class="tab-pane"  ng-model="secFloorSize" id="secondFloor">
                                     <div class="well well-lg" id="secondFloorWell">
                                     </div>
                                 </div>

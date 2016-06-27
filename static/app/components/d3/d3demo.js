@@ -33,12 +33,12 @@ var mapConstructor = function( containerID, floorNum ,studioData){
 
       //Change the position and become visible
       set : function( xPos, yPos, width, height ){
-        var mark =d3.select('#marker' + floorNum);
+        var mark = d3.select('#marker' + floorNum);
         var scale = getScalingRatio(width, height, floorNum);
-        var scale = scale/10;
+        var scale = scale/10; //Conversion from real ft to map
         mark
-          .attr('x', (xPos)*scale + 'in')
-          .attr('y', (yPos)*scale + 'in')
+          .attr('x', xPos*scale + 'in')
+          .attr('y', yPos*scale + 'in')
           .style('visibility',null);
       },
 
@@ -112,13 +112,13 @@ var mapConstructor = function( containerID, floorNum ,studioData){
     },
 
     highlight : function( objID ){
-      d3.select('rect#' + objId)
+      d3.select('rect#' + objID)
         .attr('fill', 'red');
     },
 
     dehighlight : function ( objID ){
-      d3.select('rect#' + objId)
-        .attr('fill', 'none');
+      d3.select('rect#' + objID)
+        .attr('fill', null);
     },
   }
 };

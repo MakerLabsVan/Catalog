@@ -90,7 +90,7 @@
         overflow-y: scroll;
     }
 
-    #ct-input-forms {   
+    #ct-input-forms {
         overflow-y: scroll;
     }
 
@@ -103,7 +103,6 @@
     #ct-panel-toggle:hover {
         cursor: pointer;
     }
-
     #ct-index-object-name {
         text-align: right;
     }
