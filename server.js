@@ -30,7 +30,6 @@ router.post("/edit", function (req, res) {
     serverOps.parse(req.body[0], req.body[1], function (response) {
         return res.json(response);
     });
-
 });
 
 router.post("/delete", function (req, res) {
@@ -42,6 +41,10 @@ router.post("/delete", function (req, res) {
 
 router.get("/editEntryTmpl", function (req, res) {
     res.sendFile(path + "/static/templates/editEntryTmpl.html");
+})
+
+router.get("/clearEditPage", function(req, res){
+    res.sendFile(path + "/static/templates/clearEditPage.html");
 })
 
 router.get("/getData", function (req, res) {

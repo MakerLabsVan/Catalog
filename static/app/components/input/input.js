@@ -52,6 +52,8 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
             .success(function (data, status, header, config) {
                 console.log(data, status);
                 $scope.dataLength--;
+                $scope.editFormData = {};
+                $scope.clearEditPage();
             })
             .error(function (data, status, header, config) {
                 console.log(data, status);
@@ -61,7 +63,6 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
 
     $scope.editFormData = {};
     $scope.editEntry = function (objectName) {
-        console.log($scope.editFormData);
         $scope.index;
         for (var i = 0; i < $scope.dataLength; i++) {
             if (objectName === $scope.data[i][0]) {
@@ -104,6 +105,10 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
 
         $scope.templateURL = 'editEntryTmpl';
     };
+
+    $scope.clearEditPage = function () {
+        $scope.templateURL = 'clearEditPage';
+    }
 
 }]);
 
