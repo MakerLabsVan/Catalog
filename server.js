@@ -6,6 +6,9 @@ var router = express.Router();
 var bodyParser = require('body-parser');
 var serverOps = require(path + "/serverOps.js");
 
+app.use(bodyParser.json());
+app.use(express.static(path + '/static'));
+app.use('/', router);
 
 router.get("/", function (req, res) {
     res.sendFile(path + '/static/views/index.html');
@@ -23,10 +26,12 @@ router.post("/new", function (req, res) {
 });
 
 router.post("/edit", function (req, res) {
+    console.log(req.body);
     serverOps.parse(req.body[0], req.body[1], function (response) {
         return res.json(response);
     });
-})
+
+});
 
 router.post("/delete", function (req, res) {
     console.log(req.body[0]);
@@ -35,15 +40,16 @@ router.post("/delete", function (req, res) {
     });
 });
 
+router.get("/editEntryTmpl", function (req, res) {
+    res.sendFile(path + "/static/templates/editEntryTmpl.html");
+})
+
 router.get("/getData", function (req, res) {
     serverOps.getData(function (result) {
         return res.json(result);
     });
 });
 
-app.use('/', router);
-app.use(express.static(path + '/static'));
-app.use(bodyParser.json());
 
 app.listen(PORT, function () {
     console.log("Live at Port 3000");

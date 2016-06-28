@@ -118,3 +118,8 @@
     .panel {
         border: none;
     }
+
+    #ct-edit {
+        /*container is off */
+        margin-top: 20px;
+    }

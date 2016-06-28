@@ -1,3 +1,16 @@
-<div>
-    Sunt ullamco tempor dolor anim officia ipsum dolore eu sit fugiat pariatur ad. Commodo incididunt elit ullamco quis tempor dolore dolor est exercitation. Amet elit magna reprehenderit qui officia ad cillum nulla incididunt Lorem dolore eiusmod.
-</div>
+<form class="form-horizontal" ng-submit="editEntry(object[0])">
+    <div class="form-group" id="edit-form-group">
+        <div ng-repeat="prop in entryProperties track by $index">
+            <div class="col-sm-2">
+                <label for="edit-input" class="control-label">{{ prop }}: </label>
+            </div>
+            <div class="col-sm-4">
+                <input class="form-control" type="text" ng-model="editFormData[prop]" id="edit-input" placeholder="{{ object[$index] }}"
+                    ng-init="editFormData[prop] = object[$index]" />
+            </div>
+        </div>
+        <div class="col-sm-1 col-sm-offset-10">
+            <button type="submit" class="btn btn-large btn-default">Submit</button>
+        </div>
+    </div>
+</form>

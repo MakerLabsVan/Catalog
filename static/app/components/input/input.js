@@ -61,14 +61,16 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
 
     $scope.editFormData = {};
     $scope.editEntry = function (objectName) {
+        console.log($scope.editFormData);
         $scope.index;
         for (var i = 0; i < $scope.dataLength; i++) {
             if (objectName === $scope.data[i][0]) {
                 $scope.index = i;
+                $scope.data[i][0] = $scope.editFormData.Name;
                 break;
             }
         }
-
+        console.log($scope.index);
         $http.post('/edit', [$scope.editFormData, $scope.index])
             .success(function (data, status, header, config) {
                 console.log(data, status);
@@ -90,6 +92,11 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
         document.getElementById('input-tl-tab').className = '';
         document.getElementById('input-mat-tab').className = '';
         document.getElementById('input-con-tab').className = '';
+    };
+
+    $scope.showEditPage = function (object) {
+        $scope.object = object;
+        $scope.templateURL = 'editEntryTmpl';
     };
 
 }]);
