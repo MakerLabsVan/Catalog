@@ -127,5 +127,4 @@ angular.module("myApp", ['d3mapping'])
                 }
             }
         }
-
     }]);

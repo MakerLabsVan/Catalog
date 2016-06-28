@@ -59,10 +59,6 @@
         overflow-y: scroll;
     }
 
-    #inputLogo {
-        margin-left: 25px;
-    }
-
     .form-control {
         margin-bottom: 5px;
     }
@@ -78,12 +74,12 @@
     }
 
     #inputWell {
-        height: 70vh;
+        height: 75vh;
         background:white;
     }
 
-    #studioIn, #matIn, #conIn, #toolIn {
-        margin-top: 20px;
+    #studioIn, #matIn, #conIn, #toolIn {    
+        margin-top: 50px;
     }
 
     #navTab {

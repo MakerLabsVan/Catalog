@@ -12,17 +12,19 @@
     <div ng-app="myApp">
         <div class="container-fluid" ng-controller="inputCtrl">
             <div class="row">
-                <div class="col-sm-1" id="backChevron">
+                <div class="col-sm-1 col-sm-offset-1" id="backChevron">
                     <a href="/">
                         <span class="glyphicon glyphicon-chevron-left"></span>
                     </a>
                 </div>
             </div>
             <div class="row">
-                <img src="/assets/makerlabs.png" alt="MakerLabs" />
+                <div class="col-sm-offset-1">
+                    <img src="/assets/makerlabs.png" alt="MakerLabs" />
+                </div>
             </div>
             <div class="row">
-                <div class="col-sm-3">
+                <div class="col-sm-3 col-sm-offset-1">
                     <div class="panel-group">
                         <div class="row">
                             <div class="col-sm-12">
@@ -38,22 +40,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-3">
-                    <div class="panel panel-default">
-                        <div class="panel-heading" id="ct-idx-ph-det">
-                            <h3 class="panel-title" id="ct-index-panel-title-detail">
-                                <!--panel title-->
-                                MakerLabs
-                            </h3>
-                        </div>
-                        <div class="panel-body" id="ct-index-panel-body-detail">
-                            <!--panel body-->
-                            Cupidatat mollit do reprehenderit adipisicing irure. Ipsum cupidatat non nostrud laborum nisi dolore voluptate irure tempor
-                            do. Ea amet elit nisi ullamco.
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 well well-sm" id="inputWell">
+                <div class="col-sm-7 well well-sm" id="inputWell">
                     <div role="tabpanel">
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist" id="navTab">
@@ -68,6 +55,9 @@
                             </li>
                             <li role="presentation">
                                 <a href="#conIn" aria-controls="tab" role="tab" data-toggle="tab" ng-click="setType('Consumable')">Consumable</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#ct-edit" aria-controls="tab" role="tab" data-toggle="tab">Edit</a>
                             </li>
                         </ul>
                         <!-- Tab panes -->
@@ -115,6 +105,9 @@
                                         <button type="submit" class="btn btn-default">Submit</button>
                                     </div>
                                 </form>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="ct-edit">
+
                             </div>
                         </div>
                     </div>

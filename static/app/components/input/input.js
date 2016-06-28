@@ -14,10 +14,7 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
         "Name", "Type", "Subtype", "Location x (ft)", "Location y (ft)", "Floor", "Width", "Length", "Height", "Units", "Weight", "Weight Unit", "Quantity", "Price", "Description", "Keywords"
     ];
 
-
     $scope.inputQuery = '';
-    $scope.adminProps = "/templates/admin_entryTmpl.html";
-
 
     $scope.formData = {};
     $scope.stdPost = function (type) {
