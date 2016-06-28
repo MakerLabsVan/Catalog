@@ -27,8 +27,8 @@ var mapConstructor = function( containerID, floorNum ,studioData){
       icon: icon = addMarker(this.container,floorNum),
       //Removes the marker from the map
       remove : function(){
-        icon
-          .style('visibility','hidden');
+        d3.select('#marker' + floorNum)
+          .style('visibility','hidden')
       },
 
       //Change the position and become visible
@@ -39,7 +39,7 @@ var mapConstructor = function( containerID, floorNum ,studioData){
         mark
           .attr('x', xPos*scale + 'in')
           .attr('y', yPos*scale + 'in')
-          .style('visibility',null);
+          .style('visibility',null)
       },
 
       //On Click of the map, the marker will display

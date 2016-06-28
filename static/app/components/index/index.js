@@ -65,7 +65,7 @@ angular.module("myApp", ['d3mapping'])
 
         };
 
-        // map ctrlr
+        // map ctrl
         $scope.map1 = new mapConstructor('firstFloorWell', 1);
         $scope.map2 = new mapConstructor('secondFloorWell', 2);
 
@@ -82,47 +82,49 @@ angular.module("myApp", ['d3mapping'])
             $scope.map2.studio.resize(width, height);
         };
 
-        $scope.lastStudio = null;
+        $scope.lastItem = null;
         //Highlight the studio given the name of the studio as aparam
         $scope.showStudioLoc = function (studioName) {
-            if ($scope.lastStudio !== null) {
-                if ($scope.lastStudio[5] === '1') {
-                    $scope.map1.studio.dehighlight($scope.lastStudio[0]);
-                }
-                else if ($scope.lastStudio[5] === '2') {
-                    $scope.map2.studio.dehighlight($scope.lastStudio[0]);
-                }
-            }
+            removeLast($scope.lastItem);
             var elementPos = $scope.data.map(function (x) { return x[0]; }).indexOf(studioName);
             var objectFound = $scope.data[elementPos];
-            $scope.lastStudio = objectFound;
+            $scope.lastItem = objectFound;
             if (objectFound === null) { return 'Not Found' }
             //TODO: Optimize it to not search
             if (objectFound[5] === '1') {
-                $scope.map1.studio.highlight(objectFound[0]);
+                $scope.map1.studio.highlight(objectFound[0].replace(/\s/g, '').replace(/\//g, ''));
             }
             else if (objectFound[5] === '2') {
-                $scope.map2.studio.highlight(objectFound[0]);
+                $scope.map2.studio.highlight(objectFound[0].replace(/\s/g, '').replace(/\//g, ''));
             }
         }
 
         //Place marker where the item
         $scope.showItemLoc = function (itemName) {
-            $scope.map1.marker.remove();
-            $scope.map2.marker.remove();
+            removeLast($scope.lastItem);
             var elementPos = $scope.data.map(function (x) { return x[0]; }).indexOf(itemName);
             var objectFound = $scope.data[elementPos];
+            $scope.lastItem = objectFound;
             if (objectFound === null) { return 'Not Found' }
 
-            if (objectFound[3] === null || objectFound[4] === null) {
-                $scope.map1.marker.remove();
-                $scope.map2.marker.remove();
-            }
             if (objectFound[5] === '1') {
                 $scope.map1.marker.set(parseInt(objectFound[3]), parseInt(objectFound[4]), $scope.map1.width(), $scope.map1.height())
             }
             else if (objectFound[5] === '2') {
                 $scope.map2.marker.set(parseInt(objectFound[3]), parseInt(objectFound[4]), $scope.map2.width(), $scope.map2.height())
+            }
+        }
+
+        var removeLast = function (lastItem) {
+            $scope.map1.marker.remove();
+            $scope.map2.marker.remove();
+            if (lastItem !== null) {
+                if (lastItem[5] === '1') {
+                    $scope.map1.studio.dehighlight(lastItem[0].replace(/\s/g, '').replace(/\//g, ''));
+                }
+                else if (lastItem[5] === '2') {
+                    $scope.map2.studio.dehighlight(lastItem[0].replace(/\s/g, '').replace(/\//g, ''));
+                }
             }
         }
 

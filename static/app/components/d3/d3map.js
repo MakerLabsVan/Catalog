@@ -14,8 +14,9 @@ app.controller('mapController', ['$scope', '$window', '$sce', function ($scope, 
         'floor': parseInt($scope.data[i][5]),
         'height': parseInt($scope.data[i][7]),
         'width': parseInt($scope.data[i][6]),
-        'id': $scope.data[i][0],
+        'id': $scope.data[i][0].replace(/\s/g, '').replace(/\//g, ''),
       }
+
       if ($scope.data[i][5] === '2' && $scope.data[i][1] === 'Studio') {
         $scope.studioData2 = $scope.studioData2.concat(obj);
       }
