@@ -57,7 +57,7 @@
                                 <a href="#conIn" aria-controls="tab" role="tab" data-toggle="tab" ng-click="setType('Consumable')">Consumable</a>
                             </li>
                             <li role="presentation" id="input-edit-tab">
-                                <a href="#ct-edit" aria-controls="tab" role="tab" data-toggle="tab">Edit</a>
+                                <a href="#ct-edit" aria-controls="tab" role="tab" data-toggle="tab" ng-init="clearEditPage()">Edit</a>
                             </li>
                         </ul>
                         <!-- Tab panes -->
@@ -68,7 +68,7 @@
                                         <add-input></add-input>
                                     </div>
                                     <div class="col-sm-2 col-sm-offset-1">
-                                        <button type="button" class="btn btn-large btn-block btn-default" data-toggle="modal" href="#modal-location"><span class="glyphicon glyphicon-map-marker">
+                                        <button type="button" class="btn btn-large btn-block btn-default"><span class="glyphicon glyphicon-map-marker">
                                             </span>Location</button>
                                     </div>
                                     <div class="col-sm-1 col-sm-offset-5">
@@ -109,6 +109,9 @@
                             <div role="tabpanel" class="tab-pane" id="ct-edit">
                                 <div ng-include="templateURL">
                                 </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="loc-edit">
+                                
                             </div>
                         </div>
                     </div>

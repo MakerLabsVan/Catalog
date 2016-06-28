@@ -43,7 +43,7 @@ router.get("/editEntryTmpl", function (req, res) {
     res.sendFile(path + "/static/templates/editEntryTmpl.html");
 })
 
-router.get("/clearEditPage", function(req, res){
+router.get("/clearEditPage", function (req, res) {
     res.sendFile(path + "/static/templates/clearEditPage.html");
 })
 

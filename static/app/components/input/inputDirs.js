@@ -2,7 +2,6 @@ angular.module("myApp").directive("adminSearchRes", function () {
     return {
         replace: true,
         templateUrl: 'templates/adminSearchResTmpl.html',
-
     }
 })
 
@@ -66,8 +65,3 @@ angular.module("myApp").directive("addInput", function () {
     };
 });
 
-angular.module("myApp").directive("modalLoc", function () {
-    return {
-        templateUrl: 'templates/modalLocTmpl.html',
-    }
-});

@@ -11,7 +11,7 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
         });
 
     $scope.entryProperties = [
-        "Name", "Type", "Subtype", "Location x (ft)", "Location y (ft)", "Floor", "Width", "Length", "Height", "Units", "Weight", "Weight Unit", "Quantity", "Price", "Description", "Keywords"
+        "Name", "Type", "Subtype", "Location x (ft)", "Location y (ft)", "Floor", "Width", "Length", "Height", "Units", "Weight", "Weight Unit", "Quantity", "Price", "Description"
     ];
 
     $scope.inputQuery = '';
@@ -52,7 +52,6 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
             .success(function (data, status, header, config) {
                 console.log(data, status);
                 $scope.dataLength--;
-                $scope.editFormData = {};
                 $scope.clearEditPage();
             })
             .error(function (data, status, header, config) {
@@ -67,15 +66,14 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
         for (var i = 0; i < $scope.dataLength; i++) {
             if (objectName === $scope.data[i][0]) {
                 $scope.index = i;
+                // maybe change all properties?
                 $scope.data[i][0] = $scope.editFormData.Name;
                 break;
             }
         }
-        console.log($scope.index);
         $http.post('/edit', [$scope.editFormData, $scope.index])
             .success(function (data, status, header, config) {
                 console.log(data, status);
-                $scope.editFormData = {};
             })
             .error(function (data, status, header, config) {
                 console.log(data, status);
@@ -102,13 +100,25 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
         for (i = 0; i < $scope.entryProperties.length; i++) {
             $scope.editFormData[$scope.entryProperties[i]] = curObject[i];
         }
-
         $scope.templateURL = 'editEntryTmpl';
     };
 
     $scope.clearEditPage = function () {
         $scope.templateURL = 'clearEditPage';
-    }
+    };
+
+    $scope.editPageCols = function (prop) {
+        $scope.$watch('editFormData', function () {
+            if (prop.toLowerCase().indexOf('location') != -1) {
+                document.getElementById(prop).remove();
+                document.getElementById(prop + 'label').remove();
+            }
+
+            if (prop.toLowerCase().indexOf('description') != -1) {
+                document.getElementById(prop).className = 'col-sm-12';
+            }
+        });
+    };
 
 }]);
 

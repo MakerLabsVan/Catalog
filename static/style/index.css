@@ -77,6 +77,7 @@
     #inputWell {
         height: 75vh;
         background:white;
+        border: none;
     }
 
     #studioIn, #matIn, #conIn, #toolIn {    
@@ -85,11 +86,6 @@
 
     #navTab {
         margin: -10px;
-    }
-
-    #edit-modal-body {
-        height: 50vh;
-        overflow-y: scroll;
     }
 
     #ct-input-forms {
@@ -121,5 +117,9 @@
 
     #ct-edit {
         /*container is off */
+        margin-top: 20px;
+    }
+
+    #loc-edit {
         margin-top: 20px;
     }
