@@ -34,13 +34,31 @@ angular.module("myApp", ['d3mapping'])
         };
 
         $scope.showEntryDetails = function (object) {
-            document.getElementById("ct-index-panel-title-detail").innerHTML = object[0] + ' <small>' + object[1] + '</small>';
+            var innerTitle = document.getElementById("ct-index-panel-title-detail");
+            innerTitle.innerHTML = object[0] + ' <small>' + object[1] + '</small>';
+            innerTitle.style.color = 'white';
+
+            var innerPanel = document.getElementById('ct-idx-ph-det');
+            switch (object[1]) {
+                case 'Studio':
+                    innerPanel.style.background = '#F14A29';
+                    break;
+                case 'Tool':
+                    innerPanel.style.background = '#107CC2';
+                    break;
+                case 'Material':
+                    innerPanel.style.background = '#F3902C';
+                    break;
+                case 'Consumable':
+                    innerPanel.style.background = '#2BAC69';
+            };
+
             var innerBody = document.getElementById("ct-index-panel-body-detail");
-            innerBody.innerHTML = '';
             innerBody.innerHTML = 'Image <br /><br /><br /><hr />';
+
             var i;
             for (i = 1; i < object.length; i++) {
-                if (object[i] !== '') {
+                if (object[i] !== '' && i != 3 && i != 4 && i != 1) {
                     innerBody.innerHTML += '<div class="col-sm-6"><b>' + $scope.entryProperties[i] + '</div></b><div class="col-sm-6" id="ct-index-object-name">' + object[i] + '</div>';
                 }
             }
@@ -67,13 +85,13 @@ angular.module("myApp", ['d3mapping'])
         $scope.lastStudio = null;
         //Highlight the studio given the name of the studio as aparam
         $scope.showStudioLoc = function (studioName) {
-            if ( $scope.lastStudio !==null ){
-              if ($scope.lastStudio[5] === '1') {
-                  $scope.map1.studio.dehighlight($scope.lastStudio[0]);
-              }
-              else if ($scope.lastStudio[5] === '2') {
-                  $scope.map2.studio.dehighlight($scope.lastStudio[0]);
-              }
+            if ($scope.lastStudio !== null) {
+                if ($scope.lastStudio[5] === '1') {
+                    $scope.map1.studio.dehighlight($scope.lastStudio[0]);
+                }
+                else if ($scope.lastStudio[5] === '2') {
+                    $scope.map2.studio.dehighlight($scope.lastStudio[0]);
+                }
             }
             var elementPos = $scope.data.map(function (x) { return x[0]; }).indexOf(studioName);
             var objectFound = $scope.data[elementPos];
@@ -96,14 +114,14 @@ angular.module("myApp", ['d3mapping'])
             var objectFound = $scope.data[elementPos];
             if (objectFound === null) { return 'Not Found' }
 
-            if ( objectFound[3] === null || objectFound[4] === null){
-              $scope.map1.marker.remove();
-              $scope.map2.marker.remove();
+            if (objectFound[3] === null || objectFound[4] === null) {
+                $scope.map1.marker.remove();
+                $scope.map2.marker.remove();
             }
-            if ( objectFound[5] === '1') {
+            if (objectFound[5] === '1') {
                 $scope.map1.marker.set(parseInt(objectFound[3]), parseInt(objectFound[4]), $scope.map1.width(), $scope.map1.height())
             }
-            else if ( objectFound[5] === '2') {
+            else if (objectFound[5] === '2') {
                 $scope.map2.marker.set(parseInt(objectFound[3]), parseInt(objectFound[4]), $scope.map2.width(), $scope.map2.height())
             }
         }

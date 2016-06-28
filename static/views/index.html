@@ -44,8 +44,8 @@
                             <div id="collapse1" class="panel-collapse collapse in">
                                 <div class="panel-body" id="ct-index-panel-body">
                                     <!-- sheet data -->
-                                    <div ng-repeat="object in data">
-                                        <div id="entryPO" ng-click="showEntryDetails(object);showStudioLoc(object[0])" role='tab' data-toggle="tab" id="secondFloorTab">
+                                    <div ng-repeat="object in data track by $index">
+                                        <div id="entryPO" ng-click="showEntryDetails(object, $index);showStudioLoc(object[0])">
                                             {{ object[1] === "Studio" ? object[0] : '' }}
                                         </div>
                                     </div>
@@ -93,7 +93,7 @@
                             <div id="collapse4" class="panel-collapse collapse">
                                 <div class="panel-body" id="ct-index-panel-body">
                                     <div ng-repeat="object in data">
-                                        <div ng-click="showEntryDetails(object);showItemLoc(object[0])" id="entryPO" >
+                                        <div ng-click="showEntryDetails(object);showItemLoc(object[0])" id="entryPO">
                                             {{ object[1] === "Material" ? object[0] : '' }}
                                         </div>
                                     </div>
@@ -104,7 +104,7 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="panel panel-default">
-                        <div class="panel-heading">
+                        <div class="panel-heading" id="ct-idx-ph-det">
                             <h3 class="panel-title" id="ct-index-panel-title-detail">
                                 <!--panel title-->
                                 MakerLabs
@@ -135,11 +135,11 @@
                             </ul>
                             <!-- Tab panes -->
                             <div class="tab-content">
-                                <div role="tabpanel" class="tab-pane active"  ng-model="fstFloorSize" id="firstFloor">
+                                <div role="tabpanel" class="tab-pane active" ng-model="fstFloorSize" id="firstFloor">
                                     <div class="well well-lg" id="firstFloorWell">
                                     </div>
                                 </div>
-                                <div role="tabpanel" class="tab-pane"  ng-model="secFloorSize" id="secondFloor">
+                                <div role="tabpanel" class="tab-pane" ng-model="secFloorSize" id="secondFloor">
                                     <div class="well well-lg" id="secondFloorWell">
                                     </div>
                                 </div>

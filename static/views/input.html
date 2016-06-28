@@ -10,7 +10,7 @@
 
 <body>
     <div ng-app="myApp">
-        <div class="container" ng-controller="inputCtrl">
+        <div class="container-fluid" ng-controller="inputCtrl">
             <div class="row">
                 <div class="col-sm-1" id="backChevron">
                     <a href="/">
@@ -19,95 +19,102 @@
                 </div>
             </div>
             <div class="row">
-                <img src="/assets/makerlabs.png" alt="makerlabsinputLogo" />
+                <img src="/assets/makerlabs.png" alt="MakerLabs" />
             </div>
             <div class="row">
-                <div class="container">
-                    <div class="col-sm-4">
-                        <div class="panel-group">
-                            <div class="panel panel-default">
-                                <div class="panel-heading" id="searchbar">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <input type="search" class="form-control" placeholder="Search here" ng-model="inputQuery" />
-                                        </div>
-                                    </div>
-                                </div>
+                <div class="col-sm-3">
+                    <div class="panel-group">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <input type="search" class="form-control" placeholder="Search here" ng-model="inputQuery" />
                             </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading" id="searchbar">
-                                    <div id="inputResultBox">
-                                        <div ng-repeat="object in data track by $index">
-                                            <admin-search-res></admin-search-res>
-                                        </div>
-                                    </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" id="inputResultBox">
+                                <div ng-repeat="object in data track by $index">
+                                    <admin-search-res></admin-search-res>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-8 well well-sm" id="inputWell">
-                        <div role="tabpanel">
-                            <!-- Nav tabs -->
-                            <ul class="nav nav-tabs" role="tablist" id="navTab">
-                                <li role="presentation" class="active">
-                                    <a href="#studioIn" aria-controls="home" role="tab" data-toggle="tab" ng-init="setType('Studio')" ng-click="setType('Studio')">Studio</a>
-                                </li>
-                                <li role="presentation">
-                                    <a href="#matIn" aria-controls="tab" role="tab" data-toggle="tab" ng-click="setType('Material')">Material</a>
-                                </li>
-                                <li role="presentation">
-                                    <a href="#toolIn" aria-controls="tab" role="tab" data-toggle="tab" ng-click="setType('Tool')">Tool</a>
-                                </li>
-                                <li role="presentation">
-                                    <a href="#conIn" aria-controls="tab" role="tab" data-toggle="tab" ng-click="setType('Consumable')">Consumable</a>
-                                </li>
-                            </ul>
-                            <!-- Tab panes -->
-                            <div class="tab-content">
-                                <div role="tabpanel" class="tab-pane active" id="studioIn">
-                                    <form class="form-horizontal" ng-submit="stdPost('Studio')">
-                                        <div ng-repeat="prop in entryProperties track by $index">
-                                            <add-input></add-input>
-                                        </div>
-                                        <div class="col-sm-2 col-sm-offset-1">
-                                            <button type="button" class="btn btn-large btn-block btn-default" data-toggle="modal" href="#modal-location"><span class="glyphicon glyphicon-map-marker">
+                </div>
+                <div class="col-sm-3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" id="ct-idx-ph-det">
+                            <h3 class="panel-title" id="ct-index-panel-title-detail">
+                                <!--panel title-->
+                                MakerLabs
+                            </h3>
+                        </div>
+                        <div class="panel-body" id="ct-index-panel-body-detail">
+                            <!--panel body-->
+                            Cupidatat mollit do reprehenderit adipisicing irure. Ipsum cupidatat non nostrud laborum nisi dolore voluptate irure tempor
+                            do. Ea amet elit nisi ullamco.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 well well-sm" id="inputWell">
+                    <div role="tabpanel">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist" id="navTab">
+                            <li role="presentation" class="active">
+                                <a href="#studioIn" aria-controls="home" role="tab" data-toggle="tab" ng-init="setType('Studio')" ng-click="setType('Studio')">Studio</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#matIn" aria-controls="tab" role="tab" data-toggle="tab" ng-click="setType('Material')">Material</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#toolIn" aria-controls="tab" role="tab" data-toggle="tab" ng-click="setType('Tool')">Tool</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#conIn" aria-controls="tab" role="tab" data-toggle="tab" ng-click="setType('Consumable')">Consumable</a>
+                            </li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="studioIn">
+                                <form class="form-horizontal" ng-submit="stdPost('Studio')">
+                                    <div ng-repeat="prop in entryProperties track by $index">
+                                        <add-input></add-input>
+                                    </div>
+                                    <div class="col-sm-2 col-sm-offset-1">
+                                        <button type="button" class="btn btn-large btn-block btn-default" data-toggle="modal" href="#modal-location"><span class="glyphicon glyphicon-map-marker">
                                             </span>Location</button>
-                                        </div>
-                                        <div class="col-sm-1 col-sm-offset-5">
-                                            <button type="submit" class="btn btn-default">Submit</button>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div role="tabpanel" class="tab-pane" id="matIn">
-                                    <form class="form-horizontal" ng-submit="stdPost('Material')">
-                                        <div ng-repeat="prop in entryProperties track by $index">
-                                            <add-input></add-input>
-                                        </div>
-                                        <div class="col-sm-1 col-sm-offset-5">
-                                            <button type="submit" class="btn btn-default">Submit</button>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div role="tabpanel" class="tab-pane" id="toolIn">
-                                    <form class="form-horizontal" ng-submit="stdPost('Tool')">
-                                        <div ng-repeat="prop in entryProperties track by $index">
-                                            <add-input></add-input>
-                                        </div>
-                                        <div class="col-sm-1 col-sm-offset-5">
-                                            <button type="submit" class="btn btn-default">Submit</button>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div role="tabpanel" class="tab-pane" id="conIn">
-                                    <form class="form-horizontal" ng-submit="stdPost('Consumable')">
-                                        <div ng-repeat="prop in entryProperties track by $index">
-                                            <add-input></add-input>
-                                        </div>
-                                        <div class="col-sm-1 col-sm-offset-5">
-                                            <button type="submit" class="btn btn-default">Submit</button>
-                                        </div>
-                                    </form>
-                                </div>
+                                    </div>
+                                    <div class="col-sm-1 col-sm-offset-5">
+                                        <button type="submit" class="btn btn-default">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="matIn">
+                                <form class="form-horizontal" ng-submit="stdPost('Material')">
+                                    <div ng-repeat="prop in entryProperties track by $index">
+                                        <add-input></add-input>
+                                    </div>
+                                    <div class="col-sm-1 col-sm-offset-5">
+                                        <button type="submit" class="btn btn-default">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="toolIn">
+                                <form class="form-horizontal" ng-submit="stdPost('Tool')">
+                                    <div ng-repeat="prop in entryProperties track by $index">
+                                        <add-input></add-input>
+                                    </div>
+                                    <div class="col-sm-1 col-sm-offset-5">
+                                        <button type="submit" class="btn btn-default">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="conIn">
+                                <form class="form-horizontal" ng-submit="stdPost('Consumable')">
+                                    <div ng-repeat="prop in entryProperties track by $index">
+                                        <add-input></add-input>
+                                    </div>
+                                    <div class="col-sm-1 col-sm-offset-5">
+                                        <button type="submit" class="btn btn-default">Submit</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

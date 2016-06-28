@@ -77,7 +77,3 @@ angular.module("myApp").directive("modalLoc", function () {
         templateUrl: 'templates/modalLocTmpl.html',
     }
 });
-
-angular.module("myApp").directive("indexDetailPanel", function () {
-    
-})

@@ -14,6 +14,7 @@
     
     #entryPO {
         font-size: 20px;
+        margin-bottom: 10px;
     }
 
     #entryPO:hover {
@@ -37,16 +38,19 @@
     }
 
     #searchbar {
-        background: none;
+        background: white;
+        border: 0px;
     }
 
     #searchSection {
         height:0px;
         overflow-y:scroll;
+        margin-left: 10px;
+        margin-top: 20px;
     }
 
     .panel-title {
-        color: black;
+        color: white;
         font-size: 20px;
     }
 
@@ -68,8 +72,9 @@
     }
 
     #inputResultBox {
-        height: 60vh;
+        height: 70vh;
         overflow-y: scroll;
+        background: white;
     }
 
     #inputWell {
@@ -94,8 +99,12 @@
         overflow-y: scroll;
     }
 
+    #ct-index-panel-title-detail {
+        color: black;
+    }
+
     #ct-index-panel-body-detail {
-        height: 72vh;
+        height: 73vh;
         background: white;
         font-size: 20px;
     }
