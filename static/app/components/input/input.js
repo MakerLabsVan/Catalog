@@ -1,4 +1,4 @@
-angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($scope, $http) {
+angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService", function ($scope, $http, mapService) {
     $http.get('/getData')
         .success(function (data, status, header, config) {
             // success data
@@ -118,6 +118,10 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
                 document.getElementById(prop).className = 'col-sm-12';
             }
         });
+    };
+
+    $scope.editMap = function() {
+
     };
 
 }]);

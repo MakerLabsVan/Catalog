@@ -1,6 +1,6 @@
 angular.module("myApp", ['d3mapping'])
 
-    .controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http, $sce) {
+    .controller("MainCtrl", ["$scope", '$http', "$sce", "mapService", function ($scope, $http, $sce, mapService) {
 
         $http.get('/getData')
             .success(function (data, status, header, config) {
@@ -66,21 +66,11 @@ angular.module("myApp", ['d3mapping'])
         };
 
         // map ctrl
-        $scope.map1 = new mapConstructor('firstFloorWell', 1);
-        $scope.map2 = new mapConstructor('secondFloorWell', 2);
+        $scope.map1 = mapService.initMap('firstFloorWell', 1);
+        $scope.map2 = mapService.initMap('secondFloorWell', 2);
 
-        $scope.resizeMap = function () {
-            if ($scope.map2.width() !== 0) {
-                var width = $scope.map2.width();
-                var height = $scope.map2.height();
-            }
-            else {
-                var width = $scope.map1.width();
-                var height = $scope.map1.height();
-            }
-            $scope.map1.studio.resize(width, height);
-            $scope.map2.studio.resize(width, height);
-        };
+        $scope.resizeMap = mapService.resize($scope.map1);
+        $scope.resizeMap = mapService.resize($scope.map2);
 
         $scope.lastItem = null;
         //Highlight the studio given the name of the studio as aparam
@@ -128,3 +118,24 @@ angular.module("myApp", ['d3mapping'])
             }
         }
     }]);
+
+angular.module("myApp").service("mapService", function () {
+    var map = function (id, num) {
+        return new mapConstructor(id, num);
+    }
+
+    var resizeMap = function (map) {
+        if (map.width() !== 0) {
+            var width = map.width();
+            var height = map.height();
+        }
+
+        map.studio.resize(width, height);
+        map.studio.resize(width, height);
+    };
+
+    return {
+        initMap: map,
+        resize: resizeMap
+    }
+});
