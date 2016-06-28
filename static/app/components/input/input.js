@@ -84,5 +84,13 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
         $scope.formData['Type'] = type;
     };
 
+    $scope.makeActive = function () {
+        document.getElementById('input-edit-tab').className = 'active';
+        document.getElementById('input-std-tab').className = '';
+        document.getElementById('input-tl-tab').className = '';
+        document.getElementById('input-mat-tab').className = '';
+        document.getElementById('input-con-tab').className = '';
+    };
+
 }]);
 

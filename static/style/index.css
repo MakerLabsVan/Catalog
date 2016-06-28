@@ -5,7 +5,7 @@
  #firstFloorWell, #secondFloorWell {
         height: 70vh;
         background: white;
-        border: 0px;
+        border: none;
     }
 
     a {
@@ -39,7 +39,7 @@
 
     #searchbar {
         background: white;
-        border: 0px;
+        border: none;
     }
 
     #searchSection {
@@ -57,6 +57,7 @@
     #ct-index-panel-body {
         height: 53vh;
         overflow-y: scroll;
+        
     }
 
     .form-control {
@@ -103,11 +104,17 @@
         height: 73vh;
         background: white;
         font-size: 20px;
+        border: none;
     }
 
     #ct-panel-toggle:hover {
         cursor: pointer;
     }
+    
     #ct-index-object-name {
         text-align: right;
+    }
+
+    .panel {
+        border: none;
     }
