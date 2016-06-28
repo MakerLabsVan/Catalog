@@ -94,8 +94,14 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
         document.getElementById('input-con-tab').className = '';
     };
 
-    $scope.showEditPage = function (object) {
-        $scope.object = object;
+    $scope.showEditPage = function (curObject) {
+        $scope.object = curObject;
+        var i;
+        // create edit values on click
+        for (i = 0; i < $scope.entryProperties.length; i++) {
+            $scope.editFormData[$scope.entryProperties[i]] = curObject[i];
+        }
+
         $scope.templateURL = 'editEntryTmpl';
     };
 

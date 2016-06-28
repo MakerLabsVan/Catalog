@@ -6,11 +6,16 @@
             </div>
             <div class="col-sm-4">
                 <input class="form-control" type="text" ng-model="editFormData[prop]" id="edit-input" placeholder="{{ object[$index] }}"
-                    ng-init="editFormData[prop] = object[$index]" />
+                />
             </div>
         </div>
-        <div class="col-sm-1 col-sm-offset-10">
-            <button type="submit" class="btn btn-large btn-default">Submit</button>
+        <div class="row">
+            <div class="col-sm-1 col-sm-offset-8">
+                <button type="button" class="btn btn-large btn-default" ng-click="deletePost(object[0])">Delete</button>
+            </div>
+            <div class="col-sm-1 col-sm-offset-1">
+                <button type="submit" class="btn btn-large btn-default">Submit</button>
+            </div>
         </div>
     </div>
 </form>
