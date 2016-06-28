@@ -4,8 +4,6 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", function ($s
             // success data
             $scope.data = data;
             $scope.dataLength = data.length;
-
-
         })
         .error(function (data, status, header, config) {
             // something went wrong

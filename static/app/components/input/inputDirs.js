@@ -6,12 +6,6 @@ angular.module("myApp").directive("adminSearchRes", function () {
     }
 })
 
-angular.module("myApp").directive("editEntryForm", function () {
-    return {
-        replace: true,
-        templateUrl: 'templates/editEntryTmpl.html',
-    };
-});
 
 angular.module("myApp").directive("addInput", function () {
     return {
