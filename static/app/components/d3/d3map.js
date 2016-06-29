@@ -1,6 +1,6 @@
 var app = angular.module('d3mapping', [])
 
-app.controller('mapController', ['$scope', '$window', '$sce', function ($scope, $window, $sce) {
+app.controller('mapController', ['$scope', '$window', '$location', function ($scope, $window, $location) {
   //Populates the map with studio data
   $scope.$watch('data', function () {
     if (!$scope.data) { return }
@@ -42,4 +42,22 @@ app.controller('mapController', ['$scope', '$window', '$sce', function ($scope, 
     // is outside of angular
     $scope.$digest();
   })
+
+  //Get Query variable string
+  function getQueryVariable(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split('&');
+    console.log(vars)
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split('=');
+        if (decodeURIComponent(pair[0]) == variable) {
+            return decodeURIComponent(pair[1]);
+        }
+    }
+    console.log('Query variable %s not found', variable);
+}
+
+console.log(getQueryVariable('self'))
+
+
 }])
