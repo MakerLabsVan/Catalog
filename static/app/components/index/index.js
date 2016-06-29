@@ -2,6 +2,7 @@ angular.module("myApp", ['d3mapping'])
 
     .controller("MainCtrl", ["$scope", '$http', "$sce", "mapService", function ($scope, $http, $sce, mapService) {
 
+        // init call of data (put in var)
         $http.get('/getData')
             .success(function (data, status, header, config) {
                 // success data
@@ -25,6 +26,7 @@ angular.module("myApp", ['d3mapping'])
 
         $scope.queryTerm = '';
 
+        // change height of query result box dynamically
         $scope.changeHeight = function () {
             if ($scope.queryTerm.length < 2) {
                 document.getElementById("searchSection").style.height = '0px';
@@ -33,11 +35,14 @@ angular.module("myApp", ['d3mapping'])
             }
         };
 
+        // change middle panel to display entry information and stylize accordingly
         $scope.showEntryDetails = function (object) {
+            // initialize title
             var innerTitle = document.getElementById("ct-index-panel-title-detail");
             innerTitle.innerHTML = object[0] + ' <small>' + object[1] + '</small>';
             innerTitle.style.color = 'white';
 
+            // change color of panel title
             var innerPanel = document.getElementById('ct-idx-ph-det');
             switch (object[1]) {
                 case 'Studio':
@@ -53,9 +58,11 @@ angular.module("myApp", ['d3mapping'])
                     innerPanel.style.background = '#2BAC69';
             };
 
+            // placeholder for image
             var innerBody = document.getElementById("ct-index-panel-body-detail");
             innerBody.innerHTML = 'Image <br /><br /><br /><hr />';
 
+            // print entry properties in loop
             var i;
             for (i = 1; i < object.length; i++) {
                 if (object[i] !== '' && i != 3 && i != 4 && i != 1) {
@@ -119,6 +126,7 @@ angular.module("myApp", ['d3mapping'])
         }
     }]);
 
+// service to share methods for map construction and resizing
 angular.module("myApp").service("mapService", function () {
     var map = function (id, num) {
         return new mapConstructor(id, num);
