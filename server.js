@@ -6,43 +6,53 @@ var router = express.Router();
 var bodyParser = require('body-parser');
 var serverOps = require(path + "/serverOps.js");
 
-app.use("/", router);
-app.use(express.static(path + '/static'));
 app.use(bodyParser.json());
+app.use(express.static(path + '/static'));
+app.use('/', router);
 
-app.get("/", function (req, res) {
+router.get("/", function (req, res) {
     res.sendFile(path + '/static/views/index.html');
     console.log()
 });
 
-app.get("/input", function (req, res) {
+router.get("/input", function (req, res) {
     res.sendFile(path + '/static/views/input.html');
 });
 
-app.post("/new", function (req, res) {
-    serverOps.parse(req.body[0], req.body[1], function(response){
+router.post("/new", function (req, res) {
+    serverOps.parse(req.body[0], req.body[1], function (response) {
         return res.json(response);
     });
 });
 
-app.post("/edit", function (req, res) {
-    serverOps.parse(req.body[0], req.body[1], function(response){
+router.post("/edit", function (req, res) {
+    console.log(req.body);
+    serverOps.parse(req.body[0], req.body[1], function (response) {
         return res.json(response);
     });
-})
+});
 
-app.post("/delete", function (req, res) {
+router.post("/delete", function (req, res) {
     console.log(req.body[0]);
     serverOps.delEntry(req.body[0], function (result) {
         return res.json(result);
     });
 });
 
-app.get("/getData", function (req, res) {
+router.get("/editEntryTmpl", function (req, res) {
+    res.sendFile(path + "/static/templates/editEntryTmpl.html");
+})
+
+router.get("/clearEditPage", function (req, res) {
+    res.sendFile(path + "/static/templates/clearEditPage.html");
+})
+
+router.get("/getData", function (req, res) {
     serverOps.getData(function (result) {
         return res.json(result);
     });
 });
+
 
 app.listen(PORT, function () {
     console.log("Live at Port 3000");

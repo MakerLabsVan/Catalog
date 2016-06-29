@@ -1,0 +1,32 @@
+<form class="form-horizontal" ng-submit="editEntry(object[0])">
+    <div class="form-group" id="edit-form-group">
+        <div ng-repeat="prop in entryProperties track by $index">
+            <div class="col-sm-2" id="{{ prop }}label">
+                <label for="edit-input" class="control-label">{{ prop }}: </label>
+            </div>
+            <div class="col-sm-4" id="{{ prop }}" ng-init="editPageCols(prop)">
+                <input class="form-control" type="text" ng-model="editFormData[prop]" id="edit-input" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-1">
+            <button type="button" class="btn btn-large btn-default" href="#edit-first-floor" data-toggle="tab"> 
+                <span class="glyphicon glyphicon-map-marker"></span>
+                Location
+                </button>
+        </div>
+        <div class="col-sm-1  col-sm-offset-7">
+            <button type="button" class="btn btn-large btn-default" ng-click="deletePost(object[0])">
+                <span class="glyphicon glyphicon-trash"></span>
+                Delete
+                </button>
+        </div>
+        <div class="col-sm-1  col-sm-offset-1">
+            <button type="submit" class="btn btn-large btn-default">
+                <span class="glyphicon glyphicon-pencil"></span>
+                Make Edit
+                </button>
+        </div>
+    </div>
+</form>

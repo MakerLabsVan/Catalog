@@ -1,7 +1,8 @@
 angular.module("myApp", ['d3mapping'])
 
-    .controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http, $sce) {
+    .controller("MainCtrl", ["$scope", '$http', "$sce", "mapService", function ($scope, $http, $sce, mapService) {
 
+        // init call of data (put in var)
         $http.get('/getData')
             .success(function (data, status, header, config) {
                 // success data
@@ -25,19 +26,31 @@ angular.module("myApp", ['d3mapping'])
 
         $scope.queryTerm = '';
 
+        // change height of query result box dynamically
         $scope.changeHeight = function () {
-            if ($scope.queryTerm.length == 0) {
+            if ($scope.queryTerm.length < 2) {
                 document.getElementById("searchSection").style.height = '0px';
             } else {
                 document.getElementById("searchSection").style.height = '50vh';
             }
         };
 
+        $scope.collapseCat = function () {
+            if ($scope.queryTerm.length >= 2) {
+                document.getElementById('collapse1').classList.remove('in');
+            } else {
+                document.getElementById('collapse1').classList.add('in');
+            }
+        }
+
+        // change middle panel to display entry information and stylize accordingly
         $scope.showEntryDetails = function (object) {
+            // initialize title
             var innerTitle = document.getElementById("ct-index-panel-title-detail");
             innerTitle.innerHTML = object[0] + ' <small>' + object[1] + '</small>';
             innerTitle.style.color = 'white';
 
+            // change color of panel title
             var innerPanel = document.getElementById('ct-idx-ph-det');
             switch (object[1]) {
                 case 'Studio':
@@ -53,34 +66,25 @@ angular.module("myApp", ['d3mapping'])
                     innerPanel.style.background = '#2BAC69';
             };
 
+            // placeholder for image
             var innerBody = document.getElementById("ct-index-panel-body-detail");
             innerBody.innerHTML = 'Image <br /><br /><br /><hr />';
 
+            // print entry properties in loop
             var i;
             for (i = 1; i < object.length; i++) {
                 if (object[i] !== '' && i != 3 && i != 4 && i != 1) {
                     innerBody.innerHTML += '<div class="col-sm-6"><b>' + $scope.entryProperties[i] + '</div></b><div class="col-sm-6" id="ct-index-object-name">' + object[i] + '</div>';
                 }
             }
-
         };
 
         // map ctrl
-        $scope.map1 = new mapConstructor('firstFloorWell', 1);
-        $scope.map2 = new mapConstructor('secondFloorWell', 2);
+        $scope.map1 = mapService.initMap('firstFloorWell', 1);
+        $scope.map2 = mapService.initMap('secondFloorWell', 2);
 
-        $scope.resizeMap = function () {
-            if ($scope.map2.width() !== 0) {
-                var width = $scope.map2.width();
-                var height = $scope.map2.height();
-            }
-            else {
-                var width = $scope.map1.width();
-                var height = $scope.map1.height();
-            }
-            $scope.map1.studio.resize(width, height);
-            $scope.map2.studio.resize(width, height);
-        };
+        $scope.resizeMap = mapService.resize($scope.map1);
+        $scope.resizeMap = mapService.resize($scope.map2);
 
         $scope.lastItem = null;
         //Highlight the studio given the name of the studio as aparam
@@ -128,3 +132,25 @@ angular.module("myApp", ['d3mapping'])
             }
         }
     }]);
+
+// service to share methods for map construction and resizing
+angular.module("myApp").service("mapService", function () {
+    var map = function (id, num) {
+        return new mapConstructor(id, num);
+    }
+
+    var resizeMap = function (map) {
+        if (map.width() !== 0) {
+            var width = map.width();
+            var height = map.height();
+        }
+
+        map.studio.resize(width, height);
+        map.studio.resize(width, height);
+    };
+
+    return {
+        initMap: map,
+        resize: resizeMap
+    }
+});

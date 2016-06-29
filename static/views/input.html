@@ -44,20 +44,20 @@
                     <div role="tabpanel">
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist" id="navTab">
-                            <li role="presentation" class="active">
+                            <li role="presentation" class="active" id="input-std-tab">
                                 <a href="#studioIn" aria-controls="home" role="tab" data-toggle="tab" ng-init="setType('Studio')" ng-click="setType('Studio')">Studio</a>
                             </li>
-                            <li role="presentation">
+                            <li role="presentation" id="input-mat-tab">
                                 <a href="#matIn" aria-controls="tab" role="tab" data-toggle="tab" ng-click="setType('Material')">Material</a>
                             </li>
-                            <li role="presentation">
+                            <li role="presentation" id="input-tl-tab">
                                 <a href="#toolIn" aria-controls="tab" role="tab" data-toggle="tab" ng-click="setType('Tool')">Tool</a>
                             </li>
-                            <li role="presentation">
+                            <li role="presentation" id="input-con-tab">
                                 <a href="#conIn" aria-controls="tab" role="tab" data-toggle="tab" ng-click="setType('Consumable')">Consumable</a>
                             </li>
-                            <li role="presentation">
-                                <a href="#ct-edit" aria-controls="tab" role="tab" data-toggle="tab">Edit</a>
+                            <li role="presentation" id="input-edit-tab">
+                                <a href="#ct-edit" aria-controls="tab" role="tab" data-toggle="tab" ng-init="clearEditPage()">Edit</a>
                             </li>
                         </ul>
                         <!-- Tab panes -->
@@ -68,10 +68,10 @@
                                         <add-input></add-input>
                                     </div>
                                     <div class="col-sm-2 col-sm-offset-1">
-                                        <button type="button" class="btn btn-large btn-block btn-default" data-toggle="modal" href="#modal-location"><span class="glyphicon glyphicon-map-marker">
+                                        <button type="button" class="btn btn-large btn-block btn-default"><span class="glyphicon glyphicon-map-marker">
                                             </span>Location</button>
                                     </div>
-                                    <div class="col-sm-1 col-sm-offset-5">
+                                    <div class="col-sm-1 col-sm-offset-6">
                                         <button type="submit" class="btn btn-default">Submit</button>
                                     </div>
                                 </form>
@@ -107,7 +107,16 @@
                                 </form>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="ct-edit">
-
+                                <div ng-include="templateURL">
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="edit-first-floor">
+                                <edit-map-panes></edit-map-panes>
+                                <br>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="edit-second-floor">
+                                <edit-map-panes></edit-map-panes>
+                                <br>
                             </div>
                         </div>
                     </div>
