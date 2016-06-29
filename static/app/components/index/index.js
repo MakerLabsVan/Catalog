@@ -35,6 +35,14 @@ angular.module("myApp", ['d3mapping'])
             }
         };
 
+        $scope.collapseCat = function () {
+            if ($scope.queryTerm.length >= 2) {
+                document.getElementById('collapse1').classList.remove('in');
+            } else {
+                document.getElementById('collapse1').classList.add('in');
+            }
+        }
+
         // change middle panel to display entry information and stylize accordingly
         $scope.showEntryDetails = function (object) {
             // initialize title
@@ -69,7 +77,6 @@ angular.module("myApp", ['d3mapping'])
                     innerBody.innerHTML += '<div class="col-sm-6"><b>' + $scope.entryProperties[i] + '</div></b><div class="col-sm-6" id="ct-index-object-name">' + object[i] + '</div>';
                 }
             }
-
         };
 
         // map ctrl
