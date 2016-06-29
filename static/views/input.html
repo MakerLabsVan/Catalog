@@ -57,7 +57,7 @@
                                 <a href="#conIn" aria-controls="tab" role="tab" data-toggle="tab" ng-click="setType('Consumable')">Consumable</a>
                             </li>
                             <li role="presentation" id="input-edit-tab">
-                                <a href="#ct-edit" aria-controls="tab" role="tab" data-toggle="tab" ng-init="clearEditPage()" ng-click="serviceTest()">Edit</a>
+                                <a href="#ct-edit" aria-controls="tab" role="tab" data-toggle="tab" ng-init="clearEditPage()">Edit</a>
                             </li>
                         </ul>
                         <!-- Tab panes -->
@@ -110,8 +110,11 @@
                                 <div ng-include="templateURL">
                                 </div>
                             </div>
-                            <div role="tabpanel" class="tab-pane" id="loc-edit">
-
+                            <div role="tabpanel" class="tab-pane" id="edit-first-floor">
+                                <map-panes></map-panes>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="edit-second-floor">
+                                <map-panes></map-panes>
                             </div>
                         </div>
                     </div>
