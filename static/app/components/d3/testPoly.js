@@ -1,35 +1,22 @@
-// Drawing features I want are:
-//Draw a circle, Draw a rectangle, draw a polygon
-//Dragable/movable areas
-//Resizable areas
-var studioConstructor = function( studioName ){
-  this.
-  this.data;
-  this.getPoints = function( container ){
-    container.on( 'click', function(){
-      if (d3.event.target.hasAttribute('is-handle')) {
-        closePolygon();
-        return;
-      }
-      if (dragging) {
-        return;
-      }
-      
-      var startPoint = [d3.mouse(this)[0], d3.mouse(this)[1]]
-    })
-  },
-  this.draw = function(){
+var polygonConstructor = function( studioName ){
+  this.dragging = false,
+  this.drawing = false,
+  this.startPoint,
+  this.points = [],
+  this.dragger = function(){
 
-  }
+  },
+
 }
 
+// global vars
 var dragging = false, drawing = false, startPoint
-//container for the object
 var svg = d3.select('body').append('svg')
   .attr('height', 1000)
   .attr('width', 1000)
-//
+
 var points = [], g
+
 // behaviors
 var dragger = d3.behavior.drag()
   .on('drag', handleDrag)
@@ -37,31 +24,41 @@ var dragger = d3.behavior.drag()
     dragging = false
   })
 
-svg.on('mouseup', function () {
-  if (dragging) return
-  drawing = true
-  startPoint = [d3.mouse(this)[0], d3.mouse(this)[1]]
-  if (svg.select('g.drawPoly').empty()) g = svg.append('g').attr('class', 'drawPoly')
-  if (d3.event.target.hasAttribute('is-handle')) {
-    closePolygon()
-    return
-  }
-  points.push(d3.mouse(this))
-  g.select('polyline').remove()
-  var polyline = g.append('polyline').attr('points', points)
-    .style('fill', 'none')
-    .attr('stroke', '#000')
-  for (var i = 0; i < points.length; i++) {
-    g.append('circle')
-      .attr('cx', points[i][0])
-      .attr('cy', points[i][1])
-      .attr('r', 4)
-      .attr('fill', 'yellow')
+
+  svg.on('mouseup', function () {
+    if ( dragging ) {
+      return;
+    }
+    drawing = true;
+    startPoint = [d3.mouse(this)[0], d3.mouse(this)[1]];
+    if (svg.select('g.drawPoly').empty()) {
+      g = svg.append('g').attr('class', 'drawPoly');
+    }
+    if (d3.event.target.hasAttribute('is-handle')) {
+      closePolygon();
+      return;
+    }
+
+    points.push( d3.mouse(this) );
+    g.select('polyline').remove();
+
+    var polyline = g.append('polyline').attr('points', points)
+      .style('fill', 'none')
       .attr('stroke', '#000')
-      .attr('is-handle', 'true')
-      .style({cursor: 'pointer'})
-  }
-})
+
+    for (var i = 0; i < points.length; i++) {
+      g.append('circle')
+        .attr('cx', points[i][0])
+        .attr('cy', points[i][1])
+        .attr('r', 4)
+        .attr('fill', 'yellow')
+        .attr('stroke', '#000')
+        .attr('is-handle', 'true')
+        .style({cursor: 'pointer'})
+    }
+  })
+
+
 function closePolygon () {
   svg.select('g.drawPoly').remove()
   var g = svg.append('g')
@@ -82,11 +79,14 @@ function closePolygon () {
       .style({cursor: 'move'})
       .call(dragger)
   }
-  points.splice(0)
-  drawing = false
+  points.splice(0);
+  drawing = false;
 }
+
 svg.on('mousemove', function () {
-  if (!drawing) return
+  if ( !drawing ) {
+    return
+  }
   var g = d3.select('g.drawPoly')
   g.select('line').remove()
   var line = g.append('line')
@@ -97,6 +97,7 @@ svg.on('mousemove', function () {
     .attr('stroke', '#53DBF3')
     .attr('stroke-width', 1)
 })
+
 function handleDrag () {
   if (drawing) return
   var dragCircle = d3.select(this), newPoints = [], circle
@@ -112,6 +113,7 @@ function handleDrag () {
   }
   poly.attr('points', newPoints)
 }
+
 function getRandomColor () {
   var letters = '0123456789ABCDEF'.split('')
   var color = '#'

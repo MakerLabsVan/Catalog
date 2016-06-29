@@ -24,7 +24,7 @@ var mapConstructor = function( containerID, floorNum ,studioData){
   //Marker inside map
   this.marker = {
       //Adds marker
-      icon: icon = addMarker(this.container,floorNum),
+      icon: icon = addMarker( this.container, floorNum),
       //Removes the marker from the map
       remove : function(){
         d3.select('#marker' + floorNum)
@@ -44,13 +44,10 @@ var mapConstructor = function( containerID, floorNum ,studioData){
 
       //On Click of the map, the marker will display
       onClick : function(){
-        var mark =d3.select('#marker' + floorNum);
-        d3.select('svg#floor' + floorNum).on('click', function (){
-          var xPos = round5(d3.mouse(this)[0]-mark.attr('width')/2);
-          var yPos = round5(d3.mouse(this)[1]-mark.attr('height')*1);
-          mark.attr('x',xPos).attr('y',yPos);
-          mark.style('visibility',null);
-      })},
+        var marker = d3.select('#marker' + floorNum);
+        var container = d3.select('svg#floor' + floorNum);
+        attachOnClick( container, marker);
+    },
 
       //Removes onclick event listener
       disableOnClick : function(){
@@ -60,8 +57,9 @@ var mapConstructor = function( containerID, floorNum ,studioData){
       //Returns the current location of the marker in px as an array
       //Output: [x,y] (px)
       getLocation : function(){
-        xPos=parseInt(icon.attr('x'))+parseInt(icon.attr('width')/2);
-        yPos=parseInt(icon.attr('y'))+parseInt(icon.attr('height')/2);
+        var mark =d3.select('#marker' + floorNum);
+        xPos=parseInt(mark.attr('x'))+parseInt(mark.attr('width')/2);
+        yPos=parseInt(mark.attr('y'))+parseInt(mark.attr('height')/2);
         return [xPos,yPos];
       }
   }
@@ -165,35 +163,6 @@ var getFilePath = function (floorNum){
   }
 };
 
-
-
-function drawMap(containerID,floorNum){
-  var width = document.getElementById(containerID).scrollWidth - 50;
-  var height = document.getElementById(containerID).scrollHeight - 50;
-
-  //Default floor 1 unless specified
-  if (floorNum === 2) {
-    var aspect = 0.85035;//W=1364.490,H=1088.246
-    var floorFile = '/assets/level2.svg'
-  }
-  else {
-    var aspect = 1.25385;//W=1364.490,H=1088.2464
-    var floorFile = '/assets/level1.svg'
-  }
-  //hard coded object scaling
-  if (width/height > aspect){
-    var scale=height/1088.246;
-  }
-  else {
-    var scale = width / 1364.490;
-  }
-    var svgContainer = addContainer(containerID, width, height);
-    var map = addMap(svgContainer, floorFile);
-    var marker = addMarker(svgContainer, 50, 50);
-    var studio = addStudio(svgContainer, rectangleData, scale);
-    attachOnClick(svgContainer, marker);
-};
-
 //Attach onClick to container to display marker at click location
 var attachOnClick = function(container, marker){
   container.on('click', function (){
@@ -232,27 +201,4 @@ var addMarker = function(container,id){
     .attr('id','marker'+id)
     .attr('width',50)
     .attr('height',50);
-};
-
-//Add a SVG for each studio
-var addStudio = function(svgContainer,studioData,scale){
-  var rectangles = svgContainer.selectAll('rect')
-    .data(studioData)
-    .enter()
-    .append('rect')
-    //Dimensions and location of map needs to be scale and placed properly
-    .attr('x', function (d) { return (d.rx/10)*scale+'in'; })
-    .attr('y', function (d) { return (d.ry/10)*scale+'in'; })
-    .attr('height', function (d) { return (d.height/10)*scale+'in'; })
-    .attr('width', function (d) { return (d.width/10)*scale+'in'; })
-    .attr('id',function (d) { return d.id; })
-    .style('fill','blue')
-    .style('opacity',0.5)
-    .style('cursor','pointer')
-    .on('mouseover',function(d){
-      d3.select(this).transition().style('opacity', 1);
-    })
-    .on('mouseout',function(){
-      d3.select(this).transition().style('opacity', 0.5);
-    });
 };
