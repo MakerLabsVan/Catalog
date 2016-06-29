@@ -25,7 +25,7 @@
                             <div class="col-sm-12 ">
                                 <input type="search" class="form-control lvl1-box-shadow" placeholder="Search here" ng-model="queryTerm" ng-change="changeHeight()"
                                 />
-                                <div id="searchSection">
+                                <div class="lvl1-box-shadow" id="searchSection">
                                     <div ng-repeat="object in data">
                                         <index-search-res></index-search-res>
                                     </div>
@@ -42,7 +42,7 @@
                                 <div class="panel-body" id="ct-index-panel-body">
                                     <!-- sheet data -->
                                     <div ng-repeat="object in data track by $index">
-                                        <div id="entryPO" ng-click="showEntryDetails(object, $index);showStudioLoc(object[0])">
+                                        <div class="entryPO" ng-click="showEntryDetails(object, $index);showStudioLoc(object[0])">
                                             {{ object[1] === "Studio" ? object[0] : '' }}
                                         </div>
                                     </div>
@@ -58,7 +58,7 @@
                             <div id="collapse2" class="panel-collapse collapse">
                                 <div class="panel-body" id="ct-index-panel-body">
                                     <div ng-repeat="object in data">
-                                        <div ng-click="showEntryDetails(object);showItemLoc(object[0])" id="entryPO">
+                                        <div ng-click="showEntryDetails(object);showItemLoc(object[0])" class="entryPO">
                                             {{ object[1] === "Tool" ? object[0] : '' }}
                                         </div>
                                     </div>
@@ -74,7 +74,7 @@
                             <div id="collapse3" class="panel-collapse collapse">
                                 <div class="panel-body" id="ct-index-panel-body">
                                     <div ng-repeat="object in data">
-                                        <div ng-click="showEntryDetails(object);showItemLoc(object[0])" id="entryPO">
+                                        <div ng-click="showEntryDetails(object);showItemLoc(object[0])" class="entryPO">
                                             {{ object[1] === "Consumable" ? object[0] : '' }}
                                         </div>
                                     </div>
@@ -90,7 +90,7 @@
                             <div id="collapse4" class="panel-collapse collapse">
                                 <div class="panel-body" id="ct-index-panel-body">
                                     <div ng-repeat="object in data">
-                                        <div ng-click="showEntryDetails(object);showItemLoc(object[0])" id="entryPO">
+                                        <div ng-click="showEntryDetails(object);showItemLoc(object[0])" class="entryPO">
                                             {{ object[1] === "Material" ? object[0] : '' }}
                                         </div>
                                     </div>
@@ -123,12 +123,12 @@
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs" role="tablist">
                                 <li role="presentation" class="active">
-                                    <a href="#firstFloor" aria-controls="firstFloor" role="tab" data-toggle="tab" ng-click="resizeMap()">
+                                    <a href="#firstFloor" aria-controls="firstFloor" role="tab" data-toggle="tab" ng-click="resizeMap()" id="floor1Tab">
                                         F1
                                     </a>
                                 </li>
                                 <li role="presentation">
-                                    <a href="#secondFloor" aria-controls="secondFloor" role="tab" data-toggle="tab" ng-click="resizeMap()">
+                                    <a href="#secondFloor" aria-controls="secondFloor" role="tab" data-toggle="tab" ng-click="resizeMap()" id="floor2Tab">
                                         F2
                                     </a>
                                 </li>

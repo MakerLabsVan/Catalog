@@ -29,7 +29,7 @@ angular.module("myApp", ['d3mapping'])
         // change height of query result box dynamically
         $scope.changeHeight = function () {
             if ($scope.queryTerm.length >= 2) {
-                document.getElementById("searchSection").style.height = '50vh';
+                document.getElementById("searchSection").style.height = 'auto';
             } else {
                 document.getElementById("searchSection").style.height = '0vh';
             }
