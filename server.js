@@ -53,7 +53,6 @@ router.get("/getData", function (req, res) {
     });
 });
 
-
 app.listen(PORT, function () {
     console.log("Live at Port 3000");
 });

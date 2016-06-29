@@ -1,125 +1,154 @@
-    body {
-        font-family: 'Raleway', sans-serif;
-    }
+body {
+    font-family: 'Raleway', sans-serif;
+}
 
- #firstFloorWell, #secondFloorWell {
-        height: 70vh;
-        background: white;
-        border: none;
-    }
+#firstFloorWell, #secondFloorWell {
+    height: 80vh;
+    background: white;
+    border: none;
+}
 
-    a {
-        color: black;
-    }
-    
-    #entryPO {
-        font-size: 20px;
-        margin-bottom: 10px;
-    }
+#accordion-container {
+    overflow-y: scroll;
+    height: 100vh;
+    background: white;
+}
 
-    #entryPO:hover {
-        cursor: pointer;
-    }
+.panel-heading {
+    border-radius: 0px;
+}
 
-    #std_panel-bg {
-        background: #F14A29;
-    }
+a {
+    color: black;
+}
 
-    #tl_panel-bg {
-        background: #107CC2;
-    }
+.view-color {
+    background: #fafafa;
+}
 
-    #mat_panel-bg {
-        background: #F3902C;
-    }
+#index-main-view {
+    height: 50px;
+}
 
-    #con_panel-bg {
-        background: #2BAC69;
-    }
+#entryPO {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
 
-    #searchbar {
-        background: white;
-        border: none;
-    }
+#entryPO:hover {
+    cursor: pointer;
+}
 
-    #searchSection {
-        height:0px;
-        overflow-y:scroll;
-        margin-left: 10px;
-        margin-top: 20px;
-    }
+#std_panel-bg {
+    background: #F14A29;
+}
 
-    .panel-title {
-        color: white;
-        font-size: 20px;
-    }
+#tl_panel-bg {
+    background: #107CC2;
+}
 
-    #ct-index-panel-body {
-        height: 53vh;
-        overflow-y: scroll;
-        
-    }
+#mat_panel-bg {
+    background: #F3902C;
+}
 
-    .form-control {
-        margin-bottom: 5px;
-    }
+#con_panel-bg {
+    background: #2BAC69;
+}
 
-    #backChevron {
-        margin-top: 10px;
-    }
+#std_panel-bg, #tl_panel-bg, #mat_panel-bg, #con_panel-bg {
+    margin-left: -15px;
+    margin-right: -15px;
+}
 
-    #inputResultBox {
-        height: 70vh;
-        overflow-y: scroll;
-        background: white;
-    }
+#searchbar {
+    background: white;
+    border: none;
+}
 
-    #inputWell {
-        height: 75vh;
-        background:white;
-        border: none;
-    }
+#searchSection {
+    height:0px;
+    margin-left: 10px;
+    margin-top: 20px;
+}
 
-    #studioIn, #matIn, #conIn, #toolIn {    
-        margin-top: 50px;
-    }
+.panel-title {
+    /*color: white;*/
+    font-size: 20px;
+}
 
-    #navTab {
-        margin: -10px;
-    }
+.form-control {
+    margin-bottom: 5px;
+}
 
-    #ct-input-forms {
-        overflow-y: scroll;
-    }
+#backChevron {
+    margin-top: 10px;
+}
 
-    #ct-index-panel-title-detail {
-        color: black;
-    }
+#inputResultBox {
+    height: 70vh;
+    overflow-y: scroll;
+    background: white;
+}
 
-    #ct-index-panel-body-detail {
-        height: 73vh;
-        background: white;
-        font-size: 20px;
-        border: none;
-    }
+#inputWell {
+    height: 75vh;
+    background:white;
+    border: none;
+}
 
-    #ct-panel-toggle:hover {
-        cursor: pointer;
-    }
-    
-    #ct-index-object-name {
-        text-align: right;
-    }
+#studioIn, #matIn, #conIn, #toolIn {    
+    margin-top: 50px;
+}
 
-    .panel {
-        border: none;
-    }
+#navTab {
+    margin: -15px;
+}
 
-    #ct-edit, #loc-edit{ 
-        margin-top: 20px;
-    }
+#ct-input-forms {
+    overflow-y: scroll;
+}
 
-    #edit-first-floor, #edit-second-floor  {
-        margin-top: 20px;
-        height: 60vh;
-    }
+#ct-idx-ph-det {
+    background: white;
+    border: 0px;
+}
+
+.lvl1-box-shadow {
+      box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+#ct-index-panel-body-detail {
+    height: 80vh;
+    background: white;
+    font-size: 20px;
+    border: none;
+}
+
+.ct-panel-toggle {
+    color: white;
+}
+
+.ct-panel-toggle:hover {
+    cursor: pointer;
+}
+
+#ct-index-object-name {
+    text-align: right;
+}
+
+.panel {
+    border: none;
+}
+
+#ct-edit, #loc-edit{ 
+    margin-top: 20px;
+}
+
+#edit-first-floor, #edit-second-floor  {
+    margin-top: 20px;
+    height: 60vh;
+}
+
+#index-view-container {
+    margin-left: 70px;
+}
