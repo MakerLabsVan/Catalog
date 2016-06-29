@@ -28,20 +28,12 @@ angular.module("myApp", ['d3mapping'])
 
         // change height of query result box dynamically
         $scope.changeHeight = function () {
-            if ($scope.queryTerm.length < 2) {
-                document.getElementById("searchSection").style.height = '0px';
-            } else {
+            if ($scope.queryTerm.length >= 2) {
                 document.getElementById("searchSection").style.height = '50vh';
+            } else {
+                document.getElementById("searchSection").style.height = '0vh';
             }
         };
-
-        $scope.collapseCat = function () {
-            if ($scope.queryTerm.length >= 2) {
-                document.getElementById('collapse1').classList.remove('in');
-            } else {
-                document.getElementById('collapse1').classList.add('in');
-            }
-        }
 
         // change middle panel to display entry information and stylize accordingly
         $scope.showEntryDetails = function (object) {
