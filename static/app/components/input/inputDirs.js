@@ -59,9 +59,13 @@ angular.module("myApp").directive("addInput", function () {
                 if (scope.formData['Type'] === 'Studio') {
                     runFilter(filters.std_filter);
                 }
-
             });
         }
     };
 });
 
+angular.module("myApp").directive('editMapPanes', function () {
+    return {
+        template: '<div class="row"><button type="button" class="btn btn-large btn-default" href="#edit-first-floor" data-toggle="tab">First Floor</button><button type="button" class="btn btn-large btn-default" href="#edit-second-floor" data-toggle="tab">Second Floor</button><button type="button" class="btn btn-large btn-default" href="#ct-edit" data-toggle="tab">Back</button></div>'
+    }
+});

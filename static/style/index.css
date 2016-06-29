@@ -115,6 +115,11 @@
         border: none;
     }
 
-    #ct-edit, #loc-edit, #edit-first-floor, #edit-second-floor  {
+    #ct-edit, #loc-edit{ 
         margin-top: 20px;
+    }
+
+    #edit-first-floor, #edit-second-floor  {
+        margin-top: 20px;
+        height: 60vh;
     }

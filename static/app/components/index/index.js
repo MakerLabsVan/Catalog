@@ -26,7 +26,7 @@ angular.module("myApp", ['d3mapping'])
         $scope.queryTerm = '';
 
         $scope.changeHeight = function () {
-            if ($scope.queryTerm.length == 0) {
+            if ($scope.queryTerm.length < 2) {
                 document.getElementById("searchSection").style.height = '0px';
             } else {
                 document.getElementById("searchSection").style.height = '50vh';

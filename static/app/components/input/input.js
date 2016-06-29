@@ -124,9 +124,3 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
     $scope.map2 = mapService.initMap('edit-second-floor', 2);
 
 }]);
-
-angular.module("myApp").directive('mapPanes', function () {
-    return {
-        template: '<div class="row"><button type="button" class="btn btn-large btn-default" href="#edit-first-floor" data-toggle="tab">First Floor</button><button type="button" class="btn btn-large btn-default" href="#edit-second-floor" data-toggle="tab">Second Floor</button></div>'
-    }
-})
