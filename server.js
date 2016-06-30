@@ -48,6 +48,10 @@ router.get("/clearEditPage", function (req, res) {
     res.sendFile(path + "/static/templates/clearEditPage.html");
 })
 
+router.get("/searchPage", function (req, res) {
+    res.sendFile(path + "/static/templates/indexSearchResTmpl.html")
+})
+
 router.get("/getData", function (req, res) {
     serverOps.getData(function (result) {
         return res.json(result);
