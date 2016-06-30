@@ -71,6 +71,22 @@ angular.module("myApp", ['d3mapping'])
             }
         };
 
+        $scope.switchMapsOnClick = function (floor) {
+            if (floor == 1) {
+                document.getElementById('firstLi').className = 'active';
+                document.getElementById('secondLi').className = '';
+                document.getElementById('firstFloor').className = 'tab-pane active';
+                document.getElementById('secondFloor').className = 'tab-pane';
+                $scope.resizeMap;
+            } else {
+                document.getElementById('firstLi').className = '';
+                document.getElementById('secondLi').className = 'active';
+                document.getElementById('firstFloor').className = 'tab-pane';
+                document.getElementById('secondFloor').className = 'tab-pane active';
+                $scope.resizeMap;
+            }
+        };
+
         // map ctrl
         $scope.map1 = mapService.initMap('firstFloorWell', 1);
         $scope.map2 = mapService.initMap('secondFloorWell', 2);
