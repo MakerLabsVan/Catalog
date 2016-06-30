@@ -1,9 +1,8 @@
 var path = __dirname;
-var PORT = process.env.PORT || 3000;
 var gapi = require(path + "/static/app/components/googlesheets/googlesheetsapi.js");
 
 var getData = function (fn) {
-    gapi.auth(gapi.listMajors, function (result) {
+    gapi.auth(gapi.getDataList, function (result) {
         fn(result);
     });
 };

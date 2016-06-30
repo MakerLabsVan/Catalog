@@ -3,7 +3,7 @@ angular.module("myApp", ['d3mapping'])
     .controller("MainCtrl", ["$scope", '$http', "$sce", "mapService", function ($scope, $http, $sce, mapService) {
 
         // init call of data (put in var)
-        $http.get('/getData')
+        $http.get('/publicGetData')
             .success(function (data, status, header, config) {
                 // success data
                 $scope.data = data;
