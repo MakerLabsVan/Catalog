@@ -29,7 +29,7 @@ angular.module("myApp", ['d3mapping'])
         // change height of query result box dynamically
         $scope.changeHeight = function () {
             if ($scope.queryTerm.length >= 2) {
-                document.getElementById("searchSection").style.height = '50vh';
+                document.getElementById("searchSection").style.height = 'auto';
             } else {
                 document.getElementById("searchSection").style.height = '0vh';
             }
@@ -68,6 +68,22 @@ angular.module("myApp", ['d3mapping'])
                 if (object[i] !== '' && i != 3 && i != 4 && i != 1) {
                     innerBody.innerHTML += '<div class="col-sm-6"><b>' + $scope.entryProperties[i] + '</div></b><div class="col-sm-6" id="ct-index-object-name">' + object[i] + '</div>';
                 }
+            }
+        };
+
+        $scope.switchMapsOnClick = function (floor) {
+            if (floor == 1) {
+                document.getElementById('firstLi').className = 'active';
+                document.getElementById('secondLi').className = '';
+                document.getElementById('firstFloor').className = 'tab-pane active';
+                document.getElementById('secondFloor').className = 'tab-pane';
+                $scope.resizeMap;
+            } else {
+                document.getElementById('firstLi').className = '';
+                document.getElementById('secondLi').className = 'active';
+                document.getElementById('firstFloor').className = 'tab-pane';
+                document.getElementById('secondFloor').className = 'tab-pane active';
+                $scope.resizeMap;
             }
         };
 
