@@ -43,7 +43,7 @@
                                 <div class="panel-body" id="ct-index-panel-body">
                                     <!-- sheet data -->
                                     <div ng-repeat="object in data track by $index">
-                                        <div class="entryPO" ng-click="showEntryDetails(object, $index);switchMapsOnClick(object[5]);showStudioLoc(object[0])">
+                                        <div class="entryPO" ng-click="showEntryDetails(object);switchMapsOnClick(object[5]);showStudioLoc(object[0])">
                                             {{ object[1] === "Studio" ? object[0] : '' }}
                                         </div>
                                     </div>
