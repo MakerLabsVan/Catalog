@@ -1,5 +1,5 @@
 var path = __dirname;
-var PORT = process.env.PORT || 3000
+var PORT = process.env.PORT || 3000;
 var express = require('express');
 var app = express();
 var router = express.Router();
@@ -42,10 +42,14 @@ router.post("/delete", function (req, res) {
 
 router.get("/editEntryTmpl", function (req, res) {
     res.sendFile(path + "/static/templates/editEntryTmpl.html");
-})
+});
 
 router.get("/clearEditPage", function (req, res) {
     res.sendFile(path + "/static/templates/clearEditPage.html");
+});
+
+router.get("/indexSearchResTmpl", function(req, res){
+    res.sendFile(path + 'static/templates/indexSearchResTmpl.html');
 })
 
 router.get("/getData", function (req, res) {
