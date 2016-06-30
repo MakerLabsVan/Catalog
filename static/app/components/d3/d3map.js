@@ -54,10 +54,7 @@ app.controller('mapController', ['$scope', '$window', '$location', function ($sc
             return decodeURIComponent(pair[1]);
         }
     }
-    console.log('Query variable %s not found', variable);
-}
-
-console.log(getQueryVariable('self'))
+  }
 
 
 }])
