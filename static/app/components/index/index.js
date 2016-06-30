@@ -37,6 +37,8 @@ angular.module("myApp", ['d3mapping'])
 
         // change middle panel to display entry information and stylize accordingly
         $scope.showEntryDetails = function (object) {
+            console.log(object[0]);
+
             // initialize title
             var innerTitle = document.getElementById("ct-index-panel-title-detail");
             innerTitle.innerHTML = object[0] + ' <small>' + object[1] + '</small>';
