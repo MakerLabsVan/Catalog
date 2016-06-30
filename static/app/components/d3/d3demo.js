@@ -83,6 +83,7 @@ var mapConstructor = function( containerID, floorNum ,studioData){
       .attr('width', function (d) { return d.width +'in'; })
       .attr('id',function (d) { return d.id; })
       .style('opacity',0.5)
+      .style('visibility','hidden')
     },
 
     resize : function( width, height ){
@@ -111,12 +112,14 @@ var mapConstructor = function( containerID, floorNum ,studioData){
 
     highlight : function( objID ){
       d3.select('rect#' + objID)
-        .attr('fill', 'red');
+        .attr('fill', 'red')
+        .style('visibility',null);
     },
 
     dehighlight : function ( objID ){
       d3.select('rect#' + objID)
-        .attr('fill', null);
+        .attr('fill', null)
+        .style('visibility','hidden');
     },
   }
 };
