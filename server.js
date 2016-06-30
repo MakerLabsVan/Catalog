@@ -5,6 +5,7 @@ var app = express();
 var router = express.Router();
 var bodyParser = require('body-parser');
 var serverOps = require(path + "/serverOps.js");
+var public_serverOps = require(path + "/static/app/components/googlesheets/public_gapi.js");
 
 app.use(bodyParser.json());
 app.use(express.static(path + '/static'));
@@ -49,6 +50,12 @@ router.get("/clearEditPage", function (req, res) {
 
 router.get("/getData", function (req, res) {
     serverOps.getData(function (result) {
+        return res.json(result);
+    });
+});
+
+router.get("/publicGetData", function (req, res) {
+    public_serverOps.public_getDataList(function (result) {
         return res.json(result);
     });
 });

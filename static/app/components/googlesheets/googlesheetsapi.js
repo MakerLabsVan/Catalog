@@ -1,7 +1,6 @@
 var sheetKeyPrivate = "1MJpC2n-ekpnRXaLsb7B4dI6VOQIzn1eZO61I7sy2yiA";
 var sheetKeyPublic = "1trhKqK2g4hIEqnn0Acn4a8iqakYTpdmDF-POaCdZpX8";
 
-
 var fs = require('fs');
 var readline = require('readline');
 var google = require('googleapis');
@@ -102,7 +101,7 @@ var auth = function (method, body, resCallback) {
     }
 }
 
-var listMajors = function (auth, callback) {
+var getDataList = function (auth, callback) {
     var sheets = google.sheets('v4');
     sheets.spreadsheets.values.get({
         auth: auth,
@@ -174,4 +173,4 @@ var deleteEntry = function (auth, index, resCallback) {
 exports.deleteEntry = deleteEntry;
 exports.sheetWrite = sheetWrite;
 exports.auth = auth;
-exports.listMajors = listMajors;
+exports.getDataList = getDataList;
