@@ -1,7 +1,7 @@
 angular.module("myApp").directive("adminSearchRes", function () {
     return {
         replace: true,
-        templateUrl: 'templates/adminSearchResTmpl.html',
+        templateUrl: '/templates/adminSearchResTmpl.html',
     }
 })
 
@@ -9,7 +9,7 @@ angular.module("myApp").directive("adminSearchRes", function () {
 angular.module("myApp").directive("addInput", function () {
     return {
         replace: true,
-        templateUrl: 'templates/inputFormTmpl.html',
+        templateUrl: '/templates/inputFormTmpl.html',
         link: function (scope, elem, attrs) {
             scope.$watch(scope, function () {
                 var filters = {
