@@ -30,7 +30,7 @@
                                     <div ng-repeat="object in data">
                                     <!-- </div index-search-res></div> -->
                                     <div class="entryPO" ng-click="showEntryDetails(object);switchMapsOnClick(object[5]);showStudioLoc(object[0]);showItemLoc(object[0])">
-                                        {{ queryTerm.length < 2 ? '' : object[0].toLowerCase().indexOf(queryTerm.toLowerCase()) !=- 1 ? object[0] : '' }} 
+                                        {{ queryTerm.length < 2 ? '' : object[0].toLowerCase().indexOf(queryTerm.toLowerCase()) !=- 1 ? object[0] : '' }}
                                       </div>
                                     </div>
                                 </div>
@@ -161,7 +161,6 @@
         crossorigin="anonymous"></script>
     <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="/app/components/index/index.js"></script>
-    <script src="/app/components/index/indexDirs.js"></script>
     <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="/app/components/d3/d3demo.js"></script>
     <script src="/app/components/d3/d3map.js"></script>

@@ -89,7 +89,7 @@ var mapConstructor = function( containerID, floorNum ,studioData){
     resize : function( width, height ){
       var scale = getScalingRatio(width, height, floorNum);
       var scale = scale/10;
-      if (scale !== 0){
+      if (scale !== 0 && !isNaN(scale)){
         this.list
           .attr('width',function(d){ return d.width*scale +'in'})
           .attr('height',function(d){ return d.height*scale+'in' })
