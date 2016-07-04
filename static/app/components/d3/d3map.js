@@ -47,7 +47,6 @@ app.controller('mapController', ['$scope', '$window', '$location', function ($sc
   function getQueryVariable(variable) {
     var query = window.location.search.substring(1);
     var vars = query.split('&');
-    console.log(vars)
     for (var i = 0; i < vars.length; i++) {
         var pair = vars[i].split('=');
         if (decodeURIComponent(pair[0]) == variable) {
