@@ -65,7 +65,7 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
         $scope.index;
         for (var i = 0; i < $scope.dataLength; i++) {
             if (objectName === $scope.data[i][0]) {
-                $scope.index = i;
+                $scope.index = i + 1;
                 // maybe change all properties?
                 $scope.data[i][0] = $scope.editFormData.Name;
                 break;
@@ -123,5 +123,20 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
 
     $scope.map1 = mapService.initMap('edit-first-floor', 1);
     $scope.map2 = mapService.initMap('edit-second-floor', 2);
+    // $scope.map1.marker.onClick();
+    $scope.map1.marker.onClick();
+    $scope.map2.marker.onClick();
+
+    $scope.getLocation = function (floor) {
+        if (floor == 1) {
+            $scope.editFormData["Location x (ft)"] = $scope.map1.marker.getLocation()[0];
+            $scope.editFormData["Location y (ft)"] = $scope.map1.marker.getLocation()[1];
+            $scope.editFormData.Floor = 1;
+        } else {
+            $scope.editFormData["Location x (ft)"] = $scope.map2.marker.getLocation()[0];
+            $scope.editFormData["Location y (ft)"] = $scope.map2.marker.getLocation()[1];
+            $scope.editFormData.Floor = 2;
+        }
+    }
 
 }]);
