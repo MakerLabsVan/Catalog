@@ -91,6 +91,7 @@ a {
     margin-top: 10px;
 }
 
+<<<<<<< HEAD
 #inputWell {
     height: 100vh;
     background:white;
@@ -98,6 +99,10 @@ a {
 }
 
 #studioIn, #matIn, #conIn, #toolIn {
+=======
+#input-background {
+    background: #fafafa;
+>>>>>>> 256b1a95d70b3e55bee7182150e8e8a9f3a68a2c
 }
 
 #ct-input-forms {
@@ -140,11 +145,6 @@ a {
     margin-top: 20px;
 }
 
-#edit-first-floor, #edit-second-floor  {
-    margin-top: 20px;
-    height: 60vh;
-}
-
 #index-view-container {
     margin-left: 70px;
 }
@@ -159,4 +159,12 @@ a {
 
 .nav {
     border: 0px;
+}
+
+#input-tab-content {
+    height: auto;
+    max-height: 90vh;
+    overflow-y: scroll;
+    background: white;
+    padding-bottom: 10px;
 }

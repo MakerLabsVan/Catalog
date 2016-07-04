@@ -11,119 +11,122 @@
 
 <body>
     <div ng-app="myApp">
-        <div class="container-fluid" ng-controller="inputCtrl">
+        <div class="container-fluid" ng-controller="inputCtrl" id="input-background">
             <div class="row">
                 <div class="col-sm-2" id="input-result-container">
-                    <img src="/assets/makerlabs.png" alt="MakerLabs" id="input-logo"/>
+                    <img src="/assets/makerlabs.png" alt="MakerLabs" id="input-logo" />
                     <div class="panel-group">
                         <div class="row">
                             <div class="panel panel-default">
                                 <div class="col-sm-12">
                                     <input type="search" class="form-control" placeholder="Search here" ng-model="inputQuery" />
                                 </div>
-                                <div ng-repeat="object in data track by $index">
-                                    <admin-search-res></admin-search-res>
+                                <div class="container-fluid" id="admin-search-result">
+                                    <div ng-repeat="object in data track by $index">
+                                        <admin-search-res></admin-search-res>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-7 well well-sm" id="inputWell">
-                    <div role="tabpanel">
-                        <!-- Nav tabs -->
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" class="active" id="input-std-tab">
-                                <a href="#studioIn" aria-controls="home" role="tab" data-toggle="tab" ng-init="setType('Studio')" ng-click="setType('Studio')">Studio</a>
-                            </li>
-                            <li role="presentation" id="input-mat-tab">
-                                <a href="#matIn" aria-controls="tab" role="tab" data-toggle="tab" ng-click="setType('Material')">Material</a>
-                            </li>
-                            <li role="presentation" id="input-tl-tab">
-                                <a href="#toolIn" aria-controls="tab" role="tab" data-toggle="tab" ng-click="setType('Tool')">Tool</a>
-                            </li>
-                            <li role="presentation" id="input-con-tab">
-                                <a href="#conIn" aria-controls="tab" role="tab" data-toggle="tab" ng-click="setType('Consumable')">Consumable</a>
-                            </li>
-                            <li role="presentation" id="input-edit-tab">
-                                <a href="#ct-edit" aria-controls="tab" role="tab" data-toggle="tab" ng-init="clearEditPage()">Edit</a>
-                            </li>
-                        </ul>
-                        <!-- Tab panes -->
-                        <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane active" id="studioIn">
-                                <form class="form-horizontal" ng-submit="stdPost('Studio')">
-                                    <div ng-repeat="prop in entryProperties track by $index">
-                                        <add-input></add-input>
-                                    </div>
-                                    <div class="col-sm-2 col-sm-offset-1">
-                                        <button type="button" class="btn btn-large btn-block btn-default"><span class="glyphicon glyphicon-map-marker">
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="container">
+                            <div role="tabpanel">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation" class="active" id="input-std-tab">
+                                        <a href="#studioIn" aria-controls="home" role="tab" data-toggle="tab" ng-init="setType('Studio')" ng-click="setType('Studio')">Studio</a>
+                                    </li>
+                                    <li role="presentation" id="input-mat-tab">
+                                        <a href="#matIn" aria-controls="tab" role="tab" data-toggle="tab" ng-click="setType('Material')">Material</a>
+                                    </li>
+                                    <li role="presentation" id="input-tl-tab">
+                                        <a href="#toolIn" aria-controls="tab" role="tab" data-toggle="tab" ng-click="setType('Tool')">Tool</a>
+                                    </li>
+                                    <li role="presentation" id="input-con-tab">
+                                        <a href="#conIn" aria-controls="tab" role="tab" data-toggle="tab" ng-click="setType('Consumable')">Consumable</a>
+                                    </li>
+                                    <li role="presentation" id="input-edit-tab">
+                                        <a href="#ct-edit" aria-controls="tab" role="tab" data-toggle="tab" ng-init="clearEditPage()">Edit</a>
+                                    </li>
+                                </ul>
+                                <div class="container-fluid lvl1-box-shadow" id="input-tab-content">
+                                    <div class="tab-content">
+                                        <div role="tabpanel" class="tab-pane active" id="studioIn">
+                                            <form class="form-horizontal" ng-submit="stdPost('Studio')">
+                                                <div ng-repeat="prop in entryProperties track by $index">
+                                                    <add-input></add-input>
+                                                </div>
+                                                <div class="col-sm-2 col-sm-offset-1">
+                                                    <button type="button" class="btn btn-large btn-block btn-default"><span class="glyphicon glyphicon-map-marker">
                                             </span>Location</button>
+                                                </div>
+                                                <div class="col-sm-1 col-sm-offset-6">
+                                                    <button type="submit" class="btn btn-default">Submit</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane" id="matIn">
+                                            <form class="form-horizontal" ng-submit="stdPost('Material')">
+                                                <div ng-repeat="prop in entryProperties track by $index">
+                                                    <add-input></add-input>
+                                                </div>
+                                                <div class="col-sm-1 col-sm-offset-5">
+                                                    <button type="submit" class="btn btn-default">Submit</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane" id="toolIn">
+                                            <form class="form-horizontal" ng-submit="stdPost('Tool')">
+                                                <div ng-repeat="prop in entryProperties track by $index">
+                                                    <add-input></add-input>
+                                                </div>
+                                                <div class="col-sm-1 col-sm-offset-5">
+                                                    <button type="submit" class="btn btn-default">Submit</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane" id="conIn">
+                                            <form class="form-horizontal" ng-submit="stdPost('Consumable')">
+                                                <div ng-repeat="prop in entryProperties track by $index">
+                                                    <add-input></add-input>
+                                                </div>
+                                                <div class="col-sm-1 col-sm-offset-5">
+                                                    <button type="submit" class="btn btn-default">Submit</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane" id="ct-edit">
+                                            <div ng-include="templateURL">
+                                            </div>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane" id="edit-first-floor">
+                                            <edit-map-panes></edit-map-panes>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane" id="edit-second-floor">
+                                            <edit-map-panes></edit-map-panes>
+                                        </div>
                                     </div>
-                                    <div class="col-sm-1 col-sm-offset-6">
-                                        <button type="submit" class="btn btn-default">Submit</button>
-                                    </div>
-                                </form>
-                            </div>
-                            <div role="tabpanel" class="tab-pane" id="matIn">
-                                <form class="form-horizontal" ng-submit="stdPost('Material')">
-                                    <div ng-repeat="prop in entryProperties track by $index">
-                                        <add-input></add-input>
-                                    </div>
-                                    <div class="col-sm-1 col-sm-offset-5">
-                                        <button type="submit" class="btn btn-default">Submit</button>
-                                    </div>
-                                </form>
-                            </div>
-                            <div role="tabpanel" class="tab-pane" id="toolIn">
-                                <form class="form-horizontal" ng-submit="stdPost('Tool')">
-                                    <div ng-repeat="prop in entryProperties track by $index">
-                                        <add-input></add-input>
-                                    </div>
-                                    <div class="col-sm-1 col-sm-offset-5">
-                                        <button type="submit" class="btn btn-default">Submit</button>
-                                    </div>
-                                </form>
-                            </div>
-                            <div role="tabpanel" class="tab-pane" id="conIn">
-                                <form class="form-horizontal" ng-submit="stdPost('Consumable')">
-                                    <div ng-repeat="prop in entryProperties track by $index">
-                                        <add-input></add-input>
-                                    </div>
-                                    <div class="col-sm-1 col-sm-offset-5">
-                                        <button type="submit" class="btn btn-default">Submit</button>
-                                    </div>
-                                </form>
-                            </div>
-                            <div role="tabpanel" class="tab-pane" id="ct-edit">
-                                <div ng-include="templateURL">
                                 </div>
-                            </div>
-                            <div role="tabpanel" class="tab-pane" id="edit-first-floor">
-                                <edit-map-panes></edit-map-panes>
-                                <br>
-                            </div>
-                            <div role="tabpanel" class="tab-pane" id="edit-second-floor">
-                                <edit-map-panes></edit-map-panes>
-                                <br>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
-        crossorigin="anonymous "></script>
-    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-    <script src="../app/components/d3/d3demo.js"></script>
-    <script src="../app/components/d3/d3map.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.3.3/ui-bootstrap-tpls.min.js"></script>
-    <script src="../app/components/index/index.js"></script>
-    <script src="../app/components/input/input.js"></script>
-    <script src="../app/components/input/inputDirs.js"></script>
-    <script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+            crossorigin="anonymous "></script>
+        <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+        <script src="../app/components/d3/d3demo.js"></script>
+        <script src="../app/components/d3/d3map.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.3.3/ui-bootstrap-tpls.min.js"></script>
+        <script src="../app/components/index/index.js"></script>
+        <script src="../app/components/input/input.js"></script>
+        <script src="../app/components/input/inputDirs.js"></script>
+        <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
