@@ -12,7 +12,7 @@ var public_getDataList = function (callback) {
     sheets.spreadsheets.values.get({
         auth: API_KEY,
         spreadsheetId: sheetKeyPrivate,
-        range: 'A2:O',
+        range: 'Sheet1',
     }, function (err, response) {
         if (err) {
             console.log('The API returned an error: ' + err);

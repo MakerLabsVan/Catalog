@@ -14,15 +14,17 @@
         <div class="container-fluid" ng-controller="inputCtrl">
             <div class="row">
                 <div class="col-sm-2" id="input-result-container">
-                    <img src="/assets/makerlabs.png" alt="MakerLabs" id="input-logo"/>
+                    <img src="/assets/makerlabs.png" alt="MakerLabs" id="input-logo" />
                     <div class="panel-group">
                         <div class="row">
                             <div class="panel panel-default">
                                 <div class="col-sm-12">
                                     <input type="search" class="form-control" placeholder="Search here" ng-model="inputQuery" />
                                 </div>
-                                <div ng-repeat="object in data track by $index">
-                                    <admin-search-res></admin-search-res>
+                                <div class="container-fluid" id="admin-search-result">
+                                    <div ng-repeat="object in data track by $index">
+                                        <admin-search-res></admin-search-res>
+                                    </div>
                                 </div>
                             </div>
                         </div>

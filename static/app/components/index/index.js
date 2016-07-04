@@ -7,6 +7,8 @@ angular.module("myApp", ['d3mapping'])
             .success(function (data, status, header, config) {
                 // success data
                 $scope.data = data;
+                $scope.entryProperties = $scope.data[0];
+                $scope.data.shift();
             })
             .error(function (data, status, header, config) {
                 // something went wrong
@@ -19,10 +21,6 @@ angular.module("myApp", ['d3mapping'])
             "cons": "Consumables",
             "mats": "Materials"
         };
-
-        $scope.entryProperties = [
-            "Name", "Type", "Subtype", "Location x (ft)", "Location y (ft)", "Floor", "Width", "Length", "Depth", "Units", "Weight", "Weight Unit", "Quantity", "Price", "Description", "Keywords"
-        ];
 
         $scope.queryTerm = '';
 

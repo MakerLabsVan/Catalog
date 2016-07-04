@@ -4,15 +4,14 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
             // success data
             $scope.data = data;
             $scope.dataLength = data.length;
+            $scope.entryProperties = $scope.data[0];
+            $scope.data.shift();
+
         })
         .error(function (data, status, header, config) {
             // something went wrong
             alert("Something went wrong! Please call for help!");
         });
-
-    $scope.entryProperties = [
-        "Name", "Type", "Subtype", "Location x (ft)", "Location y (ft)", "Floor", "Width", "Length", "Height", "Units", "Weight", "Weight Unit", "Quantity", "Price", "Description"
-    ];
 
     $scope.inputQuery = '';
 

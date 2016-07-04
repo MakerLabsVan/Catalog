@@ -105,7 +105,7 @@ var getDataList = function (auth, callback) {
     sheets.spreadsheets.values.get({
         auth: auth,
         spreadsheetId: sheetKeyPrivate,
-        range: 'A2:O',
+        range: 'Sheet1',
     }, function (err, response) {
         if (err) {
             console.log('The API returned an error: ' + err);
@@ -119,7 +119,7 @@ var getDataList = function (auth, callback) {
 // and + 2 to get the next empty row
 var sheetWrite = function (auth, body, resCallback) {
 
-    var nextRow = 'A' + String(body.row + 2) + ':O';
+    var nextRow = 'A' + String(body.row + 2);
 
     var sheets = google.sheets('v4');
     sheets.spreadsheets.values.update({

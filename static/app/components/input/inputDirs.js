@@ -12,26 +12,8 @@ angular.module("myApp").directive("addInput", function () {
         templateUrl: '/templates/inputFormTmpl.html',
         link: function (scope, elem, attrs) {
             scope.$watch(scope, function () {
-                var filters = {
-                    all_filter: [
-                        'Location x (ft)', 'Location y (ft)', 'Floor'
-                    ],
-                    std_filter: [
-                        'Height', 'Weight', 'Weight Unit'
-                    ]
-                };
-
-                var runFilter = function (filter) {
-                    for (var i in filter) {
-                        if (toRemove.placeholder === filter[i]) {
-                            elem.remove();
-                        }
-                    };
-                }
-
                 // access to attributes for the element's input field
                 var toRemove = elem[0].childNodes[3].childNodes[1];
-                runFilter(filters.all_filter);
 
                 // at least name input
                 if (toRemove.placeholder === 'Name') {
@@ -54,11 +36,6 @@ angular.module("myApp").directive("addInput", function () {
                     toRemove.disabled = true;
                 }
 
-                // run input form filter for studio
-                // bug exists where it does not update on tab switch
-                if (scope.formData['Type'] === 'Studio') {
-                    runFilter(filters.std_filter);
-                }
             });
         }
     };
