@@ -97,7 +97,7 @@ a {
     border: none;
 }
 
-#studioIn, #matIn, #conIn, #toolIn {    
+#studioIn, #matIn, #conIn, #toolIn {
 }
 
 #ct-input-forms {
@@ -136,7 +136,7 @@ a {
     border: none;
 }
 
-#ct-edit, #loc-edit{ 
+#ct-edit, #loc-edit{
     margin-top: 20px;
 }
 
@@ -151,6 +151,10 @@ a {
 
 #floor1Tab, #floor2Tab {
     border-radius: 0px;
+}
+
+#marker1{
+  z-index: 5!important;
 }
 
 .nav {

@@ -91,7 +91,7 @@ angular.module("myApp", ['d3mapping'])
         // map ctrl
         $scope.map1 = mapService.initMap('firstFloorWell', 1);
         $scope.map2 = mapService.initMap('secondFloorWell', 2);
-
+        $scope.map1.marker.onClick();
         $scope.resizeMap = mapService.resize($scope.map1);
         $scope.resizeMap = mapService.resize($scope.map2);
 
