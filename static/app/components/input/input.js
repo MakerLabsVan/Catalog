@@ -4,6 +4,7 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
             // success data
             $scope.data = data;
             $scope.dataLength = data.length;
+            $scope.data[0].pop();
             $scope.entryProperties = $scope.data[0];
             $scope.data.shift();
 
@@ -106,6 +107,7 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
         $scope.templateURL = 'clearEditPage';
     };
 
+
     $scope.editPageCols = function (prop) {
         $scope.$watch('editFormData', function () {
             if (prop.toLowerCase().indexOf('location') != -1) {
@@ -113,9 +115,9 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
                 document.getElementById(prop + 'label').remove();
             }
 
-            if (prop.toLowerCase().indexOf('description') != -1) {
-                document.getElementById(prop).className = 'col-sm-12';
-            }
+            // if (prop.toLowerCase().indexOf('description') != -1) {
+            //     document.getElementById(prop).className = 'col-sm-4';
+            // }
         });
     };
 

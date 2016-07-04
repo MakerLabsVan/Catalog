@@ -41,8 +41,8 @@ angular.module("myApp").directive("addInput", function () {
     };
 });
 
-angular.module("myApp").directive('editMapPanes', function () {
+angular.module("myApp").directive('editMapPanes', ['mapService', function (mapService) {
     return {
-        template: '<div class="row"><button type="button" class="btn btn-large btn-default" href="#edit-first-floor" data-toggle="tab">First Floor</button><button type="button" class="btn btn-large btn-default" href="#edit-second-floor" data-toggle="tab">Second Floor</button><button type="button" class="btn btn-large btn-default" href="#ct-edit" data-toggle="tab">Back</button></div>'
+        template: '<div class="container-fluid"><button type="button" class="btn btn-large btn-default" href="#edit-first-floor" data-toggle="tab">First Floor</button><button type="button" class="btn btn-large btn-default" href="#edit-second-floor" data-toggle="tab">Second Floor</button><button type="button" class="btn btn-large btn-default" href="#ct-edit" data-toggle="tab">Back</button></div>'
     }
-});
+}]);

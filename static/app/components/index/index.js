@@ -102,21 +102,21 @@ angular.module("myApp", ['d3mapping'])
             $scope.lastItem = objectFound;
             if (objectFound === null) { return 'Not Found' }
             //TODO: Optimize it to not search
-            if ( objectFound[1] === 'Studio'){
-              if (objectFound[5] === '1') {
-                  $scope.map1.studio.highlight(objectFound[0].replace(/\s/g, '').replace(/\//g, ''));
-              }
-              else if (objectFound[5] === '2') {
-                  $scope.map2.studio.highlight(objectFound[0].replace(/\s/g, '').replace(/\//g, ''));
-              }
+            if (objectFound[1] === 'Studio') {
+                if (objectFound[5] === '1') {
+                    $scope.map1.studio.highlight(objectFound[0].replace(/\s/g, '').replace(/\//g, ''));
+                }
+                else if (objectFound[5] === '2') {
+                    $scope.map2.studio.highlight(objectFound[0].replace(/\s/g, '').replace(/\//g, ''));
+                }
             }
             else {
-              if (objectFound[5] === '1') {
-                  $scope.map1.marker.set(parseInt(objectFound[3]), parseInt(objectFound[4]), $scope.map1.width(), $scope.map1.height())
-              }
-              else if (objectFound[5] === '2') {
-                  $scope.map2.marker.set(parseInt(objectFound[3]), parseInt(objectFound[4]), $scope.map2.width(), $scope.map2.height())
-              }
+                if (objectFound[5] === '1') {
+                    $scope.map1.marker.set(parseInt(objectFound[3]), parseInt(objectFound[4]), $scope.map1.width(), $scope.map1.height())
+                }
+                else if (objectFound[5] === '2') {
+                    $scope.map2.marker.set(parseInt(objectFound[3]), parseInt(objectFound[4]), $scope.map2.width(), $scope.map2.height())
+                }
             }
         }
 
