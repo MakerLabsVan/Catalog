@@ -8,6 +8,10 @@ body {
     border: none;
 }
 
+#index-logo {
+    height: 5vh;
+}
+
 #accordion-container {
     overflow-y: scroll;
     height: 100vh;
