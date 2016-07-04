@@ -76,16 +76,8 @@ a {
     font-size: 20px;
 }
 
-.form-control {
-    margin-bottom: 5px;
-}
-
-#backChevron {
-    margin-top: 10px;
-}
-
-#inputResultBox {
-    height: 70vh;
+#input-result-container  {
+    height: 100vh;
     overflow-y: scroll;
     background: white;
 }
@@ -96,17 +88,12 @@ a {
 }
 
 #inputWell {
-    height: 75vh;
+    height: 100vh;
     background:white;
     border: none;
 }
 
 #studioIn, #matIn, #conIn, #toolIn {    
-    margin-top: 50px;
-}
-
-#navTab {
-    margin: -15px;
 }
 
 #ct-input-forms {

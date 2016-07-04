@@ -13,27 +13,14 @@
     <div ng-app="myApp">
         <div class="container-fluid" ng-controller="inputCtrl">
             <div class="row">
-                <div class="col-sm-1 col-sm-offset-1" id="backChevron">
-                    <a href="/">
-                        <span class="glyphicon glyphicon-chevron-left"></span>
-                    </a>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-offset-1">
-                    <img src="/assets/makerlabs.png" alt="MakerLabs" />
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-3 col-sm-offset-1">
+                <div class="col-sm-2" id="input-result-container">
+                    <img src="/assets/makerlabs.png" alt="MakerLabs" height="50px" />
                     <div class="panel-group">
                         <div class="row">
-                            <div class="col-sm-12">
-                                <input type="search" class="form-control" placeholder="Search here" ng-model="inputQuery" />
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading" id="inputResultBox">
+                            <div class="panel panel-default">
+                                <div class="col-sm-12">
+                                    <input type="search" class="form-control" placeholder="Search here" ng-model="inputQuery" />
+                                </div>
                                 <div ng-repeat="object in data track by $index">
                                     <admin-search-res></admin-search-res>
                                 </div>
@@ -44,7 +31,7 @@
                 <div class="col-sm-7 well well-sm" id="inputWell">
                     <div role="tabpanel">
                         <!-- Nav tabs -->
-                        <ul class="nav nav-tabs" role="tablist" id="navTab">
+                        <ul class="nav nav-tabs" role="tablist">
                             <li role="presentation" class="active" id="input-std-tab">
                                 <a href="#studioIn" aria-controls="home" role="tab" data-toggle="tab" ng-init="setType('Studio')" ng-click="setType('Studio')">Studio</a>
                             </li>
