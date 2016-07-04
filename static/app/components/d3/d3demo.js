@@ -37,8 +37,6 @@ var mapConstructor = function (containerID, floorNum, studioData) {
         var scale = getScalingRatio(width, height, floorNum);
         var scale = scale / 10; //Conversion from real ft to map
         var xPx = inToPx(xPos * scale) - parseInt(mark.attr('width')) / 2;
-        console.log(inToPx(xPos * scale))
-        console.log(parseInt(mark.attr('width')) / 2)
         var yPx = inToPx(yPos * scale) - parseInt(mark.attr('height')) * 1;
         mark
           .attr('x', xPx + 'px')
@@ -46,11 +44,12 @@ var mapConstructor = function (containerID, floorNum, studioData) {
           .style('visibility', null)
       },
 
-      //On Click of the map, the marker will display
+      //On Click of the map, the marker will display and returns coordinates
       onClick: function () {
         var marker = d3.select('#marker' + floorNum);
         var container = d3.select('svg#floor' + floorNum);
-        attachOnClick(container, marker);
+        var map = d3.select('svg#floor' + floorNum);
+        attachOnClick(map, marker);
       },
 
       //Removes onclick event listener
@@ -60,8 +59,10 @@ var mapConstructor = function (containerID, floorNum, studioData) {
 
       //Returns the current location of the marker in px as an array
       //Output: [x,y] (px)
+
       getLocation: function () {
         var mark = d3.select('#marker' + floorNum);
+        //var scale = getScalingRatio(width, height, floorNum)/10; // 10 beause the map is 10 time smaller
         xPos = parseInt(mark.attr('x')) + parseInt(mark.attr('width') / 2);
         yPos = parseInt(mark.attr('y')) + parseInt(mark.attr('height') * 1);
         return [xPos, yPos];
@@ -87,7 +88,7 @@ var mapConstructor = function (containerID, floorNum, studioData) {
         .attr('width', function (d) { return d.width; })
         .attr('id', function (d) { return d.id; })
         .style('opacity', 0.5)
-      //.style('visibility','hidden')
+        .style('visibility', 'hidden')
     },
 
     resize: function (width, height) {
@@ -128,13 +129,12 @@ var mapConstructor = function (containerID, floorNum, studioData) {
   }
 };
 
-//Round to 5
-
+//Round up to 5
 var round5 = function (x) {
   return Math.ceil(x / 5) * 5;
 };
 
-//SVG Map image is 96 pixels per inch
+//Convert inches to Px, 96 pixels per inch
 var inToPx = function (x) {
   return x * 96;
 }
@@ -145,7 +145,7 @@ var getScalingRatio = function (width, height, floorNum) {
   if (floorNum === 2) {
     var aspect = 0.85035;//W=925.374,H=1088.246
   } else {
-    aspect = 1.25385;//W=1364.490,H=1088.2464
+    var aspect = 1.25385;//W=1364.490,H=1088.2464
   }
 
   if (width / height >= aspect) {
