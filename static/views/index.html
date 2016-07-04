@@ -29,7 +29,7 @@
                                 <div class="lvl1-box-shadow" id="searchSection">
                                     <div ng-repeat="object in data">
                                         <!-- </div index-search-res></div> -->
-                                        <div class="entryPO" ng-click="showEntryDetails(object);switchMapsOnClick(object[5]);showStudioLoc(object[0]);showItemLoc(object[0])">
+                                        <div class="entryPO" ng-click="showEntryDetails(object);switchMapsOnClick(object[5]);showLoc(object[0])">
                                             {{ queryTerm.length
                                             < 2 ? '' : object[0].toLowerCase().indexOf(queryTerm.toLowerCase()) !=- 1 || object[1].toLowerCase().indexOf(queryTerm.toLowerCase())
                                                 !=- 1 || object[2].toLowerCase().indexOf(queryTerm.toLowerCase()) !=- 1 ? object[0]
@@ -48,7 +48,7 @@
                                     <div class="panel-body" id="ct-index-panel-body">
                                         <!-- sheet data -->
                                         <div ng-repeat="object in data track by $index">
-                                            <div class="entryPO" ng-click="showEntryDetails(object);switchMapsOnClick(object[5]);showStudioLoc(object[0])">
+                                            <div class="entryPO" ng-click="showEntryDetails(object);switchMapsOnClick(object[5]);showLoc(object[0])">
                                                 {{ object[1] === "Studio" ? object[0] : '' }}
                                             </div>
                                         </div>
@@ -64,7 +64,7 @@
                                 <div id="collapse2" class="panel-collapse collapse">
                                     <div class="panel-body" id="ct-index-panel-body">
                                         <div ng-repeat="object in data">
-                                            <div ng-click="showEntryDetails(object);showItemLoc(object[0]);switchMapsOnClick(object[5]);" class="entryPO">
+                                            <div ng-click="showEntryDetails(object);showLoc(object[0]);switchMapsOnClick(object[5]);" class="entryPO">
                                                 {{ object[1] === "Tool" ? object[0] : '' }}
                                             </div>
                                         </div>
@@ -80,7 +80,7 @@
                                 <div id="collapse3" class="panel-collapse collapse">
                                     <div class="panel-body" id="ct-index-panel-body">
                                         <div ng-repeat="object in data">
-                                            <div ng-click="showEntryDetails(object);showItemLoc(object[0]);switchMapsOnClick(object[5]);" class="entryPO">
+                                            <div ng-click="showEntryDetails(object);showLoc(object[0]);switchMapsOnClick(object[5]);" class="entryPO">
                                                 {{ object[1] === "Consumable" ? object[0] : '' }}
                                             </div>
                                         </div>
@@ -96,7 +96,7 @@
                                 <div id="collapse4" class="panel-collapse collapse">
                                     <div class="panel-body" id="ct-index-panel-body">
                                         <div ng-repeat="object in data">
-                                            <div ng-click="showEntryDetails(object);showItemLoc(object[0]);switchMapsOnClick(object[5]);" class="entryPO">
+                                            <div ng-click="showEntryDetails(object);showLoc(object[0]);switchMapsOnClick(object[5]);" class="entryPO">
                                                 {{ object[1] === "Material" ? object[0] : '' }}
                                             </div>
                                         </div>
