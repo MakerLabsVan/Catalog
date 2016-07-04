@@ -36,9 +36,13 @@ var mapConstructor = function (containerID, floorNum, studioData) {
         var mark = d3.select('#marker' + floorNum);
         var scale = getScalingRatio(width, height, floorNum);
         var scale = scale / 10; //Conversion from real ft to map
+        var xPx = inToPx(xPos * scale) - parseInt(mark.attr('width')) / 2;
+        console.log(inToPx(xPos * scale))
+        console.log(parseInt(mark.attr('width')) / 2)
+        var yPx = inToPx(yPos * scale) - parseInt(mark.attr('height')) * 1;
         mark
-          .attr('x', xPos * scale + 'in')
-          .attr('y', yPos * scale + 'in')
+          .attr('x', xPx + 'px')
+          .attr('y', yPx + 'px')
           .style('visibility', null)
       },
 
@@ -54,12 +58,12 @@ var mapConstructor = function (containerID, floorNum, studioData) {
         d3.select('svg#floor' + floorNum).on('click', null);
       },
 
-      // Returns the current location of the marker in px as an array
-      // Output: [x,y] (px)
+      //Returns the current location of the marker in px as an array
+      //Output: [x,y] (px)
       getLocation: function () {
         var mark = d3.select('#marker' + floorNum);
         xPos = parseInt(mark.attr('x')) + parseInt(mark.attr('width') / 2);
-        yPos = parseInt(mark.attr('y')) + parseInt(mark.attr('height') / 2);
+        yPos = parseInt(mark.attr('y')) + parseInt(mark.attr('height') * 1);
         return [xPos, yPos];
       }
     }
@@ -77,13 +81,13 @@ var mapConstructor = function (containerID, floorNum, studioData) {
         .data(this.data)
         .enter()
         .append('rect')
-        .attr('x', function (d) { return d.rx + 'in'; })
-        .attr('y', function (d) { return d.ry + 'in'; })
-        .attr('height', function (d) { return d.height + 'in'; })
-        .attr('width', function (d) { return d.width + 'in'; })
+        .attr('x', function (d) { return d.rx; })
+        .attr('y', function (d) { return d.ry; })
+        .attr('height', function (d) { return d.height; })
+        .attr('width', function (d) { return d.width; })
         .attr('id', function (d) { return d.id; })
         .style('opacity', 0.5)
-        .style('visibility', 'hidden')
+      //.style('visibility','hidden')
     },
 
     resize: function (width, height) {
@@ -91,10 +95,10 @@ var mapConstructor = function (containerID, floorNum, studioData) {
       var scale = scale / 10;
       if (scale !== 0 && !isNaN(scale)) {
         this.list
-          .attr('width', function (d) { return d.width * scale + 'in' })
-          .attr('height', function (d) { return d.height * scale + 'in' })
-          .attr('x', function (d) { return d.rx * scale + 'in' })
-          .attr('y', function (d) { return d.ry * scale + 'in' })
+          .attr('width', function (d) { return inToPx(d.width * scale) + 'px' })
+          .attr('height', function (d) { return inToPx(d.height * scale) + 'px' })
+          .attr('x', function (d) { return inToPx(d.rx * scale) + 'px' })
+          .attr('y', function (d) { return inToPx(d.ry * scale) + 'px' })
       }
     },
 
@@ -125,9 +129,15 @@ var mapConstructor = function (containerID, floorNum, studioData) {
 };
 
 //Round to 5
+
 var round5 = function (x) {
   return Math.ceil(x / 5) * 5;
 };
+
+//SVG Map image is 96 pixels per inch
+var inToPx = function (x) {
+  return x * 96;
+}
 
 //Get Value to transform objects on map corresponding to the map SVG file
 //Default floor 1 aspect if no floorNum
@@ -201,6 +211,6 @@ var addMarker = function (container, id) {
     .attr('xlink:href', '/assets/marker.svg')
     .style('visibility', 'hidden')
     .attr('id', 'marker' + id)
-    .attr('width', 50)
-    .attr('height', 50);
+    .attr('width', 30)
+    .attr('height', 30);
 };
