@@ -129,12 +129,17 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
 
     $scope.getLocation = function (floor) {
         if (floor == 1) {
-            $scope.editFormData["Location x (ft)"] = $scope.map1.marker.getLocation()[0];
-            $scope.editFormData["Location y (ft)"] = $scope.map1.marker.getLocation()[1];
+            var pos = $scope.map1.marker.getLocation($scope.map1.width(), $scope.map1.height(), 1);
+            $scope.editFormData["Location x (ft)"] = pos[0].toFixed(1);
+            $scope.editFormData["Location y (ft)"] = pos[1].toFixed(1);
+            console.log($scope.editFormData["Location x (ft)"], $scope.editFormData["Location y (ft)"]);
             $scope.editFormData.Floor = 1;
+
         } else {
-            $scope.editFormData["Location x (ft)"] = $scope.map2.marker.getLocation()[0];
-            $scope.editFormData["Location y (ft)"] = $scope.map2.marker.getLocation()[1];
+            var pos = $scope.map2.marker.getLocation($scope.map2.width(), $scope.map2.height(), 2);
+            $scope.editFormData["Location x (ft)"] = pos[0];
+            $scope.editFormData["Location y (ft)"] = pos[1];
+            console.log(pos);
             $scope.editFormData.Floor = 2;
         }
     }

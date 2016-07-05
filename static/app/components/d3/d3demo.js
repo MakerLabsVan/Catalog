@@ -60,12 +60,16 @@ var mapConstructor = function (containerID, floorNum, studioData) {
       //Returns the current location of the marker in px as an array
       //Output: [x,y] (px)
 
-      getLocation: function () {
+      getLocation: function (width, height, floorNum) {
         var mark = d3.select('#marker' + floorNum);
-        //var scale = getScalingRatio(width, height, floorNum)/10; // 10 beause the map is 10 time smaller
-        xPos = parseInt(mark.attr('x')) + parseInt(mark.attr('width') / 2);
-        yPos = parseInt(mark.attr('y')) + parseInt(mark.attr('height') * 1);
-        return [xPos, yPos];
+        var xPos = parseInt(mark.attr('x')) + parseInt(mark.attr('width') / 2);
+        var yPos = parseInt(mark.attr('y')) + parseInt(mark.attr('height') * 1);
+
+        var scale = getScalingRatio(width, height, floorNum) / 10;
+        var xFt = pxToIn(xPos / scale);
+        var yFt = pxToIn(yPos / scale);
+
+        return [xFt, yFt];
       }
     }
 
@@ -137,6 +141,10 @@ var round5 = function (x) {
 //Convert inches to Px, 96 pixels per inch
 var inToPx = function (x) {
   return x * 96;
+}
+
+var pxToIn = function (x) {
+  return x / 96;
 }
 
 //Get Value to transform objects on map corresponding to the map SVG file
