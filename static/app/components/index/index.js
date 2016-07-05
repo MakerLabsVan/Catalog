@@ -1,6 +1,6 @@
 angular.module("myApp", ['d3mapping'])
 
-    .controller("MainCtrl", ["$scope", '$http', "$sce", "mapService", function ($scope, $http, $sce, mapService) {
+    .controller("MainCtrl", ["$scope", '$http', "mapService", "highlightService", function ($scope, $http, mapService, highlightService) {
 
         // init call of data (put in var)
         $http.get('/publicGetData')
@@ -42,17 +42,8 @@ angular.module("myApp", ['d3mapping'])
             }
         };
 
-        var lastObject = null;
-        $scope.highlightItem = function (objectId) {
-            if (lastObject != null) {
-                document.getElementById(lastObject).style.color = 'black';
-                document.getElementById(objectId).style.color = 'blue';
-                lastObject = objectId;
-            } else {
-                document.getElementById(objectId).style.color = 'blue';
-                lastObject = objectId;
-            }
-        };
+        // using service to highlight items
+        $scope.highlightItem = highlightService.highlight;
 
         // change middle panel to display entry information and stylize accordingly
         $scope.showEntryDetails = function (object) {
@@ -160,7 +151,7 @@ angular.module("myApp", ['d3mapping'])
 angular.module("myApp").service("mapService", function () {
     var map = function (id, num) {
         return new mapConstructor(id, num);
-    }
+    };
 
     var resizeMap = function (map) {
         if (map.width() !== 0) {
@@ -176,4 +167,27 @@ angular.module("myApp").service("mapService", function () {
         initMap: map,
         resize: resizeMap
     }
+});
+
+// service to highlight items
+angular.module("myApp").service("highlightService", function () {
+    var lastObject = null;
+    var highlight = function (objectId) {
+        if (lastObject != null) {
+            document.getElementById(lastObject).style.color = 'black';
+            document.getElementById(lastObject).style['font-weight'] = 'normal';
+            document.getElementById(objectId).style.color = 'blue';
+            document.getElementById(objectId).style['font-weight'] = 'bold';
+            lastObject = objectId;
+        } else {
+            document.getElementById(objectId).style.color = 'blue';
+            document.getElementById(objectId).style['font-weight'] = 'bold';
+            lastObject = objectId;
+        };
+    };
+
+    return {
+        highlight: highlight
+    }
+
 });
