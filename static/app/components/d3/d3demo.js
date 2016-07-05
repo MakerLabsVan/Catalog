@@ -92,7 +92,7 @@ var mapConstructor = function (containerID, floorNum, studioData) {
         .attr('width', function (d) { return d.width; })
         .attr('id', function (d) { return d.id; })
         .style('opacity', 0.5)
-        .style('visibility', 'hidden')
+        //.style('visibility', 'hidden')
     },
 
     resize: function (width, height) {
