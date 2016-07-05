@@ -147,6 +147,11 @@ a {
     border: 0px;
 }
 
+#edit-first-floor, #edit-second-floor {
+    height: 80vh;
+    padding-bottom: 30px;
+}
+
 #input-tab-content {
     height: auto;
     max-height: 95vh;

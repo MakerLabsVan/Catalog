@@ -1,4 +1,5 @@
 angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService", "highlightService", function ($scope, $http, mapService, highlightService) {
+    // authorized data retrieval 
     $http.get('/getData')
         .success(function (data, status, header, config) {
             // success data
@@ -16,6 +17,7 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
 
     $scope.inputQuery = '';
 
+    // make a new entry
     $scope.formData = {};
     $scope.newEntry = function () {
         var localEntry = [];
@@ -38,6 +40,7 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
             })
     };
 
+    // delete an entry
     $scope.deletePost = function (objectName) {
         $scope.index;
         for (var i = 0; i < $scope.dataLength; i++) {
@@ -59,6 +62,7 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
         $scope.data.splice($scope.index, 1);
     };
 
+    // submit edit
     $scope.editFormData = {};
     $scope.editEntry = function (objectName) {
         $scope.index;
@@ -79,11 +83,13 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
             });
     };
 
+    // change to edit tab
     $scope.makeActive = function () {
         document.getElementById('input-edit-tab').className = 'active';
         document.getElementById('newEntryTab').className = '';
     };
 
+    // display edit input page
     $scope.showEditPage = function (curObject) {
         $scope.object = curObject;
         var i;
@@ -94,10 +100,12 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
         $scope.templateURL = 'editEntryTmpl';
     };
 
+    // return to default edit page
     $scope.clearEditPage = function () {
         $scope.templateURL = 'clearEditPage';
     };
 
+    // remove location, floor input 
     $scope.editPageCols = function (prop) {
         $scope.$watch('editFormData', function () {
             if (prop.toLowerCase().indexOf('location') != -1) {
@@ -107,28 +115,31 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
         });
     };
 
+    // highlight selected entry
     $scope.highlightItem = highlightService.highlight;
 
+    // load maps
     $scope.map1 = mapService.initMap('edit-first-floor', 1);
     $scope.map2 = mapService.initMap('edit-second-floor', 2);
+    // show markers on map on click
     $scope.map1.marker.onClick();
     $scope.map2.marker.onClick();
 
+    // save location on selection
     $scope.getLocation = function (floor) {
         if (floor == 1) {
+            // translate from pixels to measurement units
             var pos = $scope.map1.marker.getLocation($scope.map1.width(), $scope.map1.height(), 1);
             $scope.editFormData["Location x (ft)"] = pos[0].toFixed(1);
             $scope.editFormData["Location y (ft)"] = pos[1].toFixed(1);
-            console.log($scope.editFormData["Location x (ft)"], $scope.editFormData["Location y (ft)"]);
             $scope.editFormData.Floor = 1;
-
         } else {
             var pos = $scope.map2.marker.getLocation($scope.map2.width(), $scope.map2.height(), 2);
             $scope.editFormData["Location x (ft)"] = pos[0].toFixed(1);
             $scope.editFormData["Location y (ft)"] = pos[1].toFixed(1);
-            console.log($scope.editFormData["Location x (ft)"], $scope.editFormData["Location y (ft)"]);
             $scope.editFormData.Floor = 2;
         }
     };
+
 
 }]);

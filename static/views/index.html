@@ -28,13 +28,13 @@
                                 />
                                 <div class="lvl1-box-shadow" id="searchSection">
                                     <div ng-repeat="object in data track by $index">
-                                        <!-- </div index-search-res></div> -->
+                                        <!-- Searches based on 1) name 2) type 3) subtype 4) if any of the keywords are in the query -->
                                         <div class="entryPO" ng-click="showEntryDetails(object);switchMapsOnClick(object[5]);showLoc(object[0]);highlightItem('search_' + object[20])"
                                             id="search_{{ object[20] }}">
                                             {{ queryTerm.length
                                             < 2 ? '' : object[0].toLowerCase().indexOf(queryTerm.toLowerCase()) !=- 1 || object[1].toLowerCase().indexOf(queryTerm.toLowerCase())
-                                                !=- 1 || object[2].toLowerCase().indexOf(queryTerm.toLowerCase()) !=- 1 || object[15].toLowerCase().indexOf(queryTerm.toLowerCase()) !=- 1 ? object[0]
-                                                : '' }} </div>
+                                                !=- 1 || object[2].toLowerCase().indexOf(queryTerm.toLowerCase()) !=- 1 || object[15].toLowerCase().indexOf(queryTerm.toLowerCase())
+                                                !=- 1 ? object[0] : '' }} </div>
                                         </div>
                                     </div>
                                 </div>
