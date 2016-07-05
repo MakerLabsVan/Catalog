@@ -9,13 +9,13 @@ angular.module("myApp", ['d3mapping'])
                 $scope.data = data;
                 $scope.entryProperties = $scope.data[0];
                 $scope.index = {
-                  "x" : $scope.entryProperties.indexOf('Location x (ft)'),
-                  "y" : $scope.entryProperties.indexOf('Location y (ft)'),
-                  "floor" : $scope.entryProperties.indexOf('Floor'),
-                  "width" : $scope.entryProperties.indexOf('Width'),
-                  "height" : $scope.entryProperties.indexOf('Length'),
-                  "id" : $scope.entryProperties.indexOf('Key'),
-                  "type" : $scope.entryProperties.indexOf('Type')
+                    "x": $scope.entryProperties.indexOf('Location x (ft)'),
+                    "y": $scope.entryProperties.indexOf('Location y (ft)'),
+                    "floor": $scope.entryProperties.indexOf('Floor'),
+                    "width": $scope.entryProperties.indexOf('Width'),
+                    "height": $scope.entryProperties.indexOf('Length'),
+                    "id": $scope.entryProperties.indexOf('Key'),
+                    "type": $scope.entryProperties.indexOf('Type')
                 }
                 $scope.data.shift();
             })
@@ -39,6 +39,18 @@ angular.module("myApp", ['d3mapping'])
                 document.getElementById("searchSection").style.height = 'auto';
             } else {
                 document.getElementById("searchSection").style.height = '0vh';
+            }
+        };
+
+        var lastObject;
+        $scope.highlightItem = function (objectId) {
+            if (lastObject != null) {
+                document.getElementById(lastObject).style.color = 'black';
+                document.getElementById(objectId).style.color = 'blue';
+                lastObject = objectId;
+            } else {
+                document.getElementById(objectId).style.color = 'blue';
+                lastObject = objectId;
             }
         };
 

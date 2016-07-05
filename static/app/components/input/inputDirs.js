@@ -19,6 +19,9 @@ angular.module("myApp").directive("addInput", function () {
                     inputForm.parentNode.parentNode.remove();
                 }
 
+                // change type to button select
+                
+
                 // at least name input
                 if (inputForm.placeholder === 'Name') {
                     inputForm.required = true;
