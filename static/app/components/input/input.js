@@ -81,7 +81,7 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
 
     $scope.makeActive = function () {
         document.getElementById('input-edit-tab').className = 'active';
-        document.getElementById('input-std-tab').className = '';
+        document.getElementById('newEntryTab').className = '';
     };
 
     $scope.showEditPage = function (curObject) {

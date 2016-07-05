@@ -60,7 +60,7 @@ var mapConstructor = function (containerID, floorNum, studioData) {
       //Returns the current location of the marker in px as an array
       //Output: [x,y] (px)
 
-      getLocation: function (width, height, floorNum) {
+      getLocation: function () {
         var mark = d3.select('#marker' + floorNum);
         var xPos = parseInt(mark.attr('x')) + parseInt(mark.attr('width') / 2);
         var yPos = parseInt(mark.attr('y')) + parseInt(mark.attr('height') * 1);
