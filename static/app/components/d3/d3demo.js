@@ -128,7 +128,6 @@ var mapConstructor = function (containerID, floorNum, studioData) {
     dehighlight: function (objID) {
       d3.select('rect#' + objID)
         .attr('fill', null)
-        .style('visibility', 'hidden');
     },
   }
 };
