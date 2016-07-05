@@ -13,27 +13,26 @@ angular.module("myApp").directive("addInput", function () {
         link: function (scope, elem, attrs) {
             scope.$watch(scope, function () {
                 // access to attributes for the element's input field
-                var toRemove = elem[0].childNodes[3].childNodes[1];
+                var inputForm = elem[0].childNodes[3].childNodes[1];
+
+                if (inputForm.placeholder === 'Location x (ft)' || inputForm.placeholder === 'Location y (ft)' || inputForm.placeholder === 'Floor') {
+                    inputForm.parentNode.parentNode.remove();
+                }
 
                 // at least name input
-                if (toRemove.placeholder === 'Name') {
-                    toRemove.required = true;
+                if (inputForm.placeholder === 'Name') {
+                    inputForm.required = true;
                 }
 
                 // numeric validation
-                if (toRemove.placeholder === 'Width' ||
-                    toRemove.placeholder === 'Height' ||
-                    toRemove.placeholder === 'Length' ||
-                    toRemove.placeholder === 'Quantity' ||
-                    toRemove.placeholder === 'Price') {
-                    toRemove.type = 'number';
-                    toRemove.min = '0';
-                    toRemove.max = '10000';
-                }
-
-                // disable type input
-                if (toRemove.placeholder === 'Type') {
-                    toRemove.disabled = true;
+                if (inputForm.placeholder === 'Width' ||
+                    inputForm.placeholder === 'Height' ||
+                    inputForm.placeholder === 'Length' ||
+                    inputForm.placeholder === 'Quantity' ||
+                    inputForm.placeholder === 'Price') {
+                    inputForm.type = 'number';
+                    inputForm.min = '0';
+                    inputForm.max = '10000';
                 }
 
             });

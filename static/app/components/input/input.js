@@ -17,7 +17,7 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
     $scope.inputQuery = '';
 
     $scope.formData = {};
-    $scope.stdPost = function (type) {
+    $scope.newEntry = function () {
         var localEntry = [];
         for (var prop in $scope.formData) {
             if ($scope.formData.hasOwnProperty(prop)) {
@@ -32,7 +32,6 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
                 $scope.dataLength++;
                 $scope.data.push(localEntry);
                 $scope.formData = {};
-                $scope.setType(type);
             })
             .error(function (data, status, header, config) {
                 console.log(data, status);
@@ -80,17 +79,9 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
             });
     };
 
-    // change type when clicking the category tabs and remove some labels
-    $scope.setType = function (type) {
-        $scope.formData['Type'] = type;
-    };
-
     $scope.makeActive = function () {
         document.getElementById('input-edit-tab').className = 'active';
         document.getElementById('input-std-tab').className = '';
-        document.getElementById('input-tl-tab').className = '';
-        document.getElementById('input-mat-tab').className = '';
-        document.getElementById('input-con-tab').className = '';
     };
 
     $scope.showEditPage = function (curObject) {
@@ -107,23 +98,17 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
         $scope.templateURL = 'clearEditPage';
     };
 
-
     $scope.editPageCols = function (prop) {
         $scope.$watch('editFormData', function () {
             if (prop.toLowerCase().indexOf('location') != -1) {
                 document.getElementById(prop).remove();
                 document.getElementById(prop + 'label').remove();
             }
-
-            // if (prop.toLowerCase().indexOf('description') != -1) {
-            //     document.getElementById(prop).className = 'col-sm-4';
-            // }
         });
     };
 
     $scope.map1 = mapService.initMap('edit-first-floor', 1);
     $scope.map2 = mapService.initMap('edit-second-floor', 2);
-    // $scope.map1.marker.onClick();
     $scope.map1.marker.onClick();
     $scope.map2.marker.onClick();
 
@@ -137,11 +122,11 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
 
         } else {
             var pos = $scope.map2.marker.getLocation($scope.map2.width(), $scope.map2.height(), 2);
-            $scope.editFormData["Location x (ft)"] = pos[0];
-            $scope.editFormData["Location y (ft)"] = pos[1];
-            console.log(pos);
+            $scope.editFormData["Location x (ft)"] = pos[0].toFixed(1);
+            $scope.editFormData["Location y (ft)"] = pos[1].toFixed(1);
+            console.log($scope.editFormData["Location x (ft)"], $scope.editFormData["Location y (ft)"]);
             $scope.editFormData.Floor = 2;
         }
-    }
+    };
 
 }]);

@@ -91,12 +91,6 @@ a {
     margin-top: 10px;
 }
 
-#inputWell {
-    height: 100vh;
-    background:white;
-    border: none;
-}
-
 #ct-input-forms {
     overflow-y: scroll;
 }
@@ -155,9 +149,13 @@ a {
 
 #input-tab-content {
     height: auto;
-    max-height: 90vh;
+    max-height: 95vh;
     overflow-y: scroll;
     background: white;
     padding-bottom: 10px;
     padding-top: 10px;
+}
+
+#input-container {
+    margin-top: 2vh;
 }

@@ -32,20 +32,11 @@
                 </div>
                 <div class="col-sm-10">
                     <div class="row">
-                        <div class="container">
+                        <div class="container" id="input-container">
                             <div role="tabpanel">
                                 <ul class="nav nav-tabs" role="tablist">
-                                    <li role="presentation" class="active" id="input-std-tab">
-                                        <a href="#studioIn" aria-controls="home" role="tab" data-toggle="tab" ng-init="setType('Studio')" ng-click="setType('Studio')">Studio</a>
-                                    </li>
-                                    <li role="presentation" id="input-mat-tab">
-                                        <a href="#matIn" aria-controls="tab" role="tab" data-toggle="tab" ng-click="setType('Material')">Material</a>
-                                    </li>
-                                    <li role="presentation" id="input-tl-tab">
-                                        <a href="#toolIn" aria-controls="tab" role="tab" data-toggle="tab" ng-click="setType('Tool')">Tool</a>
-                                    </li>
-                                    <li role="presentation" id="input-con-tab">
-                                        <a href="#conIn" aria-controls="tab" role="tab" data-toggle="tab" ng-click="setType('Consumable')">Consumable</a>
+                                    <li role="presentation" class="active">
+                                        <a href="#newEntry" aria-controls="home" role="tab" data-toggle="tab">New Entry</a>
                                     </li>
                                     <li role="presentation" id="input-edit-tab">
                                         <a href="#ct-edit" aria-controls="tab" role="tab" data-toggle="tab" ng-init="clearEditPage()">Edit</a>
@@ -53,8 +44,8 @@
                                 </ul>
                                 <div class="container-fluid lvl1-box-shadow" id="input-tab-content">
                                     <div class="tab-content">
-                                        <div role="tabpanel" class="tab-pane active" id="studioIn">
-                                            <form class="form-horizontal" ng-submit="stdPost('Studio')">
+                                        <div role="tabpanel" class="tab-pane active" id="newEntry">
+                                            <form class="form-horizontal" ng-submit="newEntry()">
                                                 <div ng-repeat="prop in entryProperties track by $index">
                                                     <add-input></add-input>
                                                 </div>
@@ -67,43 +58,12 @@
                                                 </div>
                                             </form>
                                         </div>
-                                        <div role="tabpanel" class="tab-pane" id="matIn">
-                                            <form class="form-horizontal" ng-submit="stdPost('Material')">
-                                                <div ng-repeat="prop in entryProperties track by $index">
-                                                    <add-input></add-input>
-                                                </div>
-                                                <div class="col-sm-1 col-sm-offset-5">
-                                                    <button type="submit" class="btn btn-default">Submit</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div role="tabpanel" class="tab-pane" id="toolIn">
-                                            <form class="form-horizontal" ng-submit="stdPost('Tool')">
-                                                <div ng-repeat="prop in entryProperties track by $index">
-                                                    <add-input></add-input>
-                                                </div>
-                                                <div class="col-sm-1 col-sm-offset-5">
-                                                    <button type="submit" class="btn btn-default">Submit</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div role="tabpanel" class="tab-pane" id="conIn">
-                                            <form class="form-horizontal" ng-submit="stdPost('Consumable')">
-                                                <div ng-repeat="prop in entryProperties track by $index">
-                                                    <add-input></add-input>
-                                                </div>
-                                                <div class="col-sm-1 col-sm-offset-5">
-                                                    <button type="submit" class="btn btn-default">Submit</button>
-                                                </div>
-                                            </form>
-                                        </div>
                                         <div role="tabpanel" class="tab-pane" id="ct-edit">
                                             <div ng-include="templateURL">
                                             </div>
                                         </div>
                                         <div role="tabpanel" class="tab-pane" id="edit-first-floor">
                                             <edit-map-panes></edit-map-panes>
-
                                             <button type="button" class="btn btn-large btn-default" ng-click="getLocation(1)" href="#ct-edit" data-toggle="tab">Submit</button>
 
                                         </div>
