@@ -1,5 +1,6 @@
 var app = angular.module('d3mapping', [])
 
+//Controller inherits index.js scope
 app.controller('mapController', ['$scope', '$window', '$location', function ($scope, $window, $location) {
   //Populates the map with studio data
   $scope.$watch('data', function () {
@@ -9,21 +10,20 @@ app.controller('mapController', ['$scope', '$window', '$location', function ($sc
     $scope.itemData = []
     for (var i = 0; i < $scope.data.length; i++) {
       var obj = {
-        'rx': parseInt($scope.data[i][3]),
-        'ry': parseInt($scope.data[i][4]),
-        'floor': parseInt($scope.data[i][5]),
-        'height': parseInt($scope.data[i][7]),
-        'width': parseInt($scope.data[i][6]),
-        'id': $scope.data[i][0].replace(/\s/g, '').replace(/\//g, ''),
+        'rx': parseInt($scope.data[i][$scope.index.x]),
+        'ry': parseInt($scope.data[i][$scope.index.y]),
+        'floor': parseInt($scope.data[i][$scope.index.floor]),
+        'height': parseInt($scope.data[i][$scope.index.height]),
+        'width': parseInt($scope.data[i][$scope.index.width]),
+        'id': $scope.data[i][$scope.index.id],
       }
-
-      if ($scope.data[i][5] === '2' && $scope.data[i][1] === 'Studio') {
+      if ($scope.data[i][$scope.index.floor] === '2' && $scope.data[i][$scope.index.type] === 'Studio') {
         $scope.studioData2 = $scope.studioData2.concat(obj);
       }
-      else if ($scope.data[i][5] === '1' && $scope.data[i][1] === 'Studio') {
+      else if ($scope.data[i][$scope.index.floor] === '1' && $scope.data[i][$scope.index.type] === 'Studio') {
         $scope.studioData1 = $scope.studioData1.concat(obj);
       }
-      else if ($scope.data[i][1] !== 'Studio') {
+      else if ($scope.data[i][$scope.index.type] !== 'Studio') {
         $scope.itemData = $scope.itemData.concat(obj);
       }
     }

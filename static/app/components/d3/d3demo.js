@@ -59,7 +59,6 @@ var mapConstructor = function (containerID, floorNum, studioData) {
 
       //Returns the current location of the marker in px as an array
       //Output: [x,y] (px)
-
       getLocation: function () {
         var mark = d3.select('#marker' + floorNum);
         //var scale = getScalingRatio(width, height, floorNum)/10; // 10 beause the map is 10 time smaller
