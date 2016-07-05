@@ -42,8 +42,9 @@ angular.module("myApp", ['d3mapping'])
             }
         };
 
-        var lastObject;
+        var lastObject = null;
         $scope.highlightItem = function (objectId) {
+            console.log(objectId);
             if (lastObject != null) {
                 document.getElementById(lastObject).style.color = 'black';
                 document.getElementById(objectId).style.color = 'blue';
