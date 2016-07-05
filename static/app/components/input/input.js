@@ -1,4 +1,4 @@
-angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService", function ($scope, $http, mapService) {
+angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService", "highlightService", function ($scope, $http, mapService, highlightService) {
     $http.get('/getData')
         .success(function (data, status, header, config) {
             // success data
@@ -11,7 +11,7 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
         })
         .error(function (data, status, header, config) {
             // something went wrong
-            alert("Something went wrong! Please call for help!");
+            alert("Something went wrong! Refresh or call for help!");
         });
 
     $scope.inputQuery = '';
@@ -106,6 +106,8 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
             }
         });
     };
+
+    $scope.highlightItem = highlightService.highlight;
 
     $scope.map1 = mapService.initMap('edit-first-floor', 1);
     $scope.map2 = mapService.initMap('edit-second-floor', 2);

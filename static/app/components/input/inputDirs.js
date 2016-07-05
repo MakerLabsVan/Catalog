@@ -20,7 +20,7 @@ angular.module("myApp").directive("addInput", function () {
                 }
 
                 // change type to button select
-                
+
 
                 // at least name input
                 if (inputForm.placeholder === 'Name') {
