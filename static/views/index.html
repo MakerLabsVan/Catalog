@@ -1,108 +1,108 @@
-<!DOCTYPE>
+<!DOCTYPE html>
 <html>
-<meta http-equiv="refresh" content="600" URL="https://serene-springs-31713.herokuapp.com/ ">
+<meta http-equiv="refresh" content="3600; URL=http://localhost:3000">
 
 <head>
     <title>MakerLabs Catalog</title>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css " rel="stylesheet " integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7 "
-        crossorigin="anonymous ">
-    <link rel="stylesheet " href="/style/index.css ">
-    <link rel="shortcut icon " type="image/x-icon " href="/assets/favicon.ico " />
-    <link href="https://fonts.googleapis.com/css?family=Raleway " rel="stylesheet " />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="/style/index.css">
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico" />
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 </head>
 
 <body>
-    <div ng-app="myApp ">
-        <div class="container-fluid view-color " ng-controller="MainCtrl ">
-            <div class="row ">
-                <div class="col-sm-2 " id="accordion-container ">
+    <div ng-app="myApp">
+        <div class="container-fluid view-color" ng-controller="MainCtrl">
+            <div class="row">
+                <div class="col-sm-2" id="accordion-container">
                     <center>
-                        <img src="assets/makerlabs.png " alt="makerlablogo " id="index-logo ">
+                        <img src="assets/makerlabs.png" alt="makerlablogo" id="index-logo">
                     </center>
                     <hr>
                     <!-- accordion start -->
-                    <div class="panel-group " id="accordion ">
-                        <div class="row ">
+                    <div class="panel-group" id="accordion">
+                        <div class="row">
                             <div class="col-sm-12 ">
-                                <input type="search " class="form-control lvl1-box-shadow " placeholder="Search here
-    " ng-model="queryTerm " ng-change="changeHeight() " />
-                                <div class="lvl1-box-shadow " id="searchSection ">
-                                    <div ng-repeat="object in data track by $index ">
+                                <input type="search" class="form-control lvl1-box-shadow" placeholder="Search here" ng-model="queryTerm" ng-change="changeHeight()"
+                                />
+                                <div class="lvl1-box-shadow" id="searchSection">
+                                    <div ng-repeat="object in data track by $index">
                                         <!-- </div index-search-res></div> -->
-                                        <div class="entryPO " ng-click="showEntryDetails(object);switchMapsOnClick(object[5]);showLoc(object[20]);highlightItem(
-    'search_' + object[20]) " id="search_{{ object[20] }} ">
+                                        <div class="entryPO" ng-click="showEntryDetails(object);switchMapsOnClick(object[5]);showLoc(object[20]);highlightItem('search_' + object[20])"
+                                            id="search_{{ object[20] }}">
                                             {{ queryTerm.length
                                             < 2 ? '' : object[0].toLowerCase().indexOf(queryTerm.toLowerCase()) !=- 1 || object[1].toLowerCase().indexOf(queryTerm.toLowerCase())
-                                                !=- 1 || object[2].toLowerCase().indexOf(queryTerm.toLowerCase()) !=- 1 || object[15].toLowerCase().indexOf(queryTerm.toLowerCase())
-                                                !=- 1 ? object[0] : '' }} </div>
+                                                !=- 1 || object[2].toLowerCase().indexOf(queryTerm.toLowerCase()) !=- 1 ? object[0]
+                                                : '' }} </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="panel panel-default ">
-                                <div class="panel-heading lvl1-box-shadow " id="std_panel-bg ">
-                                    <h4 class="panel-title ">
-                                        <div data-toggle="collapse " href="#collapse1 " class="ct-panel-toggle "> {{ categories.studio }} </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading lvl1-box-shadow" id="std_panel-bg">
+                                    <h4 class="panel-title">
+                                        <div data-toggle="collapse" href="#collapse1" class="ct-panel-toggle"> {{ categories.studio }} </div>
                                     </h4>
                                 </div>
-                                <div id="collapse1 " class="panel-collapse collapse ">
-                                    <div class="panel-body " id="ct-index-panel-body ">
+                                <div id="collapse1" class="panel-collapse collapse">
+                                    <div class="panel-body" id="ct-index-panel-body">
                                         <!-- sheet data -->
-                                        <div ng-repeat="object in data ">
-                                            <div class="entryPO " ng-click="showEntryDetails(object);switchMapsOnClick(object[5]);showLoc(object[20]);highlightItem(
-    'studio_' + object[20]) " id="studio_{{ object[20] }} ">
-                                                {{ object[1] === "Studio " ? object[0] : '' }}
+                                        <div ng-repeat="object in data">
+                                            <div class="entryPO" ng-click="showEntryDetails(object);switchMapsOnClick(object[5]);showLoc(object[20]);highlightItem('studio_' + object[20])"
+                                                id="studio_{{ object[20] }}">
+                                                {{ object[1] === "Studio" ? object[0] : '' }}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="panel panel-default ">
-                                <div class="panel-heading lvl1-box-shadow " id="tl_panel-bg ">
-                                    <h4 class="panel-title ">
-                                        <div data-toggle="collapse " href="#collapse2 " class="ct-panel-toggle "> {{ categories.tools }} </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading lvl1-box-shadow" id="tl_panel-bg">
+                                    <h4 class="panel-title">
+                                        <div data-toggle="collapse" href="#collapse2" class="ct-panel-toggle"> {{ categories.tools }} </div>
                                     </h4>
                                 </div>
-                                <div id="collapse2 " class="panel-collapse collapse ">
-                                    <div class="panel-body " id="ct-index-panel-body ">
-                                        <div ng-repeat="object in data ">
-                                            <div ng-click="showEntryDetails(object);showLoc(object[0]);switchMapsOnClick(object[5]);highlightItem(
-    'tool_' + object[20]) " class="entryPO " id="tool_{{ object[20] }} ">
-                                                {{ object[1] === "Tool " ? object[0] : '' }}
+                                <div id="collapse2" class="panel-collapse collapse">
+                                    <div class="panel-body" id="ct-index-panel-body">
+                                        <div ng-repeat="object in data">
+                                            <div ng-click="showEntryDetails(object);showLoc(object[20]);switchMapsOnClick(object[5]);highlightItem('tool_' + object[20])"
+                                                class="entryPO" id="tool_{{ object[20] }}">
+                                                {{ object[1] === "Tool" ? object[0] : '' }}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="panel panel-default ">
-                                <div class="panel-heading lvl1-box-shadow " id="con_panel-bg ">
-                                    <h4 class="panel-title ">
-                                        <div data-toggle="collapse " href="#collapse3 " class="ct-panel-toggle "> {{ categories.cons }} </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading lvl1-box-shadow" id="con_panel-bg">
+                                    <h4 class="panel-title">
+                                        <div data-toggle="collapse" href="#collapse3" class="ct-panel-toggle"> {{ categories.cons }} </div>
                                     </h4>
                                 </div>
-                                <div id="collapse3 " class="panel-collapse collapse ">
-                                    <div class="panel-body " id="ct-index-panel-body ">
-                                        <div ng-repeat="object in data ">
-                                            <div ng-click="showEntryDetails(object);showLoc(object[0]);switchMapsOnClick(object[5]);highlightItem(
-    'cons_' + object[20]) " class="entryPO " id="cons_{{ object[20] }} ">
-                                                {{ object[1] === "Consumable " ? object[0] : '' }}
+                                <div id="collapse3" class="panel-collapse collapse">
+                                    <div class="panel-body" id="ct-index-panel-body">
+                                        <div ng-repeat="object in data">
+                                            <div ng-click="showEntryDetails(object);showLoc(object[20]);switchMapsOnClick(object[5]);highlightItem('cons_' + object[20])"
+                                                class="entryPO" id="cons_{{ object[20] }}">
+                                                {{ object[1] === "Consumable" ? object[0] : '' }}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="panel panel-default ">
-                                <div class="panel-heading lvl1-box-shadow " id="mat_panel-bg ">
-                                    <h4 class="panel-title ">
-                                        <div data-toggle="collapse " href="#collapse4 " class="ct-panel-toggle "> {{ categories.mats }} </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading lvl1-box-shadow" id="mat_panel-bg">
+                                    <h4 class="panel-title">
+                                        <div data-toggle="collapse" href="#collapse4" class="ct-panel-toggle"> {{ categories.mats }} </div>
                                     </h4>
                                 </div>
-                                <div id="collapse4 " class="panel-collapse collapse ">
-                                    <div class="panel-body " id="ct-index-panel-body ">
-                                        <div ng-repeat="object in data ">
-                                            <div ng-click="showEntryDetails(object);showLoc(object[0]);switchMapsOnClick(object[5]);highlightItem(
-    'material_' + object[20]) " class="entryPO " id="material_{{ object[20] }} ">
-                                                {{ object[1] === "Material " ? object[0] : '' }}
+                                <div id="collapse4" class="panel-collapse collapse">
+                                    <div class="panel-body" id="ct-index-panel-body">
+                                        <div ng-repeat="object in data">
+                                            <div ng-click="showEntryDetails(object);showLoc(object[20]);switchMapsOnClick(object[5]);highlightItem('material_' + object[20])"
+                                                class="entryPO" id="material_{{ object[20] }}">
+                                                {{ object[1] === "Material" ? object[0] : '' }}
                                             </div>
                                         </div>
                                     </div>
@@ -110,50 +110,48 @@
                             </div>
                         </div>
                     </div>
-                    <div id="index-main-view ">
+                    <div id="index-main-view">
                         <!--top empty panel-->
                     </div>
-                    <div class="col-sm-3 view-color " id="index-view-container ">
-                        <div class="panel panel-default lvl1-box-shadow " id="ct-index-panel ">
-                            <div class="panel-heading " id="ct-idx-ph-det ">
-                                <h3 class="panel-title " id="ct-index-panel-title-detail ">
+                    <div class="col-sm-3 view-color" id="index-view-container">
+                        <div class="panel panel-default lvl1-box-shadow" id="ct-index-panel">
+                            <div class="panel-heading " id="ct-idx-ph-det">
+                                <h3 class="panel-title" id="ct-index-panel-title-detail">
                                     <!--panel title-->
                                     <center>MakerLabs</center>
                                 </h3>
                             </div>
-                            <div class="panel-body " id="ct-index-panel-body-detail ">
+                            <div class="panel-body" id="ct-index-panel-body-detail">
                                 <!--panel body-->
                                 <p>Welcome to MakerLabs' Catalog system.</p>
                                 <p>To use, either start searching for an item or look under the categories.</p>
                             </div>
                         </div>
                     </div>
-                    <div ng-controller="mapController ">
-                        <div class="col-sm-6 ">
-                            <div role="tabpanel ">
+                    <div ng-controller="mapController">
+                        <div class="col-sm-6">
+                            <div role="tabpanel">
                                 <!-- Nav tabs -->
-                                <ul class="nav nav-tabs " role="tablist ">
-                                    <li role="presentation " class="active " id="firstLi ">
-                                        <a href="#firstFloor " aria-controls="firstFloor " role="tab " data-toggle="tab
-    " ng-click="resizeMap " id="floor1Tab ">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation" class="active" id="firstLi">
+                                        <a href="#firstFloor" aria-controls="firstFloor" role="tab" data-toggle="tab" ng-click="resizeMap" id="floor1Tab">
                                         F1
                                     </a>
                                     </li>
-                                    <li role="presentation " class=" " id="secondLi ">
-                                        <a href="#secondFloor " aria-controls="secondFloor " role="tab " data-toggle="tab
-    " ng-click="resizeMap " id="floor2Tab ">
+                                    <li role="presentation" class="" id="secondLi">
+                                        <a href="#secondFloor" aria-controls="secondFloor" role="tab" data-toggle="tab" ng-click="resizeMap" id="floor2Tab">
                                         F2
                                     </a>
                                     </li>
                                 </ul>
                                 <!-- Tab panes -->
-                                <div class="tab-content lvl1-box-shadow ">
-                                    <div role="tabpanel " class="tab-pane active " ng-model="fstFloorSize " id="firstFloor ">
-                                        <div class="well well-lg " id="firstFloorWell ">
+                                <div class="tab-content lvl1-box-shadow">
+                                    <div role="tabpanel" class="tab-pane active" ng-model="fstFloorSize" id="firstFloor">
+                                        <div class="well well-lg" id="firstFloorWell">
                                         </div>
                                     </div>
-                                    <div role="tabpanel " class="tab-pane " ng-model="secFloorSize " id="secondFloor ">
-                                        <div class="well well-lg " id="secondFloorWell ">
+                                    <div role="tabpanel" class="tab-pane" ng-model="secFloorSize" id="secondFloor">
+                                        <div class="well well-lg" id="secondFloorWell">
                                         </div>
                                     </div>
                                 </div>
@@ -163,16 +161,16 @@
                 </div>
             </div>
         </div>
-        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js "></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.3.3/ui-bootstrap-tpls.min.js "></script>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js "></script>
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js " integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS "
-            crossorigin="anonymous "></script>
-        <script src="//d3js.org/d3.v3.min.js " charset="utf-8 "></script>
-        <script src="/app/components/index/index.js "></script>
-        <script src="/app/components/d3/d3demo.js "></script>
-        <script src="/app/components/d3/d3map.js "></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.3.3/ui-bootstrap-tpls.min.js "></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.3.3/ui-bootstrap-tpls.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+            crossorigin="anonymous"></script>
+        <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+        <script src="/app/components/index/index.js"></script>
+        <script src="/app/components/d3/d3demo.js"></script>
+        <script src="/app/components/d3/d3map.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.3.3/ui-bootstrap-tpls.min.js"></script>
         <script>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

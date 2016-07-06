@@ -108,7 +108,6 @@ angular.module("myApp", ['d3mapping'])
         $scope.lastItem = null;
         //Highlight the studio given the name of the studio as a param
         $scope.showLoc = function (studioName) {
-
             removeLast($scope.lastItem);
             var elementPos = $scope.data.map(function (x) { return x[$scope.index.id]; }).indexOf(studioName);
             var objectFound = $scope.data[elementPos];
