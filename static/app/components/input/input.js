@@ -97,6 +97,7 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
         for (i = 0; i < $scope.entryProperties.length; i++) {
             $scope.editFormData[$scope.entryProperties[i]] = curObject[i];
         }
+
         $scope.templateURL = 'editEntryTmpl';
     };
 
@@ -120,6 +121,7 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
     // load maps
     $scope.map1 = mapService.initMap('edit-first-floor', 1);
     $scope.map2 = mapService.initMap('edit-second-floor', 2);
+
     // show markers on map on click
     $scope.map1.marker.onClick();
     $scope.map2.marker.onClick();
@@ -143,3 +145,21 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
 
 
 }]);
+
+
+angular.module("myApp").service("advInputs", function() {
+    var makeTypeBtn = function(type){
+        return '<button type="button" class="btn btn-default" data-toggle="button">' + type + '</button>';
+    };
+
+    var makeSzDrpDwn = '<div class="btn-group"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select a unit <span class="caret"></span></button><ul class="dropdown-menu"><li><a href="#">m</a></li><li><a href="#">ft</a></li><li><a href="#">cm</a></li><li><a href="#">mm</a></li></ul></div>';
+
+    var makeWtDrpDwn = '<div class="btn-group"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select a unit <span class="caret"></span></button><ul class="dropdown-menu"><li><a href="#">kg</a></li><li><a href="#">g</a></li><li><a href="#">mg</a></li></ul></div>';
+
+    return {
+        makeTypeBtn: makeTypeBtn,
+        makeSzDrpDwn: makeSzDrpDwn,
+        makeWtDrpDwn: makeWtDrpDwn
+    }
+
+});
