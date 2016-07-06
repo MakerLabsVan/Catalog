@@ -11,6 +11,8 @@ angular.module("myApp").directive("addInput",["advInputs", function (advInputs) 
         templateUrl: '/templates/inputFormTmpl.html',
         link: function (scope, elem, attrs) {
             scope.$watch(scope, function () {
+                
+                advInputs.loadTypeButtons();                
                 // access to attributes for the element's input field
                 var inputForm = elem[0].childNodes[3].childNodes[1];
 

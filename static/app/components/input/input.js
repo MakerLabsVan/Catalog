@@ -110,8 +110,6 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
     $scope.editPageCols = function (prop) {
         $scope.$watch('editFormData', function () {
 
-            advInputs.loadTypeButtons();
-
             // entire form group selector
             var formGroup = document.getElementById(prop + 'label');
 
