@@ -1,4 +1,4 @@
-angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService", "highlightService", function ($scope, $http, mapService, highlightService) {
+angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService", "highlightService", "advInputs", function ($scope, $http, mapService, highlightService, advInputs) {
     // authorized data retrieval 
     $http.get('/getData')
         .success(function (data, status, header, config) {
@@ -109,9 +109,43 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
     // remove location, floor input from the edit page
     $scope.editPageCols = function (prop) {
         $scope.$watch('editFormData', function () {
+
+            // entire form group selector
+            var formGroup = document.getElementById(prop + 'label');
+
             if (prop.toLowerCase().indexOf('location') != -1 || prop === 'Floor') {
-                document.getElementById(prop + 'label').remove();
-            }
+                formGroup.remove();
+            };
+
+            // select only the input box
+            var inputForm = formGroup.childNodes[3];
+
+            // change inputs to buttons and dropdowns
+            switch (formGroup.childNodes[1].innerText){
+                    case 'Type:':
+                        inputForm.innerHTML = advInputs.makeTypeBtn;
+                        break;
+                    case 'Units:':
+                        inputForm.innerHTML = advInputs.makeSzDrpDwn;
+                        break;
+                    case 'Weight Unit:':
+                        inputForm.innerHTML = advInputs.makeWtDrpDwn;
+                        break;
+                    case 'Name:':
+                        inputForm.required = true;
+                        break;
+                        // set some input validation
+                    case 'Width:':
+                    case 'Height:':
+                    case 'Length:':
+                    case 'Quantity:':
+                    case 'Price:':
+                    case 'Weight:':
+                        inputForm.type = 'number';
+                        inputForm.min = '0';
+                        inputForm.max = '10000';
+                        break;
+                }
         });
     };
 
@@ -142,8 +176,6 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
         }
     };
 
-
-
 }]);
 
 
@@ -152,12 +184,17 @@ angular.module("myApp").service("advInputs", function() {
         return '<button type="button" class="btn btn-default" data-toggle="button">' + type + '</button>';
     };
 
+    var returnTypeBtn = makeTypeBtn("Studio") + 
+                        makeTypeBtn("Material") + 
+                        makeTypeBtn("Consumable") + 
+                        makeTypeBtn("Tool");
+
     var makeSzDrpDwn = '<div class="btn-group"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select a unit <span class="caret"></span></button><ul class="dropdown-menu"><li><a href="#">m</a></li><li><a href="#">ft</a></li><li><a href="#">cm</a></li><li><a href="#">mm</a></li></ul></div>';
 
     var makeWtDrpDwn = '<div class="btn-group"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select a unit <span class="caret"></span></button><ul class="dropdown-menu"><li><a href="#">kg</a></li><li><a href="#">g</a></li><li><a href="#">mg</a></li></ul></div>';
 
     return {
-        makeTypeBtn: makeTypeBtn,
+        makeTypeBtn: returnTypeBtn,
         makeSzDrpDwn: makeSzDrpDwn,
         makeWtDrpDwn: makeWtDrpDwn
     }

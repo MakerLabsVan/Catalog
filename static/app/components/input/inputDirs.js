@@ -19,44 +19,31 @@ angular.module("myApp").directive("addInput",["advInputs", function (advInputs) 
                     inputForm.parentNode.parentNode.remove();
                 };
 
-                var makeTypeBtn = advInputs.makeTypeBtn;
-
-                var makeSzDrpDwn = advInputs.makeSzDrpDwn;
-
-                var makeWtDrpDwn = advInputs.makeWtDrpDwn;
-
-                // change type to button select
-                if (inputForm.placeholder === 'Type'){
-                    var typeBtnSet = makeTypeBtn("Studio");
-                    typeBtnSet += makeTypeBtn("Material");
-                    typeBtnSet += makeTypeBtn("Consumable");
-                    typeBtnSet += makeTypeBtn("Tool");
-                    inputForm.parentNode.innerHTML = typeBtnSet;
+                switch (inputForm.placeholder){
+                    case 'Type':
+                        inputForm.parentNode.innerHTML = advInputs.makeTypeBtn;
+                        break;
+                    case 'Units':
+                        inputForm.parentNode.innerHTML = advInputs.makeSzDrpDwn;
+                        break;
+                    case 'Weight Unit':
+                        inputForm.parentNode.innerHTML = advInputs.makeWtDrpDwn;
+                        break;
+                    case 'Name':
+                        inputForm.required = true;
+                        break;
+                    case 'Width':
+                    case 'Height':
+                    case 'Length':
+                    case 'Quantity':
+                    case 'Price':
+                    case 'Weight':
+                        inputForm.type = 'number';
+                        inputForm.min = '0';
+                        inputForm.max = '10000';
+                        break;
                 }
 
-                if (inputForm.placeholder === 'Units'){
-                    inputForm.parentNode.innerHTML = makeSzDrpDwn;
-                }
-
-                if (inputForm.placeholder === 'Weight Unit'){
-                    inputForm.parentNode.innerHTML = makeWtDrpDwn;
-                }
-
-                // at least name input
-                if (inputForm.placeholder === 'Name') {
-                    inputForm.required = true;
-                }
-
-                // numeric validation
-                if (inputForm.placeholder === 'Width' ||
-                    inputForm.placeholder === 'Height' ||
-                    inputForm.placeholder === 'Length' ||
-                    inputForm.placeholder === 'Quantity' ||
-                    inputForm.placeholder === 'Price') {
-                    inputForm.type = 'number';
-                    inputForm.min = '0';
-                    inputForm.max = '10000';
-                }
             });
         }
     };
