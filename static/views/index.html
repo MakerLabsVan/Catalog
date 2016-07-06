@@ -30,9 +30,14 @@
                                 <div class="lvl1-box-shadow " id="searchSection ">
                                     <div ng-repeat="object in data track by $index ">
                                         <!-- </div index-search-res></div> -->
+<<<<<<< HEAD
                                         <div class="entryPO " ng-click="showEntryDetails(object);switchMapsOnClick(object[5]);showLoc(object[20]);highlightItem(
     'search_' + object[20]) "
                                             id="search_{{ object[20] }} ">
+=======
+                                        <div class="entryPO" ng-click="showEntryDetails(object);switchMapsOnClick(object[5]);showLoc(object[0]);highlightItem('search_' + object[20])"
+                                            id="search_{{ object[20] }}">
+>>>>>>> parent of f23f645... Switch show location to use primary key
                                             {{ queryTerm.length
                                             < 2 ? '' : object[0].toLowerCase().indexOf(queryTerm.toLowerCase()) !=- 1 || object[1].toLowerCase().indexOf(queryTerm.toLowerCase())
                                                 !=- 1 || object[2].toLowerCase().indexOf(queryTerm.toLowerCase()) !=- 1 || object[15].toLowerCase().indexOf(queryTerm.toLowerCase())
@@ -50,11 +55,18 @@
                                 <div id="collapse1 " class="panel-collapse collapse ">
                                     <div class="panel-body " id="ct-index-panel-body ">
                                         <!-- sheet data -->
+<<<<<<< HEAD
                                         <div ng-repeat="object in data ">
                                             <div class="entryPO " ng-click="showEntryDetails(object);switchMapsOnClick(object[5]);showLoc(object[20]);highlightItem(
     'studio_' + object[20]) "
                                                 id="studio_{{ object[20] }} ">
                                                 {{ object[1] === "Studio " ? object[0] : '' }}
+=======
+                                        <div ng-repeat="object in data">
+                                            <div class="entryPO" ng-click="showEntryDetails(object);switchMapsOnClick(object[5]);showLoc(object[0]);highlightItem('studio_' + object[20])"
+                                                id="studio_{{ object[20] }}">
+                                                {{ object[1] === "Studio" ? object[0] : '' }}
+>>>>>>> parent of f23f645... Switch show location to use primary key
                                             </div>
                                         </div>
                                     </div>
