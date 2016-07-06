@@ -81,6 +81,61 @@
                 </div>
             </div>
         </div>
+
+        <!--Templates-->
+        <template id="type-buttons">
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-primary active">
+            <input type="radio" name="options" id="radio-studio" autocomplete="off" checked>
+                Studio
+        </label>
+                <label class="btn btn-primary">
+            <input type="radio" name="options" id="radio-mat" autocomplete="off">
+                Material
+        </label>
+                <label class="btn btn-primary">
+            <input type="radio" name="options" id="radio-cons" autocomplete="off">
+                Consumable
+        </label>
+                <label class="btn btn-primary">
+            <input type="radio" name="options" id="radio-tool" autocomplete="off">
+                Tool
+        </label>
+            </div>
+        </template>
+
+        <template id="dimension-buttons">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Select a unit
+            <span class="caret"></span>
+        </button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">m</a></li>
+                    <li><a href="#">ft</a></li>
+                    <li><a href="#">cm</a></li>
+                    <li><a href="#">mm</a></li>
+                </ul>
+            </div>
+        </template>
+
+        <template id="weight-button">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Select a unit
+            <span class="caret"></span>
+        </button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">kg</a></li>
+                    <li><a href="#">g</a></li>
+                    <li><a href="#">mg</a></li>
+                </ul>
+            </div>
+        </template>
+
+
+
+
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"

@@ -178,10 +178,9 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
 
 }]);
 
-
 angular.module("myApp").service("advInputs", function() {
     var makeTypeBtn = function(type){
-        return '<button type="button" class="btn btn-default" data-toggle="button">' + type + '</button>';
+        return '<button id="button' + type + '" type="button" class="btn btn-default" data-toggle="button">' + type + '</button>';
     };
 
     var returnTypeBtn = makeTypeBtn("Studio") + 
@@ -198,5 +197,4 @@ angular.module("myApp").service("advInputs", function() {
         makeSzDrpDwn: makeSzDrpDwn,
         makeWtDrpDwn: makeWtDrpDwn
     }
-
 });
