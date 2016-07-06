@@ -59,7 +59,6 @@ app.controller('mapController', ['$scope', '$window', '$location', function ($sc
     var height2 = $scope.map2.height();
     $scope.map1.studio.resize(width1, height1);
     $scope.map2.studio.resize(width2, height2);
-    $scope.map1.currentLocMarker.resize(width1, height1);
     // manuall $digest required as resize event
     // is outside of angular
     $scope.$digest();
