@@ -141,5 +141,6 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
         }
     };
 
+    
 
 }]);
