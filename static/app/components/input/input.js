@@ -105,11 +105,10 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
         $scope.templateURL = 'clearEditPage';
     };
 
-    // remove location, floor input 
+    // remove location, floor input from the edit page
     $scope.editPageCols = function (prop) {
         $scope.$watch('editFormData', function () {
-            if (prop.toLowerCase().indexOf('location') != -1) {
-                document.getElementById(prop).remove();
+            if (prop.toLowerCase().indexOf('location') != -1 || prop === 'Floor') {
                 document.getElementById(prop + 'label').remove();
             }
         });
@@ -141,6 +140,6 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
         }
     };
 
-    
+
 
 }]);
