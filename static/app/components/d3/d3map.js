@@ -2,6 +2,18 @@ var app = angular.module('d3mapping', [])
 
 //Controller inherits index.js scope
 app.controller('mapController', ['$scope', '$window', '$location', function ($scope, $window, $location) {
+  //Get URI Query string
+  var getQueryVariable = function (variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split('&');
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split('=');
+        if (decodeURIComponent(pair[0]) == variable) {
+            return decodeURIComponent(pair[1]);
+        }
+    }
+  }
+
   //Populates the map with studio data
   $scope.$watch('data', function () {
     if (!$scope.data) { return }
@@ -26,34 +38,38 @@ app.controller('mapController', ['$scope', '$window', '$location', function ($sc
       else if ($scope.data[i][$scope.index.type] !== 'Studio') {
         $scope.itemData = $scope.itemData.concat(obj);
       }
+      if ( getQueryVariable( "self" ) === 'frontdesk'  && $scope.data[i][$scope.index.name] === 'Front Desk'){
+        $scope.map1.currentLocMarker.place( obj.rx ,obj.ry, $scope.map1.width(), $scope.map1.height());
+      }
+
     }
     $scope.map1.studio.draw($scope.studioData1);
     $scope.map2.studio.draw($scope.studioData2);
     //Resize all elements initially to first map
     $scope.map1.studio.resize($scope.map1.width(), $scope.map1.height());
     $scope.map2.studio.resize($scope.map1.width(), $scope.map1.height());
+
   })
 
   //Resize map objects on window resize
   angular.element($window).bind('resize', function () {
-    $scope.map1.studio.resize($scope.map1.width(), $scope.map1.height());
-    $scope.map2.studio.resize($scope.map2.width(), $scope.map2.height());
+    var width1 = $scope.map1.width();
+    var height1 = $scope.map1.height();
+    var width2 = $scope.map2.width();
+    var height2 = $scope.map2.height();
+    $scope.map1.studio.resize(width1, height1);
+    $scope.map2.studio.resize(width2, height2);
+    $scope.map1.currentLocMarker.resize(width1, height1);
     // manuall $digest required as resize event
     // is outside of angular
     $scope.$digest();
   })
 
   //Get Query variable string
-  function getQueryVariable(variable) {
-    var query = window.location.search.substring(1);
-    var vars = query.split('&');
-    for (var i = 0; i < vars.length; i++) {
-        var pair = vars[i].split('=');
-        if (decodeURIComponent(pair[0]) == variable) {
-            return decodeURIComponent(pair[1]);
-        }
-    }
-  }
+
+
+  $scope.currentLocation = getQueryVariable( "self" );
+
 
 
 }])
