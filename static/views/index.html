@@ -33,8 +33,8 @@
                                             id="search_{{ object[20] }}">
                                             {{ queryTerm.length
                                             < 2 ? '' : object[0].toLowerCase().indexOf(queryTerm.toLowerCase()) !=- 1 || object[1].toLowerCase().indexOf(queryTerm.toLowerCase())
-                                                !=- 1 || object[2].toLowerCase().indexOf(queryTerm.toLowerCase()) !=- 1 || object[15].toLowerCase().indexOf(queryTerm.toLowerCase())
-                                                !=- 1 ? object[0] : '' }} </div>
+                                                !=- 1 || object[2].toLowerCase().indexOf(queryTerm.toLowerCase()) !=- 1 ? object[0]
+                                                : '' }} </div>
                                         </div>
                                     </div>
                                 </div>
@@ -66,7 +66,7 @@
                                 <div id="collapse2" class="panel-collapse collapse">
                                     <div class="panel-body" id="ct-index-panel-body">
                                         <div ng-repeat="object in data">
-                                            <div ng-click="showEntryDetails(object);showLoc(object[0]);switchMapsOnClick(object[5]);highlightItem('tool_' + object[20])"
+                                            <div ng-click="showEntryDetails(object);showLoc(object[20]);switchMapsOnClick(object[5]);highlightItem('tool_' + object[20])"
                                                 class="entryPO" id="tool_{{ object[20] }}">
                                                 {{ object[1] === "Tool" ? object[0] : '' }}
                                             </div>
@@ -83,7 +83,7 @@
                                 <div id="collapse3" class="panel-collapse collapse">
                                     <div class="panel-body" id="ct-index-panel-body">
                                         <div ng-repeat="object in data">
-                                            <div ng-click="showEntryDetails(object);showLoc(object[0]);switchMapsOnClick(object[5]);highlightItem('cons_' + object[20])"
+                                            <div ng-click="showEntryDetails(object);showLoc(object[20]);switchMapsOnClick(object[5]);highlightItem('cons_' + object[20])"
                                                 class="entryPO" id="cons_{{ object[20] }}">
                                                 {{ object[1] === "Consumable" ? object[0] : '' }}
                                             </div>
@@ -100,7 +100,7 @@
                                 <div id="collapse4" class="panel-collapse collapse">
                                     <div class="panel-body" id="ct-index-panel-body">
                                         <div ng-repeat="object in data">
-                                            <div ng-click="showEntryDetails(object);showLoc(object[0]);switchMapsOnClick(object[5]);highlightItem('material_' + object[20])"
+                                            <div ng-click="showEntryDetails(object);showLoc(object[20]);switchMapsOnClick(object[5]);highlightItem('material_' + object[20])"
                                                 class="entryPO" id="material_{{ object[20] }}">
                                                 {{ object[1] === "Material" ? object[0] : '' }}
                                             </div>

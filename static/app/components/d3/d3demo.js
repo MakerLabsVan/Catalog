@@ -33,16 +33,6 @@ var mapConstructor = function (containerID, floorNum, studioData) {
           .attr('x', xPx + 'px')
           .attr('y', yPx + 'px')
           .style('visibility', null)
-      },
-      resize: function (width, height) {
-        var scale = getScalingRatio(width, height, floorNum)/10;
-        if (scale !== 0 && !isNaN(scale)) {
-          this.icon
-            .attr('width', function (d) { return inToPx(d.attr('width') * scale) + 'px' })
-            .attr('height', function (d) { return inToPx(d.attr('height') * scale) + 'px' })
-            .attr('x', function (d) { return inToPx(d.attr('x') * scale) + 'px' })
-            .attr('y', function (d) { return inToPx(d.attr('y') * scale) + 'px' })
-        }
       }
     },
 
@@ -117,6 +107,8 @@ var mapConstructor = function (containerID, floorNum, studioData) {
         .attr('width', function (d) { return d.width; })
         .attr('id', function (d) { return d.id; })
         .style('opacity', 0.5)
+        .style('stroke', 'black')
+        .style('stroke-width', '1.8')
         //.style('visibility', 'hidden')
     },
 
