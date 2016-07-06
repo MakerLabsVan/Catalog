@@ -15,7 +15,8 @@ angular.module("myApp", ['d3mapping'])
                     "width": $scope.entryProperties.indexOf('Width'),
                     "height": $scope.entryProperties.indexOf('Length'),
                     "id": $scope.entryProperties.indexOf('Key'),
-                    "type": $scope.entryProperties.indexOf('Type')
+                    "type": $scope.entryProperties.indexOf('Type'),
+                    "name": $scope.entryProperties.indexOf('Name')
                 }
                 $scope.data.shift();
             })

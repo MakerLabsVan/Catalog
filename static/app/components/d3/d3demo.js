@@ -4,7 +4,7 @@ var rectangleData = [
   { 'rx': 69, 'ry': 69, 'height': 5, 'width': 5, 'id': 'studio3' }];
 
 var mapConstructor = function (containerID, floorNum, studioData) {
-  this.floorNum = floorNum,
+    this.floorNum = floorNum,
     //Container object which contains all map objects
     this.container = d3.select('#' + containerID).append('svg')
       .attr('width', '100%')
@@ -20,6 +20,31 @@ var mapConstructor = function (containerID, floorNum, studioData) {
     },
     //Draws the map given filepath of the map svg
     this.map = addMap(this.container, getFilePath(floorNum)),
+
+    //Where am I marker
+    this.currentLocMarker = {
+      icon : icon = addIAmHereMarker(this.container, floorNum),
+      place: function( xPos, yPos, width , height ){
+        var mark = d3.select('#here' + floorNum);
+        var scale = getScalingRatio(width, height, floorNum)/10; // conversion from db value to actual map
+        var xPx = inToPx(xPos * scale) - parseInt(mark.attr('width')) / 2;
+        var yPx = inToPx(yPos * scale) - parseInt(mark.attr('height')) * 1;
+        mark
+          .attr('x', xPx + 'px')
+          .attr('y', yPx + 'px')
+          .style('visibility', null)
+      },
+      resize: function (width, height) {
+        var scale = getScalingRatio(width, height, floorNum)/10;
+        if (scale !== 0 && !isNaN(scale)) {
+          this.icon
+            .attr('width', function (d) { return inToPx(d.attr('width') * scale) + 'px' })
+            .attr('height', function (d) { return inToPx(d.attr('height') * scale) + 'px' })
+            .attr('x', function (d) { return inToPx(d.attr('x') * scale) + 'px' })
+            .attr('y', function (d) { return inToPx(d.attr('y') * scale) + 'px' })
+        }
+      }
+    },
 
     //Marker inside map
     this.marker = {
@@ -58,7 +83,7 @@ var mapConstructor = function (containerID, floorNum, studioData) {
       },
 
       //Returns the current location of the marker in px as an array
-      //Output: [x,y] (px)
+      //Output: [x,y] (ft)
 
       getLocation: function (width, height, floorNum) {
         var mark = d3.select('#marker' + floorNum);
@@ -150,9 +175,9 @@ var pxToIn = function (x) {
 //Default floor 1 aspect if no floorNum
 var getScalingRatio = function (width, height, floorNum) {
   if (floorNum === 2) {
-    var aspect = 0.85035;//W=925.374,H=1088.246
+    var aspect = 0.85035;//W=925.374,H=1088.246 px
   } else {
-    var aspect = 1.25385;//W=1364.490,H=1088.2464
+    var aspect = 1.25385;//W=1364.490,H=1088.2464 px
   }
 
   if (width / height >= aspect) {
@@ -220,4 +245,14 @@ var addMarker = function (container, id) {
     .attr('id', 'marker' + id)
     .attr('width', 30)
     .attr('height', 30);
+};
+
+var addIAmHereMarker= function (container, id) {
+  return container
+    .append('svg:image')
+    .attr('xlink:href', '/assets/whereAmI.svg')
+    .style('visibility', 'hidden')
+    .attr('id', 'here' + id)
+    .attr('width', 50)
+    .attr('height', 50);
 };
