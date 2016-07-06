@@ -110,6 +110,8 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
     $scope.editPageCols = function (prop) {
         $scope.$watch('editFormData', function () {
 
+            advInputs.loadTypeButtons();
+
             // entire form group selector
             var formGroup = document.getElementById(prop + 'label');
 
@@ -183,6 +185,10 @@ angular.module("myApp").service("advInputs", function() {
         return '<button id="button' + type + '" type="button" class="btn btn-default" data-toggle="button">' + type + '</button>';
     };
 
+    var loadTypeButtons = function(){
+        console.log($('#type-buttons'));
+    };
+
     var returnTypeBtn = makeTypeBtn("Studio") + 
                         makeTypeBtn("Material") + 
                         makeTypeBtn("Consumable") + 
@@ -195,6 +201,7 @@ angular.module("myApp").service("advInputs", function() {
     return {
         makeTypeBtn: returnTypeBtn,
         makeSzDrpDwn: makeSzDrpDwn,
-        makeWtDrpDwn: makeWtDrpDwn
+        makeWtDrpDwn: makeWtDrpDwn,
+        loadTypeButtons: loadTypeButtons
     }
 });
