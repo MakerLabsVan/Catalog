@@ -110,12 +110,11 @@ angular.module("myApp", ['d3mapping'])
         $scope.showLoc = function (studioName) {
 
             removeLast($scope.lastItem);
-            var elementPos = $scope.data.map(function (x) { return x[0]; }).indexOf(studioName);
+            var elementPos = $scope.data.map(function (x) { return x[$scope.index.id]; }).indexOf(studioName);
             var objectFound = $scope.data[elementPos];
             $scope.lastItem = objectFound;
 
             if (objectFound === null) { return 'Not Found' }
-            //TODO: Optimize it to not search
             if (objectFound[$scope.index.type] === 'Studio') {
                 if (objectFound[$scope.index.floor] === '1') {
                     $scope.map1.studio.highlight(objectFound[$scope.index.id]);
