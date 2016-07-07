@@ -16,9 +16,9 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
         });
 
     $scope.inputQuery = '';
-
     // make a new entry
     $scope.formData = {};
+    $scope.dropDownUnit = 'Select a unit';
     $scope.newEntry = function () {
         var localEntry = [];
         for (var prop in $scope.formData) {
