@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<meta http-equiv="refresh" content="600; URL=https://serene-springs-31713.herokuapp.com/">
+<meta http-equiv="refresh" content="600; URL=https://whispering-coast-62157.herokuapp.com/?self=frontdesk">
 <!--
     Made by: Andrew Song, Sunny Leung
 -->
@@ -13,6 +13,18 @@
     <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico" />
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 </head>
+
+<script type="text/javascript">
+    window.doorbellOptions = {
+        appKey: '3hKfPJss7wisYJT65VGXzcYLFHrxl46aqf4S9lHLjdhb6WSJH8wdxEA59BcTOCtc'
+    };
+    (function(w, d, t) {
+        var hasLoaded = false;
+        function l() { if (hasLoaded) { return; } hasLoaded = true; window.doorbellOptions.windowLoaded = true; var g = d.createElement(t);g.id = 'doorbellScript';g.type = 'text/javascript';g.async = true;g.src = 'https://embed.doorbell.io/button/3988?t='+(new Date().getTime());(d.getElementsByTagName('head')[0]||d.getElementsByTagName('body')[0]).appendChild(g); }
+        if (w.attachEvent) { w.attachEvent('onload', l); } else if (w.addEventListener) { w.addEventListener('load', l, false); } else { l(); }
+        if (d.readyState == 'complete') { l(); }
+    }(window, document, 'script'));
+</script>
 
 <body>
     <div ng-app="myApp">
@@ -175,14 +187,17 @@
         <script src="/app/components/d3/d3map.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.3.3/ui-bootstrap-tpls.min.js"></script>
         <script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-ga('create', 'UA-63204534-1', 'auto');
-ga('send', 'pageview');
-</script>
+          ga('create', 'UA-80444877-1', 'auto');
+          ga('send', 'pageview');
+
+        </script>
+
+
 </body>
 
 </html>
