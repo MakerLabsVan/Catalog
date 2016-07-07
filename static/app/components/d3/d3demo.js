@@ -27,8 +27,9 @@ var mapConstructor = function (containerID, floorNum, studioData) {
       place: function( xPos, yPos, width , height ){
         var mark = d3.select('#here' + floorNum);
         var scale = getScalingRatio(width, height, floorNum)/10; // conversion from db value to actual map
-        var xPx = inToPx(xPos * scale) - parseInt(mark.attr('width')) / 2;
+        var xPx = inToPx(xPos * scale) + parseInt(mark.attr('width')) / 2;
         var yPx = inToPx(yPos * scale) - parseInt(mark.attr('height')) * 1;
+        mark.moveToFront();
         mark
           .attr('x', xPx + 'px')
           .attr('y', yPx + 'px')
@@ -49,10 +50,10 @@ var mapConstructor = function (containerID, floorNum, studioData) {
       //Change the position and become visible
       set: function (xPos, yPos, width, height) {
         var mark = d3.select('#marker' + floorNum);
-        var scale = getScalingRatio(width, height, floorNum);
-        var scale = scale / 10; //Conversion from real ft to map
+        var scale = getScalingRatio(width, height, floorNum)/10;
         var xPx = inToPx(xPos * scale) - parseInt(mark.attr('width')) / 2;
         var yPx = inToPx(yPos * scale) - parseInt(mark.attr('height')) * 1;
+        mark.moveToFront();
         mark
           .attr('x', xPx + 'px')
           .attr('y', yPx + 'px')
@@ -106,9 +107,10 @@ var mapConstructor = function (containerID, floorNum, studioData) {
         .attr('height', function (d) { return d.height; })
         .attr('width', function (d) { return d.width; })
         .attr('id', function (d) { return d.id; })
-        .style('opacity', 0.5)
+        .style('opacity', 0.6)
         .style('stroke', 'black')
-        .style('stroke-width', '1.8')
+        .style('stroke-width', '1.5')
+        .style('fill', 'black')
         //.style('visibility', 'hidden')
     },
 
@@ -247,4 +249,10 @@ var addIAmHereMarker= function (container, id) {
     .attr('id', 'here' + id)
     .attr('width', 50)
     .attr('height', 50);
+};
+
+d3.selection.prototype.moveToFront = function() {
+  return this.each(function(){
+  this.parentNode.appendChild(this);
+  });
 };

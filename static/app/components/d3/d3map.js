@@ -13,6 +13,7 @@ app.controller('mapController', ['$scope', '$window', '$location', function ($sc
         }
     }
   }
+  
 
   //Populates the map with studio data
   $scope.$watch('data', function () {
