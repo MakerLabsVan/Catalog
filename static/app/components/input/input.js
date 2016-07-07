@@ -110,42 +110,18 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
     $scope.editPageCols = function (prop) {
         $scope.$watch('editFormData', function () {
 
-            // entire form group selector
-            var formGroup = document.getElementById(prop + 'label');
+            advInputs.loadTypeButtons("#edit-input-form1");
+            advInputs.loadDimButtons("#edit-input-form9");
+            advInputs.loadWeightButtons("#edit-input-form11");
+            advInputs.removeAll(["#edit-form-group3", "#edit-form-group4", "#edit-form-group5"]);
 
-            if (prop.toLowerCase().indexOf('location') != -1 || prop === 'Floor') {
-                formGroup.remove();
-            };
+            $("#edit-input-form0").attr('required', 'true');
 
-            // select only the input box
-            var inputForm = formGroup.childNodes[3];
+            var checkNumValidElem = ['#edit-input-form6', '#edit-input-form7', '#edit-input-form8','#edit-input-form10','#edit-input-form12','#edit-input-form13'];
+            var checkNumValid = ['type', 'min', 'max'];
+            var checkNumValidVals = ['number', '0', '10000'];
 
-            // change inputs to buttons and dropdowns
-            switch (formGroup.childNodes[1].innerText){
-                    case 'Type:':
-                        inputForm.innerHTML = advInputs.makeTypeBtn;
-                        break;
-                    case 'Units:':
-                        inputForm.innerHTML = advInputs.makeSzDrpDwn;
-                        break;
-                    case 'Weight Unit:':
-                        inputForm.innerHTML = advInputs.makeWtDrpDwn;
-                        break;
-                    case 'Name:':
-                        inputForm.required = true;
-                        break;
-                        // set some input validation
-                    case 'Width:':
-                    case 'Height:':
-                    case 'Length:':
-                    case 'Quantity:':
-                    case 'Price:':
-                    case 'Weight:':
-                        inputForm.type = 'number';
-                        inputForm.min = '0';
-                        inputForm.max = '10000';
-                        break;
-                }
+            advInputs.setMultAttrs(checkNumValidElem, checkNumValid, checkNumValidVals);
         });
     };
 
@@ -179,27 +155,47 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
 }]);
 
 angular.module("myApp").service("advInputs", function() {
-    var makeTypeBtn = function(type){
-        return '<button id="button' + type + '" type="button" class="btn btn-default" data-toggle="button">' + type + '</button>';
+
+    var loadTypeButtons = function(element){
+        $(element).load("inputButtonTmpl #type-buttons");
     };
 
-    var loadTypeButtons = function(){
-        $("#input1").load("inputButtonTmpl #type-buttons");
+    var loadDimButtons = function(element){
+        $(element).load("inputButtonTmpl #dimension-buttons")
     };
 
-    var returnTypeBtn = makeTypeBtn("Studio") + 
-                        makeTypeBtn("Material") + 
-                        makeTypeBtn("Consumable") + 
-                        makeTypeBtn("Tool");
+    var loadWeightButtons = function(element){
+        $(element).load("inputButtonTmpl #weight-buttons")
+    };
 
-    var makeSzDrpDwn = '<div class="btn-group"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select a unit <span class="caret"></span></button><ul class="dropdown-menu"><li><a href="#">m</a></li><li><a href="#">ft</a></li><li><a href="#">cm</a></li><li><a href="#">mm</a></li></ul></div>';
+    var removeAll = function(arrayID){
+        for (var i in arrayID){
+            $(arrayID[i]).remove();
+        }
+    };
 
-    var makeWtDrpDwn = '<div class="btn-group"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select a unit <span class="caret"></span></button><ul class="dropdown-menu"><li><a href="#">kg</a></li><li><a href="#">g</a></li><li><a href="#">mg</a></li></ul></div>';
+    var setMultAttrs = function(elementArr, attrsArr, valArr){
+        if (attrsArr.length != valArr.length ||
+            elementArr.length == 0 ||
+            attrsArr.length == 0 ||
+            valArr.length == 0) {
+            console.log("Missing attribute, value, or element!");
+        } else {
+            var j;
+            for (j = 0; j < elementArr.length; j++){
+                var i;
+                for (i = 0; i < attrsArr.length; i++){
+                    $(elementArr[j]).attr(attrsArr[i], valArr[i]);
+                }
+            }
+        }
+    }
 
     return {
-        makeTypeBtn: returnTypeBtn,
-        makeSzDrpDwn: makeSzDrpDwn,
-        makeWtDrpDwn: makeWtDrpDwn,
-        loadTypeButtons: loadTypeButtons
+        loadDimButtons: loadDimButtons,
+        loadWeightButtons: loadWeightButtons,
+        loadTypeButtons: loadTypeButtons,
+        removeAll: removeAll,
+        setMultAttrs: setMultAttrs
     }
 });

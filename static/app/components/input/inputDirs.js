@@ -12,38 +12,18 @@ angular.module("myApp").directive("addInput",["advInputs", function (advInputs) 
         link: function (scope, elem, attrs) {
             scope.$watch(scope, function () {
                 
-                // access to attributes for the element's input field
-                var inputForm = elem[0].childNodes[3].childNodes[1];
+                advInputs.loadTypeButtons("#input1");
+                advInputs.loadDimButtons("#input9");
+                advInputs.loadWeightButtons("#input11");
+                advInputs.removeAll(["#form-group3", "#form-group4", "#form-group5"]);
 
-                // remove location and floor input
-                if (inputForm.placeholder.toLowerCase().indexOf('location') != -1 || inputForm.placeholder === 'Floor') {
-                    inputForm.parentNode.parentNode.remove();
-                };
+                $("#inputForm0").attr('required', 'true');
 
-                switch (inputForm.placeholder){
-                    case 'Type':
-                        advInputs.loadTypeButtons();
-                        break;
-                    case 'Units':
-                        inputForm.parentNode.innerHTML = advInputs.makeSzDrpDwn;
-                        break;
-                    case 'Weight Unit':
-                        inputForm.parentNode.innerHTML = advInputs.makeWtDrpDwn;
-                        break;
-                    case 'Name':
-                        inputForm.required = true;
-                        break;
-                    case 'Width':
-                    case 'Height':
-                    case 'Length':
-                    case 'Quantity':
-                    case 'Price':
-                    case 'Weight':
-                        inputForm.type = 'number';
-                        inputForm.min = '0';
-                        inputForm.max = '10000';
-                        break;
-                }
+                var checkNumValidElem = ['#inputForm6', '#inputForm7', '#inputForm8','#inputForm10','#inputForm12','#inputForm13'];
+                var checkNumValid = ['type', 'min', 'max'];
+                var checkNumValidVals = ['number', '0', '10000'];
+
+                advInputs.setMultAttrs(checkNumValidElem, checkNumValid, checkNumValidVals);
 
             });
         }
