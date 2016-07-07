@@ -12,7 +12,6 @@ angular.module("myApp").directive("addInput",["advInputs", function (advInputs) 
         link: function (scope, elem, attrs) {
             scope.$watch(scope, function () {
                 
-                advInputs.loadTypeButtons();                
                 // access to attributes for the element's input field
                 var inputForm = elem[0].childNodes[3].childNodes[1];
 
@@ -23,7 +22,7 @@ angular.module("myApp").directive("addInput",["advInputs", function (advInputs) 
 
                 switch (inputForm.placeholder){
                     case 'Type':
-                        inputForm.parentNode.innerHTML = advInputs.makeTypeBtn;
+                        advInputs.loadTypeButtons();
                         break;
                     case 'Units':
                         inputForm.parentNode.innerHTML = advInputs.makeSzDrpDwn;

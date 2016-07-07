@@ -1,8 +1,8 @@
-<div class="form-group">
+<div class="form-group" id="form-group{{ $index }}">
     <div class="col-sm-2 col-sm-offset-1">
-        <label for="input" class="control-label">{{ prop }}: </label>
+        <label for="input$index" class="control-label">{{ prop }}: {{ $index }} </label>
     </div>
-    <div class="col-sm-7 col-sm-offset-1">
-        <input class="form-control" type="text" ng-model="formData[prop]" id="{{ prop }}" placeholder="{{ prop }}" />
+    <div class="col-sm-7 col-sm-offset-1" id="input{{ $index }}">
+        <input class="form-control" type="text" ng-model="formData[prop]" placeholder="{{ prop }}" />
     </div>
 </div>

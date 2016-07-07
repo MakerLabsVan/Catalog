@@ -184,7 +184,7 @@ angular.module("myApp").service("advInputs", function() {
     };
 
     var loadTypeButtons = function(){
-        console.log($('#type-buttons'));
+        $("#input1").load("inputButtonTmpl #type-buttons");
     };
 
     var returnTypeBtn = makeTypeBtn("Studio") + 
