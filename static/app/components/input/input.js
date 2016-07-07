@@ -126,10 +126,10 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
                         inputForm.innerHTML = advInputs.makeTypeBtn;
                         break;
                     case 'Units:':
-                        inputForm.innerHTML = advInputs.makeSzDrpDwn;
+                        inputForm.innerHTML = advInputs.loadDimButtons;
                         break;
                     case 'Weight Unit:':
-                        inputForm.innerHTML = advInputs.makeWtDrpDwn;
+                        inputForm.innerHTML = advInputs.loadWeightButtons;
                         break;
                     case 'Name:':
                         inputForm.required = true;
@@ -179,27 +179,45 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
 }]);
 
 angular.module("myApp").service("advInputs", function() {
-    var makeTypeBtn = function(type){
-        return '<button id="button' + type + '" type="button" class="btn btn-default" data-toggle="button">' + type + '</button>';
+
+    var loadTypeButtons = function(element){
+        $(element).load("inputButtonTmpl #type-buttons");
     };
 
-    var loadTypeButtons = function(){
-        $("#input1").load("inputButtonTmpl #type-buttons");
+    var loadDimButtons = function(element){
+        $(element).load("inputButtonTmpl #dimension-buttons")
     };
 
-    var returnTypeBtn = makeTypeBtn("Studio") + 
-                        makeTypeBtn("Material") + 
-                        makeTypeBtn("Consumable") + 
-                        makeTypeBtn("Tool");
+    var loadWeightButtons = function(element){
+        $(element).load("inputButtonTmpl #weight-buttons")
+    };
 
-    var makeSzDrpDwn = '<div class="btn-group"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select a unit <span class="caret"></span></button><ul class="dropdown-menu"><li><a href="#">m</a></li><li><a href="#">ft</a></li><li><a href="#">cm</a></li><li><a href="#">mm</a></li></ul></div>';
+    var removeAll = function(arrayID){
+        for (var i in arrayID){
+            $(arrayID[i]).remove();
+        }
+    };
 
-    var makeWtDrpDwn = '<div class="btn-group"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select a unit <span class="caret"></span></button><ul class="dropdown-menu"><li><a href="#">kg</a></li><li><a href="#">g</a></li><li><a href="#">mg</a></li></ul></div>';
+    var setMultAttrs = function(elementArr, attrsArr, valArr){
+        if (attrsArr.length != valArr.length) {
+            console.log("Missing attribute or value!");
+        } else {
+            var j;
+            for (j = 0; j < elementArr.length; j++){
+                
+            }
+            var i;
+            for (i = 0; i < attrsArr.length; i++){
+                $(element).attr(attrsArr[i], valArr[i]);
+            }
+        }
+    }
 
     return {
-        makeTypeBtn: returnTypeBtn,
-        makeSzDrpDwn: makeSzDrpDwn,
-        makeWtDrpDwn: makeWtDrpDwn,
-        loadTypeButtons: loadTypeButtons
+        loadDimButtons: loadDimButtons,
+        loadWeightButtons: loadWeightButtons,
+        loadTypeButtons: loadTypeButtons,
+        removeAll: removeAll,
+        setMultAttrs: setMultAttrs
     }
 });
