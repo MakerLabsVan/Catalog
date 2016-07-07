@@ -1,10 +1,10 @@
 <form class="form-horizontal" ng-submit="editEntry(object[0])">
-    <div ng-repeat="prop in entryProperties">
-        <div class="form-group" ng-init="editPageCols(prop)" id="{{ prop }}label">
+    <div ng-repeat="prop in entryProperties track by $index">
+        <div class="form-group" ng-init="editPageCols(prop)" id="edit-form-group{{$index}}">
             <div class="col-sm-2 col-sm-offset-1">
-                <label for="edit-input" class="control-label">{{ prop }}: </label>
+                <label for="edit-input" class="control-label">{{ prop }}: {{$index}} </label>
             </div>
-            <div class="col-sm-7">
+            <div class="col-sm-7" id="edit-input-form{{$index}}">
                 <input class="form-control" type="text" ng-model="editFormData[prop]" />
             </div>
         </div>

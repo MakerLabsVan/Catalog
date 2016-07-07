@@ -23,22 +23,7 @@ angular.module("myApp").directive("addInput",["advInputs", function (advInputs) 
                 var checkNumValid = ['type', 'min', 'max'];
                 var checkNumValidVals = ['number', '0', '10000'];
 
-                advInputs.setMultAttrs('#inputForm6', checkNumValid, checkNumValidVals);
-
-                // access to attributes for the element's input field
-                var inputForm = elem[0].childNodes[3].childNodes[1];
-
-                switch (inputForm.placeholder){
-                    case 'Height':
-                    case 'Length':
-                    case 'Quantity':
-                    case 'Price':
-                    case 'Weight':
-                        inputForm.type = 'number';
-                        inputForm.min = '0';
-                        inputForm.max = '10000';
-                        break;
-                }
+                advInputs.setMultAttrs(checkNumValidElem, checkNumValid, checkNumValidVals);
 
             });
         }
