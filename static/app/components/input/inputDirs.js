@@ -25,8 +25,6 @@ angular.module("myApp").directive("addInput",["advInputs", function (advInputs) 
 
                 advInputs.setMultAttrs(checkNumValidElem, checkNumValid, checkNumValidVals);
 
-                
-
             });
         }
     };
