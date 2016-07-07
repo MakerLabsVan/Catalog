@@ -107,10 +107,9 @@ var mapConstructor = function (containerID, floorNum, studioData) {
         .attr('height', function (d) { return d.height; })
         .attr('width', function (d) { return d.width; })
         .attr('id', function (d) { return d.id; })
-        .style('opacity', 0.6)
+        .style('opacity', 0.5)
         .style('stroke', 'black')
         .style('stroke-width', '1.5')
-        .style('fill', 'black')
         //.style('visibility', 'hidden')
     },
 
