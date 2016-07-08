@@ -110,9 +110,10 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
     $scope.editPageCols = function (prop) {
         $scope.$watch('editFormData', function () {
 
-            advInputs.loadTypeButtons("#edit-input-form1");
-            advInputs.loadDimButtons("#edit-input-form9");
-            advInputs.loadWeightButtons("#edit-input-form11");
+            $('#edit-input-form1').html($('#type-buttons').html());
+            $('#edit-input-form9').html($('#dimension-buttons').html());
+            $('#edit-input-form11').html($('#weight-buttons').html());
+
             advInputs.removeAll(["#edit-form-group3", "#edit-form-group4", "#edit-form-group5"]);
 
             $("#edit-input-form0").attr('required', 'true');
@@ -152,21 +153,12 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
         }
     };
 
+
+
 }]);
 
+// service not required if using html()
 angular.module("myApp").service("advInputs", function () {
-
-    var loadTypeButtons = function (element) {
-        $(element).load("inputButtonTmpl #type-buttons");
-    };
-
-    var loadDimButtons = function (element) {
-        $(element).load("inputButtonTmpl #dimension-buttons")
-    };
-
-    var loadWeightButtons = function (element) {
-        $(element).load("inputButtonTmpl #weight-buttons")
-    };
 
     var removeAll = function (arrayID) {
         for (var i in arrayID) {
@@ -192,9 +184,6 @@ angular.module("myApp").service("advInputs", function () {
     }
 
     return {
-        loadDimButtons: loadDimButtons,
-        loadWeightButtons: loadWeightButtons,
-        loadTypeButtons: loadTypeButtons,
         removeAll: removeAll,
         setMultAttrs: setMultAttrs
     }

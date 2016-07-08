@@ -159,7 +159,6 @@ angular.module("myApp").service("mapService", function () {
         }
 
         map.studio.resize(width, height);
-        map.studio.resize(width, height);
     };
 
     return {

@@ -52,10 +52,6 @@ router.get("/input/studio", function (req, res) {
     res.sendFile(path + "/static/templates/inputFormTmpl.html");
 });
 
-router.get("/inputButtonTmpl", function (req, res) {
-    res.sendFile(path + "/static/templates/inputButtonTmpl.html");
-});
-
 router.get("/getData", function (req, res) {
     serverOps.getData(function (result) {
         return res.json(result);
