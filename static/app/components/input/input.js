@@ -7,8 +7,6 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
             $scope.data[0].pop();
             $scope.entryProperties = $scope.data[0];
             $scope.data.shift();
-
-
         })
         .error(function (data, status, header, config) {
             // something went wrong
@@ -18,7 +16,7 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
     $scope.inputQuery = '';
     // make a new entry
     $scope.formData = {};
-    $scope.dropDownUnit = 'Select a unit';
+    $scope.unitDropDown = 'Select a unit';
     $scope.newEntry = function () {
         var localEntry = [];
         for (var prop in $scope.formData) {
@@ -27,7 +25,7 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
             }
         }
 
-        // get type
+        // get type from radio buttons
         $scope.formData.Type = $("input[name='options']:checked").val();
 
         $http.post('/new', [$scope.formData, $scope.dataLength])

@@ -11,10 +11,6 @@ angular.module("myApp").directive("addInput", ["advInputs", function (advInputs)
         templateUrl: '/templates/inputFormTmpl.html',
         link: function (scope, elem, attrs) {
             scope.$watch(scope, function () {
-                scope.testConsole = function () {
-                    console.log("Testing the ng-click attribute");
-                };
-
                 // set button type inputs 
                 $('#input1').html($('#type-buttons').html());
                 $('#input9').html($('#dimension-buttons').html());
