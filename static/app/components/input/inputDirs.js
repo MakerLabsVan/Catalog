@@ -22,9 +22,9 @@ angular.module("myApp").directive("addInput",["advInputs", function (advInputs) 
                 var checkNumValidElem = ['#inputForm6', '#inputForm7', '#inputForm8','#inputForm10','#inputForm12','#inputForm13'];
                 var checkNumValid = ['type', 'min', 'max'];
                 var checkNumValidVals = ['number', '0', '10000'];
-
                 advInputs.setMultAttrs(checkNumValidElem, checkNumValid, checkNumValidVals);
 
+                console.log( $( '#radio-studio' ) );
             });
         }
     };

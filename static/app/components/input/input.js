@@ -2,12 +2,12 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
     // authorized data retrieval 
     $http.get('/getData')
         .success(function (data, status, header, config) {
-            // success data
             $scope.data = data;
             $scope.dataLength = data.length;
             $scope.data[0].pop();
             $scope.entryProperties = $scope.data[0];
             $scope.data.shift();
+
 
         })
         .error(function (data, status, header, config) {
@@ -117,7 +117,7 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
 
             $("#edit-input-form0").attr('required', 'true');
 
-            var checkNumValidElem = ['#edit-input-form6', '#edit-input-form7', '#edit-input-form8','#edit-input-form10','#edit-input-form12','#edit-input-form13'];
+            var checkNumValidElem = ['#edit-input-form6', '#edit-input-form7', '#edit-input-form8', '#edit-input-form10', '#edit-input-form12', '#edit-input-form13'];
             var checkNumValid = ['type', 'min', 'max'];
             var checkNumValidVals = ['number', '0', '10000'];
 
@@ -154,27 +154,27 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
 
 }]);
 
-angular.module("myApp").service("advInputs", function() {
+angular.module("myApp").service("advInputs", function () {
 
-    var loadTypeButtons = function(element){
+    var loadTypeButtons = function (element) {
         $(element).load("inputButtonTmpl #type-buttons");
     };
 
-    var loadDimButtons = function(element){
+    var loadDimButtons = function (element) {
         $(element).load("inputButtonTmpl #dimension-buttons")
     };
 
-    var loadWeightButtons = function(element){
+    var loadWeightButtons = function (element) {
         $(element).load("inputButtonTmpl #weight-buttons")
     };
 
-    var removeAll = function(arrayID){
-        for (var i in arrayID){
+    var removeAll = function (arrayID) {
+        for (var i in arrayID) {
             $(arrayID[i]).remove();
         }
     };
 
-    var setMultAttrs = function(elementArr, attrsArr, valArr){
+    var setMultAttrs = function (elementArr, attrsArr, valArr) {
         if (attrsArr.length != valArr.length ||
             elementArr.length == 0 ||
             attrsArr.length == 0 ||
@@ -182,9 +182,9 @@ angular.module("myApp").service("advInputs", function() {
             console.log("Missing attribute, value, or element!");
         } else {
             var j;
-            for (j = 0; j < elementArr.length; j++){
+            for (j = 0; j < elementArr.length; j++) {
                 var i;
-                for (i = 0; i < attrsArr.length; i++){
+                for (i = 0; i < attrsArr.length; i++) {
                     $(elementArr[j]).attr(attrsArr[i], valArr[i]);
                 }
             }
