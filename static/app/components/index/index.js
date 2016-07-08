@@ -89,21 +89,21 @@ angular.module("myApp", ['d3mapping'])
                 document.getElementById('secondLi').className = '';
                 document.getElementById('firstFloor').className = 'tab-pane active';
                 document.getElementById('secondFloor').className = 'tab-pane';
-                $scope.resizeMap;
+                $scope.resizeMap1;
             } else {
                 document.getElementById('firstLi').className = '';
                 document.getElementById('secondLi').className = 'active';
                 document.getElementById('firstFloor').className = 'tab-pane';
                 document.getElementById('secondFloor').className = 'tab-pane active';
-                $scope.resizeMap;
+                $scope.resizeMap2;
             }
         };
 
         // map ctrl
         $scope.map1 = mapService.initMap('firstFloorWell', 1);
         $scope.map2 = mapService.initMap('secondFloorWell', 2);
-        $scope.resizeMap = mapService.resize($scope.map1);
-        $scope.resizeMap = mapService.resize($scope.map2);
+        $scope.resizeMap1 = mapService.resize($scope.map1);
+        $scope.resizeMap2 = mapService.resize($scope.map2);
 
         $scope.lastItem = null;
         //Highlight the studio given the name of the studio as a param

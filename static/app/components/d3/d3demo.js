@@ -3,6 +3,10 @@ var rectangleData = [
   { 'rx': 20, 'ry': 70, 'height': 5, 'width': 15, 'id': 'studio2' },
   { 'rx': 69, 'ry': 69, 'height': 5, 'width': 5, 'id': 'studio3' }];
 
+
+//TODO: Reorganize object, use prototypes to seperate methods
+//TODO: Seperate the nested objects
+//TODO:
 var mapConstructor = function (containerID, floorNum, studioData) {
     this.floorNum = floorNum,
     //Container object which contains all map objects
@@ -49,12 +53,11 @@ var mapConstructor = function (containerID, floorNum, studioData) {
 
       //Change the position and become visible
       set: function (xPos, yPos, width, height) {
-        var mark = d3.select('#marker' + floorNum);
         var scale = getScalingRatio(width, height, floorNum)/10;
-        var xPx = inToPx(xPos * scale) - parseInt(mark.attr('width')) / 2;
-        var yPx = inToPx(yPos * scale) - parseInt(mark.attr('height')) * 1;
-        mark.moveToFront();
-        mark
+        var xPx = inToPx(xPos * scale) - parseInt(this.icon.attr('width')) / 2;
+        var yPx = inToPx(yPos * scale) - parseInt(this.icon.attr('height')) * 1;
+        this.icon.moveToFront();
+        this.icon
           .attr('x', xPx + 'px')
           .attr('y', yPx + 'px')
           .style('visibility', null)
@@ -93,58 +96,57 @@ var mapConstructor = function (containerID, floorNum, studioData) {
     //Draws all the studios in studioData
     data: data = [],
 
-    list: list = d3.select('svg#floor' + floorNum).selectAll('rect'),
+    list: list = d3.select('svg#floor' + floorNum).append('g'),
 
     draw: function (studioData) {
       this.data = this.data.concat(studioData);
       //this.list = this.list.remove();
-      this.list = this.list
-        .data(this.data)
+      console.log(studioData[0].id)
+      this.list
+        .append('g')
+        .attr('id', studioData[0].id)
+        .selectAll('rect')
+        .data(studioData)
         .enter()
         .append('rect')
-        .attr('x', function (d) { return d.rx; })
-        .attr('y', function (d) { return d.ry; })
-        .attr('height', function (d) { return d.height; })
-        .attr('width', function (d) { return d.width; })
-        .attr('id', function (d) { return d.id; })
-        .style('opacity', 0.5)
+        .attr('x', function (d) { return inToPx(d.rx) + 'px'; })
+        .attr('y', function (d) { return inToPx(d.ry) + 'px'; })
+        .attr('height', function (d) { return inToPx(d.height) + 'px'; })
+        .attr('width', function (d) { return inToPx(d.width) + 'px'; })
+
+        .style('opacity', 0.5) //Move to CSS
         .style('stroke', 'black')
-        .style('stroke-width', '1.5')
-        //.style('visibility', 'hidden')
+        .style('stroke-width', 20)
     },
 
     resize: function (width, height) {
       var scale = getScalingRatio(width, height, floorNum);
       var scale = scale / 10;
       if (scale !== 0 && !isNaN(scale)) {
-        this.list
-          .attr('width', function (d) { return inToPx(d.width * scale) + 'px' })
-          .attr('height', function (d) { return inToPx(d.height * scale) + 'px' })
-          .attr('x', function (d) { return inToPx(d.rx * scale) + 'px' })
-          .attr('y', function (d) { return inToPx(d.ry * scale) + 'px' })
+        this.list.attr('transform','scale('+scale+')')
       }
     },
 
     remove: function (objID) {
-      d3.select('rect#' + objID)
+      d3.select('#' + objID)
         .style('visibility', 'hidden');
     },
 
     set: function (objID, xPos, yPos) {
-      d3.select('rect#' + objID)
+      d3.select('#' + objID)
         .attr('x', xPos)
         .attr('y', yPos)
         .style('visibility', null);
     },
 
     highlight: function (objID) {
-      d3.select('rect#' + objID)
+      d3.select('#' + objID)
         .attr('fill', 'red')
         .style('visibility', null);
     },
 
     dehighlight: function (objID) {
-      d3.select('rect#' + objID)
+      d3.select('#' + objID)
         .attr('fill', null)
     },
   }
