@@ -27,6 +27,9 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
             }
         }
 
+        // get type
+        $scope.formData.Type = $("input[name='options']:checked").val();
+
         $http.post('/new', [$scope.formData, $scope.dataLength])
             .success(function (data, status, header, config) {
                 console.log(data, status);
