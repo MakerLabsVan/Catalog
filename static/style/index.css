@@ -164,3 +164,7 @@ a {
 #input-container {
     margin-top: 2vh;
 }
+
+#dimension-drop-down, #weight-drop-down {
+    margin-bottom:-15px;
+}

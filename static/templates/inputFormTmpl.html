@@ -45,17 +45,15 @@
     </template>
 
     <template id="weight-buttons">
-        <div>
-            <div class="btn-group">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Select a unit
-            <span class="caret"></span>
-        </button>
-                <ul class="dropdown-menu">
-                    <li><a href="#">kg</a></li>
-                    <li><a href="#">g</a></li>
-                    <li><a href="#">mg</a></li>
-                </ul>
+        <div class="col-sm-5">
+            <div class="form-group">
+                <select class="form-control" name="weightDropDown" id="weight-drop-down">
+                    <option>ton</option>
+                    <option>ft</option>
+                    <option>in</option>
+                    <option>cm</option>
+                    <option>mm</option>
+                </select>
             </div>
         </div>
     </template>

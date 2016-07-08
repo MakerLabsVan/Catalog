@@ -27,6 +27,7 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
         // get type from radio buttons
         $scope.formData.Type = $("input[name='options']:checked").val();
         $scope.formData.Units = $("select[name='dimDropDown']").val();
+        $scope.formData.Units = $("select[name='weightDropDown']").val();
 
         $http.post('/new', [$scope.formData, $scope.dataLength])
             .success(function (data, status, header, config) {
