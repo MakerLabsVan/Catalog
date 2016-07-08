@@ -2,13 +2,11 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
     // authorized data retrieval 
     $http.get('/getData')
         .success(function (data, status, header, config) {
-            // success data
             $scope.data = data;
             $scope.dataLength = data.length;
             $scope.data[0].pop();
             $scope.entryProperties = $scope.data[0];
             $scope.data.shift();
-
         })
         .error(function (data, status, header, config) {
             // something went wrong
@@ -16,7 +14,6 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
         });
 
     $scope.inputQuery = '';
-
     // make a new entry
     $scope.formData = {};
     $scope.newEntry = function () {
@@ -26,6 +23,11 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
                 localEntry.push($scope.formData[prop]);
             }
         }
+
+        // get type from radio buttons
+        $scope.formData.Type = $("input[name='options']:checked").val();
+        $scope.formData.Units = $("select[name='dimDropDown']").val();
+        $scope.formData.Units = $("select[name='weightDropDown']").val();
 
         $http.post('/new', [$scope.formData, $scope.dataLength])
             .success(function (data, status, header, config) {
@@ -110,14 +112,15 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
     $scope.editPageCols = function (prop) {
         $scope.$watch('editFormData', function () {
 
-            advInputs.loadTypeButtons("#edit-input-form1");
-            advInputs.loadDimButtons("#edit-input-form9");
-            advInputs.loadWeightButtons("#edit-input-form11");
+            $('#edit-input-form1').html($('#type-buttons').html());
+            $('#edit-input-form9').html($('#dimension-buttons').html());
+            $('#edit-input-form11').html($('#weight-buttons').html());
+
             advInputs.removeAll(["#edit-form-group3", "#edit-form-group4", "#edit-form-group5"]);
 
             $("#edit-input-form0").attr('required', 'true');
 
-            var checkNumValidElem = ['#edit-input-form6', '#edit-input-form7', '#edit-input-form8','#edit-input-form10','#edit-input-form12','#edit-input-form13'];
+            var checkNumValidElem = ['#edit-input-form6', '#edit-input-form7', '#edit-input-form8', '#edit-input-form10', '#edit-input-form12', '#edit-input-form13'];
             var checkNumValid = ['type', 'min', 'max'];
             var checkNumValidVals = ['number', '0', '10000'];
 
@@ -152,29 +155,20 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
         }
     };
 
+
+
 }]);
 
-angular.module("myApp").service("advInputs", function() {
+// service not required if using html()
+angular.module("myApp").service("advInputs", function () {
 
-    var loadTypeButtons = function(element){
-        $(element).load("inputButtonTmpl #type-buttons");
-    };
-
-    var loadDimButtons = function(element){
-        $(element).load("inputButtonTmpl #dimension-buttons")
-    };
-
-    var loadWeightButtons = function(element){
-        $(element).load("inputButtonTmpl #weight-buttons")
-    };
-
-    var removeAll = function(arrayID){
-        for (var i in arrayID){
+    var removeAll = function (arrayID) {
+        for (var i in arrayID) {
             $(arrayID[i]).remove();
         }
     };
 
-    var setMultAttrs = function(elementArr, attrsArr, valArr){
+    var setMultAttrs = function (elementArr, attrsArr, valArr) {
         if (attrsArr.length != valArr.length ||
             elementArr.length == 0 ||
             attrsArr.length == 0 ||
@@ -182,9 +176,9 @@ angular.module("myApp").service("advInputs", function() {
             console.log("Missing attribute, value, or element!");
         } else {
             var j;
-            for (j = 0; j < elementArr.length; j++){
+            for (j = 0; j < elementArr.length; j++) {
                 var i;
-                for (i = 0; i < attrsArr.length; i++){
+                for (i = 0; i < attrsArr.length; i++) {
                     $(elementArr[j]).attr(attrsArr[i], valArr[i]);
                 }
             }
@@ -192,9 +186,6 @@ angular.module("myApp").service("advInputs", function() {
     }
 
     return {
-        loadDimButtons: loadDimButtons,
-        loadWeightButtons: loadWeightButtons,
-        loadTypeButtons: loadTypeButtons,
         removeAll: removeAll,
         setMultAttrs: setMultAttrs
     }

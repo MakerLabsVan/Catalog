@@ -114,7 +114,7 @@ var getDataList = function (auth, callback) {
         var rows = response.values;
         callback(rows);
     });
-}
+};
 // you can get entries by looking at the number of entries in the array
 // and + 2 to get the next empty row
 var sheetWrite = function (auth, body, resCallback) {

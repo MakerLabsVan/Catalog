@@ -170,3 +170,6 @@ a {
   stroke: black;
   stroke-width: 20px;
 }
+#dimension-drop-down, #weight-drop-down {
+    margin-bottom:-15px;
+}
