@@ -25,7 +25,7 @@ angular.module("myApp").directive("addInput", ["advInputs", function (advInputs)
                 var checkNumValid = ['type', 'min', 'max'];
                 var checkNumValidVals = ['number', '0', '10000'];
                 advInputs.setMultAttrs(checkNumValidElem, checkNumValid, checkNumValidVals);
-
+                
             });
         }
     };

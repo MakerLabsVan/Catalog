@@ -31,18 +31,15 @@
     </template>
 
     <template id="dimension-buttons">
-        <div>
-            <div class="btn-group">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Select a unit
-            <span class="caret"></span>
-        </button>
-                <ul class="dropdown-menu">
-                    <li><a href="#">m</a></li>
-                    <li><a href="#">ft</a></li>
-                    <li><a href="#">cm</a></li>
-                    <li><a href="#">mm</a></li>
-                </ul>
+        <div class="col-sm-5">
+            <div class="form-group">
+                <select class="form-control" name="dimDropDown" id="dimension-drop-down">
+                    <option>m</option>
+                    <option>ft</option>
+                    <option>in</option>
+                    <option>cm</option>
+                    <option>mm</option>
+                </select>
             </div>
         </div>
     </template>

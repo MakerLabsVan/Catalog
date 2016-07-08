@@ -16,7 +16,6 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
     $scope.inputQuery = '';
     // make a new entry
     $scope.formData = {};
-    $scope.unitDropDown = 'Select a unit';
     $scope.newEntry = function () {
         var localEntry = [];
         for (var prop in $scope.formData) {
@@ -27,6 +26,7 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
 
         // get type from radio buttons
         $scope.formData.Type = $("input[name='options']:checked").val();
+        $scope.formData.Units = $("select[name='dimDropDown']").val();
 
         $http.post('/new', [$scope.formData, $scope.dataLength])
             .success(function (data, status, header, config) {
