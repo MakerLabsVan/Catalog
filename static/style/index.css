@@ -164,3 +164,9 @@ a {
 #input-container {
     margin-top: 2vh;
 }
+
+.studio{
+  opacity: 0.5;
+  stroke: black;
+  stroke-width: 20px;
+}

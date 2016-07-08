@@ -91,7 +91,7 @@ var mapConstructor = function (containerID, floorNum, studioData) {
         return [xFt, yFt];
       }
     }
-
+    //Group of all studios
   this.studio = {
     //Draws all the studios in studioData
     data: data = [],
@@ -113,10 +113,8 @@ var mapConstructor = function (containerID, floorNum, studioData) {
         .attr('y', function (d) { return inToPx(d.ry) + 'px'; })
         .attr('height', function (d) { return inToPx(d.height) + 'px'; })
         .attr('width', function (d) { return inToPx(d.width) + 'px'; })
+        .attr('class','studio')
 
-        .style('opacity', 0.5) //Move to CSS
-        .style('stroke', 'black')
-        .style('stroke-width', 20)
     },
 
     resize: function (width, height) {
