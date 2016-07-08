@@ -13,14 +13,11 @@ app.controller('mapController', ['$scope', '$window', '$location', function ($sc
         }
     }
   }
-  
+
 
   //Populates the map with studio data
   $scope.$watch('data', function () {
-    if (!$scope.data) { return }
-    $scope.studioData2 = [];
-    $scope.studioData1 = [];
-    $scope.itemData = []
+    if (!$scope.data) { return; }
     for (var i = 0; i < $scope.data.length; i++) {
       var obj = {
         'rx': parseInt($scope.data[i][$scope.index.x]),
@@ -30,22 +27,19 @@ app.controller('mapController', ['$scope', '$window', '$location', function ($sc
         'width': parseInt($scope.data[i][$scope.index.width]),
         'id': $scope.data[i][$scope.index.id],
       }
+
       if ($scope.data[i][$scope.index.floor] === '2' && $scope.data[i][$scope.index.type] === 'Studio') {
-        $scope.studioData2 = $scope.studioData2.concat(obj);
+        $scope.map2.studio.draw([obj])
       }
       else if ($scope.data[i][$scope.index.floor] === '1' && $scope.data[i][$scope.index.type] === 'Studio') {
-        $scope.studioData1 = $scope.studioData1.concat(obj);
+        $scope.map1.studio.draw([obj])
       }
-      else if ($scope.data[i][$scope.index.type] !== 'Studio') {
-        $scope.itemData = $scope.itemData.concat(obj);
-      }
+
       if ( getQueryVariable( "self" ) === 'frontdesk'  && $scope.data[i][$scope.index.name] === 'Front Desk'){
         $scope.map1.currentLocMarker.place( obj.rx ,obj.ry, $scope.map1.width(), $scope.map1.height());
       }
 
     }
-    $scope.map1.studio.draw($scope.studioData1);
-    $scope.map2.studio.draw($scope.studioData2);
     //Resize all elements initially to first map
     $scope.map1.studio.resize($scope.map1.width(), $scope.map1.height());
     $scope.map2.studio.resize($scope.map1.width(), $scope.map1.height());
@@ -58,18 +52,13 @@ app.controller('mapController', ['$scope', '$window', '$location', function ($sc
     var height1 = $scope.map1.height();
     var width2 = $scope.map2.width();
     var height2 = $scope.map2.height();
+    $scope.resizeMap1;
+    $scope.resizeMap2;
     $scope.map1.studio.resize(width1, height1);
     $scope.map2.studio.resize(width2, height2);
     // manuall $digest required as resize event
     // is outside of angular
     $scope.$digest();
   })
-
-  //Get Query variable string
-
-
-  $scope.currentLocation = getQueryVariable( "self" );
-
-
 
 }])
