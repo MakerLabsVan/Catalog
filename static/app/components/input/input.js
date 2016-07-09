@@ -3,10 +3,38 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
     $http.get('/getData')
         .success(function (data, status, header, config) {
             $scope.data = data;
-            $scope.dataLength = data.length;
-            $scope.data[0].pop();
+            // $scope.data[0].pop();
             $scope.entryProperties = $scope.data[0];
             $scope.data.shift();
+            $scope.dataLength = $scope.data.length;
+
+            // START
+            // $scope.jsonObjArr = [];
+            // $scope.sunnys_loop = function () {
+            //     var count;
+            //     for (count = 0; count < $scope.dataLength; count++) {
+            //         var jsonObj = {};
+            //         if ($scope.data[count][1] === 'Studio') {
+            //             console.log("Entered the studio loop");
+            //             jsonObj['points'] = [
+            //                 // x y 
+            //                 [Number($scope.data[count][3]), Number($scope.data[count][4])],
+            //                 // xw y
+            //                 [Number($scope.data[count][3]) + Number($scope.data[count][6]), Number($scope.data[count][4])],
+            //                 // xw yh
+            //                 [Number($scope.data[count][3]) + Number($scope.data[count][6]), Number($scope.data[count][4]) + Number($scope.data[count][7])],
+            //                 // x yh
+            //                 [Number($scope.data[count][3]), Number($scope.data[count][4]) + Number($scope.data[count][7])],
+            //             ];
+            //         } else {
+            //             jsonObj['points'] = [Number($scope.data[count][3]), Number($scope.data[count][4])];
+            //         }
+            //         $scope.jsonObjArr.push(jsonObj);
+            //     }
+            // };
+
+            // $scope.sunnys_loop();
+            //END
         })
         .error(function (data, status, header, config) {
             // something went wrong
@@ -43,10 +71,10 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
     };
 
     // delete an entry
-    $scope.deletePost = function (objectName) {
+    $scope.deletePost = function (objectKey) {
         $scope.index;
         for (var i = 0; i < $scope.dataLength; i++) {
-            if (objectName === $scope.data[i][0]) {
+            if (objectKey === $scope.data[i][0]) {
                 $scope.index = i;
                 break;
             }
@@ -66,16 +94,17 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
 
     // submit edit
     $scope.editFormData = {};
-    $scope.editEntry = function (objectName) {
+    $scope.editEntry = function (objectKey, metaData) {
         $scope.index;
         for (var i = 0; i < $scope.dataLength; i++) {
-            if (objectName === $scope.data[i][0]) {
+            if (objectKey === $scope.data[i][20]) {
                 $scope.index = i + 1;
                 // maybe change all properties?
                 $scope.data[i][0] = $scope.editFormData.Name;
                 break;
             }
         }
+        $scope.editFormData.metadata = metaData;
         $http.post('/edit', [$scope.editFormData, $scope.index])
             .success(function (data, status, header, config) {
                 console.log(data, status);
@@ -84,6 +113,23 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
                 console.log(data, status);
             });
     };
+
+    // $scope.$watch('jsonObjArr', function () {
+    //     if ($scope.jsonObjArr != undefined) {
+    //         console.log($scope.jsonObjArr[0]);
+
+    //         var i;
+    //         var count;
+    //         for (count = 458; count < $scope.dataLength; count++) {
+    //             for (i = 0; i < $scope.entryProperties.length; i++) {
+    //                 $scope.editFormData[$scope.entryProperties[i]] = $scope.data[count][i];
+    //             }
+    //             $scope.editEntry($scope.data[count][20], JSON.stringify($scope.jsonObjArr[count]));
+    //             $scope.editFormData = {};
+    //         }
+    //     }
+    // });
+
 
     // change to edit tab
     $scope.makeActive = function () {
