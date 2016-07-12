@@ -7,7 +7,10 @@ angular.module("myApp", ['d3mapping'])
             .success(function (data, status, header, config) {
                 // success data
                 $scope.data = data;
-                $scope.entryProperties = $scope.data[0];
+                // labels to display
+                $scope.entryProperties = data[0];
+                // labels to use for object
+                $scope.dataLabels = data[1];
                 $scope.index = {
                     "x": $scope.entryProperties.indexOf('Location x (ft)'),
                     "y": $scope.entryProperties.indexOf('Location y (ft)'),
@@ -17,7 +20,8 @@ angular.module("myApp", ['d3mapping'])
                     "id": $scope.entryProperties.indexOf('Key'),
                     "type": $scope.entryProperties.indexOf('Type'),
                     "name": $scope.entryProperties.indexOf('Name')
-                }
+                };
+                $scope.data.shift();
                 $scope.data.shift();
             })
             .error(function (data, status, header, config) {
@@ -33,21 +37,12 @@ angular.module("myApp", ['d3mapping'])
         };
 
         $scope.queryTerm = '';
-        $scope.searchResultEntry = '';
-        $scope.searchResultBox = function (object) {
-            if ($scope.queryTerm.length > 2) {
-                if (object[0].toLowerCase().indexOf($scope.queryTerm.toLowerCase()) != -1 || object[1].toLowerCase().indexOf($scope.queryTerm.toLowerCase()) != -1 || object[2].toLowerCase().indexOf($scope.queryTerm.toLowerCase()) != -1 || object[15].toLowerCase().indexOf($scope.queryTerm.toLowerCase()) != -1) {
-                    $scope.searchResultEntry = object[0];
-                }
-            }
-        };
-
         // change height of query result box dynamically
         $scope.changeHeight = function () {
             if ($scope.queryTerm.length >= 2) {
-                document.getElementById("searchSection").style.height = 'auto';
+                $("#searchSection").addClass('searchSectionExpanded').removeClass('searchSectionClosed');
             } else {
-                document.getElementById("searchSection").style.height = '0vh';
+                $("#searchSection").addClass('searchSectionClosed').removeClass('searchSectionExpanded');
             }
         };
 

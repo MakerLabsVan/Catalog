@@ -101,7 +101,6 @@ var mapConstructor = function (containerID, floorNum, studioData) {
     draw: function (studioData) {
       this.data = this.data.concat(studioData);
       //this.list = this.list.remove();
-      console.log(studioData[0].id)
       this.list
         .append('g')
         .attr('id', studioData[0].id)

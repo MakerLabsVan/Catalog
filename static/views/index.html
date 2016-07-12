@@ -61,14 +61,18 @@
                     <div class="row">
                         <div class="col-sm-12 ">
                             <input type="search" class="form-control lvl1-box-shadow" placeholder="Search here"
-                                   ng-model="queryTerm" ng-change="changeHeight()"/>
+                                   ng-model="queryTerm" ng-change="changeHeight()"
+                            />
                             <div class="lvl1-box-shadow" id="searchSection">
                                 <div ng-repeat="object in data track by $index">
                                     <!-- </div index-search-res></div> -->
                                     <div class="entryPO"
                                          ng-click="showEntryDetails(object);switchMapsOnClick(object[5]);showLoc(object[20]);highlightItem('search_' + object[20])"
                                          id="search_{{ object[20] }}">
-                                        {{ searchResultEntry }} </div>
+                                        {{ queryTerm.length
+                                        < 2 ? '' : object[0].toLowerCase().indexOf(queryTerm.toLowerCase()) !=- 1 || object[1].toLowerCase().indexOf(queryTerm.toLowerCase())
+                                        !=- 1 || object[2].toLowerCase().indexOf(queryTerm.toLowerCase()) !=- 1 || object[15].toLowerCase().indexOf(queryTerm.toLowerCase())
+                                        !=- 1 ? object[0] : '' }} </div>
                                 </div>
                             </div>
                         </div>

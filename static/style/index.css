@@ -2,6 +2,14 @@ body {
     font-family: 'Raleway', sans-serif;
 }
 
+.searchSectionExpanded {
+    height: auto;
+}
+
+.searchSectionClosed {
+    height: 0vh;
+}
+
 #firstFloorWell, #secondFloorWell {
     height: 80vh;
     background: white;
@@ -70,7 +78,6 @@ a {
 }
 
 #searchSection {
-    height:0px;
     background: #fafafa;
     padding: 0px 0px 0px 20px;
     margin: 20px -15px 20px -15px;
