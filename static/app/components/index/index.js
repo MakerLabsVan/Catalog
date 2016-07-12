@@ -33,6 +33,14 @@ angular.module("myApp", ['d3mapping'])
         };
 
         $scope.queryTerm = '';
+        $scope.searchResultEntry = '';
+        $scope.searchResultBox = function (object) {
+            if ($scope.queryTerm.length > 2) {
+                if (object[0].toLowerCase().indexOf($scope.queryTerm.toLowerCase()) != -1 || object[1].toLowerCase().indexOf($scope.queryTerm.toLowerCase()) != -1 || object[2].toLowerCase().indexOf($scope.queryTerm.toLowerCase()) != -1 || object[15].toLowerCase().indexOf($scope.queryTerm.toLowerCase()) != -1) {
+                    $scope.searchResultEntry = object[0];
+                }
+            }
+        };
 
         // change height of query result box dynamically
         $scope.changeHeight = function () {
@@ -68,7 +76,8 @@ angular.module("myApp", ['d3mapping'])
                     break;
                 case 'Consumable':
                     innerPanel.style.background = '#2BAC69';
-            };
+            }
+            ;
 
             // placeholder for image
             var innerBody = document.getElementById("ct-index-panel-body-detail");
@@ -109,11 +118,15 @@ angular.module("myApp", ['d3mapping'])
         //Highlight the studio given the name of the studio as a param
         $scope.showLoc = function (studioName) {
             removeLast($scope.lastItem);
-            var elementPos = $scope.data.map(function (x) { return x[$scope.index.id]; }).indexOf(studioName);
+            var elementPos = $scope.data.map(function (x) {
+                return x[$scope.index.id];
+            }).indexOf(studioName);
             var objectFound = $scope.data[elementPos];
             $scope.lastItem = objectFound;
 
-            if (objectFound === null) { return 'Not Found' }
+            if (objectFound === null) {
+                return 'Not Found'
+            }
             if (objectFound[$scope.index.type] === 'Studio') {
                 if (objectFound[$scope.index.floor] === '1') {
                     $scope.map1.studio.highlight(objectFound[$scope.index.id]);
@@ -181,7 +194,8 @@ angular.module("myApp").service("highlightService", function () {
             document.getElementById(objectId).style.color = 'blue';
             document.getElementById(objectId).style['font-weight'] = 'bold';
             lastObject = objectId;
-        };
+        }
+        ;
     };
 
     return {

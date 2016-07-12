@@ -154,7 +154,7 @@ a {
 
 #input-tab-content {
     height: auto;
-    max-height: 95vh;
+    max-height: 90vh;
     overflow-y: scroll;
     background: white;
     padding-bottom: 10px;
