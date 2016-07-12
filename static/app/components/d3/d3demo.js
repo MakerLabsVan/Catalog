@@ -4,6 +4,7 @@ var rectangleData = [
   { 'rx': 69, 'ry': 69, 'height': 5, 'width': 5, 'id': 'studio3' }];
 
 
+
 //TODO: Reorganize object, use prototypes to seperate methods
 //TODO: Seperate the nested objects
 //TODO:
@@ -23,7 +24,10 @@ var mapConstructor = function (containerID, floorNum, studioData) {
       return this.container.node().getBoundingClientRect().height;
     },
     //Draws the map given filepath of the map svg
-    this.map = addMap(this.container, getFilePath(floorNum)),
+
+    // this.map = addMap(this.container, getFilePath(floorNum)),
+
+    this.map = addMap(this.container,"/assets/ISO.png" ),
 
     //Where am I marker
     this.currentLocMarker = {
@@ -101,7 +105,7 @@ var mapConstructor = function (containerID, floorNum, studioData) {
     draw: function (studioData) {
       this.data = this.data.concat(studioData);
       //this.list = this.list.remove();
-      console.log(studioData[0].id)
+      // console.log(studioData[0].id)
       this.list
         .append('g')
         .attr('id', studioData[0].id)
@@ -119,9 +123,10 @@ var mapConstructor = function (containerID, floorNum, studioData) {
 
     resize: function (width, height) {
       var scale = getScalingRatio(width, height, floorNum);
-      var scale = scale / 10;
+      var scale = scale / 13;
       if (scale !== 0 && !isNaN(scale)) {
-        this.list.attr('transform','scale('+scale+')')
+        this.list.attr('transform','translate(250, 300) scale('+scale+','+scale*0.59+') rotate(-135, 0, 0) ')
+
       }
     },
 
@@ -218,15 +223,21 @@ var addContainer = function (containerID, width, height) {
 
 //Add the map svg to the container, can not change width height after initialize
 var addMap = function (container, filePath) {
-  d3.xml(filePath, 'image/svg+xml', function (xml) {
-    container.node().appendChild(document.importNode(xml.documentElement, true));
-    container.select('svg')
-      .attr('x', 0)
-      .attr('y', 0)
-      .attr('height', '100%')
-      .attr('width', '100%')
-      .attr('preserveAspectRatio', 'xMinYMin meet');
-  });
+
+  container.append("svg:image")
+    .attr("xlink:href",filePath)
+   .attr('width',"100%")
+   .attr('height','200%')
+   .attr('preserveAspectRatio', 'xMinYMin meet')
+  // d3.xml(filePath, 'image/svg+xml', function (xml) {
+  //   container.node().appendChild(document.importNode(xml.documentElement, true));
+  //   container.select('svg')
+  //     .attr('x', 0)
+  //     .attr('y', 0)
+  //     .attr('height', '100%')
+  //     .attr('width', '100%')
+  //     .attr('preserveAspectRatio', 'xMinYMin meet')
+  // });
 };
 
 //Add a SVG location marker object initially hidden
