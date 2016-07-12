@@ -38,6 +38,10 @@ a {
     color: black;
 }
 
+small {
+    font-size: 12px;
+}
+
 .view-color {
     background: #fafafa;
 }
@@ -56,38 +60,22 @@ a {
 }
 
 .red {
-    background: #F14A29;
+    background-color: #F14A29 !important;
 }
 
 .blue {
-    background: #107CC2;
+    background-color: #107CC2 !important;
 }
 
 .orange {
-    background: #F3902C;
+    background-color: #F3902C !important;
 }
 
 .green {
-    background: #2BAC69;
+    background-color: #2BAC69 !important;
 }
 
-#std_panel-bg {
-    background: #F14A29;
-}
-
-#tl_panel-bg {
-    background: #107CC2;
-}
-
-#mat_panel-bg {
-    background: #F3902C;
-}
-
-#con_panel-bg {
-    background: #2BAC69;
-}
-
-#std_panel-bg, #tl_panel-bg, #mat_panel-bg, #con_panel-bg {
+.category_margins {
     margin-left: -15px;
     margin-right: -15px;
 }
@@ -107,7 +95,7 @@ a {
     font-size: 20px;
 }
 
-#input-result-container  {
+#input-result-container {
     height: 100vh;
     overflow-y: scroll;
     background: white;
@@ -122,16 +110,11 @@ a {
     overflow-y: scroll;
 }
 
-#ct-idx-ph-det {
-    background: white;
-    border: 0px;
-}
-
 .lvl1-box-shadow {
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
-#ct-index-panel-body-detail {
+#entryBody {
     height: 80vh;
     background: white;
     font-size: 20px;
@@ -154,7 +137,7 @@ a {
     border: none;
 }
 
-#ct-edit, #loc-edit{
+#ct-edit, #loc-edit {
     margin-top: 20px;
 }
 
@@ -166,8 +149,8 @@ a {
     border-radius: 0px;
 }
 
-#marker1{
-  z-index: 5!important;
+#marker1 {
+    z-index: 5 !important;
 }
 
 .nav {
@@ -193,5 +176,5 @@ a {
 }
 
 #dimension-drop-down, #weight-drop-down {
-    margin-bottom:-15px;
+    margin-bottom: -15px;
 }

@@ -59,30 +59,30 @@ angular.module("myApp", ['d3mapping'])
             $('#ct-index-panel-title-detail').addClass('panelTitle');
 
             // change color of panel title
-            var elem = $('#ct-idx-ph-det');
+            var elem = $('#indexPanelHeading');
             switch (object[1]) {
                 case 'Studio':
-                    elem.addClass('red');
+                    elem.addClass('red').removeClass('blue orange green');
                     break;
                 case 'Tool':
-                    elem.addClass('blue');
+                    elem.addClass('blue').removeClass('red orange green');
                     break;
                 case 'Material':
-                    elem.addClass('orange');
+                    elem.addClass('orange').removeClass('red blue green');
                     break;
                 case 'Consumable':
-                    elem.addClass('green');
+                    elem.addClass('green').removeClass('red blue orange');
             }
 
             // placeholder for image
-            var innerBody = document.getElementById("ct-index-panel-body-detail");
-            innerBody.innerHTML = 'Image <br /><br /><br /><hr />';
+            var entryBody = $('#entryBody');
+            entryBody.html("Image");
 
             // print entry properties in loop
             var i;
             for (i = 1; i < object.length; i++) {
                 if (object[i] !== '' && i != 3 && i != 4 && i != 1) {
-                    innerBody.innerHTML += '<div class="col-sm-6"><b>' + $scope.entryProperties[i] + '</div></b><div class="col-sm-6" id="ct-index-object-name">' + object[i] + '</div>';
+                    entryBody.innerHTML += '<div class="col-sm-6"><b>' + $scope.entryProperties[i] + '</div></b><div class="col-sm-6">' + object[i] + '</div>';
                 }
             }
         };

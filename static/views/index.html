@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<meta http-equiv="refresh" content="600; URL=https://whispering-coast-62157.herokuapp.com/?self=frontdesk">
+<meta http-equiv="refresh" content="6000; URL=https://whispering-coast-62157.herokuapp.com/?self=frontdesk">
 <!--
     Made by: Andrew Song, Sunny Leung
 -->
@@ -54,7 +54,7 @@
     <div class="container-fluid view-color" ng-controller="MainCtrl">
         <div class="row">
             <div class="col-sm-2" id="accordion-container">
-                    <img src="assets/makerlabs.png" alt="makerlablogo" id="index-logo">
+                <img src="assets/makerlabs.png" alt="makerlablogo" id="index-logo">
                 <hr>
                 <!-- accordion start -->
                 <div class="panel-group" id="accordion">
@@ -78,7 +78,7 @@
                         </div>
                     </div>
                     <div class="panel panel-default">
-                        <div class="panel-heading lvl1-box-shadow" id="std_panel-bg">
+                        <div class="panel-heading lvl1-box-shadow red category_margins">
                             <h4 class="panel-title">
                                 <div data-toggle="collapse" href="#collapse1"
                                      class="ct-panel-toggle"> {{ categories.studio }} </div>
@@ -98,7 +98,7 @@
                         </div>
                     </div>
                     <div class="panel panel-default">
-                        <div class="panel-heading lvl1-box-shadow" id="tl_panel-bg">
+                        <div class="panel-heading lvl1-box-shadow blue category_margins">
                             <h4 class="panel-title">
                                 <div data-toggle="collapse" href="#collapse2"
                                      class="ct-panel-toggle"> {{ categories.tools }} </div>
@@ -116,7 +116,7 @@
                         </div>
                     </div>
                     <div class="panel panel-default">
-                        <div class="panel-heading lvl1-box-shadow" id="con_panel-bg">
+                        <div class="panel-heading lvl1-box-shadow green category_margins">
                             <h4 class="panel-title">
                                 <div data-toggle="collapse" href="#collapse3"
                                      class="ct-panel-toggle"> {{ categories.cons }} </div>
@@ -134,7 +134,7 @@
                         </div>
                     </div>
                     <div class="panel panel-default">
-                        <div class="panel-heading lvl1-box-shadow" id="mat_panel-bg">
+                        <div class="panel-heading lvl1-box-shadow orange category_margins">
                             <h4 class="panel-title">
                                 <div data-toggle="collapse" href="#collapse4"
                                      class="ct-panel-toggle"> {{ categories.mats }} </div>
@@ -158,13 +158,14 @@
             </div>
             <div class="col-sm-3 view-color" id="index-view-container">
                 <div class="panel panel-default lvl1-box-shadow" id="ct-index-panel">
-                    <div class="panel-heading " id="ct-idx-ph-det">
+                    <div class="panel-heading" id="indexPanelHeading">
                         <p class="panel-title" id="ct-index-panel-title-detail">
                             <!--panel title-->
-                            {{ panelTitleName }} <small>{{ panelTitleType }}</small>
+                            {{ panelTitleName }}
+                            <small>{{ panelTitleType }}</small>
                         </p>
                     </div>
-                    <div class="panel-body" id="ct-index-panel-body-detail">
+                    <div class="panel-body" id="entryBody">
                         <!--panel body-->
                         <p>Welcome to MakerLabs' Catalog system.</p>
                         <p>To use, either start searching for an item or look under the categories.</p>
