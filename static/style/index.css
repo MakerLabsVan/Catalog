@@ -10,6 +10,10 @@ body {
     height: 0vh;
 }
 
+.panelTitle {
+    color: white;
+}
+
 #firstFloorWell, #secondFloorWell {
     height: 80vh;
     background: white;
@@ -49,6 +53,22 @@ a {
 
 .entryPO:hover {
     cursor: pointer;
+}
+
+.red {
+    background: #F14A29;
+}
+
+.blue {
+    background: #107CC2;
+}
+
+.orange {
+    background: #F3902C;
+}
+
+.green {
+    background: #2BAC69;
 }
 
 #std_panel-bg {

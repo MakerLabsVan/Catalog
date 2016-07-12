@@ -50,29 +50,29 @@ angular.module("myApp", ['d3mapping'])
         $scope.highlightItem = highlightService.highlight;
 
         // change middle panel to display entry information and stylize accordingly
+        $scope.panelTitleName = 'MakerLabs';
+        $scope.panelTitleType = '';
         $scope.showEntryDetails = function (object) {
-
             // initialize title
-            var innerTitle = document.getElementById("ct-index-panel-title-detail");
-            innerTitle.innerHTML = object[0] + ' <small>' + object[1] + '</small>';
-            innerTitle.style.color = 'white';
+            $scope.panelTitleName = object[0];
+            $scope.panelTitleType = object[1];
+            $('#ct-index-panel-title-detail').addClass('panelTitle');
 
             // change color of panel title
-            var innerPanel = document.getElementById('ct-idx-ph-det');
+            var elem = $('#ct-idx-ph-det');
             switch (object[1]) {
                 case 'Studio':
-                    innerPanel.style.background = '#F14A29';
+                    elem.addClass('red');
                     break;
                 case 'Tool':
-                    innerPanel.style.background = '#107CC2';
+                    elem.addClass('blue');
                     break;
                 case 'Material':
-                    innerPanel.style.background = '#F3902C';
+                    elem.addClass('orange');
                     break;
                 case 'Consumable':
-                    innerPanel.style.background = '#2BAC69';
+                    elem.addClass('green');
             }
-            ;
 
             // placeholder for image
             var innerBody = document.getElementById("ct-index-panel-body-detail");
