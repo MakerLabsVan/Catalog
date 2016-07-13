@@ -64,15 +64,10 @@
                                    ng-model="queryTerm" ng-change="changeHeight()"
                             />
                             <div class="lvl1-box-shadow" id="searchSection">
-                                <div ng-repeat="object in data track by $index">
-                                    <!-- </div index-search-res></div> -->
-                                    <div class="entryPO"
-                                         ng-click="showEntryDetails(object);switchMapsOnClick(object[5]);showLoc(object[20]);highlightItem('search_' + object[20])"
-                                         id="search_{{ object[20] }}">
-                                        {{ queryTerm.length
-                                        < 2 ? '' : object[0].toLowerCase().indexOf(queryTerm.toLowerCase()) !=- 1 || object[1].toLowerCase().indexOf(queryTerm.toLowerCase())
-                                        !=- 1 || object[2].toLowerCase().indexOf(queryTerm.toLowerCase()) !=- 1 || object[15].toLowerCase().indexOf(queryTerm.toLowerCase())
-                                        !=- 1 ? object[0] : '' }} </div>
+                                <div ng-repeat="entry in entries">
+                                    <div class="entryNames" ng-click="">
+                                        {{ entry.name }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -88,7 +83,7 @@
                             <div class="panel-body" id="ct-index-panel-body">
                                 <!-- sheet data -->
                                 <div ng-repeat="object in data">
-                                    <div class="entryPO"
+                                    <div class="entryNames"
                                          ng-click="showEntryDetails(object);switchMapsOnClick(object[5]);showLoc(object[20]);highlightItem('studio_' + object[20])"
                                          id="studio_{{ object[20] }}">
                                         {{ object[1] === "Studio" ? object[0] : '' }}
@@ -108,7 +103,7 @@
                             <div class="panel-body" id="ct-index-panel-body">
                                 <div ng-repeat="object in data">
                                     <div ng-click="showEntryDetails(object);showLoc(object[20]);switchMapsOnClick(object[5]);highlightItem('tool_' + object[20])"
-                                         class="entryPO" id="tool_{{ object[20] }}">
+                                         class="entryNames" id="tool_{{ object[20] }}">
                                         {{ object[1] === "Tool" ? object[0] : '' }}
                                     </div>
                                 </div>
@@ -126,7 +121,7 @@
                             <div class="panel-body" id="ct-index-panel-body">
                                 <div ng-repeat="object in data">
                                     <div ng-click="showEntryDetails(object);showLoc(object[20]);switchMapsOnClick(object[5]);highlightItem('cons_' + object[20])"
-                                         class="entryPO" id="cons_{{ object[20] }}">
+                                         class="entryNames" id="cons_{{ object[20] }}">
                                         {{ object[1] === "Consumable" ? object[0] : '' }}
                                     </div>
                                 </div>
@@ -144,7 +139,7 @@
                             <div class="panel-body" id="ct-index-panel-body">
                                 <div ng-repeat="object in data">
                                     <div ng-click="showEntryDetails(object);showLoc(object[20]);switchMapsOnClick(object[5]);highlightItem('material_' + object[20])"
-                                         class="entryPO" id="material_{{ object[20] }}">
+                                         class="entryNames" id="material_{{ object[20] }}">
                                         {{ object[1] === "Material" ? object[0] : '' }}
                                     </div>
                                 </div>
@@ -167,8 +162,17 @@
                     </div>
                     <div class="panel-body" id="entryBody">
                         <!--panel body-->
-                        <p>Welcome to MakerLabs' Catalog system.</p>
-                        <p>To use, either start searching for an item or look under the categories.</p>
+                        <div class="" id="welcomeMessage">
+                            <p>{{ panelBodyMessage.name }}</p>
+                            <p>{{ panelBodyMessage.body }}</p>
+                        </div>
+                    </div>
+                    <div class="hidden" id="entryDetails">
+                        <div ng-repeat="entry in entries">
+                            <div ng-repeat="prop in entry">
+                                {{ prop }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

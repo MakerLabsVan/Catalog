@@ -2,6 +2,10 @@ body {
     font-family: 'Raleway', sans-serif;
 }
 
+.hidden {
+    display: none;
+}
+
 .searchSectionExpanded {
     height: auto;
 }
@@ -50,12 +54,12 @@ small {
     height: 50px;
 }
 
-.entryPO {
+.entryNames {
     font-size: 20px;
     margin-bottom: 10px;
 }
 
-.entryPO:hover {
+.entryNames:hover {
     cursor: pointer;
 }
 

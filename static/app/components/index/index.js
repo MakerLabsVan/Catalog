@@ -7,10 +7,32 @@ angular.module("myApp", ['d3mapping'])
             .success(function (data, status, header, config) {
                 // success data
                 $scope.data = data;
+
+                // labels to use for object
+                var dataLabels = data[1];
+
                 // labels to display
                 $scope.entryProperties = data[0];
-                // labels to use for object
-                $scope.dataLabels = data[1];
+
+                // shift data
+                $scope.data.shift();
+                $scope.data.shift();
+
+                var shiftedData = $scope.data;
+
+                // object entries
+                $scope.entries = {};
+                // use loop to make the object
+                for (i in shiftedData) {
+                    var object = {};
+                    for (j in dataLabels) {
+                        object[dataLabels[j]] = shiftedData[i][j];
+                    }
+                    // 20 could change
+                    $scope.entries[shiftedData[i][20]] = object;
+                }
+                ;
+
                 $scope.index = {
                     "x": $scope.entryProperties.indexOf('Location x (ft)'),
                     "y": $scope.entryProperties.indexOf('Location y (ft)'),
@@ -21,8 +43,6 @@ angular.module("myApp", ['d3mapping'])
                     "type": $scope.entryProperties.indexOf('Type'),
                     "name": $scope.entryProperties.indexOf('Name')
                 };
-                $scope.data.shift();
-                $scope.data.shift();
             })
             .error(function (data, status, header, config) {
                 // something went wrong
@@ -49,10 +69,15 @@ angular.module("myApp", ['d3mapping'])
         // using service to highlight items
         $scope.highlightItem = highlightService.highlight;
 
-        // change middle panel to display entry information and stylize accordingly
+        $scope.panelBodyMessage = {
+            "name": "MakerLabs",
+            "body": "To use, elect an item from the categories or search for a specific item."
+        };
+
         $scope.panelTitleName = 'MakerLabs';
         $scope.panelTitleType = '';
-        $scope.showEntryDetails = function (object) {
+        $scope.showEntryDetails = function (objectID) {
+
             // initialize title
             $scope.panelTitleName = object[0];
             $scope.panelTitleType = object[1];
@@ -74,17 +99,8 @@ angular.module("myApp", ['d3mapping'])
                     elem.addClass('green').removeClass('red blue orange');
             }
 
-            // placeholder for image
-            var entryBody = $('#entryBody');
-            entryBody.html("Image");
-
-            // print entry properties in loop
-            var i;
-            for (i = 1; i < object.length; i++) {
-                if (object[i] !== '' && i != 3 && i != 4 && i != 1) {
-                    entryBody.innerHTML += '<div class="col-sm-6"><b>' + $scope.entryProperties[i] + '</div></b><div class="col-sm-6">' + object[i] + '</div>';
-                }
-            }
+            $('#entryBody').addClass('hidden');
+            $('#entryDetails').removeClass('hidden');
         };
 
         $scope.switchMapsOnClick = function (floor) {
