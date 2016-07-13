@@ -21,6 +21,7 @@ angular.module("myApp", ['d3mapping'])
                 var shiftedData = $scope.data;
 
                 // object entries
+                // THIS IS THE NEW DATA LIST IN OBJECT FORM
                 $scope.entries = {};
                 // use loop to make the object
                 for (i in shiftedData) {
@@ -30,8 +31,31 @@ angular.module("myApp", ['d3mapping'])
                     }
                     // 20 could change
                     $scope.entries[shiftedData[i][20]] = object;
+                };
+
+                // make category data
+                $scope.studioEntries = {};
+                $scope.materialEntries = {};
+                $scope.toolEntries = {};
+                $scope.consumableEntries = {};
+
+                for (key in $scope.entries){
+                    // why doesn't entries.key work here
+                    switch($scope.entries[key].type){
+                        case 'Studio':
+                            $scope.studioEntries[key] = $scope.entries[key];
+                            break;
+                        case 'Material':
+                            $scope.materialEntries[key] = $scope.entries[key];
+                            break;
+                        case 'Tool':
+                            $scope.toolEntries[key] = $scope.entries[key];
+                            break;
+                        case 'Consumable':
+                            $scope.consumableEntries[key] = $scope.entries[key];
+                    }
                 }
-                ;
+                // but entries.key works here
 
                 $scope.index = {
                     "x": $scope.entryProperties.indexOf('Location x (ft)'),
@@ -56,13 +80,6 @@ angular.module("myApp", ['d3mapping'])
             "mats": "Materials"
         };
 
-        $scope.combinedFunction = function (object){
-            $scope.showEntryDetails(objectID);
-            $scope.switchMapsOnClick(floorNum);
-            $scope.showLoc(studioName);
-            $scope.highlightItem(objectID_KEY);
-        };
-
         $scope.queryTerm = '';
         // change height of query result box dynamically
         $scope.changeHeight = function () {
@@ -83,18 +100,19 @@ angular.module("myApp", ['d3mapping'])
 
         $scope.panelTitleName = 'MakerLabs';
         $scope.panelTitleType = '';
-        $scope.showEntryDetails = function (object) {
+        $scope.showEntryDetails = function (entry) {
 
-            $scope.selectedObject = object;
+            // TODO: change to var instead of $scope later
+            $scope.selectedObject = entry;
 
             // initialize title
-            $scope.panelTitleName = object[0];
-            $scope.panelTitleType = object[1];
+            $scope.panelTitleName = entry.name;
+            $scope.panelTitleType = entry.type;
             $('#ct-index-panel-title-detail').addClass('panelTitle');
 
             // change color of panel title
             var elem = $('#indexPanelHeading');
-            switch (object[1]) {
+            switch (entry.type) {
                 case 'Studio':
                     elem.addClass('red').removeClass('blue orange green');
                     break;

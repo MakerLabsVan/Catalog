@@ -8,14 +8,11 @@ body {
 
 .searchSectionExpanded {
     height: auto;
+    max-height: 60vh;
 }
 
 .searchSectionClosed {
     height: 0vh;
-}
-
-.panelTitle {
-    color: white;
 }
 
 #firstFloorWell, #secondFloorWell {
@@ -29,7 +26,6 @@ body {
 }
 
 #accordion-container {
-    overflow-y: scroll;
     height: 100vh;
     background: white;
 }
@@ -63,6 +59,10 @@ small {
     cursor: pointer;
 }
 
+.panel-title:hover {
+    cursor: pointer;
+}
+
 .red {
     background-color: #F14A29 !important;
 }
@@ -79,9 +79,20 @@ small {
     background-color: #2BAC69 !important;
 }
 
-.category_margins {
-    margin-left: -15px;
-    margin-right: -15px;
+.whiteFont {
+    color: white;
+}
+
+.categoryMargins {
+    margin: 0px -15px 0px -15px;
+}
+
+.categoryContainer {
+    height: 65vh;
+    overflow-y: scroll;
+}
+
+.resultMargins {
 }
 
 #searchbar {
@@ -118,16 +129,13 @@ small {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
-#entryBody {
+#entryBody, #entryDetails {
     height: 80vh;
     background: white;
     font-size: 20px;
     border: none;
 }
 
-.ct-panel-toggle {
-    color: white;
-}
 
 .ct-panel-toggle:hover {
     cursor: pointer;
@@ -147,6 +155,7 @@ small {
 
 #index-view-container {
     margin-left: 70px;
+    height: 80vh;
 }
 
 #floor1Tab, #floor2Tab {

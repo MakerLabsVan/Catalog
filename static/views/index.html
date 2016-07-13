@@ -73,74 +73,74 @@
                         </div>
                     </div>
                     <div class="panel panel-default">
-                        <div class="panel-heading lvl1-box-shadow red category_margins">
+                        <div class="panel-heading lvl1-box-shadow red categoryMargins">
                             <h4 class="panel-title">
                                 <div data-toggle="collapse" href="#collapse1"
-                                     class="ct-panel-toggle"> {{ categories.studio }} </div>
+                                     class="whiteFont"> {{ categories.studio }} </div>
                             </h4>
                         </div>
-                        <div id="collapse1" class="panel-collapse collapse">
-                            <div class="panel-body" id="ct-index-panel-body">
-                                <!-- sheet data -->
-                                <div ng-repeat="object in data">
+                        <div id="collapse1" class="panel-collapse collapse categoryMargins" data-parent="#accordion">
+                            <div class="panel-body categoryContainer">
+                                <!-- studio data -->
+                                <div ng-repeat="entry in studioEntries">
                                     <div class="entryNames"
-                                         ng-click="showEntryDetails(object);switchMapsOnClick(object[5]);showLoc(object[20]);highlightItem('studio_' + object[20])"
-                                         id="studio_{{ object[20] }}">
-                                        {{ object[1] === "Studio" ? object[0] : '' }}
+                                         ng-click="showEntryDetails(entry);switchMapsOnClick(entry.floor);showLoc(entry.key);highlightItem('studio_' + entry.key)"
+                                         id="studio_{{ entry.key }}">
+                                        {{ entry.name}}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="panel panel-default">
-                        <div class="panel-heading lvl1-box-shadow blue category_margins">
+                        <div class="panel-heading lvl1-box-shadow blue categoryMargins">
                             <h4 class="panel-title">
                                 <div data-toggle="collapse" href="#collapse2"
-                                     class="ct-panel-toggle"> {{ categories.tools }} </div>
+                                     class="whiteFont"> {{ categories.tools }} </div>
                             </h4>
                         </div>
-                        <div id="collapse2" class="panel-collapse collapse">
-                            <div class="panel-body" id="ct-index-panel-body">
-                                <div ng-repeat="object in data">
-                                    <div ng-click="showEntryDetails(object);showLoc(object[20]);switchMapsOnClick(object[5]);highlightItem('tool_' + object[20])"
-                                         class="entryNames" id="tool_{{ object[20] }}">
-                                        {{ object[1] === "Tool" ? object[0] : '' }}
+                        <div id="collapse2" class="panel-collapse collapse categoryMargins" data-parent="#accordion">
+                            <div class="panel-body categoryContainer">
+                                <div ng-repeat="entry in toolEntries">
+                                    <div ng-click="showEntryDetails(entry);showLoc(entry.key);switchMapsOnClick(entry.floor);highlightItem('tool_' + entry.key)"
+                                         class="entryNames" id="tool_{{ entry.key }}">
+                                        {{ entry.name }}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="panel panel-default">
-                        <div class="panel-heading lvl1-box-shadow green category_margins">
+                        <div class="panel-heading lvl1-box-shadow green categoryMargins">
                             <h4 class="panel-title">
                                 <div data-toggle="collapse" href="#collapse3"
-                                     class="ct-panel-toggle"> {{ categories.cons }} </div>
+                                     class="whiteFont"> {{ categories.cons }} </div>
                             </h4>
                         </div>
-                        <div id="collapse3" class="panel-collapse collapse">
-                            <div class="panel-body" id="ct-index-panel-body">
-                                <div ng-repeat="object in data">
-                                    <div ng-click="showEntryDetails(object);showLoc(object[20]);switchMapsOnClick(object[5]);highlightItem('cons_' + object[20])"
-                                         class="entryNames" id="cons_{{ object[20] }}">
-                                        {{ object[1] === "Consumable" ? object[0] : '' }}
+                        <div id="collapse3" class="panel-collapse collapse categoryMargins" data-parent="#accordion">
+                            <div class="panel-body categoryContainer">
+                                <div ng-repeat="entry in consumableEntries">
+                                    <div ng-click="showEntryDetails(entry);showLoc(entry.key);switchMapsOnClick(entry.floor);highlightItem('cons_' + entry.key)"
+                                         class="entryNames" id="cons_{{ entry.key }}">
+                                        {{ entry.name }}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="panel panel-default">
-                        <div class="panel-heading lvl1-box-shadow orange category_margins">
+                        <div class="panel-heading lvl1-box-shadow orange categoryMargins">
                             <h4 class="panel-title">
                                 <div data-toggle="collapse" href="#collapse4"
-                                     class="ct-panel-toggle"> {{ categories.mats }} </div>
+                                     class="whiteFont"> {{ categories.mats }} </div>
                             </h4>
                         </div>
-                        <div id="collapse4" class="panel-collapse collapse">
-                            <div class="panel-body" id="ct-index-panel-body">
-                                <div ng-repeat="object in data">
-                                    <div ng-click="showEntryDetails(object);showLoc(object[20]);switchMapsOnClick(object[5]);highlightItem('material_' + object[20])"
-                                         class="entryNames" id="material_{{ object[20] }}">
-                                        {{ object[1] === "Material" ? object[0] : '' }}
+                        <div id="collapse4" class="panel-collapse collapse categoryMargins" data-parent="#accordion">
+                            <div class="panel-body categoryContainer" id="ct-index-panel-body">
+                                <div ng-repeat="entry in materialEntries">
+                                    <div ng-click="showEntryDetails(entry);showLoc(entry.key);switchMapsOnClick(entry.floor);highlightItem('material_' + entry.key)"
+                                         class="entryNames" id="material_{{ entry.key }}">
+                                        {{ entry.name }}
                                     </div>
                                 </div>
                             </div>
@@ -167,9 +167,9 @@
                             <p>{{ panelBodyMessage.body }}</p>
                         </div>
                     </div>
-                    <div class="hidden" id="entryDetails">
-                        <div ng-repeat="prop in selectedObject track by $index">
-                            {{ prop }}
+                    <div class="panel-body hidden" id="entryDetails">
+                        <div class="col-sm-12" ng-repeat="prop in selectedObject track by $index">
+                            <b>{{ entryProperties[$index] }}: </b>{{ prop }}
                         </div>
                     </div>
                 </div>
