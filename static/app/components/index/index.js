@@ -18,6 +18,7 @@ angular.module("myApp", ['d3mapping'])
                 $scope.data.shift();
                 $scope.data.shift();
 
+                // removed 2 frozen rows
                 var shiftedData = $scope.data;
 
                 // object entries
@@ -27,11 +28,13 @@ angular.module("myApp", ['d3mapping'])
                 for (i in shiftedData) {
                     var object = {};
                     for (j in dataLabels) {
+                        // ex. object.name.label
                         object[dataLabels[j]] = shiftedData[i][j];
                     }
                     // 20 could change
                     $scope.entries[shiftedData[i][20]] = object;
-                };
+                }
+                ;
 
                 // make category data
                 $scope.studioEntries = {};
@@ -39,9 +42,9 @@ angular.module("myApp", ['d3mapping'])
                 $scope.toolEntries = {};
                 $scope.consumableEntries = {};
 
-                for (key in $scope.entries){
+                for (key in $scope.entries) {
                     // why doesn't entries.key work here
-                    switch($scope.entries[key].type){
+                    switch ($scope.entries[key].type) {
                         case 'Studio':
                             $scope.studioEntries[key] = $scope.entries[key];
                             break;
@@ -67,6 +70,7 @@ angular.module("myApp", ['d3mapping'])
                     "type": $scope.entryProperties.indexOf('Type'),
                     "name": $scope.entryProperties.indexOf('Name')
                 };
+
             })
             .error(function (data, status, header, config) {
                 // something went wrong
@@ -154,15 +158,15 @@ angular.module("myApp", ['d3mapping'])
 
         $scope.lastItem = null;
         //Highlight the studio given the name of the studio as a param
-        $scope.showLoc = function (studioName) {
+        $scope.showLoc = function (studioKey) {
             removeLast($scope.lastItem);
             var elementPos = $scope.data.map(function (x) {
                 return x[$scope.index.id];
-            }).indexOf(studioName);
+            }).indexOf(studioKey);
             var objectFound = $scope.data[elementPos];
             $scope.lastItem = objectFound;
 
-            if (objectFound === null) {
+            if (objectFound == undefined) {
                 return 'Not Found'
             }
             if (objectFound[$scope.index.type] === 'Studio') {
@@ -186,7 +190,7 @@ angular.module("myApp", ['d3mapping'])
         var removeLast = function (lastItem) {
             $scope.map1.marker.remove();
             $scope.map2.marker.remove();
-            if (lastItem !== null) {
+            if (lastItem != undefined) {
                 if (lastItem[$scope.index.floor] === '1') {
                     $scope.map1.studio.dehighlight(lastItem[$scope.index.id]);
                 }

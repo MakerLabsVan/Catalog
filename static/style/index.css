@@ -30,6 +30,10 @@ body {
     background: white;
 }
 
+#accordion {
+    margin-bottom: -10px;
+}
+
 .panel-heading {
     border-radius: 0px;
 }
@@ -135,7 +139,6 @@ small {
     font-size: 20px;
     border: none;
 }
-
 
 .ct-panel-toggle:hover {
     cursor: pointer;
