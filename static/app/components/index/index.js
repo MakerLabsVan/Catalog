@@ -56,6 +56,13 @@ angular.module("myApp", ['d3mapping'])
             "mats": "Materials"
         };
 
+        $scope.combinedFunction = function (object){
+            $scope.showEntryDetails(objectID);
+            $scope.switchMapsOnClick(floorNum);
+            $scope.showLoc(studioName);
+            $scope.highlightItem(objectID_KEY);
+        };
+
         $scope.queryTerm = '';
         // change height of query result box dynamically
         $scope.changeHeight = function () {
@@ -76,7 +83,9 @@ angular.module("myApp", ['d3mapping'])
 
         $scope.panelTitleName = 'MakerLabs';
         $scope.panelTitleType = '';
-        $scope.showEntryDetails = function (objectID) {
+        $scope.showEntryDetails = function (object) {
+
+            $scope.selectedObject = object;
 
             // initialize title
             $scope.panelTitleName = object[0];

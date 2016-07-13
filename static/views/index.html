@@ -65,8 +65,8 @@
                             />
                             <div class="lvl1-box-shadow" id="searchSection">
                                 <div ng-repeat="entry in entries">
-                                    <div class="entryNames" ng-click="">
-                                        {{ entry.name }}
+                                    <div class="entryNames">
+                                        <!--{{ entry.name }}-->
                                     </div>
                                 </div>
                             </div>
@@ -168,10 +168,8 @@
                         </div>
                     </div>
                     <div class="hidden" id="entryDetails">
-                        <div ng-repeat="entry in entries">
-                            <div ng-repeat="prop in entry">
-                                {{ prop }}
-                            </div>
+                        <div ng-repeat="prop in selectedObject track by $index">
+                            {{ prop }}
                         </div>
                     </div>
                 </div>
