@@ -100,12 +100,12 @@ var auth = function (method, body, resCallback) {
     }
 }
 
-var listMajors = function (auth, callback) {
+var getDataList = function (auth, callback) {
     var sheets = google.sheets('v4');
     sheets.spreadsheets.values.get({
         auth: auth,
         spreadsheetId: sheetKeyPrivate,
-        range: 'A2:O',
+        range: 'Sheet1',
     }, function (err, response) {
         if (err) {
             console.log('The API returned an error: ' + err);
@@ -114,12 +114,12 @@ var listMajors = function (auth, callback) {
         var rows = response.values;
         callback(rows);
     });
-}
+};
 // you can get entries by looking at the number of entries in the array
 // and + 2 to get the next empty row
 var sheetWrite = function (auth, body, resCallback) {
 
-    var nextRow = 'A' + String(body.row + 2) + ':O';
+    var nextRow = 'A' + String(body.row + 2);
 
     var sheets = google.sheets('v4');
     sheets.spreadsheets.values.update({
@@ -172,4 +172,4 @@ var deleteEntry = function (auth, index, resCallback) {
 exports.deleteEntry = deleteEntry;
 exports.sheetWrite = sheetWrite;
 exports.auth = auth;
-exports.listMajors = listMajors;
+exports.getDataList = getDataList;

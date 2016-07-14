@@ -1,9 +1,8 @@
 var path = __dirname;
-var PORT = process.env.PORT || 3000;
 var gapi = require(path + "/static/app/components/googlesheets/googlesheetsapi.js");
 
 var getData = function (fn) {
-    gapi.auth(gapi.listMajors, function (result) {
+    gapi.auth(gapi.getDataList, function (result) {
         fn(result);
     });
 };
@@ -13,7 +12,7 @@ var parse = function (req, row, res) {
         stdData: {
             "majorDimension": "ROWS",
             "values": [
-                [req.Name, req.Type, req.Subtype, req['Location x (ft)'], req['Location y (ft)'], req.Floor, req.Width, req.Length, req.Height, req.Units, req.Weight, req['Weight Unit'], req.Quantity, req.Price, req.Description, req.Keywords]
+                [req.Name, req.Type, req.Subtype, req['Location x (ft)'], req['Location y (ft)'], req.Floor, req.Width, req.Length, req.Height, req.Units, req.Weight, req['Weight Unit'], req.Quantity, req.Price, req.Description, req.Keywords, req.Image, req.metadata, req['Primary Supplier'], req.Link, req.Key]
             ]
         },
         row: row

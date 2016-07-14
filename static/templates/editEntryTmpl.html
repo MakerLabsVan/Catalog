@@ -1,2 +1,88 @@
-<input class="form-control" type="text" placeholder="{{ object[$index] }}" id="ct-edit-entry" ng-model="editFormData[prop]"
-    ng-init="editFormData[prop] = object[$index]" />
+<form class="form-horizontal" ng-submit="editEntry(object[20])">
+    <div ng-repeat="prop in entryProperties track by $index">
+        <div class="form-group" ng-init="editPageCols(prop)" id="edit-form-group{{$index}}">
+            <div class="col-sm-2 col-sm-offset-1">
+                <label for="edit-input" class="control-label">{{ prop }}: {{$index}} </label>
+            </div>
+            <div class="col-sm-7 col-sm-offset-1" id="edit-input-form{{$index}}">
+                <input class="form-control" type="text" ng-model="editFormData[prop]" />
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-1 col-sm-offset-1">
+        <button type="button" class="btn btn-large btn-default" href="#edit-first-floor" data-toggle="tab"> 
+                <span class="glyphicon glyphicon-map-marker"></span>
+                Location
+                </button>
+    </div>
+    <div class="col-sm-1  col-sm-offset-5">
+        <button type="button" class="btn btn-large btn-default" ng-click="deletePost(object[0])">
+                <span class="glyphicon glyphicon-trash"></span>
+                Delete
+                </button>
+    </div>
+    <div class="col-sm-1  col-sm-offset-1">
+        <button type="submit" class="btn btn-large btn-default">
+                <span class="glyphicon glyphicon-pencil"></span>
+                Make Edit
+                </button>
+    </div>
+
+    <template id="type-buttons">
+        <div>
+            <form id="type-button-form">
+                <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-primary active">
+            <input type="radio" name="options" id="radio-studio" autocomplete="off" checked>
+                Studio
+        </label>
+                    <label class="btn btn-primary">
+            <input type="radio" name="options" id="radio-mat" autocomplete="off">
+                Material
+        </label>
+                    <label class="btn btn-primary">
+            <input type="radio" name="options" id="radio-cons" autocomplete="off">
+                Consumable
+        </label>
+                    <label class="btn btn-primary">
+            <input type="radio" name="options" id="radio-tool" autocomplete="off">
+                Tool
+        </label>
+                </div>
+            </form>
+        </div>
+    </template>
+
+    <template id="dimension-buttons">
+        <div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Select a unit
+            <span class="caret"></span>
+        </button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">m</a></li>
+                    <li><a href="#">ft</a></li>
+                    <li><a href="#">cm</a></li>
+                    <li><a href="#">mm</a></li>
+                </ul>
+            </div>
+        </div>
+    </template>
+
+    <template id="weight-buttons">
+        <div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Select a unit
+            <span class="caret"></span>
+        </button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">kg</a></li>
+                    <li><a href="#">g</a></li>
+                    <li><a href="#">mg</a></li>
+                </ul>
+            </div>
+        </div>
+    </template>
+</form>

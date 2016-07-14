@@ -1,11 +1,28 @@
 angular.module("myApp", ['d3mapping'])
 
-    .controller("MainCtrl", ["$scope", '$http', "$sce", function ($scope, $http, $sce) {
+    .controller("MainCtrl", ["$scope", '$http', "mapService", "highlightService", function ($scope, $http, mapService, highlightService) {
 
-        $http.get('/getData')
+        // init call of data (put in var)
+        $http.get('/publicGetData')
             .success(function (data, status, header, config) {
                 // success data
                 $scope.data = data;
+                // labels to display
+                $scope.entryProperties = data[0];
+                // labels to use for object
+                $scope.dataLabels = data[1];
+                $scope.index = {
+                    "x": $scope.entryProperties.indexOf('Location x (ft)'),
+                    "y": $scope.entryProperties.indexOf('Location y (ft)'),
+                    "floor": $scope.entryProperties.indexOf('Floor'),
+                    "width": $scope.entryProperties.indexOf('Width'),
+                    "height": $scope.entryProperties.indexOf('Length'),
+                    "id": $scope.entryProperties.indexOf('Key'),
+                    "type": $scope.entryProperties.indexOf('Type'),
+                    "name": $scope.entryProperties.indexOf('Name')
+                };
+                $scope.data.shift();
+                $scope.data.shift();
             })
             .error(function (data, status, header, config) {
                 // something went wrong
@@ -19,111 +36,165 @@ angular.module("myApp", ['d3mapping'])
             "mats": "Materials"
         };
 
-        $scope.entryProperties = [
-            "Name", "Type", "Subtype", "Location x (ft)", "Location y (ft)", "Floor", "Width", "Length", "Depth", "Units", "Weight", "Weight Unit", "Quantity", "Price", "Description", "Keywords"
-        ];
-
         $scope.queryTerm = '';
-
+        // change height of query result box dynamically
         $scope.changeHeight = function () {
-            if ($scope.queryTerm.length == 0) {
-                document.getElementById("searchSection").style.height = '0px';
+            if ($scope.queryTerm.length >= 2) {
+                $("#searchSection").addClass('searchSectionExpanded').removeClass('searchSectionClosed');
             } else {
-                document.getElementById("searchSection").style.height = '50vh';
+                $("#searchSection").addClass('searchSectionClosed').removeClass('searchSectionExpanded');
             }
         };
 
-        $scope.showEntryDetails = function (object) {
-            var innerTitle = document.getElementById("ct-index-panel-title-detail");
-            innerTitle.innerHTML = object[0] + ' <small>' + object[1] + '</small>';
-            innerTitle.style.color = 'white';
+        // using service to highlight items
+        $scope.highlightItem = highlightService.highlight;
 
-            var innerPanel = document.getElementById('ct-idx-ph-det');
+        // change middle panel to display entry information and stylize accordingly
+        $scope.panelTitleName = 'MakerLabs';
+        $scope.panelTitleType = '';
+        $scope.showEntryDetails = function (object) {
+            // initialize title
+            $scope.panelTitleName = object[0];
+            $scope.panelTitleType = object[1];
+            $('#ct-index-panel-title-detail').addClass('panelTitle');
+
+            // change color of panel title
+            var elem = $('#indexPanelHeading');
             switch (object[1]) {
                 case 'Studio':
-                    innerPanel.style.background = '#F14A29';
+                    elem.addClass('red').removeClass('blue orange green');
                     break;
                 case 'Tool':
-                    innerPanel.style.background = '#107CC2';
+                    elem.addClass('blue').removeClass('red orange green');
                     break;
                 case 'Material':
-                    innerPanel.style.background = '#F3902C';
+                    elem.addClass('orange').removeClass('red blue green');
                     break;
                 case 'Consumable':
-                    innerPanel.style.background = '#2BAC69';
-            };
+                    elem.addClass('green').removeClass('red blue orange');
+            }
 
-            var innerBody = document.getElementById("ct-index-panel-body-detail");
-            innerBody.innerHTML = 'Image <br /><br /><br /><hr />';
+            // placeholder for image
+            var entryBody = $('#entryBody');
+            entryBody.html("Image");
 
+            // print entry properties in loop
             var i;
             for (i = 1; i < object.length; i++) {
                 if (object[i] !== '' && i != 3 && i != 4 && i != 1) {
-                    innerBody.innerHTML += '<div class="col-sm-6"><b>' + $scope.entryProperties[i] + '</div></b><div class="col-sm-6" id="ct-index-object-name">' + object[i] + '</div>';
+                    entryBody.innerHTML += '<div class="col-sm-6"><b>' + $scope.entryProperties[i] + '</div></b><div class="col-sm-6">' + object[i] + '</div>';
                 }
             }
-
         };
 
-        // map ctrlr
-        $scope.map1 = new mapConstructor('firstFloorWell', 1);
-        $scope.map2 = new mapConstructor('secondFloorWell', 2);
+        $scope.switchMapsOnClick = function (floor) {
+            if (floor == 1) {
+                document.getElementById('firstLi').className = 'active';
+                document.getElementById('secondLi').className = '';
+                document.getElementById('firstFloor').className = 'tab-pane active';
+                document.getElementById('secondFloor').className = 'tab-pane';
+                $scope.resizeMap1;
+            } else {
+                document.getElementById('firstLi').className = '';
+                document.getElementById('secondLi').className = 'active';
+                document.getElementById('firstFloor').className = 'tab-pane';
+                document.getElementById('secondFloor').className = 'tab-pane active';
+                $scope.resizeMap2;
+            }
+        };
 
-        $scope.resizeMap = function () {
-            if ($scope.map2.width() !== 0) {
-                var width = $scope.map2.width();
-                var height = $scope.map2.height();
+        // map ctrl
+        $scope.map1 = mapService.initMap('firstFloorWell', 1);
+        $scope.map2 = mapService.initMap('secondFloorWell', 2);
+        $scope.resizeMap1 = mapService.resize($scope.map1);
+        $scope.resizeMap2 = mapService.resize($scope.map2);
+
+        $scope.lastItem = null;
+        //Highlight the studio given the name of the studio as a param
+        $scope.showLoc = function (studioName) {
+            removeLast($scope.lastItem);
+            var elementPos = $scope.data.map(function (x) {
+                return x[$scope.index.id];
+            }).indexOf(studioName);
+            var objectFound = $scope.data[elementPos];
+            $scope.lastItem = objectFound;
+
+            if (objectFound === null) {
+                return 'Not Found'
+            }
+            if (objectFound[$scope.index.type] === 'Studio') {
+                if (objectFound[$scope.index.floor] === '1') {
+                    $scope.map1.studio.highlight(objectFound[$scope.index.id]);
+                }
+                else if (objectFound[$scope.index.floor] === '2') {
+                    $scope.map2.studio.highlight(objectFound[$scope.index.id]);
+                }
             }
             else {
-                var width = $scope.map1.width();
-                var height = $scope.map1.height();
-            }
-            $scope.map1.studio.resize(width, height);
-            $scope.map2.studio.resize(width, height);
-        };
-
-        $scope.lastStudio = null;
-        //Highlight the studio given the name of the studio as aparam
-        $scope.showStudioLoc = function (studioName) {
-            if ($scope.lastStudio !== null) {
-                if ($scope.lastStudio[5] === '1') {
-                    $scope.map1.studio.dehighlight($scope.lastStudio[0]);
+                if (objectFound[$scope.index.floor] === '1') {
+                    $scope.map1.marker.set(parseInt(objectFound[3]), parseInt(objectFound[4]), $scope.map1.width(), $scope.map1.height())
                 }
-                else if ($scope.lastStudio[5] === '2') {
-                    $scope.map2.studio.dehighlight($scope.lastStudio[0]);
+                else if (objectFound[$scope.index.floor] === '2') {
+                    $scope.map2.marker.set(parseInt(objectFound[3]), parseInt(objectFound[4]), $scope.map2.width(), $scope.map2.height())
                 }
-            }
-            var elementPos = $scope.data.map(function (x) { return x[0]; }).indexOf(studioName);
-            var objectFound = $scope.data[elementPos];
-            $scope.lastStudio = objectFound;
-            if (objectFound === null) { return 'Not Found' }
-            //TODO: Optimize it to not search
-            if (objectFound[5] === '1') {
-                $scope.map1.studio.highlight(objectFound[0]);
-            }
-            else if (objectFound[5] === '2') {
-                $scope.map2.studio.highlight(objectFound[0]);
             }
         }
 
-        //Place marker where the item
-        $scope.showItemLoc = function (itemName) {
+        var removeLast = function (lastItem) {
             $scope.map1.marker.remove();
             $scope.map2.marker.remove();
-            var elementPos = $scope.data.map(function (x) { return x[0]; }).indexOf(itemName);
-            var objectFound = $scope.data[elementPos];
-            if (objectFound === null) { return 'Not Found' }
-
-            if (objectFound[3] === null || objectFound[4] === null) {
-                $scope.map1.marker.remove();
-                $scope.map2.marker.remove();
-            }
-            if (objectFound[5] === '1') {
-                $scope.map1.marker.set(parseInt(objectFound[3]), parseInt(objectFound[4]), $scope.map1.width(), $scope.map1.height())
-            }
-            else if (objectFound[5] === '2') {
-                $scope.map2.marker.set(parseInt(objectFound[3]), parseInt(objectFound[4]), $scope.map2.width(), $scope.map2.height())
+            if (lastItem !== null) {
+                if (lastItem[$scope.index.floor] === '1') {
+                    $scope.map1.studio.dehighlight(lastItem[$scope.index.id]);
+                }
+                else if (lastItem[$scope.index.floor] === '2') {
+                    $scope.map2.studio.dehighlight(lastItem[$scope.index.id]);
+                }
             }
         }
-
     }]);
+
+// service to share methods for map construction and resizing
+angular.module("myApp").service("mapService", function () {
+    var map = function (id, num) {
+        return new mapConstructor(id, num);
+    };
+
+    var resizeMap = function (map) {
+        if (map.width() !== 0) {
+            var width = map.width();
+            var height = map.height();
+        }
+
+        map.studio.resize(width, height);
+    };
+
+    return {
+        initMap: map,
+        resize: resizeMap
+    }
+});
+
+// service to highlight items
+angular.module("myApp").service("highlightService", function () {
+    var lastObject = null;
+    var highlight = function (objectId) {
+        if (lastObject != null) {
+            document.getElementById(lastObject).style.color = 'black';
+            document.getElementById(lastObject).style['font-weight'] = 'normal';
+            document.getElementById(objectId).style.color = 'blue';
+            document.getElementById(objectId).style['font-weight'] = 'bold';
+            lastObject = objectId;
+        } else {
+            document.getElementById(objectId).style.color = 'blue';
+            document.getElementById(objectId).style['font-weight'] = 'bold';
+            lastObject = objectId;
+        }
+        ;
+    };
+
+    return {
+        highlight: highlight
+    }
+
+});

@@ -1,79 +1,43 @@
 angular.module("myApp").directive("adminSearchRes", function () {
     return {
         replace: true,
-        templateUrl: 'templates/adminSearchResTmpl.html',
-
+        templateUrl: '/templates/adminSearchResTmpl.html',
     }
 })
 
-angular.module("myApp").directive("editEntryForm", function () {
+angular.module("myApp").directive("addInput", ["advInputs", function (advInputs) {
     return {
         replace: true,
-        templateUrl: 'templates/editEntryTmpl.html',
-    };
-});
-
-angular.module("myApp").directive("addInput", function () {
-    return {
-        replace: true,
-        templateUrl: 'templates/inputFormTmpl.html',
+        templateUrl: '/templates/inputFormTmpl.html',
         link: function (scope, elem, attrs) {
             scope.$watch(scope, function () {
-                var filters = {
-                    all_filter: [
-                        'Location x (ft)', 'Location y (ft)', 'Floor'
-                    ],
-                    std_filter: [
-                        'Height', 'Weight', 'Weight Unit'
-                    ]
-                };
+                // set button type inputs 
+                $('#input1').html($('#type-buttons').html());
+                $('#input9').html($('#dimension-buttons').html());
+                $('#input11').html($('#weight-buttons').html());
 
-                var runFilter = function (filter) {
-                    for (var i in filter) {
-                        if (toRemove.placeholder === filter[i]) {
-                            elem.remove();
-                        }
-                    };
-                }
+                // remove inputs for location and floor
+                advInputs.removeAll(["#form-group3", "#form-group4", "#form-group5"]);
 
-                // access to attributes for the element's input field
-                var toRemove = elem[0].childNodes[3].childNodes[1];
-                runFilter(filters.all_filter);
-
-                // at least name input
-                if (toRemove.placeholder === 'Name') {
-                    toRemove.required = true;
-                }
-
-                // numeric validation
-                if (toRemove.placeholder === 'Width' ||
-                    toRemove.placeholder === 'Height' ||
-                    toRemove.placeholder === 'Length' ||
-                    toRemove.placeholder === 'Quantity' ||
-                    toRemove.placeholder === 'Price') {
-                    toRemove.type = 'number';
-                    toRemove.min = '0';
-                    toRemove.max = '10000';
-                }
-
-                // disable type input
-                if (toRemove.placeholder === 'Type') {
-                    toRemove.disabled = true;
-                }
-
-                // run input form filter for studio
-                // bug exists where it does not update on tab switch
-                if (scope.formData['Type'] === 'Studio') {
-                    runFilter(filters.std_filter);
-                }
-
+                // set attributes for numerical validation
+                $("#inputForm0").attr('required', 'true');
+                var checkNumValidElem = ['#inputForm6', '#inputForm7', '#inputForm8', '#inputForm10', '#inputForm12', '#inputForm13'];
+                var checkNumValid = ['type', 'min', 'max'];
+                var checkNumValidVals = ['number', '0', '10000'];
+                advInputs.setMultAttrs(checkNumValidElem, checkNumValid, checkNumValidVals);
+                
             });
         }
     };
-});
+}]);
 
-angular.module("myApp").directive("modalLoc", function () {
+// buttons for the map panes on location select page
+// TODO: Change to .html instead of server template
+angular.module("myApp").directive('editMapPanes', function () {
+    var floorButtons = '<button type="button" class="btn btn-large btn-default" href="#edit-first-floor" data-toggle="tab">First Floor</button>';
+    floorButtons += '<button type="button" class="btn btn-large btn-default" href="#edit-second-floor" data-toggle="tab">Second Floor</button><button type="button" class="btn btn-large btn-default" href="#ct-edit" data-toggle="tab">Back</button>';
+
     return {
-        templateUrl: 'templates/modalLocTmpl.html',
+        template: floorButtons
     }
 });

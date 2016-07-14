@@ -1,7 +1,34 @@
+// Drawing features I want are:
+//Draw a circle, Draw a rectangle, draw a polygon
+//Dragable/movable areas
+//Resizable areas
+var studioConstructor = function( studioName ){
+  this.
+  this.data;
+  this.getPoints = function( container ){
+    container.on( 'click', function(){
+      if (d3.event.target.hasAttribute('is-handle')) {
+        closePolygon();
+        return;
+      }
+      if (dragging) {
+        return;
+      }
+      
+      var startPoint = [d3.mouse(this)[0], d3.mouse(this)[1]]
+    })
+  },
+  this.draw = function(){
+
+  }
+}
+
 var dragging = false, drawing = false, startPoint
+//container for the object
 var svg = d3.select('body').append('svg')
   .attr('height', 1000)
   .attr('width', 1000)
+//
 var points = [], g
 // behaviors
 var dragger = d3.behavior.drag()
@@ -9,6 +36,7 @@ var dragger = d3.behavior.drag()
   .on('dragend', function (d) {
     dragging = false
   })
+
 svg.on('mouseup', function () {
   if (dragging) return
   drawing = true

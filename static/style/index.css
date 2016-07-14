@@ -1,117 +1,180 @@
-    body {
-        font-family: 'Raleway', sans-serif;
-    }
+body {
+    font-family: 'Raleway', sans-serif;
+}
 
- #firstFloorWell, #secondFloorWell {
-        height: 70vh;
-        background: white;
-        border: 0px;
-    }
+.searchSectionExpanded {
+    height: auto;
+}
 
-    a {
-        color: black;
-    }
-    
-    #entryPO {
-        font-size: 20px;
-        margin-bottom: 10px;
-    }
+.searchSectionClosed {
+    height: 0vh;
+}
 
-    #entryPO:hover {
-        cursor: pointer;
-    }
+.panelTitle {
+    color: white;
+}
 
-    #std_panel-bg {
-        background: #F14A29;
-    }
+#firstFloorWell, #secondFloorWell {
+    height: 80vh;
+    background: white;
+    border: none;
+}
 
-    #tl_panel-bg {
-        background: #107CC2;
-    }
+#index-logo, #input-logo {
+    height: 5vh;
+}
 
-    #mat_panel-bg {
-        background: #F3902C;
-    }
+#accordion-container {
+    overflow-y: scroll;
+    height: 100vh;
+    background: white;
+}
 
-    #con_panel-bg {
-        background: #2BAC69;
-    }
+.panel-heading {
+    border-radius: 0px;
+}
 
-    #searchbar {
-        background: white;
-        border: 0px;
-    }
+a {
+    color: black;
+}
 
-    #searchSection {
-        height:0px;
-        overflow-y:scroll;
-        margin-left: 10px;
-        margin-top: 20px;
-    }
+small {
+    font-size: 12px;
+}
 
-    .panel-title {
-        color: white;
-        font-size: 20px;
-    }
+.view-color {
+    background: #fafafa;
+}
 
-    #ct-index-panel-body {
-        height: 53vh;
-        overflow-y: scroll;
-    }
+#index-main-view {
+    height: 50px;
+}
 
-    #inputLogo {
-        margin-left: 25px;
-    }
+.entryPO {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
 
-    .form-control {
-        margin-bottom: 5px;
-    }
+.entryPO:hover {
+    cursor: pointer;
+}
 
-    #backChevron {
-        margin-top: 10px;
-    }
+.red {
+    background-color: #F14A29 !important;
+}
 
-    #inputResultBox {
-        height: 70vh;
-        overflow-y: scroll;
-        background: white;
-    }
+.blue {
+    background-color: #107CC2 !important;
+}
 
-    #inputWell {
-        height: 70vh;
-        background:white;
-    }
+.orange {
+    background-color: #F3902C !important;
+}
 
-    #studioIn, #matIn, #conIn, #toolIn {
-        margin-top: 20px;
-    }
+.green {
+    background-color: #2BAC69 !important;
+}
 
-    #navTab {
-        margin: -10px;
-    }
+.category_margins {
+    margin-left: -15px;
+    margin-right: -15px;
+}
 
-    #edit-modal-body {
-        height: 50vh;
-        overflow-y: scroll;
-    }
+#searchbar {
+    background: white;
+    border: none;
+}
 
-    #ct-input-forms {
-        overflow-y: scroll;
-    }
+#searchSection {
+    background: #fafafa;
+    padding: 0px 0px 0px 20px;
+    margin: 20px -15px 20px -15px;
+}
 
-    #ct-index-panel-title-detail {
-        color: black;
-    }
+.panel-title {
+    font-size: 20px;
+}
 
-    #ct-index-panel-body-detail {
-        height: 73vh;
-        background: white;
-        font-size: 20px;
-    }
+#input-result-container {
+    height: 100vh;
+    overflow-y: scroll;
+    background: white;
+}
 
-    #ct-panel-toggle:hover {
-        cursor: pointer;
-    }
-    #ct-index-object-name {
-        text-align: right;
-    }
+#index_logo {
+    height: 60px;
+    margin-top: 10px;
+}
+
+#ct-input-forms {
+    overflow-y: scroll;
+}
+
+.lvl1-box-shadow {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+#entryBody {
+    height: 80vh;
+    background: white;
+    font-size: 20px;
+    border: none;
+}
+
+.ct-panel-toggle {
+    color: white;
+}
+
+.ct-panel-toggle:hover {
+    cursor: pointer;
+}
+
+#ct-index-object-name {
+    text-align: right;
+}
+
+.panel {
+    border: none;
+}
+
+#ct-edit, #loc-edit {
+    margin-top: 20px;
+}
+
+#index-view-container {
+    margin-left: 70px;
+}
+
+#floor1Tab, #floor2Tab {
+    border-radius: 0px;
+}
+
+#marker1 {
+    z-index: 5 !important;
+}
+
+.nav {
+    border: 0px;
+}
+
+#edit-first-floor, #edit-second-floor {
+    height: 80vh;
+    padding-bottom: 30px;
+}
+
+#input-tab-content {
+    height: auto;
+    max-height: 90vh;
+    overflow-y: scroll;
+    background: white;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+#input-container {
+    margin-top: 2vh;
+}
+
+#dimension-drop-down, #weight-drop-down {
+    margin-bottom: -15px;
+}
