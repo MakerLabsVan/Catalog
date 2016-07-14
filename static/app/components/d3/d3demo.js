@@ -1,20 +1,12 @@
-var rectangleData = [
-  { 'rx': 0, 'ry': 20, 'height': 5, 'width': 10, 'id': 'studio1' },
-  { 'rx': 20, 'ry': 70, 'height': 5, 'width': 15, 'id': 'studio2' },
-  { 'rx': 69, 'ry': 69, 'height': 5, 'width': 5, 'id': 'studio3' }];
-
-
-
 //TODO: Reorganize object, use prototypes to seperate methods
 //TODO: Seperate the nested objects
-//TODO:
 var mapConstructor = function (containerID, floorNum, studioData) {
     this.floorNum = floorNum,
     //Container object which contains all map objects
     this.container = d3.select('#' + containerID).append('svg')
-      .attr('width', '100%')
-      .attr('height', '100%')
-      .attr('id', 'floor' + floorNum),
+      .attr('id', 'floor' + floorNum)
+      .attr('class', 'mapContainer'),
+
     //Returns width of the map container
     this.width = function () {
       return this.container.node().getBoundingClientRect().width;
@@ -27,8 +19,67 @@ var mapConstructor = function (containerID, floorNum, studioData) {
 
     // this.map = addMap(this.container, getFilePath(floorNum)),
 
-    this.map = addMap(this.container,"/assets/ISO.png" ),
+    this.map = addImgMap(this.container,"/assets/ISO.png" ),
 
+    //Studios
+    this.studio = {
+      //Draws all the studios in studioData
+      data: data = [],
+
+      list: list = d3.select('svg#floor' + floorNum)
+        .append('g')
+        .attr('class','studioF' + floorNum),
+
+      draw: function (studioData) {
+        this.data = this.data.concat(studioData);
+        this.list
+          .append('g')
+          .attr('id', studioData[0].id)
+          .attr('class','studio')
+          .selectAll('rect')
+          .data(studioData)
+          .enter()
+          .append('rect')
+          .attr('x', function (d) { return inToPx(d.rx) + 'px'; })
+          .attr('y', function (d) { return inToPx(d.ry) + 'px'; })
+          .attr('height', function (d) { return inToPx(d.height) + 'px'; })
+          .attr('width', function (d) { return inToPx(d.width) + 'px'; })
+
+      },
+      resize: function (width, height) {
+        var scale = getScalingRatio(width, height, floorNum);
+        var scale = scale / 12;
+        //var scale = getIsoScalingRatio(width);
+        if (scale !== 0 && !isNaN(scale)) {
+          //Magical numbers, just testing
+          //this.list.attr('transform','translate(266, 345) scale('+scale+','+scale*0.6+') rotate(-135, 0, 0) ')
+          this.list.attr('transform','scale('+scale+')')
+        }
+      },
+
+      remove: function (objID) {
+        d3.select('#' + objID)
+          .style('visibility', 'hidden');
+      },
+
+      set: function (objID, xPos, yPos) {
+        d3.select('#' + objID)
+          .attr('x', xPos)
+          .attr('y', yPos)
+          .style('visibility', null);
+      },
+
+      highlight: function (objID) {
+        d3.select('#' + objID)
+          .attr('fill', 'red')
+          .style('visibility', null);
+      },
+
+      dehighlight: function (objID) {
+        d3.select('#' + objID)
+          .attr('fill', null)
+      },
+    }
     //Where am I marker
     this.currentLocMarker = {
       icon : icon = addIAmHereMarker(this.container, floorNum),
@@ -36,7 +87,7 @@ var mapConstructor = function (containerID, floorNum, studioData) {
         var mark = d3.select('#here' + floorNum);
         var scale = getScalingRatio(width, height, floorNum)/10; // conversion from db value to actual map
         var xPx = inToPx(xPos * scale) + parseInt(mark.attr('width')) / 2;
-        var yPx = inToPx(yPos * scale) - parseInt(mark.attr('height')) * 1;
+        var yPx = inToPx(yPos * scale) - parseInt(mark.attr('height')) ;
         mark.moveToFront();
         mark
           .attr('x', xPx + 'px')
@@ -95,64 +146,7 @@ var mapConstructor = function (containerID, floorNum, studioData) {
         return [xFt, yFt];
       }
     }
-    //Group of all studios
-  this.studio = {
-    //Draws all the studios in studioData
-    data: data = [],
 
-    list: list = d3.select('svg#floor' + floorNum).append('g'),
-
-    draw: function (studioData) {
-      this.data = this.data.concat(studioData);
-      //this.list = this.list.remove();
-      // console.log(studioData[0].id)
-      this.list
-        .append('g')
-        .attr('id', studioData[0].id)
-        .selectAll('rect')
-        .data(studioData)
-        .enter()
-        .append('rect')
-        .attr('x', function (d) { return inToPx(d.rx) + 'px'; })
-        .attr('y', function (d) { return inToPx(d.ry) + 'px'; })
-        .attr('height', function (d) { return inToPx(d.height) + 'px'; })
-        .attr('width', function (d) { return inToPx(d.width) + 'px'; })
-        .attr('class','studio')
-
-    },
-
-    resize: function (width, height) {
-      var scale = getScalingRatio(width, height, floorNum);
-      var scale = scale / 13;
-      if (scale !== 0 && !isNaN(scale)) {
-        this.list.attr('transform','translate(250, 300) scale('+scale+','+scale*0.59+') rotate(-135, 0, 0) ')
-
-      }
-    },
-
-    remove: function (objID) {
-      d3.select('#' + objID)
-        .style('visibility', 'hidden');
-    },
-
-    set: function (objID, xPos, yPos) {
-      d3.select('#' + objID)
-        .attr('x', xPos)
-        .attr('y', yPos)
-        .style('visibility', null);
-    },
-
-    highlight: function (objID) {
-      d3.select('#' + objID)
-        .attr('fill', 'red')
-        .style('visibility', null);
-    },
-
-    dehighlight: function (objID) {
-      d3.select('#' + objID)
-        .attr('fill', null)
-    },
-  }
 };
 
 //Round up to 5
@@ -169,6 +163,11 @@ var pxToIn = function (x) {
   return x / 96;
 }
 
+var getIsoScalingRatio = function( width ){
+  var originalWidth = 1000;
+  var scale = width / originalWidth;
+  return scale;
+}
 //Get Value to transform objects on map corresponding to the map SVG file
 //Default floor 1 aspect if no floorNum
 var getScalingRatio = function (width, height, floorNum) {
@@ -187,8 +186,8 @@ var getScalingRatio = function (width, height, floorNum) {
     } else {
       return width / 1364.490;
     }
+  }
 
-  };
 };
 
 //Get file path for the floor level
@@ -221,23 +220,27 @@ var addContainer = function (containerID, width, height) {
     .attr('height', '100%')
 };
 
-//Add the map svg to the container, can not change width height after initialize
-var addMap = function (container, filePath) {
 
+var addSvgMap = function (container, filePath){
+  d3.xml(filePath, 'image/svg+xml', function (xml) {
+    container.node().appendChild(document.importNode(xml.documentElement, true));
+    container.select('svg')
+      .attr('x', 0)
+      .attr('y', 0)
+      .attr('height', '100%')
+      .attr('width', '100%')
+      .attr('preserveAspectRatio', 'xMinYMin meet')
+  });
+}
+//Add the map svg to the container, can not change width height after initialize
+var addImgMap = function (container, filePath) {
   container.append("svg:image")
     .attr("xlink:href",filePath)
-   .attr('width',"100%")
-   .attr('height','200%')
-   .attr('preserveAspectRatio', 'xMinYMin meet')
-  // d3.xml(filePath, 'image/svg+xml', function (xml) {
-  //   container.node().appendChild(document.importNode(xml.documentElement, true));
-  //   container.select('svg')
-  //     .attr('x', 0)
-  //     .attr('y', 0)
-  //     .attr('height', '100%')
-  //     .attr('width', '100%')
-  //     .attr('preserveAspectRatio', 'xMinYMin meet')
-  // });
+    .attr('width',"100vh")
+    .attr('height','100vw')
+    .attr('preserveAspectRatio', 'xMinYMin meet')
+    .attr('class','isoFloor1')
+
 };
 
 //Add a SVG location marker object initially hidden

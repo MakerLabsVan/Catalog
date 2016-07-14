@@ -95,7 +95,7 @@ angular.module("myApp", ['d3mapping'])
                 document.getElementById('secondLi').className = 'active';
                 document.getElementById('firstFloor').className = 'tab-pane';
                 document.getElementById('secondFloor').className = 'tab-pane active';
-                $scope.resizeMap2;
+                $scope.resizeMap;
             }
         };
 
@@ -158,6 +158,7 @@ angular.module("myApp").service("mapService", function () {
             var height = map.height();
         }
 
+        map.studio.resize(width, height);
         map.studio.resize(width, height);
     };
 
