@@ -31,7 +31,7 @@ angular.module("myApp", ['d3mapping'])
                         object[$scope.dataLabels[j]] = shiftedData[i][j];
                     }
                     // 20 could change
-                    $scope.entries[shiftedData[i][20]] = object;
+                    $scope.entries[shiftedData[i][21]] = object;
                 }
                 ;
 
@@ -98,6 +98,7 @@ angular.module("myApp", ['d3mapping'])
         // using service to highlight items
         $scope.highlightItem = highlightService.highlight;
 
+        // search bar functions
         var isIndexOf = function (property) {
             if (property.toLowerCase().indexOf($scope.queryTerm.toLowerCase()) != -1) {
                 return true;
@@ -106,12 +107,18 @@ angular.module("myApp", ['d3mapping'])
             }
         };
 
+        var isIndexOfSet = function (entry) {
+            if (isIndexOf(entry.name) ||
+                isIndexOf(entry.type) ||
+                isIndexOf(entry.subtype) ||
+                isIndexOf(entry.keywords)) {
+                return true;
+            }
+        };
+
         $scope.filterSearch = function (entry) {
             if ($scope.queryTerm.length >= 2) {
-                if (isIndexOf(entry.name) ||
-                    isIndexOf(entry.type) ||
-                    isIndexOf(entry.subtype) ||
-                    isIndexOf(entry.keywords)) {
+                if (isIndexOfSet(entry)) {
                     return entry.name;
                 }
             }
@@ -229,7 +236,7 @@ angular.module("myApp", ['d3mapping'])
         };
 
         // combined function
-        $scope.onSelect = function(entry, category){
+        $scope.onSelect = function (entry, category) {
             $scope.showEntryDetails(entry);
             $scope.switchMapsOnClick(entry.floor);
             $scope.showLoc(entry.key);
