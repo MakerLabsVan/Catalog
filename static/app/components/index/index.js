@@ -35,6 +35,8 @@ angular.module("myApp", ['d3mapping'])
                 }
                 ;
 
+                console.log($scope.entries);
+
                 // make category data
                 $scope.studioEntries = {};
                 $scope.materialEntries = {};
@@ -93,6 +95,8 @@ angular.module("myApp", ['d3mapping'])
             }
         };
 
+        $scope.found = false;
+
         // using service to highlight items
         $scope.highlightItem = highlightService.highlight;
 
@@ -133,8 +137,13 @@ angular.module("myApp", ['d3mapping'])
             $('#entryBody').addClass('hidden');
             $('#entryDetails').removeClass('hidden');
 
+            $scope.isEmpty = function (prop) {
+                return !($scope.selectedObject[prop] === '' ||
+                prop === 'locx' ||
+                prop === 'locy' ||
+                prop === 'metadata');
+            };
         };
-
 
         $scope.switchMapsOnClick = function (floor) {
             if (floor == 1) {
@@ -243,6 +252,3 @@ angular.module("myApp").service("highlightService", function () {
     }
 });
 
-angular.module("myApp").directive("hideOnComplete", function () {
-
-});

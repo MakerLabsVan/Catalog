@@ -65,7 +65,8 @@
                             />
                             <div class="lvl1-box-shadow" id="searchSection">
                                 <div ng-repeat="entry in entries">
-                                    <div class="entryNames">
+                                    <div class="entryNames" id="query{{ entry.key }}"
+                                         ng-if="found">
                                         <!--{{ entry.name }}-->
                                     </div>
                                 </div>
@@ -76,7 +77,7 @@
                         <div class="panel-heading lvl1-box-shadow red categoryMargins">
                             <h4 class="panel-title">
                                 <div data-toggle="collapse" href="#collapse1"
-                                     class="whiteFont"> {{ categories.studio }} </div>
+                                     class="whiteFont" ng-bind="categories.studio"></div>
                             </h4>
                         </div>
                         <div id="collapse1" class="panel-collapse collapse categoryMargins" data-parent="#accordion">
@@ -85,8 +86,7 @@
                                 <div ng-repeat="entry in studioEntries">
                                     <div class="entryNames"
                                          ng-click="showEntryDetails(entry);switchMapsOnClick(entry.floor);showLoc(entry.key);highlightItem('studio_' + entry.key)"
-                                         id="studio_{{ entry.key }}">
-                                        {{ entry.name}}
+                                         id="studio_{{ entry.key }}" ng-bind="entry.name">
                                     </div>
                                 </div>
                             </div>
@@ -96,15 +96,14 @@
                         <div class="panel-heading lvl1-box-shadow blue categoryMargins">
                             <h4 class="panel-title">
                                 <div data-toggle="collapse" href="#collapse2"
-                                     class="whiteFont"> {{ categories.tools }} </div>
+                                     class="whiteFont" ng-bind="categories.tools"></div>
                             </h4>
                         </div>
                         <div id="collapse2" class="panel-collapse collapse categoryMargins" data-parent="#accordion">
                             <div class="panel-body categoryContainer">
                                 <div ng-repeat="entry in toolEntries">
                                     <div ng-click="showEntryDetails(entry);showLoc(entry.key);switchMapsOnClick(entry.floor);highlightItem('tool_' + entry.key)"
-                                         class="entryNames" id="tool_{{ entry.key }}">
-                                        {{ entry.name }}
+                                         class="entryNames" id="tool_{{ entry.key }}" ng-bind="entry.name">
                                     </div>
                                 </div>
                             </div>
@@ -114,15 +113,14 @@
                         <div class="panel-heading lvl1-box-shadow green categoryMargins">
                             <h4 class="panel-title">
                                 <div data-toggle="collapse" href="#collapse3"
-                                     class="whiteFont"> {{ categories.cons }} </div>
+                                     class="whiteFont" ng-bind="categories.cons"></div>
                             </h4>
                         </div>
                         <div id="collapse3" class="panel-collapse collapse categoryMargins" data-parent="#accordion">
                             <div class="panel-body categoryContainer">
                                 <div ng-repeat="entry in consumableEntries">
                                     <div ng-click="showEntryDetails(entry);showLoc(entry.key);switchMapsOnClick(entry.floor);highlightItem('cons_' + entry.key)"
-                                         class="entryNames" id="cons_{{ entry.key }}">
-                                        {{ entry.name }}
+                                         class="entryNames" id="cons_{{ entry.key }}" ng-bind="entry.name">
                                     </div>
                                 </div>
                             </div>
@@ -132,15 +130,14 @@
                         <div class="panel-heading lvl1-box-shadow orange categoryMargins">
                             <h4 class="panel-title">
                                 <div data-toggle="collapse" href="#collapse4"
-                                     class="whiteFont"> {{ categories.mats }} </div>
+                                     class="whiteFont" ng-bind="categories.mats"></div>
                             </h4>
                         </div>
                         <div id="collapse4" class="panel-collapse collapse categoryMargins" data-parent="#accordion">
                             <div class="panel-body categoryContainer" id="ct-index-panel-body">
                                 <div ng-repeat="entry in materialEntries">
                                     <div ng-click="showEntryDetails(entry);showLoc(entry.key);switchMapsOnClick(entry.floor);highlightItem('material_' + entry.key)"
-                                         class="entryNames" id="material_{{ entry.key }}">
-                                        {{ entry.name }}
+                                         class="entryNames" id="material_{{ entry.key }}" ng-bind="entry.name">
                                     </div>
                                 </div>
                             </div>
@@ -154,27 +151,23 @@
             <div class="col-sm-3 view-color" id="index-view-container">
                 <div class="panel panel-default lvl1-box-shadow" id="ct-index-panel">
                     <div class="panel-heading" id="indexPanelHeading">
-                        <p class="panel-title" id="ct-index-panel-title-detail">
-                            <!--panel title-->
-                            {{ panelTitleName }}
-                            <small>{{ panelTitleType }}</small>
+                        <p class="panel-title" id="ct-index-panel-title-detail" ng-bind="panelTitleName">
                         </p>
+                        <small ng-bind="panelTitleType"></small>
                     </div>
                     <div class="panel-body" id="entryBody">
                         <!--panel body-->
                         <div class="" id="welcomeMessage">
-                            <p>{{ panelBodyMessage.name }}</p>
-                            <p>{{ panelBodyMessage.body }}</p>
+                            <p ng-bind="panelBodyMessage.name"></p>
+                            <p ng-bind="panelBodyMessage.body"></p>
                         </div>
                     </div>
                     <div class="panel-body hidden" id="entryDetails">
                         <div class="col-sm-12" ng-repeat="prop in dataLabels track by $index">
-                            <div class="row" ng-if="selectedObject[prop]!==''" id="{{ selectedObject.key }}{{ prop }}">
-                                <div class="col-sm-6">
-                                    <b>{{ entryProperties[$index] }}: </b>
+                            <div class="row" ng-if="isEmpty(prop)" id="{{ selectedObject.key }}{{ prop }}">
+                                <div class="col-sm-6" ng-bind="entryProperties[$index] + ':'">
                                 </div>
-                                <div class="col-sm-6">
-                                    {{ selectedObject[prop] }}
+                                <div class="col-sm-6 alignEntryValues" ng-bind="selectedObject[prop]">
                                 </div>
                             </div>
                         </div>
