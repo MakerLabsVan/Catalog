@@ -59,15 +59,13 @@
                 <!-- accordion start -->
                 <div class="panel-group" id="accordion">
                     <div class="row">
-                        <div class="col-sm-12 ">
+                        <div class="col-sm-12">
                             <input type="search" class="form-control lvl1-box-shadow" placeholder="Search here"
-                                   ng-model="queryTerm" ng-change="changeHeight()"
-                            />
+                                   ng-model="queryTerm" ng-init="changeHeight()" ng-change="changeHeight()"/>
                             <div class="lvl1-box-shadow" id="searchSection">
                                 <div ng-repeat="entry in entries">
-                                    <div class="entryNames" id="query{{ entry.key }}"
-                                         ng-if="found">
-                                        <!--{{ entry.name }}-->
+                                    <div class="entryNames" ng-bind="filterSearch(entry)">
+                                        <!-- ENTRIES SHOW HERE-->
                                     </div>
                                 </div>
                             </div>

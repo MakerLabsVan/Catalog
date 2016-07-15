@@ -95,10 +95,27 @@ angular.module("myApp", ['d3mapping'])
             }
         };
 
-        $scope.found = false;
-
         // using service to highlight items
         $scope.highlightItem = highlightService.highlight;
+
+        var isIndexOf = function (property) {
+            if (property.toLowerCase().indexOf($scope.queryTerm.toLowerCase()) != -1) {
+                return true;
+            } else {
+                return false;
+            }
+        };
+
+        $scope.filterSearch = function (entry) {
+            if ($scope.queryTerm.length >= 2) {
+                if (isIndexOf(entry.name) ||
+                    isIndexOf(entry.type) ||
+                    isIndexOf(entry.subtype) ||
+                    isIndexOf(entry.keywords)) {
+                    return entry.name;
+                }
+            }
+        };
 
         $scope.panelBodyMessage = {
             "name": "MakerLabs",

@@ -20,14 +20,14 @@ body {
     color: blue;
 }
 
-
 .searchSectionExpanded {
     height: auto;
     max-height: 60vh;
+    overflow-y: scroll;
 }
 
 .searchSectionClosed {
-    height: 0vh;
+    height: 0px;
 }
 
 #firstFloorWell, #secondFloorWell {
