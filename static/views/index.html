@@ -64,7 +64,8 @@
                                    ng-model="queryTerm" ng-init="changeHeight()" ng-change="changeHeight()"/>
                             <div class="lvl1-box-shadow" id="searchSection">
                                 <div ng-repeat="entry in entries">
-                                    <div class="entryNames" ng-bind="filterSearch(entry)">
+                                    <div class="entryNames" ng-click="onSelect(entry,'query')"
+                                         ng-bind="filterSearch(entry)" id="query_{{entry.key}}">
                                         <!-- ENTRIES SHOW HERE-->
                                     </div>
                                 </div>
@@ -83,7 +84,7 @@
                                 <!-- studio data -->
                                 <div ng-repeat="entry in studioEntries">
                                     <div class="entryNames"
-                                         ng-click="showEntryDetails(entry);switchMapsOnClick(entry.floor);showLoc(entry.key);highlightItem('studio_' + entry.key)"
+                                         ng-click="onSelect(entry,'studio')"
                                          id="studio_{{ entry.key }}" ng-bind="entry.name">
                                     </div>
                                 </div>
@@ -100,7 +101,7 @@
                         <div id="collapse2" class="panel-collapse collapse categoryMargins" data-parent="#accordion">
                             <div class="panel-body categoryContainer">
                                 <div ng-repeat="entry in toolEntries">
-                                    <div ng-click="showEntryDetails(entry);showLoc(entry.key);switchMapsOnClick(entry.floor);highlightItem('tool_' + entry.key)"
+                                    <div ng-click="onSelect(entry,'tool')"
                                          class="entryNames" id="tool_{{ entry.key }}" ng-bind="entry.name">
                                     </div>
                                 </div>
@@ -117,7 +118,7 @@
                         <div id="collapse3" class="panel-collapse collapse categoryMargins" data-parent="#accordion">
                             <div class="panel-body categoryContainer">
                                 <div ng-repeat="entry in consumableEntries">
-                                    <div ng-click="showEntryDetails(entry);showLoc(entry.key);switchMapsOnClick(entry.floor);highlightItem('cons_' + entry.key)"
+                                    <div ng-click="onSelect(entry,'cons')"
                                          class="entryNames" id="cons_{{ entry.key }}" ng-bind="entry.name">
                                     </div>
                                 </div>
@@ -134,7 +135,7 @@
                         <div id="collapse4" class="panel-collapse collapse categoryMargins" data-parent="#accordion">
                             <div class="panel-body categoryContainer" id="ct-index-panel-body">
                                 <div ng-repeat="entry in materialEntries">
-                                    <div ng-click="showEntryDetails(entry);showLoc(entry.key);switchMapsOnClick(entry.floor);highlightItem('material_' + entry.key)"
+                                    <div ng-click="onSelect(entry,'material')"
                                          class="entryNames" id="material_{{ entry.key }}" ng-bind="entry.name">
                                     </div>
                                 </div>

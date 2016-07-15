@@ -226,7 +226,15 @@ angular.module("myApp", ['d3mapping'])
                     $scope.map2.studio.dehighlight(lastItem[$scope.index.id]);
                 }
             }
-        }
+        };
+
+        // combined function
+        $scope.onSelect = function(entry, category){
+            $scope.showEntryDetails(entry);
+            $scope.switchMapsOnClick(entry.floor);
+            $scope.showLoc(entry.key);
+            $scope.highlightItem(category + '_' + entry.key);
+        };
     }]);
 
 // service to share methods for map construction and resizing
