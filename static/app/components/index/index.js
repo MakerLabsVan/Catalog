@@ -1,5 +1,5 @@
 angular.module("myApp", ['d3mapping'])
-    .controller("MainCtrl", ["$scope", '$http', "mapService", "highlightService", function ($scope, $http, mapService, highlightService) {
+    .controller("MainCtrl", ["$scope", '$http', "$timeout", "mapService", "highlightService", function ($scope, $http, $timeout, mapService, highlightService) {
 
         // init call of data (put in var)
         $http.get('/publicGetData')
@@ -133,16 +133,6 @@ angular.module("myApp", ['d3mapping'])
             $('#entryBody').addClass('hidden');
             $('#entryDetails').removeClass('hidden');
 
-            $scope.$watch('selectedObject', function (selectedObject) {
-                for (i in selectedObject) {
-                    var id = String('#' + selectedObject.key + '.' + i);
-                    var elem = $(id);
-                    if (selectedObject[i] === '') {
-                        elem.addClass('hidden');
-                    }
-                }
-            });
-
         };
 
 
@@ -251,4 +241,8 @@ angular.module("myApp").service("highlightService", function () {
     return {
         highlight: highlight
     }
+});
+
+angular.module("myApp").directive("hideOnComplete", function () {
+
 });
