@@ -1,5 +1,4 @@
 angular.module("myApp", ['d3mapping'])
-
     .controller("MainCtrl", ["$scope", '$http', "mapService", "highlightService", function ($scope, $http, mapService, highlightService) {
 
         // init call of data (put in var)
@@ -9,7 +8,7 @@ angular.module("myApp", ['d3mapping'])
                 $scope.data = data;
 
                 // labels to use for object
-                var dataLabels = data[1];
+                $scope.dataLabels = data[1];
 
                 // labels to display
                 $scope.entryProperties = data[0];
@@ -27,9 +26,9 @@ angular.module("myApp", ['d3mapping'])
                 // use loop to make the object
                 for (i in shiftedData) {
                     var object = {};
-                    for (j in dataLabels) {
+                    for (j in $scope.dataLabels) {
                         // ex. object.name.label
-                        object[dataLabels[j]] = shiftedData[i][j];
+                        object[$scope.dataLabels[j]] = shiftedData[i][j];
                     }
                     // 20 could change
                     $scope.entries[shiftedData[i][20]] = object;
@@ -104,6 +103,7 @@ angular.module("myApp", ['d3mapping'])
 
         $scope.panelTitleName = 'MakerLabs';
         $scope.panelTitleType = '';
+
         $scope.showEntryDetails = function (entry) {
 
             // TODO: change to var instead of $scope later
@@ -132,20 +132,32 @@ angular.module("myApp", ['d3mapping'])
 
             $('#entryBody').addClass('hidden');
             $('#entryDetails').removeClass('hidden');
+
+            $scope.$watch('selectedObject', function (selectedObject) {
+                for (i in selectedObject) {
+                    var id = String('#' + selectedObject.key + '.' + i);
+                    var elem = $(id);
+                    if (selectedObject[i] === '') {
+                        elem.addClass('hidden');
+                    }
+                }
+            });
+
         };
+
 
         $scope.switchMapsOnClick = function (floor) {
             if (floor == 1) {
-                document.getElementById('firstLi').className = 'active';
-                document.getElementById('secondLi').className = '';
-                document.getElementById('firstFloor').className = 'tab-pane active';
-                document.getElementById('secondFloor').className = 'tab-pane';
+                $('#firstLi').addClass('active');
+                $('#secondLi').removeClass('active');
+                $('#firstFloor').addClass('active');
+                $('#secondFloor').removeClass('active');
                 $scope.resizeMap1;
             } else {
-                document.getElementById('firstLi').className = '';
-                document.getElementById('secondLi').className = 'active';
-                document.getElementById('firstFloor').className = 'tab-pane';
-                document.getElementById('secondFloor').className = 'tab-pane active';
+                $('#firstLi').removeClass('active');
+                $('#secondLi').addClass('active');
+                $('#firstFloor').removeClass('active');
+                $('#secondFloor').addClass('active');
                 $scope.resizeMap2;
             }
         };
@@ -227,21 +239,16 @@ angular.module("myApp").service("highlightService", function () {
     var lastObject = null;
     var highlight = function (objectId) {
         if (lastObject != null) {
-            document.getElementById(lastObject).style.color = 'black';
-            document.getElementById(lastObject).style['font-weight'] = 'normal';
-            document.getElementById(objectId).style.color = 'blue';
-            document.getElementById(objectId).style['font-weight'] = 'bold';
+            $('#' + lastObject).addClass('normalFont').removeClass('selectFont');
+            $('#' + objectId).addClass('selectFont').removeClass('normalFont');
             lastObject = objectId;
         } else {
-            document.getElementById(objectId).style.color = 'blue';
-            document.getElementById(objectId).style['font-weight'] = 'bold';
+            $('#' + objectId).addClass('selectFont').removeClass('normalFont');
             lastObject = objectId;
         }
         ;
     };
-
     return {
         highlight: highlight
     }
-
 });

@@ -168,8 +168,16 @@
                         </div>
                     </div>
                     <div class="panel-body hidden" id="entryDetails">
-                        <div class="col-sm-12" ng-repeat="prop in selectedObject track by $index">
-                            <b>{{ entryProperties[$index] }}: </b>{{ prop }}
+                        <div class="col-sm-12" ng-repeat="prop in dataLabels track by $index"
+                             id="{{ selectedObject.key }}.{{ prop }}">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <b>{{ entryProperties[$index] }}: </b>
+                                </div>
+                                <div class="col-sm-6">
+                                    {{ selectedObject[prop] }}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

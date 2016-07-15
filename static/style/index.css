@@ -6,6 +6,21 @@ body {
     display: none;
 }
 
+.alignEntryValues {
+    text-align: justify;
+}
+
+.normalFont {
+    font-weight: normal;
+    color: black;
+}
+
+.selectFont {
+    font-weight: bold;
+    color: blue;
+}
+
+
 .searchSectionExpanded {
     height: auto;
     max-height: 60vh;
