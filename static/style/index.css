@@ -2,6 +2,34 @@ body {
     font-family: 'Raleway', sans-serif;
 }
 
+.hidden {
+    display: none !important;
+}
+
+.alignEntryValues {
+    text-align: right;
+}
+
+.normalFont {
+    font-weight: normal;
+    color: black;
+}
+
+.selectFont {
+    font-weight: bold;
+    color: blue;
+}
+
+.searchSectionExpanded {
+    height: auto;
+    max-height: 60vh;
+    overflow-y: scroll;
+}
+
+.searchSectionClosed {
+    height: 0px;
+}
+
 #firstFloorWell, #secondFloorWell {
     height: 80vh;
     background: white;
@@ -13,9 +41,12 @@ body {
 }
 
 #accordion-container {
-    overflow-y: scroll;
     height: 100vh;
     background: white;
+}
+
+#accordion {
+    margin-bottom: -10px;
 }
 
 .panel-heading {
@@ -26,6 +57,10 @@ a {
     color: black;
 }
 
+small {
+    font-size: 12px;
+}
+
 .view-color {
     background: #fafafa;
 }
@@ -34,34 +69,49 @@ a {
     height: 50px;
 }
 
-.entryPO {
+.entryNames {
     font-size: 20px;
     margin-bottom: 10px;
 }
 
-.entryPO:hover {
+.entryNames:hover {
     cursor: pointer;
 }
 
-#std_panel-bg {
-    background: #F14A29;
+.panel-title:hover {
+    cursor: pointer;
 }
 
-#tl_panel-bg {
-    background: #107CC2;
+.red {
+    background-color: #F14A29 !important;
 }
 
-#mat_panel-bg {
-    background: #F3902C;
+.blue {
+    background-color: #107CC2 !important;
 }
 
-#con_panel-bg {
-    background: #2BAC69;
+.orange {
+    background-color: #F3902C !important;
 }
 
-#std_panel-bg, #tl_panel-bg, #mat_panel-bg, #con_panel-bg {
-    margin-left: -15px;
-    margin-right: -15px;
+.green {
+    background-color: #2BAC69 !important;
+}
+
+.whiteFont {
+    color: white;
+}
+
+.categoryMargins {
+    margin: 0px -15px 0px -15px;
+}
+
+.categoryContainer {
+    height: 65vh;
+    overflow-y: scroll;
+}
+
+.resultMargins {
 }
 
 #searchbar {
@@ -70,7 +120,6 @@ a {
 }
 
 #searchSection {
-    height:0px;
     background: #fafafa;
     padding: 0px 0px 0px 20px;
     margin: 20px -15px 20px -15px;
@@ -80,7 +129,7 @@ a {
     font-size: 20px;
 }
 
-#input-result-container  {
+#input-result-container {
     height: 100vh;
     overflow-y: scroll;
     background: white;
@@ -95,24 +144,15 @@ a {
     overflow-y: scroll;
 }
 
-#ct-idx-ph-det {
-    background: white;
-    border: 0px;
-}
-
 .lvl1-box-shadow {
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
-#ct-index-panel-body-detail {
+#entryBody, #entryDetails {
     height: 80vh;
     background: white;
     font-size: 20px;
     border: none;
-}
-
-.ct-panel-toggle {
-    color: white;
 }
 
 .ct-panel-toggle:hover {
@@ -127,20 +167,21 @@ a {
     border: none;
 }
 
-#ct-edit, #loc-edit{
+#ct-edit, #loc-edit {
     margin-top: 20px;
 }
 
 #index-view-container {
     margin-left: 70px;
+    height: 80vh;
 }
 
 #floor1Tab, #floor2Tab {
     border-radius: 0px;
 }
 
-#marker1{
-  z-index: 5!important;
+#marker1 {
+    z-index: 5 !important;
 }
 
 .nav {
@@ -154,7 +195,7 @@ a {
 
 #input-tab-content {
     height: auto;
-    max-height: 95vh;
+    max-height: 90vh;
     overflow-y: scroll;
     background: white;
     padding-bottom: 10px;
@@ -192,5 +233,5 @@ a {
   transform: rotate(-135);
 }*/
 #dimension-drop-down, #weight-drop-down {
-    margin-bottom:-15px;
+    margin-bottom: -15px;
 }

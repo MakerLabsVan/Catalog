@@ -1,13 +1,66 @@
 angular.module("myApp", ['d3mapping'])
-
-    .controller("MainCtrl", ["$scope", '$http', "mapService", "highlightService", function ($scope, $http, mapService, highlightService) {
+    .controller("MainCtrl", ["$scope", '$http', "$timeout", "mapService", "highlightService", function ($scope, $http, $timeout, mapService, highlightService) {
 
         // init call of data (put in var)
         $http.get('/publicGetData')
             .success(function (data, status, header, config) {
                 // success data
                 $scope.data = data;
-                $scope.entryProperties = $scope.data[0];
+
+                // labels to use for object
+                $scope.dataLabels = data[1];
+
+                // labels to display
+                $scope.entryProperties = data[0];
+
+                // shift data
+                $scope.data.shift();
+                $scope.data.shift();
+
+                // removed 2 frozen rows
+                var shiftedData = $scope.data;
+
+                // object entries
+                // THIS IS THE NEW DATA LIST IN OBJECT FORM
+                $scope.entries = {};
+                // use loop to make the object
+                for (i in shiftedData) {
+                    var object = {};
+                    for (j in $scope.dataLabels) {
+                        // ex. object.name.label
+                        object[$scope.dataLabels[j]] = shiftedData[i][j];
+                    }
+                    // 20 could change
+                    $scope.entries[shiftedData[i][21]] = object;
+                }
+                ;
+
+                console.log($scope.entries);
+
+                // make category data
+                $scope.studioEntries = {};
+                $scope.materialEntries = {};
+                $scope.toolEntries = {};
+                $scope.consumableEntries = {};
+
+                for (key in $scope.entries) {
+                    // why doesn't entries.key work here
+                    switch ($scope.entries[key].type) {
+                        case 'Studio':
+                            $scope.studioEntries[key] = $scope.entries[key];
+                            break;
+                        case 'Material':
+                            $scope.materialEntries[key] = $scope.entries[key];
+                            break;
+                        case 'Tool':
+                            $scope.toolEntries[key] = $scope.entries[key];
+                            break;
+                        case 'Consumable':
+                            $scope.consumableEntries[key] = $scope.entries[key];
+                    }
+                }
+                // but entries.key works here
+
                 $scope.index = {
                     "x": $scope.entryProperties.indexOf('Location x (ft)'),
                     "y": $scope.entryProperties.indexOf('Location y (ft)'),
@@ -17,8 +70,8 @@ angular.module("myApp", ['d3mapping'])
                     "id": $scope.entryProperties.indexOf('Key'),
                     "type": $scope.entryProperties.indexOf('Type'),
                     "name": $scope.entryProperties.indexOf('Name')
-                }
-                $scope.data.shift();
+                };
+
             })
             .error(function (data, status, header, config) {
                 // something went wrong
@@ -33,69 +86,102 @@ angular.module("myApp", ['d3mapping'])
         };
 
         $scope.queryTerm = '';
-
         // change height of query result box dynamically
         $scope.changeHeight = function () {
             if ($scope.queryTerm.length >= 2) {
-                document.getElementById("searchSection").style.height = 'auto';
+                $("#searchSection").addClass('searchSectionExpanded').removeClass('searchSectionClosed');
             } else {
-                document.getElementById("searchSection").style.height = '0vh';
+                $("#searchSection").addClass('searchSectionClosed').removeClass('searchSectionExpanded');
             }
         };
 
         // using service to highlight items
         $scope.highlightItem = highlightService.highlight;
 
-        // change middle panel to display entry information and stylize accordingly
-        $scope.showEntryDetails = function (object) {
+        // search bar functions
+        var isIndexOf = function (property) {
+            if (property.toLowerCase().indexOf($scope.queryTerm.toLowerCase()) != -1) {
+                return true;
+            } else {
+                return false;
+            }
+        };
 
-            // initialize title
-            var innerTitle = document.getElementById("ct-index-panel-title-detail");
-            innerTitle.innerHTML = object[0] + ' <small>' + object[1] + '</small>';
-            innerTitle.style.color = 'white';
+        var isIndexOfSet = function (entry) {
+            if (isIndexOf(entry.name) ||
+                isIndexOf(entry.type) ||
+                isIndexOf(entry.subtype) ||
+                isIndexOf(entry.keywords)) {
+                return true;
+            }
+        };
 
-            // change color of panel title
-            var innerPanel = document.getElementById('ct-idx-ph-det');
-            switch (object[1]) {
-                case 'Studio':
-                    innerPanel.style.background = '#F14A29';
-                    break;
-                case 'Tool':
-                    innerPanel.style.background = '#107CC2';
-                    break;
-                case 'Material':
-                    innerPanel.style.background = '#F3902C';
-                    break;
-                case 'Consumable':
-                    innerPanel.style.background = '#2BAC69';
-            };
-
-            // placeholder for image
-            var innerBody = document.getElementById("ct-index-panel-body-detail");
-            innerBody.innerHTML = 'Image <br /><br /><br /><hr />';
-
-            // print entry properties in loop
-            var i;
-            for (i = 1; i < object.length; i++) {
-                if (object[i] !== '' && i != 3 && i != 4 && i != 1) {
-                    innerBody.innerHTML += '<div class="col-sm-6"><b>' + $scope.entryProperties[i] + '</div></b><div class="col-sm-6" id="ct-index-object-name">' + object[i] + '</div>';
+        $scope.filterSearch = function (entry) {
+            if ($scope.queryTerm.length >= 2) {
+                if (isIndexOfSet(entry)) {
+                    return entry.name;
                 }
             }
         };
 
+        $scope.panelBodyMessage = {
+            "name": "MakerLabs",
+            "body": "To use, elect an item from the categories or search for a specific item."
+        };
+
+        $scope.panelTitleName = 'MakerLabs';
+        $scope.panelTitleType = '';
+
+        $scope.showEntryDetails = function (entry) {
+
+            // TODO: change to var instead of $scope later
+            $scope.selectedObject = entry;
+
+            // initialize title
+            $scope.panelTitleName = entry.name;
+            $scope.panelTitleType = entry.type;
+            $('#ct-index-panel-title-detail').addClass('panelTitle');
+
+            // change color of panel title
+            var elem = $('#indexPanelHeading');
+            switch (entry.type) {
+                case 'Studio':
+                    elem.addClass('red').removeClass('blue orange green');
+                    break;
+                case 'Tool':
+                    elem.addClass('blue').removeClass('red orange green');
+                    break;
+                case 'Material':
+                    elem.addClass('orange').removeClass('red blue green');
+                    break;
+                case 'Consumable':
+                    elem.addClass('green').removeClass('red blue orange');
+            }
+
+            $('#entryBody').addClass('hidden');
+            $('#entryDetails').removeClass('hidden');
+
+            $scope.isEmpty = function (prop) {
+                return !($scope.selectedObject[prop] === '' ||
+                prop === 'locx' ||
+                prop === 'locy' ||
+                prop === 'metadata');
+            };
+        };
+
         $scope.switchMapsOnClick = function (floor) {
             if (floor == 1) {
-                document.getElementById('firstLi').className = 'active';
-                document.getElementById('secondLi').className = '';
-                document.getElementById('firstFloor').className = 'tab-pane active';
-                document.getElementById('secondFloor').className = 'tab-pane';
+                $('#firstLi').addClass('active');
+                $('#secondLi').removeClass('active');
+                $('#firstFloor').addClass('active');
+                $('#secondFloor').removeClass('active');
                 $scope.resizeMap1;
             } else {
-                document.getElementById('firstLi').className = '';
-                document.getElementById('secondLi').className = 'active';
-                document.getElementById('firstFloor').className = 'tab-pane';
-                document.getElementById('secondFloor').className = 'tab-pane active';
-                $scope.resizeMap;
+                $('#firstLi').removeClass('active');
+                $('#secondLi').addClass('active');
+                $('#firstFloor').removeClass('active');
+                $('#secondFloor').addClass('active');
+                $scope.resizeMap2;
             }
         };
 
@@ -107,12 +193,17 @@ angular.module("myApp", ['d3mapping'])
 
         $scope.lastItem = null;
         //Highlight the studio given the name of the studio as a param
-        $scope.showLoc = function (studioName) {
+        $scope.showLoc = function (studioKey) {
             removeLast($scope.lastItem);
-            var elementPos = $scope.data.map(function (x) { return x[$scope.index.id]; }).indexOf(studioName);
+            var elementPos = $scope.data.map(function (x) {
+                return x[$scope.index.id];
+            }).indexOf(studioKey);
             var objectFound = $scope.data[elementPos];
             $scope.lastItem = objectFound;
 
+            if (objectFound == undefined) {
+                return 'Not Found'
+            }
             if (objectFound[$scope.index.type] === 'Studio') {
                 if (objectFound[$scope.index.floor] === '1') {
 
@@ -138,7 +229,7 @@ angular.module("myApp", ['d3mapping'])
         var removeLast = function (lastItem) {
             // $scope.map1.marker.remove();
             // $scope.map2.marker.remove();
-            if (lastItem !== null) {
+            if (lastItem != undefined) {
                 if (lastItem[$scope.index.floor] === '1') {
                     $scope.map1.studio.dehighlight(lastItem[$scope.index.id]);
                 }
@@ -146,7 +237,15 @@ angular.module("myApp", ['d3mapping'])
                     $scope.map2.studio.dehighlight(lastItem[$scope.index.id]);
                 }
             }
-        }
+        };
+
+        // combined function
+        $scope.onSelect = function (entry, category) {
+            $scope.showEntryDetails(entry);
+            $scope.switchMapsOnClick(entry.floor);
+            $scope.showLoc(entry.key);
+            $scope.highlightItem(category + '_' + entry.key);
+        };
     }]);
 
 // service to share methods for map construction and resizing
@@ -176,20 +275,15 @@ angular.module("myApp").service("highlightService", function () {
     var lastObject = null;
     var highlight = function (objectId) {
         if (lastObject != null) {
-            document.getElementById(lastObject).style.color = 'black';
-            document.getElementById(lastObject).style['font-weight'] = 'normal';
-            document.getElementById(objectId).style.color = 'blue';
-            document.getElementById(objectId).style['font-weight'] = 'bold';
+            $('#' + lastObject).addClass('normalFont').removeClass('selectFont');
+            $('#' + objectId).addClass('selectFont').removeClass('normalFont');
             lastObject = objectId;
         } else {
-            document.getElementById(objectId).style.color = 'blue';
-            document.getElementById(objectId).style['font-weight'] = 'bold';
+            $('#' + objectId).addClass('selectFont').removeClass('normalFont');
             lastObject = objectId;
         };
     };
-
     return {
         highlight: highlight
     }
-
 });

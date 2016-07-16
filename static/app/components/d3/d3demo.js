@@ -147,6 +147,63 @@ var mapConstructor = function (containerID, floorNum, studioData) {
       }
     }
 
+  this.studio = {
+    //Draws all the studios in studioData
+    data: data = [],
+
+    list: list = d3.select('svg#floor' + floorNum).append('g'),
+
+    draw: function (studioData) {
+      this.data = this.data.concat(studioData);
+      //this.list = this.list.remove();
+      this.list
+        .append('g')
+        .attr('id', studioData[0].id)
+        .selectAll('rect')
+        .data(studioData)
+        .enter()
+        .append('rect')
+        .attr('x', function (d) { return inToPx(d.rx) + 'px'; })
+        .attr('y', function (d) { return inToPx(d.ry) + 'px'; })
+        .attr('height', function (d) { return inToPx(d.height) + 'px'; })
+        .attr('width', function (d) { return inToPx(d.width) + 'px'; })
+
+        .style('opacity', 0.5) //Move to CSS
+        .style('stroke', 'black')
+        .style('stroke-width', 20)
+    },
+
+    resize: function (width, height) {
+      var scale = getScalingRatio(width, height, floorNum);
+      var scale = scale / 10;
+      if (scale !== 0 && !isNaN(scale)) {
+        this.list.attr('transform','scale('+scale+')')
+      }
+    },
+
+    remove: function (objID) {
+      d3.select('#' + objID)
+        .style('visibility', 'hidden');
+    },
+
+    set: function (objID, xPos, yPos) {
+      d3.select('#' + objID)
+        .attr('x', xPos)
+        .attr('y', yPos)
+        .style('visibility', null);
+    },
+
+    highlight: function (objID) {
+      d3.select('#' + objID)
+        .attr('fill', 'red')
+        .style('visibility', null);
+    },
+
+    dehighlight: function (objID) {
+      d3.select('#' + objID)
+        .attr('fill', null)
+    },
+  }
 };
 
 //Round up to 5
