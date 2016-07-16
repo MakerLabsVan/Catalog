@@ -88,10 +88,14 @@ angular.module("myApp", ['d3mapping'])
         $scope.queryTerm = '';
         // change height of query result box dynamically
         $scope.changeHeight = function () {
+            var lastOpenedCategory = $('.in');
+            console.log(lastOpenedCategory);
             if ($scope.queryTerm.length >= 2) {
+                $('.in').removeClass('in');
                 $("#searchSection").addClass('searchSectionExpanded').removeClass('searchSectionClosed');
             } else {
                 $("#searchSection").addClass('searchSectionClosed').removeClass('searchSectionExpanded');
+
             }
         };
 
@@ -126,7 +130,7 @@ angular.module("myApp", ['d3mapping'])
 
         $scope.panelBodyMessage = {
             "name": "MakerLabs",
-            "body": "To use, elect an item from the categories or search for a specific item."
+            "body": "To use, select an item from the categories or search for a specific item."
         };
 
         $scope.panelTitleName = 'MakerLabs';
