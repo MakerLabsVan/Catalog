@@ -193,9 +193,9 @@ angular.module("myApp", ['d3mapping'])
 
         // map ctrl
         $scope.map1 = mapService.initMap('firstFloorWell', 1);
-        $scope.map2 = mapService.initMap('secondFloorWell', 2);
+        // $scope.map2 = mapService.initMap('secondFloorWell', 2);
         $scope.resizeMap1 = mapService.resize($scope.map1);
-        $scope.resizeMap2 = mapService.resize($scope.map2);
+        // $scope.resizeMap2 = mapService.resize($scope.map2);
 
         $scope.lastItem = null;
         //Highlight the studio given the name of the studio as a param
@@ -223,12 +223,7 @@ angular.module("myApp", ['d3mapping'])
                 }
             }
             else {
-                if (objectFound[$scope.index.floor] === '1') {
-                    $scope.map1.marker.set(parseInt(objectFound[3]), parseInt(objectFound[4]), $scope.map1.width(), $scope.map1.height())
-                }
-                else if (objectFound[$scope.index.floor] === '2') {
-                    $scope.map2.marker.set(parseInt(objectFound[3]), parseInt(objectFound[4]), $scope.map2.width(), $scope.map2.height())
-                }
+              $scope.map1.marker.set(parseInt(objectFound[3]), parseInt(objectFound[4]), $scope.map1.width(), $scope.map1.height())
             }
         }
 
@@ -236,12 +231,7 @@ angular.module("myApp", ['d3mapping'])
             // $scope.map1.marker.remove();
             // $scope.map2.marker.remove();
             if (lastItem != undefined) {
-                if (lastItem[$scope.index.floor] === '1') {
-                    $scope.map1.studio.dehighlight(lastItem[$scope.index.id]);
-                }
-                else if (lastItem[$scope.index.floor] === '2') {
-                    $scope.map2.studio.dehighlight(lastItem[$scope.index.id]);
-                }
+              $scope.map1.studio.dehighlight(lastItem[$scope.index.id]);
             }
         };
 
@@ -266,8 +256,7 @@ angular.module("myApp").service("mapService", function () {
             var height = map.height();
         }
 
-        map.studio.resize(width, height);
-        map.studio.resize(width, height);
+        map.resize();
     };
 
     return {

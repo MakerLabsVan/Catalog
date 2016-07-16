@@ -29,7 +29,6 @@ app.controller('mapController', ['$scope', '$window', '$location', function ($sc
       }
 
       if ($scope.data[i][$scope.index.type] === 'Studio') {
-        $scope.map2.studio.draw([obj])
         $scope.map1.studio.draw([obj])
       }
       else if ($scope.data[i][$scope.index.floor] === '1' && $scope.data[i][$scope.index.type] === 'Studio') {
@@ -39,24 +38,12 @@ app.controller('mapController', ['$scope', '$window', '$location', function ($sc
       if ( getQueryVariable( "self" ) === 'frontdesk'  && $scope.data[i][$scope.index.name] === 'Front Desk'){
         $scope.map1.currentLocMarker.place( obj.rx ,obj.ry, $scope.map1.width(), $scope.map1.height());
       }
-
     }
-    //Resize all elements initially to first map
-    $scope.map1.studio.resize($scope.map1.width(), $scope.map1.height());
-    $scope.map2.studio.resize($scope.map1.width(), $scope.map1.height());
-
   })
 
   //Resize map objects on window resize
   angular.element($window).bind('resize', function () {
-    var width1 = $scope.map1.width();
-    var height1 = $scope.map1.height();
-    var width2 = $scope.map2.width();
-    var height2 = $scope.map2.height();
-    $scope.resizeMap1;
-    $scope.resizeMap2;
-    $scope.map1.studio.resize(width1, height1);
-    $scope.map2.studio.resize(width2, height2);
+    $scope.map1.resize();
     // manuall $digest required as resize event
     // is outside of angular
     $scope.$digest();
