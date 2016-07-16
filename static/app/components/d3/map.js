@@ -96,8 +96,8 @@ var studio = function(container, map) {
     }
 
 
-    this.building.attr('transform', setFloor);
-    map.attr('transform', setFloor);
+    this.building.attr('transform', setFloor).transition().delay(1000);
+    map.attr('transform', setFloor).transition().delay(1000);
   }
 
   this.remove = function (objID) {
@@ -121,7 +121,7 @@ var studio = function(container, map) {
 var addImgMap = function (container, filePath) {
   return container.append("svg:image")
     .attr("xlink:href",filePath)
-    .attr('width',"100%")
+    .attr('width',"100%") //MOVE TO CSS
     .attr('height','200%')
     .attr('preserveAspectRatio', 'xMinYMin meet')
     .attr('class','map')

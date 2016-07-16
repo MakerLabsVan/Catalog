@@ -90,6 +90,7 @@ angular.module("myApp", ['d3mapping'])
         $scope.changeHeight = function () {
             if ($scope.queryTerm.length >= 2) {
                 $("#searchSection").addClass('searchSectionExpanded').removeClass('searchSectionClosed');
+                $(".in").removeClass('in');
             } else {
                 $("#searchSection").addClass('searchSectionClosed').removeClass('searchSectionExpanded');
             }
@@ -168,21 +169,26 @@ angular.module("myApp", ['d3mapping'])
                 prop === 'metadata');
             };
         };
+        $scope.$watch('entries',function(entries){
+          for ( i in entries){
+            console.log(entries[i].key)
+          }
+        })
 
         $scope.switchMapsOnClick = function (floor) {
-            if (floor == 1) {
-                $('#firstLi').addClass('active');
-                $('#secondLi').removeClass('active');
-                $('#firstFloor').addClass('active');
-                $('#secondFloor').removeClass('active');
-                $scope.resizeMap1;
-            } else {
-                $('#firstLi').removeClass('active');
-                $('#secondLi').addClass('active');
-                $('#firstFloor').removeClass('active');
-                $('#secondFloor').addClass('active');
-                $scope.resizeMap2;
-            }
+            // if (floor == 1) {
+            //     $('#firstLi').addClass('active');
+            //     $('#secondLi').removeClass('active');
+            //     $('#firstFloor').addClass('active');
+            //     $('#secondFloor').removeClass('active');
+            //     $scope.resizeMap1;
+            // } else {
+            //     $('#firstLi').removeClass('active');
+            //     $('#secondLi').addClass('active');
+            //     $('#firstFloor').removeClass('active');
+            //     $('#secondFloor').addClass('active');
+            //     $scope.resizeMap2;
+            // }
         };
 
         // map ctrl
