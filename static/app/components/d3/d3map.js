@@ -28,11 +28,12 @@ app.controller('mapController', ['$scope', '$window', '$location', function ($sc
         'id': $scope.data[i][$scope.index.id],
       }
 
-      if ($scope.data[i][$scope.index.floor] === '2' && $scope.data[i][$scope.index.type] === 'Studio') {
+      if ($scope.data[i][$scope.index.type] === 'Studio') {
         $scope.map2.studio.draw([obj])
+        $scope.map1.studio.draw([obj])
       }
       else if ($scope.data[i][$scope.index.floor] === '1' && $scope.data[i][$scope.index.type] === 'Studio') {
-        $scope.map1.studio.draw([obj])
+
       }
 
       if ( getQueryVariable( "self" ) === 'frontdesk'  && $scope.data[i][$scope.index.name] === 'Front Desk'){

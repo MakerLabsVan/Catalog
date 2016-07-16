@@ -1,5 +1,5 @@
 angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService", "highlightService", "advInputs", function ($scope, $http, mapService, highlightService, advInputs) {
-    // authorized data retrieval 
+    // authorized data retrieval
     $http.get('/getData')
         .success(function (data, status, header, config) {
             $scope.data = data;

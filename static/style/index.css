@@ -167,17 +167,15 @@ a {
 
 .studio{
   opacity: 0.5;
-  transform-origin: 50% 50% 0px;
 }
-.studioISO{
-  opacity: 0.5;
-}
-.studioGroup{
-  transform-origin: 50% 50% 0px;
-  transform: scale(1,0.6) rotate(135deg);
+.studioHighlight{
+  fill: red;
 }
 
-.isoMap{
+.studioGroup{
+}
+
+.map{
   width: 100%;
 }
 

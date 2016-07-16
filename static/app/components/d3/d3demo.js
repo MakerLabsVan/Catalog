@@ -52,8 +52,8 @@ var mapConstructor = function (containerID, floorNum, studioData) {
         //var scale = getIsoScalingRatio(width);
         if (scale !== 0 && !isNaN(scale)) {
           //Magical numbers, just testing
-          //this.list.attr('transform','translate(266, 345) scale('+scale+','+scale*0.6+') rotate(-135, 0, 0) ')
-          this.list.attr('transform','scale('+scale+')')
+          this.list.attr('transform','translate(266, 345) scale('+scale+','+scale*0.6+') rotate(-135, 0, 0) ')
+          //this.list.attr('transform','scale('+scale+')')
         }
       },
 

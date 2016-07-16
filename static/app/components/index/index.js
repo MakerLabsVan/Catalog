@@ -113,13 +113,16 @@ angular.module("myApp", ['d3mapping'])
             var objectFound = $scope.data[elementPos];
             $scope.lastItem = objectFound;
 
-            if (objectFound === null) { return 'Not Found' }
             if (objectFound[$scope.index.type] === 'Studio') {
                 if (objectFound[$scope.index.floor] === '1') {
+
                     $scope.map1.studio.highlight(objectFound[$scope.index.id]);
+                    $scope.map1.studio.selectFloor($scope.map1.width(),1);
                 }
                 else if (objectFound[$scope.index.floor] === '2') {
-                    $scope.map2.studio.highlight(objectFound[$scope.index.id]);
+
+                    $scope.map1.studio.highlight(objectFound[$scope.index.id]);
+                    $scope.map1.studio.selectFloor($scope.map1.width(),2);
                 }
             }
             else {
@@ -133,8 +136,8 @@ angular.module("myApp", ['d3mapping'])
         }
 
         var removeLast = function (lastItem) {
-            $scope.map1.marker.remove();
-            $scope.map2.marker.remove();
+            // $scope.map1.marker.remove();
+            // $scope.map2.marker.remove();
             if (lastItem !== null) {
                 if (lastItem[$scope.index.floor] === '1') {
                     $scope.map1.studio.dehighlight(lastItem[$scope.index.id]);
