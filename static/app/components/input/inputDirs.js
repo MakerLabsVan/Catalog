@@ -1,11 +1,6 @@
-angular.module("myApp").directive("adminSearchRes", function () {
-    return {
-        replace: true,
-        templateUrl: '/templates/adminSearchResTmpl.html',
-    }
-})
+var inputApp = angular.module('inputApp');
 
-angular.module("myApp").directive("addInput", ["advInputs", function (advInputs) {
+inputApp.directive("addInput", ["advInputs", function (advInputs) {
     return {
         replace: true,
         templateUrl: '/templates/inputFormTmpl.html',
@@ -33,7 +28,7 @@ angular.module("myApp").directive("addInput", ["advInputs", function (advInputs)
 
 // buttons for the map panes on location select page
 // TODO: Change to .html instead of server template
-angular.module("myApp").directive('editMapPanes', function () {
+inputApp.directive('editMapPanes', function () {
     var floorButtons = '<button type="button" class="btn btn-large btn-default" href="#edit-first-floor" data-toggle="tab">First Floor</button>';
     floorButtons += '<button type="button" class="btn btn-large btn-default" href="#edit-second-floor" data-toggle="tab">Second Floor</button><button type="button" class="btn btn-large btn-default" href="#ct-edit" data-toggle="tab">Back</button>';
 

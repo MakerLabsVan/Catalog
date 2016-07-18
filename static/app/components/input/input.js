@@ -1,45 +1,64 @@
-angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService", "highlightService", "advInputs", function ($scope, $http, mapService, highlightService, advInputs) {
-    // authorized data retrieval 
-    $http.get('/getData')
-        .success(function (data, status, header, config) {
-            $scope.data = data;
-            // $scope.data[0].pop();
-            $scope.entryProperties = $scope.data[0];
-            $scope.data.shift();
-            $scope.dataLength = $scope.data.length;
+var inputApp = angular.module('inputApp', ['indexApp']);
 
-            // START
-            // $scope.jsonObjArr = [];
-            // $scope.sunnys_loop = function () {
-            //     var count;
-            //     for (count = 0; count < $scope.dataLength; count++) {
-            //         var jsonObj = {};
-            //         if ($scope.data[count][1] === 'Studio') {
-            //             console.log("Entered the studio loop");
-            //             jsonObj['points'] = [
-            //                 // x y 
-            //                 [Number($scope.data[count][3]), Number($scope.data[count][4])],
-            //                 // xw y
-            //                 [Number($scope.data[count][3]) + Number($scope.data[count][6]), Number($scope.data[count][4])],
-            //                 // xw yh
-            //                 [Number($scope.data[count][3]) + Number($scope.data[count][6]), Number($scope.data[count][4]) + Number($scope.data[count][7])],
-            //                 // x yh
-            //                 [Number($scope.data[count][3]), Number($scope.data[count][4]) + Number($scope.data[count][7])],
-            //             ];
-            //         } else {
-            //             jsonObj['points'] = [Number($scope.data[count][3]), Number($scope.data[count][4])];
-            //         }
-            //         $scope.jsonObjArr.push(jsonObj);
-            //     }
-            // };
+inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightService", "httpRequests", function ($scope, $http, mapService, highlightService, httpRequests) {
 
-            // $scope.sunnys_loop();
-            //END
-        })
-        .error(function (data, status, header, config) {
-            // something went wrong
-            alert("Something went wrong! Refresh or call for help!");
-        });
+    httpRequests.admin_getCatalog().then(function (data) {
+        $scope.data = data;
+
+        // labels to use for object
+        $scope.dataLabels = data[1];
+
+        // labels to display
+        $scope.entryProperties = data[0];
+
+        // shift data
+        $scope.data.shift();
+        $scope.data.shift();
+
+        // removed 2 frozen rows
+        var shiftedData = $scope.data;
+
+        // object entries
+        // THIS IS THE NEW DATA LIST IN OBJECT FORM
+        $scope.entries = {};
+        // use loop to make the object
+        for (i in shiftedData) {
+            var object = {};
+            for (j in $scope.dataLabels) {
+                // ex. object.name.label
+                object[$scope.dataLabels[j]] = shiftedData[i][j];
+            }
+            // 20 could change
+            $scope.entries[shiftedData[i][21]] = object;
+        }
+        ;
+
+        console.log($scope.entries);
+
+        // make category data
+        $scope.studioEntries = {};
+        $scope.materialEntries = {};
+        $scope.toolEntries = {};
+        $scope.consumableEntries = {};
+
+        for (key in $scope.entries) {
+            // why doesn't entries.key work here
+            switch ($scope.entries[key].type) {
+                case 'Studio':
+                    $scope.studioEntries[key] = $scope.entries[key];
+                    break;
+                case 'Material':
+                    $scope.materialEntries[key] = $scope.entries[key];
+                    break;
+                case 'Tool':
+                    $scope.toolEntries[key] = $scope.entries[key];
+                    break;
+                case 'Consumable':
+                    $scope.consumableEntries[key] = $scope.entries[key];
+            }
+        }
+        // but entries.key works here
+    });
 
     $scope.inputQuery = '';
     // make a new entry
@@ -114,72 +133,8 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
             });
     };
 
-    // $scope.$watch('jsonObjArr', function () {
-    //     if ($scope.jsonObjArr != undefined) {
-    //         console.log($scope.jsonObjArr[0]);
-
-    //         var i;
-    //         var count;
-    //         for (count = 458; count < $scope.dataLength; count++) {
-    //             for (i = 0; i < $scope.entryProperties.length; i++) {
-    //                 $scope.editFormData[$scope.entryProperties[i]] = $scope.data[count][i];
-    //             }
-    //             $scope.editEntry($scope.data[count][20], JSON.stringify($scope.jsonObjArr[count]));
-    //             $scope.editFormData = {};
-    //         }
-    //     }
-    // });
-
-
-    // change to edit tab
-    $scope.makeActive = function () {
-        document.getElementById('input-edit-tab').className = 'active';
-        document.getElementById('newEntryTab').className = '';
-    };
-
-    // display edit input page
-    $scope.showEditPage = function (curObject) {
-        $scope.object = curObject;
-        var i;
-        // create edit values on click
-        for (i = 0; i < $scope.entryProperties.length; i++) {
-            $scope.editFormData[$scope.entryProperties[i]] = curObject[i];
-        }
-
-        $scope.templateURL = 'editEntryTmpl';
-    };
-
-    // return to default edit page
-    $scope.clearEditPage = function () {
-        $scope.templateURL = 'clearEditPage';
-    };
-
-    // remove location, floor input from the edit page
-    $scope.editPageCols = function (prop) {
-        $scope.$watch('editFormData', function () {
-
-            $('#edit-input-form1').html($('#type-buttons').html());
-            $('#edit-input-form9').html($('#dimension-buttons').html());
-            $('#edit-input-form11').html($('#weight-buttons').html());
-
-            advInputs.removeAll(["#edit-form-group3", "#edit-form-group4", "#edit-form-group5"]);
-
-            $("#edit-input-form0").attr('required', 'true');
-
-            var checkNumValidElem = ['#edit-input-form6', '#edit-input-form7', '#edit-input-form8', '#edit-input-form10', '#edit-input-form12', '#edit-input-form13'];
-            var checkNumValid = ['type', 'min', 'max'];
-            var checkNumValidVals = ['number', '0', '10000'];
-
-            advInputs.setMultAttrs(checkNumValidElem, checkNumValid, checkNumValidVals);
-        });
-    };
-
     // highlight selected entry
     $scope.highlightItem = highlightService.highlight;
-
-    // load maps
-    $scope.map1 = mapService.initMap('edit-first-floor', 1);
-    $scope.map2 = mapService.initMap('edit-second-floor', 2);
 
     // show markers on map on click
     $scope.map1.marker.onClick();
@@ -202,37 +157,4 @@ angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService"
     };
 
 
-
 }]);
-
-// service not required if using html()
-angular.module("myApp").service("advInputs", function () {
-
-    var removeAll = function (arrayID) {
-        for (var i in arrayID) {
-            $(arrayID[i]).remove();
-        }
-    };
-
-    var setMultAttrs = function (elementArr, attrsArr, valArr) {
-        if (attrsArr.length != valArr.length ||
-            elementArr.length == 0 ||
-            attrsArr.length == 0 ||
-            valArr.length == 0) {
-            console.log("Missing attribute, value, or element!");
-        } else {
-            var j;
-            for (j = 0; j < elementArr.length; j++) {
-                var i;
-                for (i = 0; i < attrsArr.length; i++) {
-                    $(elementArr[j]).attr(attrsArr[i], valArr[i]);
-                }
-            }
-        }
-    }
-
-    return {
-        removeAll: removeAll,
-        setMultAttrs: setMultAttrs
-    }
-});
