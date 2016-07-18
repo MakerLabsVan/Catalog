@@ -28,7 +28,7 @@
                         <div class="col-sm-12">
                             <input type="search" class="form-control lvl1-box-shadow" placeholder="Search here"
                                    ng-model="queryTerm" ng-init="changeHeight()" ng-change="changeHeight()"/>
-                            <div class="lvl1-box-shadow" id="searchSection">
+                            <div id="searchSection">
                                 <div ng-repeat="entry in entries">
                                     <div class="entryNames" ng-click="onSelect(entry,'query')"
                                          ng-bind="filterSearch(entry)" id="query_{{entry.key}}">

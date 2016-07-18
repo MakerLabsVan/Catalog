@@ -37,7 +37,7 @@ body {
 }
 
 #index-logo, #input-logo {
-    height: 5vh;
+    height: 50px;
 }
 
 #accordion-container {
@@ -111,9 +111,6 @@ small {
     overflow-y: scroll;
 }
 
-.resultMargins {
-}
-
 #searchbar {
     background: white;
     border: none;
@@ -131,17 +128,12 @@ small {
 
 #input-result-container {
     height: 100vh;
-    overflow-y: scroll;
     background: white;
 }
 
 #index_logo {
     height: 60px;
     margin-top: 10px;
-}
-
-#ct-input-forms {
-    overflow-y: scroll;
 }
 
 .lvl1-box-shadow {
@@ -155,20 +147,8 @@ small {
     border: none;
 }
 
-.ct-panel-toggle:hover {
-    cursor: pointer;
-}
-
-#ct-index-object-name {
-    text-align: right;
-}
-
 .panel {
     border: none;
-}
-
-#ct-edit, #loc-edit {
-    margin-top: 20px;
 }
 
 #index-view-container {
@@ -176,36 +156,12 @@ small {
     height: 80vh;
 }
 
-#floor1Tab, #floor2Tab {
-    border-radius: 0px;
-}
-
-#marker1 {
-    z-index: 5 !important;
-}
-
 .nav {
     border: 0px;
 }
 
-#edit-first-floor, #edit-second-floor {
-    height: 80vh;
-    padding-bottom: 30px;
-}
-
-#input-tab-content {
-    height: auto;
-    max-height: 90vh;
+#admin-search-result {
+    margin-top: 20px;
+    max-height: 85vh;
     overflow-y: scroll;
-    background: white;
-    padding-bottom: 10px;
-    padding-top: 10px;
-}
-
-#input-container {
-    margin-top: 2vh;
-}
-
-#dimension-drop-down, #weight-drop-down {
-    margin-bottom: -15px;
 }

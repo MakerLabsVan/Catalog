@@ -33,8 +33,6 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         }
         ;
 
-        console.log($scope.entries);
-
         // make category data
         $scope.studioEntries = {};
         $scope.materialEntries = {};
@@ -61,6 +59,35 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
     });
 
     $scope.inputQuery = '';
+    // repeated functions in index
+    var isIndexOf = function (property) {
+        if (property == undefined) {
+            return false;
+        } else if (property.toLowerCase().indexOf($scope.inputQuery.toLowerCase()) != -1) {
+            return true;
+        }
+    };
+
+    var isIndexOfSet = function (entry) {
+        if (isIndexOf(entry.name) ||
+            isIndexOf(entry.type) ||
+            isIndexOf(entry.subtype) ||
+            isIndexOf(entry.keywords)) {
+            return true;
+        }
+    };
+
+    $scope.filterSearch = function (entry) {
+        if ($scope.inputQuery.length >= 2) {
+            if (isIndexOfSet(entry)) {
+                return entry.name;
+            }
+        } else if ($scope.inputQuery.length == 0) {
+            return entry.name;
+        }
+    };
+
+
     // make a new entry
     $scope.formData = {};
     $scope.newEntry = function () {
@@ -135,26 +162,5 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
 
     // highlight selected entry
     $scope.highlightItem = highlightService.highlight;
-
-    // show markers on map on click
-    $scope.map1.marker.onClick();
-    $scope.map2.marker.onClick();
-
-    // save location on selection
-    $scope.getLocation = function (floor) {
-        if (floor == 1) {
-            // translate from pixels to measurement units
-            var pos = $scope.map1.marker.getLocation($scope.map1.width(), $scope.map1.height(), 1);
-            $scope.editFormData["Location x (ft)"] = pos[0].toFixed(1);
-            $scope.editFormData["Location y (ft)"] = pos[1].toFixed(1);
-            $scope.editFormData.Floor = 1;
-        } else {
-            var pos = $scope.map2.marker.getLocation($scope.map2.width(), $scope.map2.height(), 2);
-            $scope.editFormData["Location x (ft)"] = pos[0].toFixed(1);
-            $scope.editFormData["Location y (ft)"] = pos[1].toFixed(1);
-            $scope.editFormData.Floor = 2;
-        }
-    };
-
 
 }]);

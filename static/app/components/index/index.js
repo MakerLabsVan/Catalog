@@ -81,8 +81,6 @@ indexApp.controller("indexCtrl", ["$scope", '$http', "mapService", "highlightSer
     $scope.queryTerm = '';
     // change height of query result box dynamically
     $scope.changeHeight = function () {
-        var lastOpenedCategory = $('.in');
-        console.log(lastOpenedCategory);
         if ($scope.queryTerm.length >= 2) {
             $('.in').removeClass('in');
             $("#searchSection").addClass('searchSectionExpanded').removeClass('searchSectionClosed');
@@ -97,10 +95,10 @@ indexApp.controller("indexCtrl", ["$scope", '$http', "mapService", "highlightSer
 
     // search bar functions
     var isIndexOf = function (property) {
-        if (property.toLowerCase().indexOf($scope.queryTerm.toLowerCase()) != -1) {
-            return true;
-        } else {
+        if (property == undefined) {
             return false;
+        } else if (property.toLowerCase().indexOf($scope.queryTerm.toLowerCase()) != -1) {
+            return true;
         }
     };
 
