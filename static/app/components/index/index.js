@@ -169,11 +169,11 @@ angular.module("myApp", ['d3mapping'])
                 prop === 'metadata');
             };
         };
-        $scope.$watch('entries',function(entries){
-          for ( i in entries){
-            console.log(entries[i].key)
-          }
-        })
+        // $scope.$watch('entries',function(entries){
+        //   for ( i in entries){
+        //     console.log(entries[i].key)
+        //   }
+        // })
 
         $scope.switchMapsOnClick = function (floor) {
             // if (floor == 1) {
@@ -214,12 +214,12 @@ angular.module("myApp", ['d3mapping'])
                 if (objectFound[$scope.index.floor] === '1') {
 
                     $scope.map1.studio.highlight(objectFound[$scope.index.id]);
-                    $scope.map1.studio.selectFloor($scope.map1.width(),1);
+                    $scope.map1.selectFloor(1);
                 }
                 else if (objectFound[$scope.index.floor] === '2') {
 
                     $scope.map1.studio.highlight(objectFound[$scope.index.id]);
-                    $scope.map1.studio.selectFloor($scope.map1.width(),2);
+                    $scope.map1.selectFloor(2);
                 }
             }
             else {

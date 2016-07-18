@@ -1,9 +1,41 @@
-const isoMapScale = 5.35; //database value to isometric map conversion
-const isoMapWidth = 920; // Width of isometric map
+//TODO:Make this an object
+
+const ISO = {
+  'isIsometric' : true,
+  'filePath' : "/assets/ISO.png",
+  'mapScaling' : 5.35,
+  'mapWidth' : 920,
+  'scrollMapY' : 650,
+  'firstFloorX' : 550,
+  'firstFloorY' : 650,
+  'secondFloorX' : 460,
+  'secondFloorY' : 605,
+}
+const isoMapFilePath = "/assets/ISO3.png";
+const isoMapScale = 7.65; //database value to isometric map conversion
+const isoMapWidth = 1320; // Width of isometric map
+const scrollMapY = 1000; //Vertical scroll until next map
+const firstFloorX = 795; 
+const firstFloorY = 1915;
+const secondFloorX = 655;
+const secondFloorY = 710;
+
+
+// const isoMapFilePath = "/assets/ISO.png";
+// const isoMapScale = 5.35; //database value to isometric map conversion
+// const isoMapWidth = 920; // Width of isometric map
+// const scrollMapY = 650;
+// const firstFloorX = 550;
+// const firstFloorLocY = 1305;
+// const secondFloorX = 460;
+// const secondFloorY = 605;
+
 //Dimensions of the old 2D map
 const width_L1_2D = 1364.490;
 const width_L2_2D = 925.374;
 const height_2D = 1088.246;
+
+const floorTransitionDelay = 1000; //1 second
 
 
 var mapConstructor = function (containerID, floorNum) {
@@ -22,17 +54,18 @@ var mapConstructor = function (containerID, floorNum) {
       return this.container.node().getBoundingClientRect().height;
   },
   //The map img
-  this.map = addImgMap(this.container,"/assets/ISO.png" ),
+  this.map = addImgMap(this.container, isoMapFilePath ),
   //initialize studios svgs
   this.studio = new studio(this.container, this.map),
-
+  //Resize all map objects
   this.resize = function (){
     this.studio.resize(this.width());
-    this.studio.selectFloor(this.currentFloor);
+    this.studio.selectFloor(this.width(),this.currentFloor);
   },
+  //
   this.selectFloor = function( floor ){
     this.currentFloor = floor;
-    this.studio.selectFloor(floor);
+    this.studio.selectFloor(this.width(),floor);
 
   }
 }
@@ -41,22 +74,22 @@ var studio = function(container, map) {
   //Building contains all studio information
   this.building = container
     .append('g')
-    .attr('id','studioGroup'),
+    .classed('studioGroup',true),
 
   //The floor is an array of g elements for each floor in the bulding
   this.floor =[
     this.building
       .append('g')
-      .attr('id', 'floor1'),
+      .classed('floor1',true),
     this.building
       .append('g')
-      .attr('id','floor2')
+      .classed('floor2',true)
   ],
 
 //Params: StudioData object that contains studio location and id
-//May contain multiple
-  this.draw = function (studioData) {
-    this.floor[Number(studioData[0].floor)-1]
+//
+  this.draw = function ( studioData ) {
+    this.floor[ Number(studioData[0].floor)-1 ]
       .append('g')
       .attr('id', studioData[0].id)
       .classed('studio',true)
@@ -71,48 +104,47 @@ var studio = function(container, map) {
   },
 
   //Resize studios to proper sizing
-  this.resize = function (width, height) {
-    var screenScale = getImgFactor(width);
+  this.resize = function ( width) {
+    var screenScale = getImgFactor( width);
 
     //Isometric map transformations
-    var translate1 = 'translate('+550*screenScale+','+ 1305*screenScale+') '; //460 and 605 based on point in img map
-    var translate2 = 'translate('+460*screenScale+','+ 605*screenScale+') '; //460 and 605 based on point in img map
+    var translate1 = 'translate('+firstFloorX*screenScale+','+ firstFloorY*screenScale+') '; //460 and 605 based on point in img map
+    var translate2 = 'translate('+secondFloorX*screenScale+','+ secondFloorY*screenScale+') '; //460 and 605 based on point in img map
     var scale = 'scale('+isoMapScale*screenScale+','+isoMapScale*screenScale*0.58+') ';
     var rotate = 'rotate(-135, 0, 0) ';
 
-    if (!isNaN(screenScale)){
+    if ( !isNaN( screenScale) ){
       this.floor[1].attr('transform', translate2 + scale + rotate);
       this.floor[0].attr('transform', translate1 + scale + rotate);
     }
   },
 
-  this.selectFloor = function (width, floorNum){
+  this.selectFloor = function ( width, floorNum){
+    var screenScale = getImgFactor(width);
     switch(floorNum) {
     case 1:
-      var screenScale = getImgFactor(width);
-      var setFloor = 'translate(0,'+ -650*screenScale+') ';
+      var setFloor = 'translate(0,'+ -scrollMapY*screenScale+') ';
       break;
     case 2:
         var setFloor = 'translate(0,0) ';
         break;
     default:
-      var screenScale = getImgFactor(width);
-      var setFloor = 'translate(0,'+ -650*screenScale+') ';
+      var setFloor = 'translate(0,'+ -scrollMapY*screenScale+') ';
       break;
     }
 
-    this.building.transition().attr('transform', setFloor).duration(1000);
-    map.transition().attr('transform', setFloor).duration(1000);
+    this.building.transition().attr('transform', setFloor).duration(floorTransitionDelay);
+    map.transition().attr('transform', setFloor).duration(floorTransitionDelay);
   }
 
   //Highlight studio
-  this.highlight = function (objID) {
+  this.highlight = function ( objID) {
     this.building.select('#' + objID)
       .classed('studioHighlight',true)
   },
 
   //Dehighlight studio
-  this.dehighlight = function (objID) {
+  this.dehighlight = function ( objID) {
     this.building.select('#' + objID)
       .classed('studioHighlight',false)
   }
@@ -122,20 +154,90 @@ var studio = function(container, map) {
 //Add map image
 var addImgMap = function (container, filePath) {
   return container.append("svg:image")
-    .attr("xlink:href",filePath)
+    .attr("xlink:href", filePath)
     .attr('preserveAspectRatio', 'xMinYMin meet')
-    .attr('class','map')
+    .attr('class','isoMap')
 };
 
+//
 var getImgFactor = function (currentWidth){
   return currentWidth/isoMapWidth;
 }
 
+var addMarker = function (container, id) {
+  return container
+    .append('svg:image')
+    .attr('xlink:href', '/assets/marker.svg')
+    .style('visibility', 'hidden')
+    .attr('id', 'marker' + id)
+    .attr('width', 30)
+    .attr('height', 30);
+};
+
+var marker = function(){
+  this.group = []
+
+}
+
+// this.marker = {
+//   //Adds marker
+//   icon: icon = addMarker(this.container, floorNum),
+//   //Removes the marker from the map
+//   remove: function () {
+//     d3.select('#marker' + floorNum)
+//       .style('visibility', 'hidden')
+//   },
+//
+//   //Change the position and become visible
+//   set: function (xPos, yPos, width, height) {
+//     var scale = getScalingRatio(width, height, floorNum)/10;
+//     var xPx = inToPx(xPos * scale) - parseInt(this.icon.attr('width')) / 2;
+//     var yPx = inToPx(yPos * scale) - parseInt(this.icon.attr('height')) * 1;
+//     this.icon.moveToFront();
+//     this.icon
+//       .attr('x', xPx + 'px')
+//       .attr('y', yPx + 'px')
+//       .style('visibility', null)
+//   },
+//
+//   //On Click of the map, the marker will display and returns coordinates
+//   onClick: function () {
+//     var marker = d3.select('#marker' + floorNum);
+//     var container = d3.select('svg#floor' + floorNum);
+//     var map = d3.select('svg#floor' + floorNum);
+//     attachOnClick(map, marker);
+//   },
+//
+//   //Removes onclick event listener
+//   disableOnClick: function () {
+//     d3.select('svg#floor' + floorNum).on('click', null);
+//   },
+//
+//   //Returns the current location of the marker in px as an array
+//   //Output: [x,y] (ft)
+//
+//   getLocation: function (width, height, floorNum) {
+//     var mark = d3.select('#marker' + floorNum);
+//     var xPos = parseInt(mark.attr('x')) + parseInt(mark.attr('width') / 2);
+//     var yPos = parseInt(mark.attr('y')) + parseInt(mark.attr('height') * 1);
+//
+//     var scale = getScalingRatio(width, height, floorNum) / 10;
+//     var xFt = pxToIn(xPos / scale);
+//     var yFt = pxToIn(yPos / scale);
+//
+//     return [xFt, yFt];
+//   }
+// }
+
+
+
+
+
 //Only useful with the 2d maps
 var getScalingRatio = function (width, height, floorNum) {
-  var mapWidth2 = 925.374;
-  var mapWidth1 = 1364.490;
-  var mapHeight = 1088.246;
+  // var mapWidth2 = 925.374;
+  // var mapWidth1 = 1364.490;
+  // var mapHeight = 1088.246;
   if (floorNum == 2) {
     var aspect = width_L2_2D/height_2D;//W=925.374,H=1088.246 px
   } else {
