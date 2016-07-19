@@ -78,16 +78,32 @@ small {
     background-color: #F14A29 !important;
 }
 
+.lightRed {
+    background-color: #f15f35 !important;
+}
+
 .blue {
     background-color: #107CC2 !important;
+}
+
+.lightBlue {;
+    background-color: #71A0C2 !important;
 }
 
 .orange {
     background-color: #F3902C !important;
 }
 
+.lightOrange {
+    background-color: #F3B681 !important;
+}
+
 .green {
     background-color: #2BAC69 !important;
+}
+
+.lightGreen {
+    background-color: #6DAC8D !important;
 }
 
 .white {
@@ -189,14 +205,29 @@ small {
     text-align: center;
     width: 100%;
     padding: 10px 0 10px 0;
+    color: gray;
 }
 
 .noPadding {
     padding: 0px;
 }
 
-.divider {
-    border-right: 1px solid lightgray;
+.textAlignCenter {
+    text-align: center;
+}
+
+.inputBorders {
+    border-left: 0px;
+    border-right: 0px;
+    border-radius: 0px;
+    border-bottom: 0px;
 }
 
 
+.endInputBorders {
+    border-bottom: 1px solid lightgray;
+}
+
+.inputClass {
+    height:50px;
+}

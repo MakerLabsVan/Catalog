@@ -42,7 +42,7 @@
                         <div class="well well-sm inputWellSize white lvl1-box-shadow noPadding">
                             <div class="container-fluid">
                                 <div class="row">
-                                    <div class="col-sm-6 noPadding divider">
+                                    <div class="col-sm-6 noPadding">
                                         <button type="button" class="btn btn-default inputOptionsBtns">New
                                         </button>
                                     </div>
@@ -51,10 +51,67 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div>
-                                        <input type="text" name="entryInput" id="nameIn" class="form-control" required="required" placeholder="{{ entryPropertiesObj.name }}">
-                                        
-
+                                    <input type="text" name="entryInput" id="nameIn"
+                                           class="form-control inputBorders inputClass"
+                                           required="required" placeholder="{{ entryPropertiesObj.name }}">
+                                </div>
+                                <div class="row">
+                                    <div class="btn-group btn-group-justified inputClass" data-toggle="buttons">
+                                        <div class="btn btn-default active inputBorders">
+                                            <input type="radio" name="typeOptions" id="option1"
+                                                   autocomplete="off" value="Studio" checked>Studio
+                                        </div>
+                                        <div class="btn btn-default inputBorders">
+                                            <input type="radio" name="typeOptions" id="option2"
+                                                   autocomplete="off" value="Material">Material
+                                        </div>
+                                        <div class="btn btn-default inputBorders">
+                                            <input type="radio" name="typeOptions" id="option3"
+                                                   autocomplete="off" value="Consumable">Consumable
+                                        </div>
+                                        <div class="btn btn-default inputBorders">
+                                            <input type="radio" name="typeOptions" id="option4"
+                                                   autocomplete="off" value="Tool">Tool
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <input type="text" name="entryInput" id="nameIn"
+                                           class="form-control inputBorders inputClass"
+                                           required="required" placeholder="{{ entryPropertiesObj.subtype }}">
+                                </div>
+                                <div class="row">
+                                    <input type="text" name="entryInput" id="nameIn"
+                                           class="form-control inputBorders inputClass"
+                                           required="required" placeholder="{{ entryPropertiesObj.sublocation }}">
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4 noPadding">
+                                        <input type="text" name="entryInput" id="nameIn"
+                                               class="form-control inputBorders inputClass"
+                                               required="required" placeholder="{{ entryPropertiesObj.width }}">
+                                    </div>
+                                    <div class="col-sm-4 noPadding">
+                                        <input type="text" name="entryInput" id="nameIn"
+                                               class="form-control inputBorders inputClass"
+                                               required="required" placeholder="{{ entryPropertiesObj.height }}">
+                                    </div>
+                                    <div class="col-sm-4 noPadding">
+                                        <input type="text" name="entryInput" id="nameIn"
+                                               class="form-control inputBorders inputClass"
+                                               required="required" placeholder="{{ entryPropertiesObj.units }}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6 noPadding">
+                                        <input type="text" name="entryInput" id="nameIn"
+                                               class="form-control inputBorders inputClass endInputBorders"
+                                               required="required" placeholder="{{ entryPropertiesObj.weight }}">
+                                    </div>
+                                    <div class="col-sm-6 noPadding">
+                                        <input type="text" name="entryInput" id="nameIn"
+                                               class="form-control inputBorders inputClass endInputBorders"
+                                               required="required" placeholder="{{ entryPropertiesObj.weightunit }}">
                                     </div>
                                 </div>
                             </div>
