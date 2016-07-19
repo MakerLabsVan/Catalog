@@ -10,6 +10,11 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
 
         // labels to display
         $scope.entryProperties = data[0];
+        // entryProperty object (testing)
+        $scope.entryPropertiesObj = {};
+        for (i in $scope.entryProperties) {
+            $scope.entryPropertiesObj[$scope.dataLabels[i]] = $scope.entryProperties[i];
+        }
 
         // shift data
         $scope.data.shift();

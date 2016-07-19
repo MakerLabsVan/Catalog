@@ -20,7 +20,7 @@
     <div class="container-fluid view-color" ng-controller="indexCtrl">
         <div class="row">
             <div class="col-sm-2" id="accordion-container">
-                <img src="assets/makerlabs.png" alt="makerlablogo" id="index-logo">
+                <img class="centerImage" src="assets/makerlabs.png" alt="makerlablogo" id="index-logo">
                 <hr>
                 <!-- accordion start -->
                 <div class="panel-group" id="accordion">
@@ -40,9 +40,9 @@
                     </div>
                     <div class="panel panel-default">
                         <div class="panel-heading lvl1-box-shadow red categoryMargins">
-                            <h4 class="panel-title">
+                            <h4 class="panel-title pointer">
                                 <div data-toggle="collapse" href="#collapse1"
-                                     class="whiteFont" ng-bind="categories.studio"></div>
+                                     class="whiteFont standardFont" ng-bind="categories.studio"></div>
                             </h4>
                         </div>
                         <div id="collapse1" class="panel-collapse collapse categoryMargins" data-parent="#accordion">
@@ -59,9 +59,9 @@
                     </div>
                     <div class="panel panel-default">
                         <div class="panel-heading lvl1-box-shadow blue categoryMargins">
-                            <h4 class="panel-title">
+                            <h4 class="panel-title pointer">
                                 <div data-toggle="collapse" href="#collapse2"
-                                     class="whiteFont" ng-bind="categories.tools"></div>
+                                     class="whiteFont standardFont" ng-bind="categories.tools"></div>
                             </h4>
                         </div>
                         <div id="collapse2" class="panel-collapse collapse categoryMargins" data-parent="#accordion">
@@ -76,9 +76,9 @@
                     </div>
                     <div class="panel panel-default">
                         <div class="panel-heading lvl1-box-shadow green categoryMargins">
-                            <h4 class="panel-title">
+                            <h4 class="panel-title pointer">
                                 <div data-toggle="collapse" href="#collapse3"
-                                     class="whiteFont" ng-bind="categories.cons"></div>
+                                     class="whiteFont standardFont" ng-bind="categories.cons"></div>
                             </h4>
                         </div>
                         <div id="collapse3" class="panel-collapse collapse categoryMargins" data-parent="#accordion">
@@ -93,9 +93,9 @@
                     </div>
                     <div class="panel panel-default">
                         <div class="panel-heading lvl1-box-shadow orange categoryMargins">
-                            <h4 class="panel-title">
+                            <h4 class="panel-title pointer">
                                 <div data-toggle="collapse" href="#collapse4"
-                                     class="whiteFont" ng-bind="categories.mats"></div>
+                                     class="whiteFont standardFont" ng-bind="categories.mats"></div>
                             </h4>
                         </div>
                         <div id="collapse4" class="panel-collapse collapse categoryMargins" data-parent="#accordion">
@@ -110,61 +110,68 @@
                     </div>
                 </div>
             </div>
-            <div id="index-main-view">
-                <!--top empty panel-->
-            </div>
-            <div class="col-sm-3 view-color" id="index-view-container">
-                <div class="panel panel-default lvl1-box-shadow" id="ct-index-panel">
-                    <div class="panel-heading" id="indexPanelHeading">
-                        <p class="panel-title" id="ct-index-panel-title-detail" ng-bind="panelTitleName">
-                        </p>
-                        <small ng-bind="panelTitleType"></small>
-                    </div>
-                    <div class="panel-body" id="entryBody">
-                        <!--panel body-->
-                        <div class="" id="welcomeMessage">
-                            <p ng-bind="panelBodyMessage.name"></p>
-                            <p ng-bind="panelBodyMessage.body"></p>
-                        </div>
-                    </div>
-                    <div class="panel-body hidden" id="entryDetails">
-                        <div class="col-sm-12" ng-repeat="prop in dataLabels track by $index">
-                            <div class="row" ng-if="isEmpty(prop)" id="{{ selectedObject.key }}{{ prop }}">
-                                <div class="col-sm-6" ng-bind="entryProperties[$index] + ':'">
-                                </div>
-                                <div class="col-sm-6 alignEntryValues" ng-bind="selectedObject[prop]">
-                                </div>
-                            </div>
-                        </div>
+            <div class="col-sm-10">
+                <div class="row">
+                    <div class="fixedTop">
+                        <!--top empty panel-->
                     </div>
                 </div>
-            </div>
-            <div ng-controller="mapController">
-                <div class="col-sm-6">
-                    <div role="tabpanel">
-                        <!-- Nav tabs -->
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" class="active" id="firstLi">
-                                <a href="#firstFloor" aria-controls="firstFloor" role="tab" data-toggle="tab"
-                                   ng-click="resizeMap" id="floor1Tab">
-                                    First
-                                </a>
-                            </li>
-                            <li role="presentation" class="" id="secondLi">
-                                <a href="#secondFloor" aria-controls="secondFloor" role="tab" data-toggle="tab"
-                                   ng-click="resizeMap" id="floor2Tab">
-                                    Second
-                                </a>
-                            </li>
-                        </ul>
-                        <!-- Tab panes -->
-                        <div class="tab-content lvl1-box-shadow">
-                            <div role="tabpanel" class="tab-pane active" ng-model="fstFloorSize" id="firstFloor">
-                                <div class="well well-lg" id="firstFloorWell">
+                <div class="row">
+                    <div class="col-sm-3 view-color">
+                        <div class="panel panel-default lvl1-box-shadow" id="entryPanel">
+                            <div class="panel-heading entryTitle" id="indexPanelHeading">
+                                <p class="panel-title standardFont" ng-bind="panelTitleName">
+                                </p>
+                                <small ng-bind="panelTitleType"></small>
+                            </div>
+                            <div class="panel-body white standardFont" id="entryBody">
+                                <!--panel body-->
+                                <div class="" id="welcomeMessage">
+                                    <p ng-bind="panelBodyMessage.name"></p>
+                                    <p ng-bind="panelBodyMessage.body"></p>
                                 </div>
                             </div>
-                            <div role="tabpanel" class="tab-pane" ng-model="secFloorSize" id="secondFloor">
-                                <div class="well well-lg" id="secondFloorWell">
+                            <div class="panel-body hidden white standardFont" id="entryDetails">
+                                <div class="col-sm-12" ng-repeat="prop in dataLabels track by $index">
+                                    <div class="row" ng-if="isEmpty(prop)" id="{{ selectedObject.key }}{{ prop }}">
+                                        <div class="col-sm-6" ng-bind="entryProperties[$index] + ':'">
+                                        </div>
+                                        <div class="col-sm-6 alignEntryValues" ng-bind="selectedObject[prop]">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-controller="mapController">
+                        <div class="col-sm-9" id="mapContainer">
+                            <div role="tabpanel">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation" class="active" id="firstLi">
+                                        <a href="#firstFloor" aria-controls="firstFloor" role="tab" data-toggle="tab"
+                                           ng-click="resizeMap" id="floor1Tab">
+                                            First
+                                        </a>
+                                    </li>
+                                    <li role="presentation" class="" id="secondLi">
+                                        <a href="#secondFloor" aria-controls="secondFloor" role="tab" data-toggle="tab"
+                                           ng-click="resizeMap" id="floor2Tab">
+                                            Second
+                                        </a>
+                                    </li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content lvl1-box-shadow">
+                                    <div role="tabpanel" class="tab-pane active" ng-model="fstFloorSize"
+                                         id="firstFloor">
+                                        <div class="well well-lg" id="firstFloorWell">
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" ng-model="secFloorSize" id="secondFloor">
+                                        <div class="well well-lg" id="secondFloorWell">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

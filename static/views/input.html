@@ -15,11 +15,11 @@
     <div class="container-fluid" ng-controller="inputCtrl" id="input-background">
         <div class="row">
             <div class="col-sm-2" id="input-result-container">
-                <img src="/assets/makerlabs.png" alt="MakerLabs" id="input-logo"/>
+                <img class="centerImage" src="/assets/makerlabs.png" alt="MakerLabs" id="input-logo"/>
                 <hr>
                 <div class="row">
                     <div class="col-sm-12">
-                        <input type="search" class="form-control" placeholder="Search here"
+                        <input type="search" class="form-control lvl1-box-shadow" placeholder="Search here"
                                ng-model="inputQuery"/>
                     </div>
                 </div>
@@ -33,8 +33,39 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-10 view-color">
+            <div class="col-sm-10 view-color pageSize">
+                <div class="row fixedTop">
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-3" id="entryPage">
+                        <div class="well well-sm inputWellSize white lvl1-box-shadow noPadding">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-sm-6 noPadding divider">
+                                        <button type="button" class="btn btn-default inputOptionsBtns">New
+                                        </button>
+                                    </div>
+                                    <div class="col-sm-6 noPadding">
+                                        <button type="button" class="btn btn-default inputOptionsBtns">Edit</button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div>
+                                        <input type="text" name="entryInput" id="nameIn" class="form-control" required="required" placeholder="{{ entryPropertiesObj.name }}">
+                                        
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-9" id="entryMap">
+                        <div class="well well-sm inputWellSize white lvl1-box-shadow">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
