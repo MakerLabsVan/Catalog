@@ -25,13 +25,6 @@ var auth = function (method, body, resCallback) {
         authorize(JSON.parse(content), method, body, resCallback);
     });
 
-    /**
-     * Create an OAuth2 client with the given credentials, and then execute the
-     * given callback function.
-     *
-     * @param {Object} credentials The authorization client credentials.
-     * @param {function} callback The callback to call with the authorized client.
-     */
     function authorize(credentials, callback, body, resCallback) {
         var clientSecret = credentials.installed.client_secret;
         var clientId = credentials.installed.client_id;
@@ -50,14 +43,6 @@ var auth = function (method, body, resCallback) {
         });
     }
 
-    /**
-     * Get and store new token after prompting for user authorization, and then
-     * execute the given callback with the authorized OAuth2 client.
-     *
-     * @param {google.auth.OAuth2} oauth2Client The OAuth2 client to get token for.
-     * @param {getEventsCallback} callback The callback to call with the authorized
-     *     client.
-     */
     function getNewToken(oauth2Client, callback, body, resCallback) {
         var authUrl = oauth2Client.generateAuthUrl({
             access_type: 'offline',
@@ -82,11 +67,6 @@ var auth = function (method, body, resCallback) {
         });
     }
 
-    /**
-     * Store token to disk be used in later program executions.
-     *
-     * @param {Object} token The token to store to disk.
-     */
     function storeToken(token) {
         try {
             fs.mkdirSync(TOKEN_DIR);
@@ -115,11 +95,11 @@ var getDataList = function (auth, callback) {
         callback(rows);
     });
 };
+
 // you can get entries by looking at the number of entries in the array
 // and + 2 to get the next empty row
 var sheetWrite = function (auth, body, resCallback) {
-
-    var nextRow = 'A' + String(body.row + 2);
+    var nextRow = 'A' + String(body.row + 3);
 
     var sheets = google.sheets('v4');
     sheets.spreadsheets.values.update({

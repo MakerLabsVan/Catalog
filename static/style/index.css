@@ -54,7 +54,7 @@ small {
 }
 
 .well {
-    border:0px;
+    border: 0px;
     border-radius: 0;
 }
 
@@ -216,18 +216,17 @@ small {
     text-align: center;
 }
 
-.inputBorders {
-    border-left: 0px;
-    border-right: 0px;
+.inputAreaHeight {
+    height: 50px;
+    border: 1px solid rgba(200, 200, 200, 0.51);
     border-radius: 0px;
-    border-bottom: 0px;
 }
 
-
-.endInputBorders {
-    border-bottom: 1px solid lightgray;
+.inputDescHeight {
+    height: 100px;
 }
 
-.inputClass {
-    height:50px;
+textarea {
+    resize: none;
+    border-radius: 0px !important;
 }

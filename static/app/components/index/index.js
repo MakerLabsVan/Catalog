@@ -250,16 +250,9 @@ indexApp.factory('httpRequests', function ($http) {
                     // return the data
                     return result.data;
                 })
-        },
-        admin_getCatalog: function () {
-            // return promise
-            return $http.get('getCatalog')
-                .then(function (result) {
-                    return result.data;
-                })
         }
     }
-})
+});
 
 // service to share methods for map construction and resizing
 indexApp.service("mapService", function () {

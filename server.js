@@ -40,18 +40,6 @@ router.post("/delete", function (req, res) {
     });
 });
 
-router.get("/editEntryTmpl", function (req, res) {
-    res.sendFile(path + "/static/templates/editEntryTmpl.html");
-});
-
-router.get("/clearEditPage", function (req, res) {
-    res.sendFile(path + "/static/templates/clearEditPage.html");
-});
-
-router.get("/input/studio", function (req, res) {
-    res.sendFile(path + "/static/templates/inputFormTmpl.html");
-});
-
 router.get("/getCatalog", function (req, res) {
     serverOps.getData(function (result) {
         return res.json(result);

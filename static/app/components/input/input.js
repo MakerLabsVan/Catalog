@@ -1,8 +1,8 @@
 var inputApp = angular.module('inputApp', ['indexApp']);
 
-inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightService", "httpRequests", function ($scope, $http, mapService, highlightService, httpRequests) {
+inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightService", "adminHttpRequests", function ($scope, $http, mapService, highlightService, adminHttpRequests) {
 
-    httpRequests.admin_getCatalog().then(function (data) {
+    adminHttpRequests.admin_getCatalog().then(function (data) {
         $scope.data = data;
 
         // labels to use for object
@@ -19,6 +19,7 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         // shift data
         $scope.data.shift();
         $scope.data.shift();
+        $scope.dataLength = data.length;
 
         // removed 2 frozen rows
         var shiftedData = $scope.data;
@@ -33,7 +34,7 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
                 // ex. object.name.label
                 object[$scope.dataLabels[j]] = shiftedData[i][j];
             }
-            // 20 could change
+            // number could change
             $scope.entries[shiftedData[i][21]] = object;
         }
         ;
@@ -94,31 +95,21 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
 
 
     // make a new entry
-    $scope.formData = {};
-    $scope.newEntry = function () {
-        var localEntry = [];
-        for (var prop in $scope.formData) {
-            if ($scope.formData.hasOwnProperty(prop)) {
-                localEntry.push($scope.formData[prop]);
-            }
+    $scope.form = {};
+    $scope.insert = function () {
+        // get type from radio buttons
+        $scope.form.type = $("input[name='typeOptions']:checked").val();
+
+        // make array to pass in
+        var values = [];
+        for (i in $scope.dataLabels){
+            values.push($scope.form[$scope.dataLabels[i]]);
         }
 
-        // get type from radio buttons
-        $scope.formData.Type = $("input[name='options']:checked").val();
-        $scope.formData.Units = $("select[name='dimDropDown']").val();
-        $scope.formData.Units = $("select[name='weightDropDown']").val();
-
-        $http.post('/new', [$scope.formData, $scope.dataLength])
-            .success(function (data, status, header, config) {
-                console.log(data, status);
-                // push to client array
-                $scope.dataLength++;
-                $scope.data.push(localEntry);
-                $scope.formData = {};
-            })
-            .error(function (data, status, header, config) {
-                console.log(data, status);
-            })
+        adminHttpRequests.insert(values, $scope.dataLength).then(function (result) {
+            console.log(result);
+            $scope.form = {};
+        });
     };
 
     // delete an entry
@@ -144,19 +135,19 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
     };
 
     // submit edit
-    $scope.editFormData = {};
+    $scope.editform = {};
     $scope.editEntry = function (objectKey, metaData) {
         $scope.index;
         for (var i = 0; i < $scope.dataLength; i++) {
             if (objectKey === $scope.data[i][20]) {
                 $scope.index = i + 1;
                 // maybe change all properties?
-                $scope.data[i][0] = $scope.editFormData.Name;
+                $scope.data[i][0] = $scope.editform.Name;
                 break;
             }
         }
-        $scope.editFormData.metadata = metaData;
-        $http.post('/edit', [$scope.editFormData, $scope.index])
+        $scope.editform.metadata = metaData;
+        $http.post('/edit', [$scope.editform, $scope.index])
             .success(function (data, status, header, config) {
                 console.log(data, status);
             })
@@ -169,3 +160,20 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
     $scope.highlightItem = highlightService.highlight;
 
 }]);
+
+inputApp.factory('adminHttpRequests', function ($http) {
+    return {
+        admin_getCatalog: function () {
+            return $http.get('getCatalog')
+                .then(function (result) {
+                    return result.data;
+                })
+        },
+        insert: function (entry, row) {
+            return $http.post('new', [entry, row])
+                .then(function (result) {
+                    return result.data;
+                })
+        }
+    }
+});
