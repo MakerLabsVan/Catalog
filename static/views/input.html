@@ -27,7 +27,7 @@
                     <div class="container-fluid">
                         <div ng-repeat="entry in entries">
                             <div class="entryNames" ng-bind="filterSearch(entry)" id="admin_{{ entry.key }}"
-                                 ng-click="showLoc(entry.key); highlightItem('admin_' + entry.key)">
+                                 ng-click="showLoc(entry.key);selectEntry(entry)">
                             </div>
                         </div>
                     </div>
@@ -41,119 +41,139 @@
                     <div class="col-sm-3" id="entryPage">
                         <div class="well well-sm inputWellSize white lvl1-box-shadow noPadding">
                             <div class="container-fluid">
-                                <form ng-submit="insert()">
-                                    <div class="row">
-                                        <div class="col-sm-6 noPadding">
-                                            <button type="button" class="btn btn-default inputOptionsBtns">New
-                                            </button>
+                                <div class="row">
+                                    <div class="col-sm-6 noPadding inputAreaHeight">
+                                        <button type="button" class="btn btn-default inputOptionsBtns"
+                                                ng-click="clearForm()">
+                                                <span class="glyphicon glyphicon-file">
+                                                </span>
+                                        </button>
+                                    </div>
+                                    <div class="col-sm-6 noPadding inputAreaHeight">
+                                        <button type="button" class="btn btn-default inputOptionsBtns">
+                                                <span class="glyphicon glyphicon-pencil">
+                                                </span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <input type="text" name="entryInput" id="nameIn"
+                                           class="form-control  inputAreaHeight"
+                                           placeholder="{{ entryPropertiesObj.name }}"
+                                           ng-model="form.name">
+                                </div>
+                                <div class="row">
+                                    <div class="btn-group btn-group-justified inputAreaHeight"
+                                         data-toggle="buttons" id="buttonGroup">
+                                        <div class="btn btn-default" id="stdTypeDiv">
+                                            <input type="radio" name="typeOptions" id="option1"
+                                                   autocomplete="off" value="Studio" checked>Studio
                                         </div>
-                                        <div class="col-sm-6 noPadding">
-                                            <button type="button" class="btn btn-default inputOptionsBtns">Edit</button>
+                                        <div class="btn btn-default" id="matTypeDiv">
+                                            <input type="radio" name="typeOptions" id="option2"
+                                                   autocomplete="off" value="Material">Material
+                                        </div>
+                                        <div class="btn btn-default" id="conTypeDiv">
+                                            <input type="radio" name="typeOptions" id="option3"
+                                                   autocomplete="off" value="Consumable">Consumable
+                                        </div>
+                                        <div class="btn btn-default" id="toolTypeDiv">
+                                            <input type="radio" name="typeOptions" id="option4"
+                                                   autocomplete="off" value="Tool">Tool
                                         </div>
                                     </div>
-                                    <div class="row">
+                                </div>
+                                <div class="row">
+                                    <input type="text" name="entryInput" id="nameIn"
+                                           class="form-control inputAreaHeight"
+                                           placeholder="{{ entryPropertiesObj.subtype }}"
+                                           ng-model="form.subtype">
+                                </div>
+                                <div class="row">
+                                    <input type="text" name="entryInput" id="nameIn"
+                                           class="form-control inputAreaHeight"
+                                           placeholder="{{ entryPropertiesObj.sublocation }}"
+                                           ng-model="form.sublocation">
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3 noPadding">
+                                        <input type="text" name="entryInput" id="nameIn"
+                                               class="form-control inputAreaHeight"
+                                               placeholder="{{ entryPropertiesObj.width }}"
+                                               ng-model="form.width">
+                                    </div>
+                                    <div class="col-sm-3 noPadding">
+                                        <input type="text" name="entryInput" id="nameIn"
+                                               class="form-control inputAreaHeight"
+                                               placeholder="{{ entryPropertiesObj.length }}"
+                                               ng-model="form.width">
+                                    </div>
+                                    <div class="col-sm-3 noPadding">
+                                        <input type="text" name="entryInput" id="nameIn"
+                                               class="form-control inputAreaHeight"
+                                               placeholder="{{ entryPropertiesObj.height }}"
+                                               ng-model="form.height">
+                                    </div>
+                                    <div class="col-sm-3 noPadding">
                                         <input type="text" name="entryInput" id="nameIn"
                                                class="form-control  inputAreaHeight"
-                                               placeholder="{{ entryPropertiesObj.name }}"
-                                               ng-model="form.name">
+                                               placeholder="{{ entryPropertiesObj.units }}"
+                                               ng-model="form.units">
                                     </div>
-                                    <div class="row">
-                                        <div class="btn-group btn-group-justified inputAreaHeight"
-                                             data-toggle="buttons">
-                                            <div class="btn btn-default active inputAreaHeight">
-                                                <input type="radio" name="typeOptions" id="option1"
-                                                       autocomplete="off" value="Studio" checked>Studio
-                                            </div>
-                                            <div class="btn btn-default">
-                                                <input type="radio" name="typeOptions" id="option2"
-                                                       autocomplete="off" value="Material">Material
-                                            </div>
-                                            <div class="btn btn-default">
-                                                <input type="radio" name="typeOptions" id="option3"
-                                                       autocomplete="off" value="Consumable">Consumable
-                                            </div>
-                                            <div class="btn btn-default inputAreaHeight">
-                                                <input type="radio" name="typeOptions" id="option4"
-                                                       autocomplete="off" value="Tool">Tool
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6 noPadding">
                                         <input type="text" name="entryInput" id="nameIn"
                                                class="form-control inputAreaHeight"
-                                               placeholder="{{ entryPropertiesObj.subtype }}"
-                                               ng-model="form.subtype">
+                                               placeholder="{{ entryPropertiesObj.weight }}"
+                                               ng-model="form.weight">
                                     </div>
-                                    <div class="row">
+                                    <div class="col-sm-6 noPadding">
                                         <input type="text" name="entryInput" id="nameIn"
                                                class="form-control inputAreaHeight"
-                                               placeholder="{{ entryPropertiesObj.sublocation }}"
-                                               ng-model="form.sublocation">
+                                               placeholder="{{ entryPropertiesObj.weightunit }}"
+                                               ng-model="form.weightunit">
                                     </div>
-                                    <div class="row">
-                                        <div class="col-sm-4 noPadding">
-                                            <input type="text" name="entryInput" id="nameIn"
-                                                   class="form-control inputAreaHeight"
-                                                   placeholder="{{ entryPropertiesObj.width }}"
-                                                   ng-model="form.width">
-                                        </div>
-                                        <div class="col-sm-4 noPadding">
-                                            <input type="text" name="entryInput" id="nameIn"
-                                                   class="form-control inputAreaHeight"
-                                                   placeholder="{{ entryPropertiesObj.height }}"
-                                                   ng-model="form.height">
-                                        </div>
-                                        <div class="col-sm-4 noPadding">
-                                            <input type="text" name="entryInput" id="nameIn"
-                                                   class="form-control  inputAreaHeight"
-                                                   placeholder="{{ entryPropertiesObj.units }}"
-                                                   ng-model="form.units">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6 noPadding">
-                                            <input type="text" name="entryInput" id="nameIn"
-                                                   class="form-control inputAreaHeight"
-                                                   placeholder="{{ entryPropertiesObj.weight }}"
-                                                   ng-model="form.weight">
-                                        </div>
-                                        <div class="col-sm-6 noPadding">
-                                            <input type="text" name="entryInput" id="nameIn"
-                                                   class="form-control inputAreaHeight"
-                                                   placeholder="{{ entryPropertiesObj.weightunit }}"
-                                                   ng-model="form.weightunit">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6 noPadding">
-                                            <input type="text" name="entryInput" id="nameIn"
-                                                   class="form-control inputAreaHeight"
-                                                   placeholder="{{ entryPropertiesObj.quantity }}"
-                                                   ng-model="form.quantity">
-                                        </div>
-                                        <div class="col-sm-6 noPadding">
-                                            <input type="text" name="entryInput" id="nameIn"
-                                                   class="form-control inputAreaHeight"
-                                                   placeholder="{{ entryPropertiesObj.price }}"
-                                                   ng-model="form.price">
-                                        </div>
-                                    </div>
-                                    <div class="row">
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6 noPadding">
                                         <input type="text" name="entryInput" id="nameIn"
                                                class="form-control inputAreaHeight"
-                                               placeholder="{{ entryPropertiesObj.keywords }}"
-                                               ng-model="form.keywords">
+                                               placeholder="{{ entryPropertiesObj.quantity }}"
+                                               ng-model="form.quantity">
                                     </div>
-                                    <div class="row">
+                                    <div class="col-sm-6 noPadding">
+                                        <input type="text" name="entryInput" id="nameIn"
+                                               class="form-control inputAreaHeight"
+                                               placeholder="{{ entryPropertiesObj.price }}"
+                                               ng-model="form.price">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <input type="text" name="entryInput" id="nameIn"
+                                           class="form-control inputAreaHeight"
+                                           placeholder="{{ entryPropertiesObj.keywords }}"
+                                           ng-model="form.keywords">
+                                </div>
+                                <div class="row">
                                     <textarea class="form-control" rows="3"
                                               placeholder="{{ entryPropertiesObj.description }}"
                                               ng-model="form.description"></textarea>
-                                    </div>
-                                    <div class="row">
-                                        <button type="submit" class="btn btn-block btn-primary inputAreaHeight">Submit
-                                        </button>
-                                    </div>
-                                </form>
+                                </div>
+                                <div class="row hidden" id="deleteBtn">
+                                    <button type="button" class="btn btn-block btn-danger inputAreaHeight">Delete
+                                    </button>
+                                </div>
+                                <div class="row hidden" id="editBtn">
+                                    <button type="submit" class="btn btn-block btn-primary inputAreaHeight"
+                                            ng-click="edit()">Edit
+                                    </button>
+                                </div>
+                                <div class="row" id="submitBtn">
+                                    <button type="submit" class="btn btn-block btn-primary inputAreaHeight"
+                                            ng-click="insert(dataLength)">Submit
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>

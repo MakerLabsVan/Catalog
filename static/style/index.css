@@ -206,6 +206,7 @@ small {
     width: 100%;
     padding: 10px 0 10px 0;
     color: gray;
+    height: 50px;
 }
 
 .noPadding {

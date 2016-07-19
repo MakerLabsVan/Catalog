@@ -119,7 +119,7 @@ var sheetWrite = function (auth, body, resCallback) {
 };
 
 var deleteEntry = function (auth, index, resCallback) {
-    var row = index + 1;
+    var row = index;
     var body = {
         "requests": [
             {

@@ -93,27 +93,82 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         }
     };
 
-
     // make a new entry
     $scope.form = {};
-    $scope.insert = function () {
+    $scope.insert = function (row) {
         // get type from radio buttons
-        $scope.form.type = $("input[name='typeOptions']:checked").val();
+        $scope.form.type = $("input[name=typeOptions]:checked").val();
 
         // make array to pass in
         var values = [];
-        for (i in $scope.dataLabels){
+        for (i in $scope.dataLabels) {
             values.push($scope.form[$scope.dataLabels[i]]);
         }
 
-        adminHttpRequests.insert(values, $scope.dataLength).then(function (result) {
+        adminHttpRequests.insert(values, row).then(function (result) {
             console.log(result);
             $scope.form = {};
         });
     };
 
+    $scope.edit = function () {
+        // find index of selected
+        var keyString = $scope.selectedEntry.key;
+        // offset to account for frozen rows and the parse function in serverOps
+        const offset = 1;
+        var index = parseInt(keyString.slice(1, keyString.length)) - offset;
+        $scope.insert(index);
+
+    };
+
+    $scope.selectEntry = function (entry) {
+
+        $scope.selectedEntry = entry;
+
+        $scope.highlightItem('admin_' + entry.key);
+        $('#deleteBtn').removeClass('hidden');
+        $('#editBtn').removeClass('hidden');
+        $('#submitBtn').addClass('hidden');
+
+        // fill form
+        for (i in entry) {
+            $scope.form[i] = entry[i];
+        }
+
+        var btnGroup = $('#buttonGroup');
+
+        // inactive div
+        btnGroup.find('div.active').removeClass('active');
+        // unchecked btn
+        btnGroup.find('input[name=typeOptions]:checked').prop('checked', false);
+        // active div
+
+        switch (entry.type) {
+            case 'Studio':
+                btnGroup.find('#stdTypeDiv').addClass('active');
+                break;
+            case 'Material':
+                btnGroup.find('#matTypeDiv').addClass('active');
+                break;
+            case 'Tool':
+                btnGroup.find('#conTypeDiv').addClass('active');
+                break;
+            case 'Consumable':
+                btnGroup.find('#toolTypeDiv').addClass('active');
+        }
+    };
+
+    $scope.clearForm = function () {
+        $scope.form = {};
+        $('#buttonGroup').find('.active').removeClass('active');
+        $('#deleteBtn').addClass('hidden');
+        $('#editBtn').addClass('hidden');
+        $('#submitBtn').removeClass('hidden');
+
+    }
+
     // delete an entry
-    $scope.deletePost = function (objectKey) {
+    $scope.delete = function (objectKey) {
         $scope.index;
         for (var i = 0; i < $scope.dataLength; i++) {
             if (objectKey === $scope.data[i][0]) {
@@ -125,35 +180,12 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         $http.post('/delete', [$scope.index])
             .success(function (data, status, header, config) {
                 console.log(data, status);
-                $scope.dataLength--;
                 $scope.clearEditPage();
             })
             .error(function (data, status, header, config) {
                 console.log(data, status);
             });
         $scope.data.splice($scope.index, 1);
-    };
-
-    // submit edit
-    $scope.editform = {};
-    $scope.editEntry = function (objectKey, metaData) {
-        $scope.index;
-        for (var i = 0; i < $scope.dataLength; i++) {
-            if (objectKey === $scope.data[i][20]) {
-                $scope.index = i + 1;
-                // maybe change all properties?
-                $scope.data[i][0] = $scope.editform.Name;
-                break;
-            }
-        }
-        $scope.editform.metadata = metaData;
-        $http.post('/edit', [$scope.editform, $scope.index])
-            .success(function (data, status, header, config) {
-                console.log(data, status);
-            })
-            .error(function (data, status, header, config) {
-                console.log(data, status);
-            });
     };
 
     // highlight selected entry
@@ -171,6 +203,12 @@ inputApp.factory('adminHttpRequests', function ($http) {
         },
         insert: function (entry, row) {
             return $http.post('new', [entry, row])
+                .then(function (result) {
+                    return result.data;
+                })
+        },
+        delete: function (index) {
+            return $http.post('delete', index)
                 .then(function (result) {
                     return result.data;
                 })

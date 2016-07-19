@@ -28,9 +28,10 @@ router.post("/new", function (req, res) {
 
 router.post("/edit", function (req, res) {
     console.log(req.body);
-    serverOps.parse(req.body[0], req.body[1], function (response) {
-        return res.json(response);
-    });
+    return res.json(req.body);
+    // serverOps.parse(req.body[0], req.body[1], function (response) {
+    //     return res.json(response);
+    // });
 });
 
 router.post("/delete", function (req, res) {
