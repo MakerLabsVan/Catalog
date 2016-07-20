@@ -162,7 +162,7 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         const offset = 1;
         var index = findIndex() + offset;
         adminHttpRequests.delete([index]).then(function (result) {
-            $scope.clearForm();
+            $scope.newForm();
             console.log(result);
             $scope.dataLength--;
             $scope.form = {};
@@ -171,6 +171,8 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
 
     $scope.selectEntry = function (entry) {
         $scope.selectedEntry = entry;
+
+        $scope.newSelect();
 
         $scope.highlightItem('admin_' + entry.key, entry.type);
         $('#deleteBtn').removeClass('hidden');
@@ -205,14 +207,19 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         }
     };
 
-    $scope.clearForm = function () {
+    $scope.newForm = function () {
         $scope.form = {};
         $('#buttonGroup').find('.active').removeClass('active');
         $('#deleteBtn').addClass('hidden');
         $('#confirmDel').addClass('hidden');
         $('#editBtn').addClass('hidden');
+        $('#confirmEdit').addClass('hidden');
         $('#submitBtn').removeClass('hidden');
+    };
 
+    $scope.newSelect = function () {
+        $('#confirmDel').addClass('hidden');
+        $('#confirmEdit').addClass('hidden');
     };
 
     // highlight selected entry
