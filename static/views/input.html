@@ -65,21 +65,21 @@
                                 <div class="row">
                                     <div class="btn-group btn-group-justified inputAreaHeight"
                                          data-toggle="buttons" id="buttonGroup">
-                                        <div class="btn btn-default" id="stdTypeDiv">
+                                        <div class="btn btn-default noBorderRadius" id="stdTypeDiv">
                                             <input type="radio" name="typeOptions" id="option1"
                                                    autocomplete="off" value="Studio" checked>Studio
                                         </div>
-                                        <div class="btn btn-default" id="matTypeDiv">
+                                        <div class="btn btn-default noBorderRadius" id="toolTypeDiv">
                                             <input type="radio" name="typeOptions" id="option2"
-                                                   autocomplete="off" value="Material">Material
+                                                   autocomplete="off" value="Tool">Tool
                                         </div>
-                                        <div class="btn btn-default" id="conTypeDiv">
+                                        <div class="btn btn-default noBorderRadius" id="conTypeDiv">
                                             <input type="radio" name="typeOptions" id="option3"
                                                    autocomplete="off" value="Consumable">Consumable
                                         </div>
-                                        <div class="btn btn-default" id="toolTypeDiv">
+                                        <div class="btn btn-default noBorderRadius" id="matTypeDiv">
                                             <input type="radio" name="typeOptions" id="option4"
-                                                   autocomplete="off" value="Tool">Tool
+                                                   autocomplete="off" value="Material">Material
                                         </div>
                                     </div>
                                 </div>
@@ -162,17 +162,29 @@
                                 </div>
                                 <div class="row hidden" id="deleteBtn">
                                     <button type="button" class="btn btn-block btn-danger inputAreaHeight"
-                                            ng-click="delete()">Delete
+                                            ng-click="confirmDelete()">
+                                        <span class="glyphicon glyphicon-trash">
+                                            </span>
+                                    </button>
+
+                                </div>
+                                <div class="row hidden" id="confirmDel">
+                                    <button type="button" class="btn btn-block btn-danger inputAreaHeight"
+                                            ng-click="delete()"> Delete for real bro?
                                     </button>
                                 </div>
                                 <div class="row hidden" id="editBtn">
                                     <button type="submit" class="btn btn-block btn-primary inputAreaHeight"
-                                            ng-click="edit()">Edit
+                                            ng-click="edit()">
+                                        <span class="glyphicon glyphicon-pencil">
+                                            </span>
                                     </button>
                                 </div>
                                 <div class="row" id="submitBtn">
                                     <button type="submit" class="btn btn-block btn-primary inputAreaHeight"
-                                            ng-click="insert(dataLength)">Submit
+                                            ng-click="insert(dataLength)">
+                                        <span class="glyphicon glyphicon-thumbs-up">
+                                            </span>
                                     </button>
                                 </div>
                             </div>

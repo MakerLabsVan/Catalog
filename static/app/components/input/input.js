@@ -100,19 +100,25 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
     // make a new entry
     $scope.form = {};
     $scope.insert = function (row) {
-        // get type from radio buttons
-        $scope.form.type = $("input[name=typeOptions]:checked").val();
+        // check for at least name (required attr does not work with ng-click)
+        if ($scope.form.name == undefined) {
+            alert('Name must be filled out!');
+        } else {
+            // get type from radio buttons
+            $scope.form.type = $("input[name=typeOptions]:checked").val();
 
-        // make array to pass in
-        var values = [];
-        for (i in $scope.dataLabels) {
-            values.push($scope.form[$scope.dataLabels[i]]);
+            // make array to pass in
+            var values = [];
+            for (i in $scope.dataLabels) {
+                values.push($scope.form[$scope.dataLabels[i]]);
+            }
+
+            adminHttpRequests.insert(values, row).then(function (result) {
+                console.log(result);
+                $scope.dataLength++;
+                $scope.form = {};
+            });
         }
-
-        adminHttpRequests.insert(values, row).then(function (result) {
-            console.log(result);
-            $scope.form = {};
-        });
     };
 
     var findIndex = function () {
@@ -131,12 +137,20 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         $scope.insert(index);
     };
 
+    $scope.confirmDelete = function () {
+        $('#confirmDel').removeClass('hidden');
+        $('#deleteBtn').addClass('hidden');
+    };
+
     // delete an entry
     $scope.delete = function () {
-        const offset = 2;
+        const offset = 1;
         var index = findIndex() + offset;
         adminHttpRequests.delete([index]).then(function (result) {
+            $scope.clearForm();
             console.log(result);
+            $scope.dataLength--;
+            $scope.form = {};
         });
     };
 
@@ -180,6 +194,7 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         $scope.form = {};
         $('#buttonGroup').find('.active').removeClass('active');
         $('#deleteBtn').addClass('hidden');
+        $('#confirmDel').addClass('hidden');
         $('#editBtn').addClass('hidden');
         $('#submitBtn').removeClass('hidden');
 
