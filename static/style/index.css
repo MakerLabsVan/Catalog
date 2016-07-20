@@ -180,10 +180,6 @@ small {
     border-radius: 0px;
 }
 
-#marker1 {
-    z-index: 5 !important;
-}
-
 .nav {
     border: 0px;
 }
@@ -225,6 +221,16 @@ small {
   width: 100%;
   height: 100%;
 }
+
+.marker {
+  width: 30px;
+  height: 30px;
+}
+
+.hide {
+  visibility: hidden;
+}
+
 
 /*Isometric map is rotation by 45 degrees and scale vertical by 0.6
 */
