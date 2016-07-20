@@ -111,18 +111,32 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         });
     };
 
-    $scope.edit = function () {
+    var findIndex = function () {
         // find index of selected
         var keyString = $scope.selectedEntry.key;
         // offset to account for frozen rows and the parse function in serverOps
         const offset = 1;
         var index = parseInt(keyString.slice(1, keyString.length)) - offset;
-        $scope.insert(index);
+        return index;
+    }
 
+    // edit an entry
+    $scope.edit = function () {
+        // find index of selected
+        var index = findIndex();
+        $scope.insert(index);
+    };
+
+    // delete an entry
+    $scope.delete = function () {
+        const offset = 2;
+        var index = findIndex() + offset;
+        adminHttpRequests.delete([index]).then(function (result) {
+            console.log(result);
+        });
     };
 
     $scope.selectEntry = function (entry) {
-
         $scope.selectedEntry = entry;
 
         $scope.highlightItem('admin_' + entry.key);
@@ -167,26 +181,6 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
 
     }
 
-    // delete an entry
-    $scope.delete = function (objectKey) {
-        $scope.index;
-        for (var i = 0; i < $scope.dataLength; i++) {
-            if (objectKey === $scope.data[i][0]) {
-                $scope.index = i;
-                break;
-            }
-        }
-
-        $http.post('/delete', [$scope.index])
-            .success(function (data, status, header, config) {
-                console.log(data, status);
-                $scope.clearEditPage();
-            })
-            .error(function (data, status, header, config) {
-                console.log(data, status);
-            });
-        $scope.data.splice($scope.index, 1);
-    };
 
     // highlight selected entry
     $scope.highlightItem = highlightService.highlight;
@@ -208,7 +202,7 @@ inputApp.factory('adminHttpRequests', function ($http) {
                 })
         },
         delete: function (index) {
-            return $http.post('delete', index)
+            return $http.post('delete', [index])
                 .then(function (result) {
                     return result.data;
                 })

@@ -119,12 +119,13 @@ var sheetWrite = function (auth, body, resCallback) {
 };
 
 var deleteEntry = function (auth, index, resCallback) {
-    var row = index;
+    var row = index[0];
     var body = {
         "requests": [
             {
                 "deleteDimension": {
                     "range": {
+                        "sheetId": 0,
                         "dimension": "ROWS",
                         "startIndex": row,
                         "endIndex": row + 1
