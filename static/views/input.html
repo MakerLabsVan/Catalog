@@ -11,80 +11,211 @@
 </head>
 
 <body>
-<div ng-app="myApp">
+<div ng-app="inputApp">
     <div class="container-fluid" ng-controller="inputCtrl" id="input-background">
         <div class="row">
             <div class="col-sm-2" id="input-result-container">
-                <img src="/assets/makerlabs.png" alt="MakerLabs" id="input-logo"/>
-                <div class="panel-group">
-                    <div class="row">
-                        <div class="panel panel-default">
-                            <div class="col-sm-12">
-                                <input type="search" class="form-control" placeholder="Search here"
-                                       ng-model="inputQuery"/>
-                            </div>
-                            <div class="container-fluid" id="admin-search-result">
-                                <div ng-repeat="object in data track by $index">
-                                    <admin-search-res></admin-search-res>
-                                </div>
+                <img class="centerImage" src="/assets/makerlabs.png" alt="MakerLabs" id="input-logo"/>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <input type="search" class="form-control lvl1-box-shadow" placeholder="Search here"
+                               ng-model="inputQuery"/>
+                    </div>
+                </div>
+                <div class="row" id="admin-search-result">
+                    <div class="container-fluid">
+                        <div ng-repeat="entry in entries">
+                            <div class="entryNames listMargins" ng-bind="filterSearch(entry)" id="admin_{{ entry.key }}"
+                                 ng-click="showLoc(entry.key);selectEntry(entry)">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-10">
-                <div class="row">
-                    <div class="container" id="input-container">
-                        <div role="tabpanel">
-                            <ul class="nav nav-tabs" role="tablist">
-                                <li role="presentation" class="active" id="newEntryTab">
-                                    <a href="#newEntry" aria-controls="home" role="tab" data-toggle="tab">New Entry</a>
-                                </li>
-                                <li role="presentation" id="input-edit-tab">
-                                    <a href="#ct-edit" aria-controls="tab" role="tab" data-toggle="tab"
-                                       ng-init="clearEditPage()">Edit</a>
-                                </li>
-                            </ul>
-                            <div class="container-fluid lvl1-box-shadow" id="input-tab-content">
-                                <div class="tab-content">
-                                    <div role="tabpanel" class="tab-pane active" id="newEntry">
-                                        <form class="form-horizontal" ng-submit="newEntry()">
-                                            <br>
-                                            <div ng-repeat="prop in entryProperties track by $index">
-                                                <add-input></add-input>
-                                            </div>
-                                            <div class="col-sm-2 col-sm-offset-1">
-                                                <button type="button" class="btn btn-large btn-block btn-default"><span
-                                                        class="glyphicon glyphicon-map-marker">
-                                            </span>Location
-                                                </button>
-                                            </div>
-                                            <div class="col-sm-1 col-sm-offset-6">
-                                                <button type="submit" class="btn btn-default">Submit</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div role="tabpanel" class="tab-pane" id="ct-edit">
-                                        <div ng-include="templateURL">
-                                        </div>
+            <div class="col-sm-10 view-color pageSize">
+                <div class="row fixedTop">
 
+                </div>
+                <div class="row">
+                    <div class="col-sm-4" id="entryPage">
+                        <div class="well well-sm inputWellSize white lvl1-box-shadow noPadding">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-sm-6 noPadding inputAreaHeight">
+                                        <button type="button" class="btn btn-default inputOptionsBtns"
+                                                ng-click="newForm()">
+                                                <span class="glyphicon glyphicon-file">
+                                                </span>
+                                        </button>
                                     </div>
-                                    <div role="tabpanel" class="tab-pane" id="edit-first-floor">
-                                        <div class="container-fluid">
-                                            <edit-map-panes></edit-map-panes>
-                                            <button type="button" class="btn btn-large btn-default"
-                                                    ng-click="getLocation(1)" href="#ct-edit" data-toggle="tab">Submit
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div role="tabpanel" class="tab-pane" id="edit-second-floor">
-                                        <edit-map-panes></edit-map-panes>
-                                        <button type="button" class="btn btn-large btn-default"
-                                                ng-click="getLocation(2)" href="#ct-edit" data-toggle="tab">Submit
+                                    <div class="col-sm-6 noPadding inputAreaHeight">
+                                        <button type="button" class="btn btn-default inputOptionsBtns">
+                                                <span class="glyphicon glyphicon-pencil">
+                                                </span>
                                         </button>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <input type="text" name="entryInput" id="nameIn"
+                                           class="form-control  inputAreaHeight"
+                                           placeholder="{{ entryPropertiesObj.name }}"
+                                           ng-model="form.name">
+                                </div>
+                                <div class="row">
+                                    <div class="btn-group btn-group-justified inputAreaHeight"
+                                         data-toggle="buttons" id="buttonGroup">
+                                        <div class="btn btn-default noBorderRadius" id="stdTypeDiv">
+                                            <input type="radio" name="typeOptions" id="option1"
+                                                   autocomplete="off" value="Studio" checked>Studio
+                                        </div>
+                                        <div class="btn btn-default noBorderRadius" id="toolTypeDiv">
+                                            <input type="radio" name="typeOptions" id="option2"
+                                                   autocomplete="off" value="Tool">Tool
+                                        </div>
+                                        <div class="btn btn-default noBorderRadius" id="conTypeDiv">
+                                            <input type="radio" name="typeOptions" id="option3"
+                                                   autocomplete="off" value="Consumable">Consumable
+                                        </div>
+                                        <div class="btn btn-default noBorderRadius" id="matTypeDiv">
+                                            <input type="radio" name="typeOptions" id="option4"
+                                                   autocomplete="off" value="Material">Material
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <input type="text" name="entryInput" id="nameIn"
+                                           class="form-control inputAreaHeight"
+                                           placeholder="{{ entryPropertiesObj.subtype }}"
+                                           ng-model="form.subtype">
+                                </div>
+                                <div class="row">
+                                    <input type="text" name="entryInput" id="nameIn"
+                                           class="form-control inputAreaHeight"
+                                           placeholder="{{ entryPropertiesObj.sublocation }}"
+                                           ng-model="form.sublocation">
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3 noPadding">
+                                        <input type="text" name="entryInput" id="nameIn"
+                                               class="form-control inputAreaHeight"
+                                               placeholder="{{ entryPropertiesObj.width }}"
+                                               ng-model="form.width">
+                                    </div>
+                                    <div class="col-sm-3 noPadding">
+                                        <input type="text" name="entryInput" id="nameIn"
+                                               class="form-control inputAreaHeight"
+                                               placeholder="{{ entryPropertiesObj.length }}"
+                                               ng-model="form.width">
+                                    </div>
+                                    <div class="col-sm-3 noPadding">
+                                        <input type="text" name="entryInput" id="nameIn"
+                                               class="form-control inputAreaHeight"
+                                               placeholder="{{ entryPropertiesObj.height }}"
+                                               ng-model="form.height">
+                                    </div>
+                                    <div class="col-sm-3 noPadding">
+                                        <input type="text" name="entryInput" id="nameIn"
+                                               class="form-control  inputAreaHeight"
+                                               placeholder="{{ entryPropertiesObj.units }}"
+                                               ng-model="form.units">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6 noPadding">
+                                        <input type="text" name="entryInput" id="nameIn"
+                                               class="form-control inputAreaHeight"
+                                               placeholder="{{ entryPropertiesObj.weight }}"
+                                               ng-model="form.weight">
+                                    </div>
+                                    <div class="col-sm-6 noPadding">
+                                        <input type="text" name="entryInput" id="nameIn"
+                                               class="form-control inputAreaHeight"
+                                               placeholder="{{ entryPropertiesObj.weightunit }}"
+                                               ng-model="form.weightunit">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6 noPadding">
+                                        <input type="text" name="entryInput" id="nameIn"
+                                               class="form-control inputAreaHeight"
+                                               placeholder="{{ entryPropertiesObj.quantity }}"
+                                               ng-model="form.quantity">
+                                    </div>
+                                    <div class="col-sm-6 noPadding">
+                                        <input type="text" name="entryInput" id="nameIn"
+                                               class="form-control inputAreaHeight"
+                                               placeholder="{{ entryPropertiesObj.price }}"
+                                               ng-model="form.price">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <input type="text" name="entryInput" id="nameIn"
+                                           class="form-control inputAreaHeight"
+                                           placeholder="{{ entryPropertiesObj.keywords }}"
+                                           ng-model="form.keywords">
+                                </div>
+                                <div class="row">
+                                    <textarea class="form-control" rows="6"
+                                              placeholder="{{ entryPropertiesObj.description }}"
+                                              ng-model="form.description"></textarea>
+                                </div>
+                                <div class="row hidden" id="deleteBtn">
+                                    <button type="button" class="btn btn-block btn-danger inputAreaHeight"
+                                            ng-click="confirmDelete()">
+                                        <span class="glyphicon glyphicon-trash">
+                                            </span>
+                                    </button>
+
+                                </div>
+                                <div class="row hidden" id="confirmDel">
+                                    <div class="col-sm-6 noPadding">
+                                        <button type="button" class="btn btn-block btn-danger inputAreaHeight"
+                                                ng-click="delete()">Confirm
+                                        </button>
+                                    </div>
+                                    <div class="col-sm-6 noPadding">
+                                        <button type="button" class="btn btn-block btn-danger inputAreaHeight"
+                                                ng-click="cancelDelete()">Cancel
+                                        </button>
+                                    </div>
+
+                                </div>
+                                <div class="row hidden" id="editBtn">
+                                    <button type="submit" class="btn btn-block btn-primary inputAreaHeight"
+                                            ng-click="confirmEdit()">
+                                        <span class="glyphicon glyphicon-pencil">
+                                            </span>
+                                    </button>
+                                </div>
+                                <div class="row hidden" id="confirmEdit">
+                                    <div class="col-sm-6 noPadding">
+                                        <button type="button" class="btn btn-block btn-primary inputAreaHeight"
+                                                ng-click="edit()">Confirm
+                                        </button>
+                                    </div>
+                                    <div class="col-sm-6 noPadding">
+                                        <button type="button" class="btn btn-block btn-primary inputAreaHeight"
+                                                ng-click="cancelEdit()">Cancel
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="row" id="submitBtn">
+                                    <button type="submit" class="btn btn-block btn-primary inputAreaHeight"
+                                            ng-click="insert(dataLength)">
+                                        <span class="glyphicon glyphicon-thumbs-up">
+                                            </span>
+                                    </button>
+                                </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8" id="entryMap">
+                        <div class="well well-sm inputWellSize white lvl1-box-shadow" id="firstFloor">
+
+                        </div>
+                        <div class="well well-sm inputWellSize white lvl1-box-shadow hidden" id="secondFloor">
+
                         </div>
                     </div>
                 </div>
@@ -103,7 +234,6 @@
 <script src="../app/components/d3/d3map.js"></script>
 <script src="../app/components/index/index.js"></script>
 <script src="../app/components/input/input.js"></script>
-<script src="../app/components/input/inputDirs.js"></script>
 <script>
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;

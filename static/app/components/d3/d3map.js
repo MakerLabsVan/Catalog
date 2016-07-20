@@ -30,5 +30,4 @@ app.controller('mapController', ['$scope', '$window', '$location', function ($sc
     // manuall $digest required as resize event is outside of angular
     $scope.$digest();
   })
-
 }])

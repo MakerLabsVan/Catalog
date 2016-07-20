@@ -26,39 +26,19 @@ router.post("/new", function (req, res) {
     });
 });
 
-router.post("/edit", function (req, res) {
-    console.log(req.body);
-    serverOps.parse(req.body[0], req.body[1], function (response) {
-        return res.json(response);
-    });
-});
-
 router.post("/delete", function (req, res) {
-    console.log(req.body[0]);
     serverOps.delEntry(req.body[0], function (result) {
         return res.json(result);
     });
 });
 
-router.get("/editEntryTmpl", function (req, res) {
-    res.sendFile(path + "/static/templates/editEntryTmpl.html");
-});
-
-router.get("/clearEditPage", function (req, res) {
-    res.sendFile(path + "/static/templates/clearEditPage.html");
-});
-
-router.get("/input/studio", function (req, res) {
-    res.sendFile(path + "/static/templates/inputFormTmpl.html");
-});
-
-router.get("/getData", function (req, res) {
+router.get("/getCatalog", function (req, res) {
     serverOps.getData(function (result) {
         return res.json(result);
     });
 });
 
-router.get("/publicGetData", function (req, res) {
+router.get("/publicGetCatalog", function (req, res) {
     public_serverOps.public_getDataList(function (result) {
         return res.json(result);
     });
