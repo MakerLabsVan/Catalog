@@ -17,7 +17,7 @@ const isoMapWidth = 1320; // Width of isometric map
 const scrollMapY = 1000; //Vertical scroll until next map
 const firstFloorX = 790;
 const firstFloorY = 1915;
-const secondFloorX = 645;
+const secondFloorX = 630;
 const secondFloorY = 710;
 
 
@@ -49,6 +49,7 @@ var mapConstructor = function (containerID, floorNum) {
   this.container = d3.select('#' + containerID).append('svg')
     .attr('id', 'floor' + floorNum)
     .attr('class', 'mapContainer'),
+
   //Returns width of the map container
   this.width = function () {
       return this.container.node().getBoundingClientRect().width;
@@ -58,22 +59,21 @@ var mapConstructor = function (containerID, floorNum) {
       return this.container.node().getBoundingClientRect().height;
   },
   //The map img
-  this.map = addImgMap(this.container, isoMapFilePath ),
+  this.map = addImgMap( this.container, isoMapFilePath ),
   //initialize studios svgs
-  this.studio = new studio(this.container, this.map),
+  this.studio = new studio( this.container, this.map),
   //Resize all map objects
   this.resize = function (){
-    this.studio.resize(this.width());
-    this.studio.selectFloor(this.width(),this.currentFloor);
+    this.studio.resize( this.width());
+    this.studio.selectFloor( this.width(),this.currentFloor);
   },
   //Move to floor
   this.selectFloor = function( floor ){
     this.currentFloor = floor;
-    this.studio.selectFloor(this.width(),floor);
+    this.studio.selectFloor( this.width(),floor);
   }
 
 }
-
 
 /**
 
@@ -96,33 +96,18 @@ var studio = function(container, map) {
       .classed('floor2',true)
   ],
 
-//Params: StudioData object that contains studio location and id
-//
+  //Params: StudioData object that contains studio location and id
   this.draw = function ( studioData ) {
-    // this.floor[ Number(studioData[0].floor) - 1 ]
-    //   .append('g')
-    //   .attr('id', studioData[0].id)
-    //   .classed('studio',true)
-    //   .selectAll('rect')
-    //   .data(studioData)
-    //   .enter()
-    //   .append('rect')
-    //   .attr('x', function (d) { return d.x + 'px'; })
-    //   .attr('y', function (d) { return d.y + 'px'; })
-    //   .attr('height', function (d) { return d.height + 'px'; })
-    //   .attr('width', function (d) { return d.width + 'px'; })
-    console.log(studioData)
     this.floor[ Number(studioData.floor) - 1 ]
       .append('g')
       .attr('id', studioData.id)
       .classed('studio',true)
       .selectAll('polygon')
-      .data(studioData.points)
+      .data( studioData.points)
       .enter()
       .append('polygon')
       .attr("points",function(d) {
-        // console.log(d.polygon.join(","))
-        return  d.polygon.map(function(d) { return [(d.x),(d.y)].join(","); }).join(" ");
+        return d.polygon.map( function(d) { return [(d.x),(d.y)].join(","); }).join(" ");
       })
   },
 
@@ -134,7 +119,7 @@ var studio = function(container, map) {
     var translate1 = 'translate('+firstFloorX*screenScale+','+ firstFloorY*screenScale+') '; // first floor
     var translate2 = 'translate('+secondFloorX*screenScale+','+ secondFloorY*screenScale+') '; // second floor
     var scale = 'scale('+isoMapScale*screenScale+','+isoMapScale*screenScale*0.58+') '; //0.58 vertical scale for isometric map
-    var rotate = 'rotate(-135, 0, 0) ';
+    var rotate = 'rotate(-135, 0, 0) '; //TODO REMOVE MAGIC NUMBER FOR NON ISO
 
     if ( !isNaN( screenScale) ){
       this.floor[1].attr('transform', translate2 + scale + rotate);
@@ -189,26 +174,25 @@ var marker = function(container){
     var currentMarkerNum = this.group.length;
 
     if ( currentMarkerNum > markerNum ){
-      var i = 1;
+      var i = 0;
       while ( currentMarkerNum < markerNum ){
-        this.group = this.group.concat( addMarker( container, currentMarkerNum) );
+        this.group = this.group.concat( addMarker( container, currentMarkerNum + i) );
       }
     }
     for ( i in markerData.points ){
       this.group[i]
         .classed('hide',false)
         .attr('x', marker.points[i][0] )
-        .attr('x', marker.points[i][1] )
+        .attr('y', marker.points[i][1] )
     }
 
   },
 
   this.remove = function(){
     for (i in this.group){
-      this.group[i].classed('hide',true);
+      this.group[i].classed( 'hide', true);
     }
   }
-
 }
 
 // this.marker = {

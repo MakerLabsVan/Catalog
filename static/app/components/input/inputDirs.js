@@ -11,7 +11,7 @@ angular.module("myApp").directive("addInput", ["advInputs", function (advInputs)
         templateUrl: '/templates/inputFormTmpl.html',
         link: function (scope, elem, attrs) {
             scope.$watch(scope, function () {
-                // set button type inputs 
+                // set button type inputs
                 $('#input1').html($('#type-buttons').html());
                 $('#input9').html($('#dimension-buttons').html());
                 $('#input11').html($('#weight-buttons').html());
@@ -25,7 +25,7 @@ angular.module("myApp").directive("addInput", ["advInputs", function (advInputs)
                 var checkNumValid = ['type', 'min', 'max'];
                 var checkNumValidVals = ['number', '0', '10000'];
                 advInputs.setMultAttrs(checkNumValidElem, checkNumValid, checkNumValidVals);
-                
+
             });
         }
     };

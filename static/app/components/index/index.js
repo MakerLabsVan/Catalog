@@ -59,19 +59,6 @@ angular.module("myApp", ['d3mapping'])
                             $scope.consumableEntries[key] = $scope.entries[key];
                     }
                 }
-                // but entries.key works here
-
-                $scope.index = {
-                    "x": $scope.entryProperties.indexOf('Location x (ft)'),
-                    "y": $scope.entryProperties.indexOf('Location y (ft)'),
-                    "floor": $scope.entryProperties.indexOf('Floor'),
-                    "width": $scope.entryProperties.indexOf('Width'),
-                    "height": $scope.entryProperties.indexOf('Length'),
-                    "id": $scope.entryProperties.indexOf('Key'),
-                    "type": $scope.entryProperties.indexOf('Type'),
-                    "name": $scope.entryProperties.indexOf('Name')
-                };
-
             })
             .error(function (data, status, header, config) {
                 // something went wrong
@@ -175,71 +162,37 @@ angular.module("myApp", ['d3mapping'])
         //   }
         // })
 
-        $scope.switchMapsOnClick = function (floor) {
-            // if (floor == 1) {
-            //     $('#firstLi').addClass('active');
-            //     $('#secondLi').removeClass('active');
-            //     $('#firstFloor').addClass('active');
-            //     $('#secondFloor').removeClass('active');
-            //     $scope.resizeMap1;
-            // } else {
-            //     $('#firstLi').removeClass('active');
-            //     $('#secondLi').addClass('active');
-            //     $('#firstFloor').removeClass('active');
-            //     $('#secondFloor').addClass('active');
-            //     $scope.resizeMap2;
-            // }
-        };
-
         // map ctrl
         $scope.map1 = mapService.initMap('firstFloorWell', 1);
         // $scope.map2 = mapService.initMap('secondFloorWell', 2);
         $scope.resizeMap1 = mapService.resize($scope.map1);
         // $scope.resizeMap2 = mapService.resize($scope.map2);
 
-        $scope.lastItem = null;
+        $scope.lastItem;
         //Highlight the studio given the name of the studio as a param
-        $scope.showLoc = function (studioKey) {
+        $scope.showLoc = function (entry) {
             removeLast($scope.lastItem);
-            var elementPos = $scope.data.map(function (x) {
-                return x[$scope.index.id];
-            }).indexOf(studioKey);
-            var objectFound = $scope.data[elementPos];
-            $scope.lastItem = objectFound;
+            $scope.lastItem = entry;
 
-            if (objectFound == undefined) {
-                return 'Not Found'
-            }
-            if (objectFound[$scope.index.type] === 'Studio') {
-                if (objectFound[$scope.index.floor] === '1') {
-
-                    $scope.map1.studio.highlight(objectFound[$scope.index.id]);
-                    $scope.map1.selectFloor(1);
-                }
-                else if (objectFound[$scope.index.floor] === '2') {
-
-                    $scope.map1.studio.highlight(objectFound[$scope.index.id]);
-                    $scope.map1.selectFloor(2);
-                }
-            }
-            else {
-              $scope.map1.marker.set(parseInt(objectFound[3]), parseInt(objectFound[4]), $scope.map1.width(), $scope.map1.height())
+            if (entry.type == 'Studio') {
+              $scope.map1.studio.highlight( entry.key);
+              $scope.map1.selectFloor( Number(entry.floor));
+            } else{
+              //MARKER DISPLAY
             }
         }
 
         var removeLast = function (lastItem) {
             // $scope.map1.marker.remove();
-            // $scope.map2.marker.remove();
             if (lastItem != undefined) {
-              $scope.map1.studio.dehighlight(lastItem[$scope.index.id]);
+              $scope.map1.studio.dehighlight(lastItem.key);
             }
         };
 
         // combined function
         $scope.onSelect = function (entry, category) {
             $scope.showEntryDetails(entry);
-            $scope.switchMapsOnClick(entry.floor);
-            $scope.showLoc(entry.key);
+            $scope.showLoc(entry);
             $scope.highlightItem(category + '_' + entry.key);
         };
     }]);
