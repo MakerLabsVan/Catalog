@@ -128,7 +128,17 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         const offset = 1;
         var index = parseInt(keyString.slice(1, keyString.length)) - offset;
         return index;
-    }
+    };
+
+    $scope.confirmEdit = function () {
+        $('#confirmEdit').removeClass('hidden');
+        $('#editBtn').addClass('hidden');
+    };
+
+    $scope.cancelEdit = function () {
+        $('#confirmEdit').addClass('hidden');
+        $('#editBtn').removeClass('hidden');
+    };
 
     // edit an entry
     $scope.edit = function () {
@@ -140,6 +150,11 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
     $scope.confirmDelete = function () {
         $('#confirmDel').removeClass('hidden');
         $('#deleteBtn').addClass('hidden');
+    };
+
+    $scope.cancelDelete = function () {
+        $('#confirmDel').addClass('hidden');
+        $('#deleteBtn').removeClass('hidden');
     };
 
     // delete an entry
@@ -183,10 +198,10 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
                 btnGroup.find('#matTypeDiv').addClass('active');
                 break;
             case 'Tool':
-                btnGroup.find('#conTypeDiv').addClass('active');
+                btnGroup.find('#toolTypeDiv').addClass('active');
                 break;
             case 'Consumable':
-                btnGroup.find('#toolTypeDiv').addClass('active');
+                btnGroup.find('#conTypeDiv').addClass('active');
         }
     };
 
@@ -202,6 +217,10 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
 
     // highlight selected entry
     $scope.highlightItem = highlightService.highlight;
+
+    // map functions
+    $scope.firstMap = mapService.initMap('firstFloor', 1);
+    $scope.secondMap = mapService.initMap('secondFloor', 2);
 
 }]);
 

@@ -169,16 +169,36 @@
 
                                 </div>
                                 <div class="row hidden" id="confirmDel">
-                                    <button type="button" class="btn btn-block btn-danger inputAreaHeight"
-                                            ng-click="delete()"> Delete for real bro?
-                                    </button>
+                                    <div class="col-sm-6 noPadding">
+                                        <button type="button" class="btn btn-block btn-danger inputAreaHeight"
+                                                ng-click="delete()">Confirm
+                                        </button>
+                                    </div>
+                                    <div class="col-sm-6 noPadding">
+                                        <button type="button" class="btn btn-block btn-danger inputAreaHeight"
+                                                ng-click="cancelDelete()">Cancel
+                                        </button>
+                                    </div>
+
                                 </div>
                                 <div class="row hidden" id="editBtn">
                                     <button type="submit" class="btn btn-block btn-primary inputAreaHeight"
-                                            ng-click="edit()">
+                                            ng-click="confirmEdit()">
                                         <span class="glyphicon glyphicon-pencil">
                                             </span>
                                     </button>
+                                </div>
+                                <div class="row hidden" id="confirmEdit">
+                                    <div class="col-sm-6 noPadding">
+                                        <button type="button" class="btn btn-block btn-primary inputAreaHeight"
+                                                ng-click="edit()">Confirm
+                                        </button>
+                                    </div>
+                                    <div class="col-sm-6 noPadding">
+                                        <button type="button" class="btn btn-block btn-primary inputAreaHeight"
+                                                ng-click="cancelEdit()">Cancel
+                                        </button>
+                                    </div>
                                 </div>
                                 <div class="row" id="submitBtn">
                                     <button type="submit" class="btn btn-block btn-primary inputAreaHeight"
@@ -191,7 +211,10 @@
                         </div>
                     </div>
                     <div class="col-sm-8" id="entryMap">
-                        <div class="well well-sm inputWellSize white lvl1-box-shadow">
+                        <div class="well well-sm inputWellSize white lvl1-box-shadow" id="firstFloor">
+
+                        </div>
+                        <div class="well well-sm inputWellSize white lvl1-box-shadow hidden" id="secondFloor">
 
                         </div>
                     </div>
