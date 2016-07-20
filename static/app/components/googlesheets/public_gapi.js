@@ -2,7 +2,7 @@ var sheetKeyPrivate = "1MJpC2n-ekpnRXaLsb7B4dI6VOQIzn1eZO61I7sy2yiA";
 
 var google = require('googleapis');
 
-var API_KEY = 'AIzaSyDIQ1Yb3d-VREZlm2WJ6DbtiLQgGA914F4';
+var API_KEY = process.env['PUBLIC_GAPI_KEY'];
 
 var public_getDataList = function (callback) {
     var sheets = google.sheets('v4');
