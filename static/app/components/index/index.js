@@ -235,7 +235,7 @@ indexApp.controller("indexCtrl", ["$scope", '$http', "mapService", "highlightSer
         $scope.showEntryDetails(entry);
         $scope.switchMapsOnClick(entry.floor);
         $scope.showLoc(entry.key);
-        $scope.highlightItem(category + '_' + entry.key);
+        $scope.highlightItem(category + '_' + entry.key, entry.type);
     };
 }]);
 
@@ -278,16 +278,27 @@ indexApp.service("mapService", function () {
 // service to highlight items
 indexApp.service("highlightService", function () {
     var lastObject = null;
-    var highlight = function (objectId) {
-        if (lastObject != null) {
-            $('#' + lastObject).addClass('normalFont').removeClass('selectFont');
-            $('#' + objectId).addClass('selectFont').removeClass('normalFont');
+
+    var highlight = function (objectId, type) {
+        var changeSelection = function (color) {
+            $('#' + lastObject).removeClass('whiteFont lightRed lightOrange lightGreen lightBlue');
+            $('#' + objectId).addClass('whiteFont ' + color);
             lastObject = objectId;
-        } else {
-            $('#' + objectId).addClass('selectFont').removeClass('normalFont');
-            lastObject = objectId;
+        };
+
+        switch (type) {
+            case 'Studio':
+                changeSelection('lightRed');
+                break;
+            case 'Material':
+                changeSelection('lightOrange');
+                break;
+            case 'Consumable':
+                changeSelection('lightGreen');
+                break;
+            case 'Tool':
+                changeSelection('lightBlue');
         }
-        ;
     };
     return {
         highlight: highlight

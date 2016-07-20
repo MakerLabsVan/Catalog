@@ -86,9 +86,13 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
     $scope.filterSearch = function (entry) {
         if ($scope.inputQuery.length >= 2) {
             if (isIndexOfSet(entry)) {
+                $('#admin_' + entry.key).removeClass('hidden');
                 return entry.name;
+            } else {
+                $('#admin_' + entry.key).addClass('hidden');
             }
-        } else if ($scope.inputQuery.length == 0) {
+        } else if ($scope.inputQuery.length == 0 || $scope.inputQuery.length == 1) {
+            $('#admin_' + entry.key).removeClass('hidden');
             return entry.name;
         }
     };
@@ -139,7 +143,7 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
     $scope.selectEntry = function (entry) {
         $scope.selectedEntry = entry;
 
-        $scope.highlightItem('admin_' + entry.key);
+        $scope.highlightItem('admin_' + entry.key, entry.type);
         $('#deleteBtn').removeClass('hidden');
         $('#editBtn').removeClass('hidden');
         $('#submitBtn').addClass('hidden');
@@ -179,8 +183,7 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         $('#editBtn').addClass('hidden');
         $('#submitBtn').removeClass('hidden');
 
-    }
-
+    };
 
     // highlight selected entry
     $scope.highlightItem = highlightService.highlight;

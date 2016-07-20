@@ -10,16 +10,6 @@ body {
     text-align: right;
 }
 
-.normalFont {
-    font-weight: normal;
-    color: black;
-}
-
-.selectFont {
-    font-weight: bold;
-    color: blue;
-}
-
 .searchSectionExpanded {
     height: auto;
     max-height: 55vh;
@@ -116,6 +106,11 @@ small {
 
 .categoryMargins {
     margin: 0px -15px 0px -15px;
+}
+
+.listMargins {
+    padding: 5px 10px 5px 10px;
+    margin: 5px -15px 5px -15px;
 }
 
 .categoryContainer {

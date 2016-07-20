@@ -26,7 +26,7 @@
                 <div class="row" id="admin-search-result">
                     <div class="container-fluid">
                         <div ng-repeat="entry in entries">
-                            <div class="entryNames" ng-bind="filterSearch(entry)" id="admin_{{ entry.key }}"
+                            <div class="entryNames listMargins" ng-bind="filterSearch(entry)" id="admin_{{ entry.key }}"
                                  ng-click="showLoc(entry.key);selectEntry(entry)">
                             </div>
                         </div>
@@ -38,7 +38,7 @@
 
                 </div>
                 <div class="row">
-                    <div class="col-sm-3" id="entryPage">
+                    <div class="col-sm-4" id="entryPage">
                         <div class="well well-sm inputWellSize white lvl1-box-shadow noPadding">
                             <div class="container-fluid">
                                 <div class="row">
@@ -156,12 +156,13 @@
                                            ng-model="form.keywords">
                                 </div>
                                 <div class="row">
-                                    <textarea class="form-control" rows="3"
+                                    <textarea class="form-control" rows="6"
                                               placeholder="{{ entryPropertiesObj.description }}"
                                               ng-model="form.description"></textarea>
                                 </div>
                                 <div class="row hidden" id="deleteBtn">
-                                    <button type="button" class="btn btn-block btn-danger inputAreaHeight" ng-click="delete()">Delete
+                                    <button type="button" class="btn btn-block btn-danger inputAreaHeight"
+                                            ng-click="delete()">Delete
                                     </button>
                                 </div>
                                 <div class="row hidden" id="editBtn">
@@ -177,8 +178,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-9" id="entryMap">
+                    <div class="col-sm-8" id="entryMap">
                         <div class="well well-sm inputWellSize white lvl1-box-shadow">
+
                         </div>
                     </div>
                 </div>

@@ -49,7 +49,7 @@
                             <div class="panel-body categoryContainer">
                                 <!-- studio data -->
                                 <div ng-repeat="entry in studioEntries">
-                                    <div class="entryNames"
+                                    <div class="entryNames listMargins"
                                          ng-click="onSelect(entry,'studio')"
                                          id="studio_{{ entry.key }}" ng-bind="entry.name">
                                     </div>
@@ -68,7 +68,7 @@
                             <div class="panel-body categoryContainer">
                                 <div ng-repeat="entry in toolEntries">
                                     <div ng-click="onSelect(entry,'tool')"
-                                         class="entryNames" id="tool_{{ entry.key }}" ng-bind="entry.name">
+                                         class="entryNames listMargins" id="tool_{{ entry.key }}" ng-bind="entry.name">
                                     </div>
                                 </div>
                             </div>
@@ -85,7 +85,7 @@
                             <div class="panel-body categoryContainer">
                                 <div ng-repeat="entry in consumableEntries">
                                     <div ng-click="onSelect(entry,'cons')"
-                                         class="entryNames" id="cons_{{ entry.key }}" ng-bind="entry.name">
+                                         class="entryNames listMargins" id="cons_{{ entry.key }}" ng-bind="entry.name">
                                     </div>
                                 </div>
                             </div>
@@ -102,7 +102,7 @@
                             <div class="panel-body categoryContainer" id="ct-index-panel-body">
                                 <div ng-repeat="entry in materialEntries">
                                     <div ng-click="onSelect(entry,'material')"
-                                         class="entryNames" id="material_{{ entry.key }}" ng-bind="entry.name">
+                                         class="entryNames listMargins" id="material_{{ entry.key }}" ng-bind="entry.name">
                                     </div>
                                 </div>
                             </div>
@@ -117,7 +117,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-3 view-color">
+                    <div class="col-sm-4 view-color">
                         <div class="panel panel-default lvl1-box-shadow" id="entryPanel">
                             <div class="panel-heading entryTitle" id="indexPanelHeading">
                                 <p class="panel-title standardFont" ng-bind="panelTitleName">
@@ -144,7 +144,7 @@
                         </div>
                     </div>
                     <div ng-controller="mapController">
-                        <div class="col-sm-9" id="mapContainer">
+                        <div class="col-sm-8" id="mapContainer">
                             <div role="tabpanel">
                                 <!-- Nav tabs -->
                                 <ul class="nav nav-tabs" role="tablist">
