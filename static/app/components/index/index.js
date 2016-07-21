@@ -33,8 +33,6 @@ indexApp.controller("indexCtrl", ["$scope", '$http', "mapService", "highlightSer
             $scope.entries[shiftedData[i][21]] = object;
         };
 
-        console.log($scope.entries);
-
         // make category data
         $scope.studioEntries = {};
         $scope.materialEntries = {};
@@ -77,9 +75,7 @@ indexApp.controller("indexCtrl", ["$scope", '$http', "mapService", "highlightSer
 
         // map ctrl
         $scope.map1 = mapService.initMap('firstFloorWell', 1);
-        // $scope.map2 = mapService.initMap('secondFloorWell', 2);
         $scope.resizeMap1 = mapService.resize($scope.map1);
-        // $scope.resizeMap2 = mapService.resize($scope.map2);
 
     $scope.queryTerm = '';
     // change height of query result box dynamically
@@ -175,11 +171,12 @@ indexApp.controller("indexCtrl", ["$scope", '$http', "mapService", "highlightSer
       $scope.lastItem = entry;
 
       if (entry.type == 'Studio') {
-        $scope.map1.studio.highlight( entry.key);
-        $scope.map1.selectFloor( Number(entry.floor));
+        $scope.map1.studio.highlight( entry.key );
       } else{
+        $scope.map1.markers.draw( JSON.parse(entry.metadata) )
         //TODO:MARKER DISPLAY
       }
+      $scope.map1.selectFloor( Number(entry.floor) );
     }
 
         var removeLast = function (lastItem) {

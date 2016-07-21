@@ -1,5 +1,6 @@
+const isoVertScale = 0.58;
+const isoAngle = -135;
 //TODO:Make this an object
-
 const ISO = {
   'isIsometric' : true,
   'filePath' : "/assets/ISO.png",
@@ -11,29 +12,28 @@ const ISO = {
   'secondFloorX' : 460,
   'secondFloorY' : 605,
 }
+
+//ISOMETRIC MAP
+const isIsometric = true;
 const isoMapFilePath = "/assets/ISO3.png";
 const isoMapScale = 7.65; //database value to isometric map conversion
 const isoMapWidth = 1320; // Width of isometric map
-const scrollMapY = 1000; //Vertical scroll until next map
-const firstFloorX = 790;
-const firstFloorY = 1915;
+const scrollMapY = 1050; //Vertical scroll until next map
+const firstFloorX = 800;
+const firstFloorY = 1910;
 const secondFloorX = 630;
 const secondFloorY = 710;
 
-
-// const isoMapFilePath = "/assets/ISO.png";
-// const isoMapScale = 5.35; //database value to isometric map conversion
-// const isoMapWidth = 920; // Width of isometric map
-// const scrollMapY = 650;
-// const firstFloorX = 550;
-// const firstFloorLocY = 1305;
-// const secondFloorX = 460;
-// const secondFloorY = 605;
-
-//Dimensions of the old 2D map
-const width_L1_2D = 1364.490;
-const width_L2_2D = 925.374;
-const height_2D = 1088.246;
+//2D MAP
+// const isIsometric = false;
+// const isoMapFilePath = "/assets/2DFloorPlan.png";
+// const isoMapScale = 7.5; //database value to isometric map conversion
+// const isoMapWidth = 1500; // Width of isometric map
+// const scrollMapY = 1100; //Vertical scroll until next map
+// const firstFloorX = 215;
+// const firstFloorY = 1200;
+// const secondFloorX = 560;
+// const secondFloorY = 90;
 
 const floorTransitionDelay = 1000; //1 second
 
@@ -46,7 +46,8 @@ var mapConstructor = function (containerID, floorNum) {
   //Current Floor
   this.currentFloor = floorNum,
   //Container for the map svgs and images
-  this.container = d3.select('#' + containerID).append('svg')
+  this.container = d3.select('#' + containerID)
+    .append('svg')
     .attr('id', 'floor' + floorNum)
     .attr('class', 'mapContainer'),
 
@@ -61,8 +62,10 @@ var mapConstructor = function (containerID, floorNum) {
   //The map img
   this.map = addImgMap( this.container, isoMapFilePath ),
   //initialize studios svgs
-  this.studio = new studio( this.container, this.map),
+  this.studio = new studio( this.container, this.map, isIsometric),
   //Resize all map objects
+  this.markers = new marker( this.container),
+
   this.resize = function (){
     this.studio.resize( this.width());
     this.studio.selectFloor( this.width(),this.currentFloor);
@@ -72,7 +75,6 @@ var mapConstructor = function (containerID, floorNum) {
     this.currentFloor = floor;
     this.studio.selectFloor( this.width(),floor);
   }
-
 }
 
 /**
@@ -80,7 +82,7 @@ var mapConstructor = function (containerID, floorNum) {
 * @param { }
 *
 **/
-var studio = function(container, map) {
+var studio = function(container, map, isIsometric) {
   //Building contains all studio information
   this.building = container
     .append('g')
@@ -118,13 +120,22 @@ var studio = function(container, map) {
     //Isometric map transformations
     var translate1 = 'translate('+firstFloorX*screenScale+','+ firstFloorY*screenScale+') '; // first floor
     var translate2 = 'translate('+secondFloorX*screenScale+','+ secondFloorY*screenScale+') '; // second floor
-    var scale = 'scale('+isoMapScale*screenScale+','+isoMapScale*screenScale*0.58+') '; //0.58 vertical scale for isometric map
-    var rotate = 'rotate(-135, 0, 0) '; //TODO REMOVE MAGIC NUMBER FOR NON ISO
+    var scale = 'scale('+isoMapScale*screenScale+','+isoMapScale*screenScale+') '; //0.58 vertical scale for isometric map
+    var rotate = 'rotate('+isoAngle+', 0, 0) ';
 
-    if ( !isNaN( screenScale) ){
-      this.floor[1].attr('transform', translate2 + scale + rotate);
-      this.floor[0].attr('transform', translate1 + scale + rotate);
+    var transform1 = translate1;
+    var transform2 = translate2;
+    if ( isIsometric == true ){
+      scale = 'scale('+isoMapScale*screenScale+','+isoMapScale*screenScale*isoVertScale+') ';
+      transform1 += (scale + rotate);
+      transform2 += (scale + rotate);
+    } else{
+      transform1 += scale;
+      transform2 += scale;
     }
+
+    this.floor[1].attr('transform', transform2);
+    this.floor[0].attr('transform', transform1);
   },
 
   this.selectFloor = function ( width, floorNum){
@@ -163,35 +174,38 @@ var studio = function(container, map) {
 * @param { }
 *
 **/
-var marker = function(container){
+var marker = function( container ){
 
-  this.group = [ addMarker( container, 0).classed('hide',true) ],
+  this.markerCuster = [],
 
   // Draw all markers in the metadata
   // @param {markerData} json which contains points and floor
   this.draw = function( markerData ){
     var markerNum = markerData.points.length;
-    var currentMarkerNum = this.group.length;
+    var currentMarkerNum = this.markerCuster.length;
 
-    if ( currentMarkerNum > markerNum ){
-      var i = 0;
-      while ( currentMarkerNum < markerNum ){
-        this.group = this.group.concat( addMarker( container, currentMarkerNum + i) );
+    if ( currentMarkerNum < markerNum ){
+      for ( var j = 0; currentMarkerNum+j < markerNum; j++){
+        this.markerCuster.push( addMarker( container, currentMarkerNum + j) );
       }
     }
-    for ( i in markerData.points ){
-      this.group[i]
+    for ( k in markerData.points ){
+      this.markerCuster[k]
         .classed('hide',false)
-        .attr('x', marker.points[i][0] )
-        .attr('y', marker.points[i][1] )
+        .attr('x', markerData.points[k].x )
+        .attr('y', markerData.points[k].y )
     }
-
   },
 
   this.remove = function(){
-    for (i in this.group){
-      this.group[i].classed( 'hide', true);
+    for (i in this.markerCuster){
+      this.markerCuster[i].classed( 'hide', true);
     }
+  },
+
+  this.resize = function(){
+    this.markerCuster
+
   }
 }
 
@@ -255,7 +269,6 @@ var addImgMap = function (container, filePath) {
     .attr('class','isoMap')
 };
 
-//
 var getImgFactor = function (currentWidth){
   return currentWidth/isoMapWidth;
 }
@@ -271,26 +284,3 @@ var addMarker = function (container, id) {
     // .attr('width', 30)
     // .attr('height', 30);
 };
-
-//Only useful with the 2d maps
-var getScalingRatio = function (width, height, floorNum) {
-  // var mapWidth2 = 925.374;
-  // var mapWidth1 = 1364.490;
-  // var mapHeight = 1088.246;
-  if (floorNum == 2) {
-    var aspect = width_L2_2D/height_2D;//W=925.374,H=1088.246 px
-  } else {
-    var aspect = width_L1_2D /height_2D;//W=1364.490,H=1088.2464 px
-  }
-
-  if (width / height >= aspect) {
-    return height / height_2D;
-  }
-  else if (width / height < aspect) {
-    if (floorNum == 2) {
-      return width / width_L2_2D;
-    } else {
-      return width / width_L1_2D;
-    }
-  }
-}

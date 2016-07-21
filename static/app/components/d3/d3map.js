@@ -16,7 +16,7 @@ app.controller('mapController', ['$scope', '$window', '$location', function ($sc
   }
 
   $scope.$watch('entries',function(entries){
-    var test = new marker( d3.select('#floor1'));
+    var test = new marker( $scope.map1.studio.building,1);
     for ( i in entries){
       if ( entries[i].type =='Studio'){
         $scope.map1.studio.draw( JSON.parse( entries[i].metadata))
