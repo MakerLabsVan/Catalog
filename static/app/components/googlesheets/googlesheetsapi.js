@@ -1,21 +1,19 @@
 var sheetKeyPrivate = "1MJpC2n-ekpnRXaLsb7B4dI6VOQIzn1eZO61I7sy2yiA";
-var sheetKeyPublic = "1trhKqK2g4hIEqnn0Acn4a8iqakYTpdmDF-POaCdZpX8";
 
 var fs = require('fs');
 var readline = require('readline');
 var google = require('googleapis');
 var googleAuth = require('google-auth-library');
 
-// If modifying these scopes, delete your previously saved credentials
-// at ~/.credentials/sheets.googleapis.com-nodejs-quickstart.json
 var SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
 var TOKEN_DIR = (process.env.HOME || process.env.HOMEPATH ||
     process.env.USERPROFILE) + '/.credentials/';
-var TOKEN_PATH = TOKEN_DIR + 'sheets.googleapis.com-test.json';
+var TOKEN_PATH = TOKEN_DIR + 'sheets.makerlabs.json';
+var secretFile = 'makerlabs_client_secret.json';
 
 var auth = function (method, body, resCallback) {
     // Load client secrets from a local file.
-    fs.readFile('client_secret.json', function processClientSecrets(err, content) {
+    fs.readFile(secretFile, function processClientSecrets(err, content) {
         if (err) {
             console.log('Error loading client secret file: ' + err);
             return;
@@ -147,7 +145,6 @@ var deleteEntry = function (auth, index, resCallback) {
         }
         resCallback(response);
     })
-
 };
 
 exports.deleteEntry = deleteEntry;
