@@ -64,7 +64,7 @@ var mapConstructor = function (containerID, floorNum) {
   //initialize studios svgs
   this.studio = new studio( this.container, this.map, isIsometric),
   //Resize all map objects
-  this.markers = new marker( this.container),
+  this.markers = new marker( this.studio.building ),
 
   this.resize = function (){
     this.studio.resize( this.width());
@@ -113,7 +113,7 @@ var studio = function(container, map, isIsometric) {
       })
   },
 
-  //Resize studios to proper sizing
+  //TODO: Move math into a seperate function that returns transform strings
   this.resize = function ( width) {
     var screenScale = getImgFactor( width);
 
@@ -176,90 +176,62 @@ var studio = function(container, map, isIsometric) {
 **/
 var marker = function( container ){
 
-  this.markerCuster = [],
-
+  this.markerCluster = [],
   // Draw all markers in the metadata
   // @param {markerData} json which contains points and floor
-  this.draw = function( markerData ){
+  this.draw = function( width, markerData ){
     var markerNum = markerData.points.length;
-    var currentMarkerNum = this.markerCuster.length;
+    var currentMarkerNum = this.markerCluster.length;
+
+    var screenScale = getImgFactor( width);
 
     if ( currentMarkerNum < markerNum ){
       for ( var j = 0; currentMarkerNum+j < markerNum; j++){
-        this.markerCuster.push( addMarker( container, currentMarkerNum + j) );
+
+        this.markerCluster.push( addMarker( container, currentMarkerNum + j));
       }
     }
     for ( k in markerData.points ){
-      this.markerCuster[k]
+      //TODO: Move math to seperate function
+      var cosA = Math.cos( isoAngle * Math.PI / 180);
+      var sinA = Math.sin( isoAngle * Math.PI / 180);
+      //Rotation of coordinates
+      var transformX = markerData.points[k].x * cosA - markerData.points[k].y * sinA ;
+      var transformY = markerData.points[k].x * sinA + markerData.points[k].y * cosA ;
+      //Scaling to map size and isometric
+      transformX *= isoMapScale;
+      transformY *= (isoVertScale*isoMapScale);
+      //Translate back into floor plane
+      if ( markerData.floor == 1){
+        transformX += firstFloorX;
+        transformY += firstFloorY;
+      }else if ( markerData.floor == 2){
+        transformX += secondFloorX;
+        transformY += secondFloorY;
+      }
+      //Adjust for marker size
+      transformX -= Number(this.markerCluster[k].attr('width'))/2;
+      transformY -= Number(this.markerCluster[k].attr('height'));
+
+      this.markerCluster[k]
         .classed('hide',false)
-        .attr('x', markerData.points[k].x )
-        .attr('y', markerData.points[k].y )
+        .attr('x', transformX*screenScale)
+        .attr('y', transformY*screenScale)
     }
   },
 
   this.remove = function(){
-    for (i in this.markerCuster){
-      this.markerCuster[i].classed( 'hide', true);
+    for (i in this.markerCluster){
+      this.markerCluster[i].classed( 'hide', true);
     }
   },
 
   this.resize = function(){
-    this.markerCuster
+    var screenScale = getImgFactor( width);
+    //Isometric map transformations
 
   }
 }
-
-// this.marker = {
-//   //Adds marker
-//   icon: icon = addMarker(this.container, floorNum),
-//   //Removes the marker from the map
-//   remove: function () {
-//     d3.select('#marker' + floorNum)
-//       .style('visibility', 'hidden')
-//   },
-//
-//   //Change the position and become visible
-//   set: function (xPos, yPos, width, height) {
-//     var scale = getScalingRatio(width, height, floorNum)/10;
-//     var xPx = inToPx(xPos * scale) - parseInt(this.icon.attr('width')) / 2;
-//     var yPx = inToPx(yPos * scale) - parseInt(this.icon.attr('height')) * 1;
-//     this.icon.moveToFront();
-//     this.icon
-//       .attr('x', xPx + 'px')
-//       .attr('y', yPx + 'px')
-//       .style('visibility', null)
-//   },
-//
-//   //On Click of the map, the marker will display and returns coordinates
-//   onClick: function () {
-//     var marker = d3.select('#marker' + floorNum);
-//     var container = d3.select('svg#floor' + floorNum);
-//     var map = d3.select('svg#floor' + floorNum);
-//     attachOnClick(map, marker);
-//   },
-//
-//   //Removes onclick event listener
-//   disableOnClick: function () {
-//     d3.select('svg#floor' + floorNum).on('click', null);
-//   },
-//
-//   //Returns the current location of the marker in px as an array
-//   //Output: [x,y] (ft)
-//
-//   getLocation: function (width, height, floorNum) {
-//     var mark = d3.select('#marker' + floorNum);
-//     var xPos = parseInt(mark.attr('x')) + parseInt(mark.attr('width') / 2);
-//     var yPos = parseInt(mark.attr('y')) + parseInt(mark.attr('height') * 1);
-//
-//     var scale = getScalingRatio(width, height, floorNum) / 10;
-//     var xFt = pxToIn(xPos / scale);
-//     var yFt = pxToIn(yPos / scale);
-//
-//     return [xFt, yFt];
-//   }
-// }
-
-
 
 //Add map image
 var addImgMap = function (container, filePath) {
@@ -278,9 +250,7 @@ var addMarker = function (container, id) {
     .append('svg:image')
     .attr('xlink:href', '/assets/marker.svg')
     .attr('id', 'marker' + id)
+    .attr('width', 30)
+    .attr('height', 30 )
     .classed('marker',true);
-
-    // .style('visibility', 'hidden')
-    // .attr('width', 30)
-    // .attr('height', 30);
 };

@@ -173,7 +173,7 @@ indexApp.controller("indexCtrl", ["$scope", '$http', "mapService", "highlightSer
       if (entry.type == 'Studio') {
         $scope.map1.studio.highlight( entry.key );
       } else{
-        $scope.map1.markers.draw( JSON.parse(entry.metadata) )
+        $scope.map1.markers.draw( $scope.map1.width(), JSON.parse(entry.metadata) )
         //TODO:MARKER DISPLAY
       }
       $scope.map1.selectFloor( Number(entry.floor) );
