@@ -24,9 +24,10 @@ var auth = function (method, body, resCallback) {
     });
 
     function authorize(credentials, callback, body, resCallback) {
-        var clientSecret = credentials.installed.client_secret;
-        var clientId = credentials.installed.client_id;
-        var redirectUrl = credentials.installed.redirect_uris[0];
+        var clientSecret = credentials.installed.client_secret || process.env['CLIENT_SECRET'];
+        var clientId = credentials.installed.client_id || process.env['CLIENT_ID'];
+        var redirectUrl = credentials.installed.redirect_uris[0] || process.env['REDIRECT_URL'];
+
         var auth = new googleAuth();
         var oauth2Client = new auth.OAuth2(clientId, clientSecret, redirectUrl);
 

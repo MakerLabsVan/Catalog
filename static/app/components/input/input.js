@@ -36,8 +36,7 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
             }
             // number could change
             $scope.entries[shiftedData[i][21]] = object;
-        }
-        ;
+        };
 
         // make category data
         $scope.studioEntries = {};
