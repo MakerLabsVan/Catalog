@@ -1,6 +1,7 @@
 const isoVertScale = 0.58;
 const isoAngle = -135;
-//TODO:Make this an object
+
+//TODO:Parse as JSON data
 const ISO = {
   'isIsometric' : true,
   'filePath' : "/assets/ISO.png",
@@ -14,22 +15,22 @@ const ISO = {
 }
 
 //ISOMETRIC MAP
-const isIsometric = true;
-const isoMapFilePath = "/assets/ISO3.png";
+const isIsometric = true; //Draws 2d map if false
+const mapFilePath = "/assets/ISO3.png";
 const isoMapScale = 7.65; //database value to isometric map conversion
-const isoMapWidth = 1320; // Width of isometric map
-const scrollMapY = 1050; //Vertical scroll until next map
-const firstFloorX = 800;
-const firstFloorY = 1910;
+const isoMapWidth = 1320; // Width of isometric map, used to dynamically resize map
+const scrollMapY = 1050; //Vertical scroll until next floor
+const firstFloorX = 795; //Translate studios into place
+const firstFloorY = 1915;
 const secondFloorX = 630;
 const secondFloorY = 710;
 
 //2D MAP
 // const isIsometric = false;
 // const isoMapFilePath = "/assets/2DFloorPlan.png";
-// const isoMapScale = 7.5; //database value to isometric map conversion
-// const isoMapWidth = 1500; // Width of isometric map
-// const scrollMapY = 1100; //Vertical scroll until next map
+// const isoMapScale = 7.5;
+// const isoMapWidth = 1500;
+// const scrollMapY = 1100;
 // const firstFloorX = 215;
 // const firstFloorY = 1200;
 // const secondFloorX = 560;
@@ -48,7 +49,7 @@ var mapConstructor = function (containerID, floorNum) {
   //Container for the map svgs and images
   this.container = d3.select('#' + containerID)
     .append('svg')
-    .attr('id', 'floor' + floorNum)
+    .attr('id', 'container' + containerID)
     .attr('class', 'mapContainer'),
 
   //Returns width of the map container
@@ -60,9 +61,9 @@ var mapConstructor = function (containerID, floorNum) {
       return this.container.node().getBoundingClientRect().height;
   },
   //The map img
-  this.map = addImgMap( this.container, isoMapFilePath ),
+  this.map = addImgMap( this.container, mapFilePath ),
   //initialize studios svgs
-  this.studio = new studio( this.container, this.map, isIsometric),
+  this.studio = new studio( this.container, this.map, isIsometric ),
   //Resize all map objects
   this.markers = new marker( this.studio.building ),
 
@@ -99,10 +100,10 @@ var studio = function(container, map, isIsometric) {
   ],
 
   //Params: StudioData object that contains studio location and id
-  this.draw = function ( studioData ) {
+  this.draw = function ( studioData , id ) {
     this.floor[ Number(studioData.floor) - 1 ]
       .append('g')
-      .attr('id', studioData.id)
+      .attr('id', id)
       .classed('studio',true)
       .selectAll('polygon')
       .data( studioData.points)
@@ -114,32 +115,15 @@ var studio = function(container, map, isIsometric) {
   },
 
   //TODO: Move math into a seperate function that returns transform strings
-  this.resize = function ( width) {
-    var screenScale = getImgFactor( width);
-
-    //Isometric map transformations
-    var translate1 = 'translate('+firstFloorX*screenScale+','+ firstFloorY*screenScale+') '; // first floor
-    var translate2 = 'translate('+secondFloorX*screenScale+','+ secondFloorY*screenScale+') '; // second floor
-    var scale = 'scale('+isoMapScale*screenScale+','+isoMapScale*screenScale+') '; //0.58 vertical scale for isometric map
-    var rotate = 'rotate('+isoAngle+', 0, 0) ';
-
-    var transform1 = translate1;
-    var transform2 = translate2;
-    if ( isIsometric == true ){
-      scale = 'scale('+isoMapScale*screenScale+','+isoMapScale*screenScale*isoVertScale+') ';
-      transform1 += (scale + rotate);
-      transform2 += (scale + rotate);
-    } else{
-      transform1 += scale;
-      transform2 += scale;
+  this.resize = function ( mapWidth) {
+    for ( var i = 0; i < this.floor.length; i++){
+      transform = mapTransformStrings( mapWidth, i+1, isIsometric); //Floor number is i+1
+      this.floor[i].attr('transform', transform);
     }
-
-    this.floor[1].attr('transform', transform2);
-    this.floor[0].attr('transform', transform1);
   },
 
   this.selectFloor = function ( width, floorNum){
-    var screenScale = getImgFactor(width);
+    var screenScale = getScreenFactor(width);
     switch(floorNum) {
     case 1:
       var setFloor = 'translate(0,'+ -scrollMapY*screenScale+') ';
@@ -168,14 +152,11 @@ var studio = function(container, map, isIsometric) {
       .classed('studioHighlight',false)
   },
 
+  //on studio click, pass the studio's ID to callback function
   this.onClick = function ( callback ){
-    // alert('test')
     d3.selectAll('.studio').on('click', function(){
-       callback( d3.select(this).attr('id') )  ;
-      //alert(d3.select(this).attr('id'));
+      callback( d3.select(this).attr('id') )  ;
     })
-    //add hover
-    //add mouse button
   }
 }
 
@@ -192,9 +173,6 @@ var marker = function( container ){
   this.draw = function( width, markerData ){
     var markerNum = markerData.points.length;
     var currentMarkerNum = this.markerCluster.length;
-
-    var screenScale = getImgFactor( width);
-
     //Render new markers when there isnt enough
     if ( currentMarkerNum < markerNum ){
       for ( var j = 0; currentMarkerNum+j < markerNum; j++){
@@ -202,31 +180,17 @@ var marker = function( container ){
       }
     }
     for ( k in markerData.points ){
-      //TODO: Move math to seperate function
-      var cosA = Math.cos( isoAngle * Math.PI / 180);
-      var sinA = Math.sin( isoAngle * Math.PI / 180);
-      //Rotation of coordinates
-      var transformX = markerData.points[k].x * cosA - markerData.points[k].y * sinA ;
-      var transformY = markerData.points[k].x * sinA + markerData.points[k].y * cosA ;
-      //Scaling to map size and isometric
-      transformX *= isoMapScale;
-      transformY *= (isoVertScale*isoMapScale);
-      //Translate back into floor plane
-      if ( markerData.floor == 1){
-        transformX += firstFloorX;
-        transformY += firstFloorY;
-      }else if ( markerData.floor == 2){
-        transformX += secondFloorX;
-        transformY += secondFloorY;
-      }
+      var coords = mapTransformCoords(width, markerData.points[k], isIsometric, markerData.floor )
+      var newCoords = undoMapTrasnformCoords(width, coords, isIsometric, markerData.floor)
+
       //Adjust for marker size
-      transformX -= Number(this.markerCluster[k].attr('width'))/2;
-      transformY -= Number(this.markerCluster[k].attr('height'));
+      coords.x -= Number(this.markerCluster[k].attr('width'))/2;
+      coords.y -= Number(this.markerCluster[k].attr('height'));
 
       this.markerCluster[k]
         .classed('hide',false)
-        .attr('x', transformX*screenScale)
-        .attr('y', transformY*screenScale)
+        .attr('x', coords.x)
+        .attr('y', coords.y)
     }
   },
 
@@ -237,39 +201,120 @@ var marker = function( container ){
   },
 
   this.resize = function(){
-    var screenScale = getImgFactor( width);
+    var screenScale = getScreenFactor( width);
     //Isometric map transformations
+  },
+
+  this.onClick = function(){
+
+  },
+
+  this.addMarker = function(){
+
+  },
+  this.deleteMarker = function(){
+
+  },
+  this.getLocation = function(){
+
   }
 }
 
+var mapTransformStrings = function ( width, floor, isIso){
+  if ( isNaN( width) ){
+    return;
+  }
+  var screenScale = getScreenFactor( width);
 
+  if ( floor === 2 ){
+    var translate = 'translate('+secondFloorX*screenScale+','+ secondFloorY*screenScale+') '; // second floor
+  } else {
+    var translate = 'translate('+firstFloorX*screenScale+','+ firstFloorY*screenScale+') '; // first floor
+  }
+
+  if ( isIso == true){
+    var scale = 'scale('+isoMapScale*screenScale+','+isoMapScale*screenScale*isoVertScale+') ';
+    var rotate = 'rotate('+isoAngle+', 0, 0) ';
+    return translate + scale + rotate;
+  } else {
+    var scale = 'scale('+isoMapScale*screenScale+','+isoMapScale*screenScale+') '; //0.58 vertical scale for isometric map
+    return translate + scale;
+  }
+}
+
+var undoMapTrasnformCoords = function( width, oldCoords, isIso,floor){
+  var screenScale = getScreenFactor( width);
+  var cosA = Math.cos( isoAngle * Math.PI / 180);
+  var sinA = Math.sin( isoAngle * Math.PI / 180);
+
+  var transformX = oldCoords.x/screenScale;
+  var transformY = oldCoords.y/screenScale;
+
+
+  if ( floor === 2){
+    transformX -= secondFloorX;
+    transformY -= secondFloorY;
+  }else{
+    transformX -= firstFloorX;
+    transformY -= firstFloorY;
+  }
+
+  //scaling
+  transformX /=isoMapScale;
+  if ( isIso == true){
+    transformY /=(isoMapScale * isoVertScale);
+  }else{
+    transformY /= isoMapScale;
+  }
+
+  var coords = {
+    'x': transformX*cosA + transformY*sinA,
+    'y': -transformX*sinA + transformY*cosA
+  };
+
+  return coords;
+}
 
 //Mapping points to map
-var mapTransformCoords = function( x, y, isIsometric){
-  if ( isIsometric == true){
-    var cosA = Math.cos( isoAngle * Math.PI / 180);
-    var sinA = Math.sin( isoAngle * Math.PI / 180);
-    var transformX = x*cosA - y*sinA ;
-    var transformY = x*sinA + y*cosA ;
+var mapTransformCoords = function( width, oldCoords, isIso, floor){
+  var screenScale = getScreenFactor( width);
+  var cosA = Math.cos( isoAngle * Math.PI / 180);
+  var sinA = Math.sin( isoAngle * Math.PI / 180);
+
+  //Rotation of coordinates
+  var transformX = oldCoords.x*cosA - oldCoords.y*sinA;
+  var transformY = oldCoords.x*sinA + oldCoords.y*cosA;
+  //scaling
+  transformX *=isoMapScale;
+  if ( isIso == true){
+    transformY *=(isoMapScale * isoVertScale);
+  }else{
+    transformY *= isoMapScale;
   }
-  transformX *= isoMapScale;
-  transformY *= (isoVertScale*isoMapScale);
+
   //Translate back into floor plane
-  if ( markerData.floor == 1){
-    transformX += firstFloorX;
-    transformY += firstFloorY;
-  }else if ( markerData.floor == 2){
+  if ( floor == 2){
     transformX += secondFloorX;
     transformY += secondFloorY;
+  }else{
+    transformX += firstFloorX;
+    transformY += firstFloorY;
   }
-  //Adjust for marker size
-  transformX -= Number(this.markerCluster[k].attr('width'))/2;
-  transformY -= Number(this.markerCluster[k].attr('height'));
 
-  transformX*screenScale
-  transformY*screenScale
 
+
+  //screensize scale
+  transformX*=screenScale;
+  transformY*=screenScale;
+
+  var coords = {
+    'x': transformX,
+    'y': transformY
+  };
+
+  return coords;
 }
+
 
 //Add map image
 var addImgMap = function (container, filePath) {
@@ -279,7 +324,7 @@ var addImgMap = function (container, filePath) {
     .attr('class','isoMap')
 };
 
-var getImgFactor = function (currentWidth){
+var getScreenFactor = function (currentWidth){
   return currentWidth/isoMapWidth;
 }
 
@@ -288,7 +333,7 @@ var addMarker = function (container, id) {
     .append('svg:image')
     .attr('xlink:href', '/assets/marker.svg')
     .attr('id', 'marker' + id)
-    .attr('width', 30)
-    .attr('height', 30 )
+    .attr('width', 50)
+    .attr('height', 50 )
     .classed('marker',true);
 };

@@ -149,7 +149,6 @@ indexApp.controller("indexCtrl", ["$scope", '$http', "mapService", "highlightSer
         $('#entryDetails').removeClass('hidden');
 
         $scope.isEmpty = function (prop) {
-          console.log($scope.selectedObject)
           return !($scope.selectedObject[prop] === '' ||
           prop === 'locx' ||
           prop === 'locy' ||
