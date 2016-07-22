@@ -27,15 +27,34 @@ var sendUrl = function (callback) {
 };
 
 var getNewToken = function (OAuth2Client, code, callback) {
-    OAuth2Client.getToken(code, function (err, token) {
-        if (err){
+
+    OAuth2Client.getToken(code, function (err, newToken) {
+        if (err) {
             console.log("getNewToken fn: " + err);
             return;
         }
-        OAuth2Client.credentials = token;
-        callback("oauth2login: " + token);
-        storeToken(token);
-    })
+        OAuth2Client.credentials = newToken;
+        callback("oauth2login: " + newToken);
+        storeToken(newToken);
+    });
+
+    // fs.readFile(TOKEN_PATH, function (err, token) {
+    //     if (err) {
+    //         OAuth2Client.getToken(code, function (err, newToken) {
+    //             if (err) {
+    //                 console.log("getNewToken fn: " + err);
+    //                 return;
+    //             }
+    //             OAuth2Client.credentials = newToken;
+    //             callback("oauth2login: " + newToken);
+    //             storeToken(newToken);
+    //         })
+    //     } else {
+    //         OAuth2Client.credentials = token;
+    //         storeToken(token);
+    //         callback(token);
+    //     }
+    // })
 };
 
 var storeToken = function (token) {

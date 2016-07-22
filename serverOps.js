@@ -16,7 +16,7 @@ var getCode = function (code, callback){
 };
 
 var getData = function (fn) {
-    gapi.auth(gapi.getDataList, function (result) {
+    gapi.getDataList(oauth.OAuth2Client, function (result) {
         fn(result);
     });
 };
@@ -28,17 +28,26 @@ var parse = function (req, row, res) {
             "values": [req]
         },
         row: row
-    }
-    gapi.auth(gapi.sheetWrite, body, function (result) {
+    };
+
+    gapi.sheetWrite(oauth.OAuth2Client, body, function(result){
         res(result);
     });
+
+    // gapi.auth(gapi.sheetWrite, body, function (result) {
+    //     res(result);
+    // });
 };
 
 var delEntry = function (index, response) {
-    gapi.auth(gapi.deleteEntry, index, function (res) {
-        response(res);
+    gapi.deleteEntry(oauth.OAuth2Client, index, function (result){
+        response(result);
     });
-}
+
+    // gapi.auth(gapi.deleteEntry, index, function (res) {
+    //     response(res);
+    // });
+};
 
 exports.getData = getData;
 exports.parse = parse;
