@@ -11,6 +11,13 @@ module.exports = function (router, path, serverOps, public_serverOps) {
         });
     });
 
+    router.post('/sendCode', function (req, res) {
+        console.log("routes : " + req.body[0]);
+        serverOps.getCode(req.body[0], function(result){
+            return res.json(result);
+        })
+    });
+
     router.get("/input", function (req, res) {
         res.sendFile(path + '/static/views/input.html');
     });

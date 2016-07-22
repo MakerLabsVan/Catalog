@@ -4,8 +4,9 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
 
     adminHttpRequests.auth().then(function (code) {
         console.log(code);
-    });
+        $('#auth').attr('href', code);
 
+    });
 
     adminHttpRequests.admin_getCatalog().then(function (data) {
         $scope.data = data;
@@ -68,6 +69,14 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         }
         // but entries.key works here
     });
+
+    $scope.authCode = '';
+    $scope.sendCode = function () {
+        adminHttpRequests.sendCode($scope.authCode).then(function (result) {
+            $scope.authCode = '';
+            console.log(result);
+        })
+    };
 
     $scope.inputQuery = '';
     // repeated functions in index
@@ -240,6 +249,12 @@ inputApp.factory('adminHttpRequests', function ($http) {
     return {
         auth: function () {
             return $http.get('authCode')
+                .then(function (result) {
+                    return result.data;
+                })
+        },
+        sendCode: function (code) {
+            return $http.post('sendCode', [code])
                 .then(function (result) {
                     return result.data;
                 })

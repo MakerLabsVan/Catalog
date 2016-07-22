@@ -8,6 +8,13 @@ var sendUrl = function (callback) {
     });
 };
 
+var getCode = function (code, callback){
+    console.log("serverops: " + code);
+    oauth.getNewToken(oauth.OAuth2Client, code, function (result){
+        callback(result);
+    })
+};
+
 var getData = function (fn) {
     gapi.auth(gapi.getDataList, function (result) {
         fn(result);
@@ -37,3 +44,4 @@ exports.getData = getData;
 exports.parse = parse;
 exports.delEntry = delEntry;
 exports.sendUrl = sendUrl;
+exports.getCode = getCode;

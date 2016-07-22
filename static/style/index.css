@@ -267,3 +267,7 @@ textarea {
 #matTypeDiv.active {
     background-color: #F3B681 !important;
 }
+
+.modal {
+    text-align: center;
+}
