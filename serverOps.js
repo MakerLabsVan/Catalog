@@ -1,5 +1,12 @@
 var path = __dirname;
 var gapi = require(path + "/static/app/components/googlesheets/googlesheetsapi.js");
+var oauth = require(path + '/static/app/components/googlesheets/oauth2login.js');
+
+var sendUrl = function (callback) {
+    oauth.sendUrl(function (result) {
+        callback(result)
+    });
+};
 
 var getData = function (fn) {
     gapi.auth(gapi.getDataList, function (result) {
@@ -29,3 +36,4 @@ var delEntry = function (index, response) {
 exports.getData = getData;
 exports.parse = parse;
 exports.delEntry = delEntry;
+exports.sendUrl = sendUrl;

@@ -9,24 +9,14 @@ var SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
 var TOKEN_DIR = (process.env.HOME || process.env.HOMEPATH ||
     process.env.USERPROFILE) + '/.credentials/';
 var TOKEN_PATH = TOKEN_DIR + 'sheets.makerlabs.json';
-var secretFile = 'makerlabs_client_secret.json';
 
 var auth = function (method, body, resCallback) {
-    // Load client secrets from a local file.
-    fs.readFile(secretFile, function processClientSecrets(err, content) {
-        if (err) {
-            console.log('Error loading client secret file: ' + err);
-            return;
-        }
-        // Authorize a client with the loaded credentials, then call the
-        // Google Sheets API.
-        authorize(JSON.parse(content), method, body, resCallback);
-    });
+    authorize(method, body, resCallback);
 
-    function authorize(credentials, callback, body, resCallback) {
-        var clientSecret = credentials.installed.client_secret;
-        var clientId = credentials.installed.client_id;
-        var redirectUrl = credentials.installed.redirect_uris[0];
+    function authorize(callback, body, resCallback) {
+        var clientId = '656449394957-h1hmtinqs9mrd2rn11ef6jal6gdb300r.apps.googleusercontent.com';
+        var clientSecret = 'AihJh0QO2Hx4aekcvS32Ekk6';
+        var redirectUrl = 'urn:ietf:wg:oauth:2.0:oob';
 
         var auth = new googleAuth();
         var oauth2Client = new auth.OAuth2(clientId, clientSecret, redirectUrl);

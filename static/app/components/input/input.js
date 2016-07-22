@@ -2,6 +2,11 @@ var inputApp = angular.module('inputApp', ['indexApp']);
 
 inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightService", "adminHttpRequests", function ($scope, $http, mapService, highlightService, adminHttpRequests) {
 
+    adminHttpRequests.auth().then(function (code) {
+        console.log(code);
+    });
+
+
     adminHttpRequests.admin_getCatalog().then(function (data) {
         $scope.data = data;
 
@@ -36,7 +41,8 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
             }
             // number could change
             $scope.entries[shiftedData[i][21]] = object;
-        };
+        }
+        ;
 
         // make category data
         $scope.studioEntries = {};
@@ -232,6 +238,12 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
 
 inputApp.factory('adminHttpRequests', function ($http) {
     return {
+        auth: function () {
+            return $http.get('authCode')
+                .then(function (result) {
+                    return result.data;
+                })
+        },
         admin_getCatalog: function () {
             return $http.get('getCatalog')
                 .then(function (result) {

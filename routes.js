@@ -5,6 +5,12 @@ module.exports = function (router, path, serverOps, public_serverOps) {
         console.log()
     });
 
+    router.get('/authCode', function (req, res) {
+        serverOps.sendUrl(function (result) {
+            return res.json(result);
+        });
+    });
+
     router.get("/input", function (req, res) {
         res.sendFile(path + '/static/views/input.html');
     });
@@ -32,5 +38,5 @@ module.exports = function (router, path, serverOps, public_serverOps) {
             return res.json(result);
         });
     });
-
 };
+
