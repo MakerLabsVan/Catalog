@@ -166,6 +166,16 @@ var studio = function(container, map, isIsometric) {
   this.dehighlight = function ( objID) {
     this.building.select('#' + objID)
       .classed('studioHighlight',false)
+  },
+
+  this.onClick = function ( callback ){
+    // alert('test')
+    d3.selectAll('.studio').on('click', function(){
+       callback( d3.select(this).attr('id') )  ;
+      //alert(d3.select(this).attr('id'));
+    })
+    //add hover
+    //add mouse button
   }
 }
 
@@ -185,9 +195,9 @@ var marker = function( container ){
 
     var screenScale = getImgFactor( width);
 
+    //Render new markers when there isnt enough
     if ( currentMarkerNum < markerNum ){
       for ( var j = 0; currentMarkerNum+j < markerNum; j++){
-
         this.markerCluster.push( addMarker( container, currentMarkerNum + j));
       }
     }
@@ -229,8 +239,36 @@ var marker = function( container ){
   this.resize = function(){
     var screenScale = getImgFactor( width);
     //Isometric map transformations
-
   }
+}
+
+
+
+//Mapping points to map
+var mapTransformCoords = function( x, y, isIsometric){
+  if ( isIsometric == true){
+    var cosA = Math.cos( isoAngle * Math.PI / 180);
+    var sinA = Math.sin( isoAngle * Math.PI / 180);
+    var transformX = x*cosA - y*sinA ;
+    var transformY = x*sinA + y*cosA ;
+  }
+  transformX *= isoMapScale;
+  transformY *= (isoVertScale*isoMapScale);
+  //Translate back into floor plane
+  if ( markerData.floor == 1){
+    transformX += firstFloorX;
+    transformY += firstFloorY;
+  }else if ( markerData.floor == 2){
+    transformX += secondFloorX;
+    transformY += secondFloorY;
+  }
+  //Adjust for marker size
+  transformX -= Number(this.markerCluster[k].attr('width'))/2;
+  transformY -= Number(this.markerCluster[k].attr('height'));
+
+  transformX*screenScale
+  transformY*screenScale
+
 }
 
 //Add map image

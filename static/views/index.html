@@ -134,10 +134,12 @@
                             <div class="panel-body hidden white standardFont" id="entryDetails">
                                 <div class="col-sm-12" ng-repeat="prop in dataLabels track by $index">
                                     <div class="row" ng-if="isEmpty(prop)" id="{{ selectedObject.key }}{{ prop }}">
+
                                         <div class="col-sm-6" ng-bind="entryProperties[$index] + ':'">
                                         </div>
                                         <div class="col-sm-6 alignEntryValues" ng-bind="selectedObject[prop]">
                                         </div>
+
                                     </div>
                                 </div>
                             </div>

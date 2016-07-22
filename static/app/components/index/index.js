@@ -6,7 +6,7 @@ indexApp.controller("indexCtrl", ["$scope", '$http', "mapService", "highlightSer
     httpRequests.pub_getCatalog().then(function (data) {
         $scope.data = data;
 
-        // labels to use for object
+        // keys to use for object
         $scope.dataLabels = data[1];
 
         // labels to display
@@ -57,7 +57,6 @@ indexApp.controller("indexCtrl", ["$scope", '$http', "mapService", "highlightSer
         }
         // but entries.key works here
 
-
     });
 
     $scope.categories = {
@@ -67,15 +66,9 @@ indexApp.controller("indexCtrl", ["$scope", '$http', "mapService", "highlightSer
         "mats": "Materials"
     };
 
-        // $scope.$watch('entries',function(entries){
-        //   for ( i in entries){
-        //     console.log(entries[i].key)
-        //   }
-        // })
-
-        // map ctrl
-        $scope.map1 = mapService.initMap('firstFloorWell', 1);
-        $scope.resizeMap1 = mapService.resize($scope.map1);
+    // map ctrl
+    $scope.map1 = mapService.initMap('firstFloorWell', 1);
+    $scope.resizeMap1 = mapService.resize($scope.map1);
 
     $scope.queryTerm = '';
     // change height of query result box dynamically
@@ -156,12 +149,14 @@ indexApp.controller("indexCtrl", ["$scope", '$http', "mapService", "highlightSer
         $('#entryDetails').removeClass('hidden');
 
         $scope.isEmpty = function (prop) {
-            return !($scope.selectedObject[prop] === '' ||
-            prop === 'locx' ||
-            prop === 'locy' ||
-            prop === 'metadata');
+          console.log($scope.selectedObject)
+          return !($scope.selectedObject[prop] === '' ||
+          prop === 'locx' ||
+          prop === 'locy' ||
+          prop === 'metadata');
         };
     };
+
 
 
     $scope.lastItem;
@@ -179,14 +174,12 @@ indexApp.controller("indexCtrl", ["$scope", '$http', "mapService", "highlightSer
       $scope.map1.selectFloor( Number(entry.floor) );
     }
 
-        var removeLast = function (lastItem) {
-            // $scope.map1.marker.remove();
-            if (lastItem != undefined) {
-              $scope.map1.studio.dehighlight(lastItem.key);
-
-            }
-          };
-
+    var removeLast = function (lastItem) {
+        $scope.map1.markers.remove();
+        if (lastItem != undefined) {
+          $scope.map1.studio.dehighlight(lastItem.key);
+        }
+      };
 
     // combined function
     $scope.onSelect = function (entry, category) {
@@ -218,11 +211,6 @@ indexApp.service("mapService", function () {
     };
 
     var resizeMap = function (map) {
-        if (map.width() !== 0) {
-            var width = map.width();
-            var height = map.height();
-        }
-
         map.resize();
     };
 

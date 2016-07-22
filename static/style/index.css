@@ -270,9 +270,11 @@ textarea {
 }
 .studio{
   opacity: 0.5;
+  cursor: pointer;
 }
 .studioHighlight{
   fill: red;
+  opacity : 0.8;
 }
 
 .studioGroup{
@@ -280,7 +282,7 @@ textarea {
 
 .isoMap{
   width: 100%;
-  height:400%;
+  height: 1000%;
 }
 
 .mapContainer{
@@ -289,8 +291,6 @@ textarea {
 }
 
 .marker {
-  width: 30px;
-  height: 30px;
 }
 
 .hide {
