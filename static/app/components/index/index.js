@@ -186,6 +186,14 @@ indexApp.controller("indexCtrl", ["$scope", '$http', "mapService", "highlightSer
         $scope.showLoc(entry);
         $scope.highlightItem(category + '_' + entry.key, entry.type);
     };
+
+
+
+          $scope.wow = function(){
+            console.log($scope.map1.markers.getLocation($scope.map1.width(),1));
+            //$scope.map1.markers.getLocation(1)
+          }
+
 }]);
 
 // promise services for http requests

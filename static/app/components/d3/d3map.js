@@ -29,6 +29,9 @@ app.controller('mapController', ['$scope', '$window', '$location', function ($sc
       $scope.onSelect($scope.entries[id], $scope.entries[id].type.toLowerCase());
       $scope.$apply();
     });
+
+    // $scope.map1.markers.onClick();
+
   })
 
   //Resize map objects on window resize

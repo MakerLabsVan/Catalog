@@ -70,6 +70,7 @@ var mapConstructor = function (containerID, floorNum) {
   this.resize = function (){
     this.studio.resize( this.width());
     this.studio.selectFloor( this.width(),this.currentFloor);
+    this.markers.resize( this.width());
   },
   //Move to floor
   this.selectFloor = function( floor ){
@@ -114,7 +115,6 @@ var studio = function(container, map, isIsometric) {
       })
   },
 
-  //TODO: Move math into a seperate function that returns transform strings
   this.resize = function ( mapWidth) {
     for ( var i = 0; i < this.floor.length; i++){
       transform = mapTransformStrings( mapWidth, i+1, isIsometric); //Floor number is i+1
@@ -181,7 +181,6 @@ var marker = function( container ){
     }
     for ( k in markerData.points ){
       var coords = mapTransformCoords(width, markerData.points[k], isIsometric, markerData.floor )
-      var newCoords = undoMapTrasnformCoords(width, coords, isIsometric, markerData.floor)
 
       //Adjust for marker size
       coords.x -= Number(this.markerCluster[k].attr('width'))/2;
@@ -189,6 +188,7 @@ var marker = function( container ){
 
       this.markerCluster[k]
         .classed('hide',false)
+        .classed('floor' + markerData.floor,true)
         .attr('x', coords.x)
         .attr('y', coords.y)
     }
@@ -200,26 +200,45 @@ var marker = function( container ){
     }
   },
 
-  this.resize = function(){
-    var screenScale = getScreenFactor( width);
-    //Isometric map transformations
+  this.resize = function( width ){
+
   },
 
   this.onClick = function(){
-
+    showMarkerOnClick( this.markerCluster, container);
   },
 
-  this.addMarker = function(){
+  this.getLocation = function( width, floor){
+    var arrayOfPoints = [];
 
-  },
-  this.deleteMarker = function(){
-
-  },
-  this.getLocation = function(){
-
+    for (i in this.markerCluster){
+      var points = {
+        'x': this.markerCluster[i].attr('x'),
+        'y':this.markerCluster[i].attr('y')
+      }
+      console.log(points)
+      arrayOfPoints.push( undoMapTrasnformCoords(width, points, isIsometric, floor));
+    }
+    return arrayOfPoints;
   }
 }
 
+var showMarkerOnClick = function( markerCluster){
+  d3.select('.isoMap').on('click', function () {
+    var xPos = d3.mouse(d3.select('.studioGroup').node() )[0];
+    var yPos = d3.mouse(d3.select('.studioGroup').node() )[1];
+
+    var marker = addMarker( d3.select('.studioGroup'));
+
+    marker
+      .attr('x', xPos - Number(marker.attr('width')/2) )
+      .attr('y', yPos - Number(marker.attr('height')) );
+
+    markerCluster.push(marker);
+  })
+}
+
+//For Transforming groups of studios
 var mapTransformStrings = function ( width, floor, isIso){
   if ( isNaN( width) ){
     return;
@@ -328,11 +347,10 @@ var getScreenFactor = function (currentWidth){
   return currentWidth/isoMapWidth;
 }
 
-var addMarker = function (container, id) {
+var addMarker = function (container) {
   return container
     .append('svg:image')
     .attr('xlink:href', '/assets/marker.svg')
-    .attr('id', 'marker' + id)
     .attr('width', 50)
     .attr('height', 50 )
     .classed('marker',true);
