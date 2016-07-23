@@ -185,7 +185,6 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
 
     $scope.selectEntry = function (entry) {
         $scope.selectedEntry = entry;
-
         $scope.newSelect();
 
         $scope.highlightItem('admin_' + entry.key, entry.type);

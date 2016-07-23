@@ -67,7 +67,7 @@ var auth = function (method, body, resCallback) {
         fs.writeFile(TOKEN_PATH, JSON.stringify(token));
         console.log('Token stored to ' + TOKEN_PATH);
     }
-}
+};
 
 var getDataList = function (auth, callback) {
     var sheets = google.sheets('v4');
