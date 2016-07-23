@@ -12,6 +12,8 @@
 
 <body>
 <div ng-app="inputApp">
+
+
     <div class="container-fluid" ng-controller="inputCtrl" id="input-background">
         <div class="row">
             <div class="col-sm-2" id="input-result-container">
@@ -35,6 +37,41 @@
             </div>
             <div class="col-sm-10 view-color pageSize">
                 <div class="row fixedTop">
+                    <!-- authorization modal -->
+                    <div class="col-sm-1 col-sm-offset-11">
+                        <a class="btn btn-primary" data-toggle="modal" href="#modal-id">Authorize</a>
+                        <div class="modal fade" id="modal-id">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title">OAuth2</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div>
+                                            <button type="button" class="btn btn-default">
+                                                <a href="" id="auth" target="_blank">
+                                                    Open link to authorization page.
+                                                </a>
+                                            </button>
+                                        </div>
+                                        <br>
+                                        <div>
+                                            <input type="text" name="authCode" id="authCode" class="form-control"
+                                                   ng-model="authCode" required="required"
+                                                   placeholder="Paste authorization code here"/>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close
+                                        </button>
+                                        <button type="button" class="btn btn-primary" ng-click="sendCode()">Authorize</button>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div><!-- /.modal -->
+                    </div>
 
                 </div>
                 <div class="row">
@@ -106,7 +143,7 @@
                                         <input type="text" name="entryInput" id="nameIn"
                                                class="form-control inputAreaHeight"
                                                placeholder="{{ entryPropertiesObj.length }}"
-                                               ng-model="form.width">
+                                               ng-model="form.length">
                                     </div>
                                     <div class="col-sm-3 noPadding">
                                         <input type="text" name="entryInput" id="nameIn"

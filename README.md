@@ -1,8 +1,9 @@
 # MakerLabs Catalog System
-The catalogue is a simple interface where you can search for items and studios at [MakerLabs](http://www.makerlabs.com)
+
+The catalog is a simple interface where you can search for items and studios at [MakerLabs](http://www.makerlabs.com)
 
 ## Quick START
-Visit the [Webapp hosted on heroku](https://serene-springs-31713.herokuapp.com/)
+Visit the [Webapp hosted on heroku](https://catalog-makerlabs.herokuapp.com/)
 
 ## Slow START (for developer)
 * Install [node.js](https://nodejs.org/en/)

@@ -268,6 +268,11 @@ textarea {
 #matTypeDiv.active {
     background-color: #F3B681 !important;
 }
+
+.modal {
+  text-align: center;
+}
+
 .studio{
   opacity: 0.5;
   cursor: pointer;
@@ -296,12 +301,3 @@ textarea {
 .hide {
   visibility: hidden;
 }
-
-
-/*Isometric map is rotation by 45 degrees and scale vertical by 0.6
-*/
-/*.floor2Map{
-  transform: translate(285, 370);
-  transform: scale(1,0.6);
-  transform: rotate(-135);
-}*/
