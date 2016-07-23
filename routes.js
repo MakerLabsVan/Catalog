@@ -2,7 +2,6 @@ module.exports = function (router, path, serverOps, public_serverOps) {
 
     router.get("/", function (req, res) {
         res.sendFile(path + '/static/views/index.html');
-        console.log()
     });
 
     router.get('/authCode', function (req, res) {
@@ -19,9 +18,7 @@ module.exports = function (router, path, serverOps, public_serverOps) {
     });
 
     router.get("/input", function (req, res) {
-        serverOps.checkForToken(function (result) {
-            console.log(result);
-        });
+        serverOps.checkForToken(function (result) { });
         res.sendFile(path + '/static/views/input.html');
     });
 

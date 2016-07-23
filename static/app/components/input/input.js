@@ -1,4 +1,3 @@
-
 var inputApp = angular.module('inputApp', ['indexApp']);
 
 inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightService", "adminHttpRequests", function ($scope, $http, mapService, highlightService, adminHttpRequests) {
