@@ -174,7 +174,7 @@ indexApp.controller("indexCtrl", ["$scope", '$http', "mapService", "highlightSer
     }
 
     var removeLast = function (lastItem) {
-        $scope.map1.markers.remove();
+        $scope.map1.markers.hide();
         if (lastItem != undefined) {
           $scope.map1.studio.dehighlight(lastItem.key);
         }
@@ -186,13 +186,6 @@ indexApp.controller("indexCtrl", ["$scope", '$http', "mapService", "highlightSer
         $scope.showLoc(entry);
         $scope.highlightItem(category + '_' + entry.key, entry.type);
     };
-
-
-
-          $scope.wow = function(){
-            console.log($scope.map1.markers.getLocation($scope.map1.width(),1));
-            //$scope.map1.markers.getLocation(1)
-          }
 
 }]);
 

@@ -70,7 +70,6 @@ var mapConstructor = function (containerID, floorNum) {
   this.resize = function (){
     this.studio.resize( this.width());
     this.studio.selectFloor( this.width(),this.currentFloor);
-    this.markers.resize( this.width());
   },
   //Move to floor
   this.selectFloor = function( floor ){
@@ -194,14 +193,16 @@ var marker = function( container ){
     }
   },
 
-  this.remove = function(){
+  this.hide = function(){
     for (i in this.markerCluster){
       this.markerCluster[i].classed( 'hide', true);
     }
   },
 
-  this.resize = function( width ){
-
+  this.deleteAll = function(){
+    for ( i in this.markerCluster){
+      this.markerCluster.pop().remove();
+    }
   },
 
   this.onClick = function(){
