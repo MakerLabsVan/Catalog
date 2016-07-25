@@ -139,8 +139,17 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         // find index of selected
         var keyString = $scope.selectedEntry.key;
         // offset to account for frozen rows and the parse function in serverOps
-        const offset = 1;
-        var index = parseInt(keyString.slice(1, keyString.length)) - offset;
+        var index = 0;
+        // search for key and count rows
+        for (i in $scope.entries) {
+            if (i === keyString) {
+                break;
+            }
+            index++;
+        }
+        console.log(index);
+        // old method that did not account for unorganized rows
+        // var index = parseInt(keyString.slice(1, keyString.length)) - offset;
         return index;
     };
 
@@ -156,8 +165,9 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
 
     // edit an entry
     $scope.edit = function () {
+        const negativeOffset = 1;
         // find index of selected
-        var index = findIndex();
+        var index = findIndex() - negativeOffset;
         $scope.insert(index);
     };
 
@@ -173,7 +183,7 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
 
     // delete an entry
     $scope.delete = function () {
-        const offset = 1;
+        const offset = 2;
         var index = findIndex() + offset;
         adminHttpRequests.delete([index]).then(function (result) {
             $scope.newForm();

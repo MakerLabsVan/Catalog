@@ -1,14 +1,6 @@
 var sheetKeyPrivate = "1MJpC2n-ekpnRXaLsb7B4dI6VOQIzn1eZO61I7sy2yiA";
 
-var fs = require('fs');
-var readline = require('readline');
 var google = require('googleapis');
-var googleAuth = require('google-auth-library');
-
-var SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
-var TOKEN_DIR = (process.env.HOME || process.env.HOMEPATH ||
-    process.env.USERPROFILE) + '/.credentials/';
-var TOKEN_PATH = TOKEN_DIR + 'sheets.makerlabs.json';
 
 var getDataList = function (auth, callback) {
     var sheets = google.sheets('v4');
@@ -69,7 +61,7 @@ var deleteEntry = function (auth, index, resCallback) {
     sheets.spreadsheets.batchUpdate({
         auth: auth,
         spreadsheetId: sheetKeyPrivate,
-        resource: body,
+        resource: body
     }, function (err, response) {
         if (err) {
             console.log(err);

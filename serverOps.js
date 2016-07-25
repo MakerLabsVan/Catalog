@@ -4,7 +4,7 @@ var oauth = require(path + '/static/app/components/googlesheets/oauth2login.js')
 var auth = oauth.OAuth2Client;
 
 var checkForToken = function (callback) {
-    oauth.checkForToken(function(result){
+    oauth.checkForToken(function (result) {
         callback(result);
     })
 };
@@ -15,9 +15,9 @@ var sendUrl = function (callback) {
     });
 };
 
-var getCode = function (code, callback){
+var getCode = function (code, callback) {
     console.log("serverops: " + code);
-    oauth.getNewToken(auth, code, function (result){
+    oauth.getNewToken(auth, code, function (result) {
         callback(result);
     })
 };
@@ -37,23 +37,16 @@ var parse = function (req, row, res) {
         row: row
     };
 
-    gapi.sheetWrite(auth, body, function(result){
+    gapi.sheetWrite(auth, body, function (result) {
         res(result);
     });
 
-    // gapi.auth(gapi.sheetWrite, body, function (result) {
-    //     res(result);
-    // });
 };
 
 var delEntry = function (index, response) {
-    gapi.deleteEntry(auth, index, function (result){
+    gapi.deleteEntry(auth, index, function (result) {
         response(result);
     });
-
-    // gapi.auth(gapi.deleteEntry, index, function (res) {
-    //     response(res);
-    // });
 };
 
 exports.getData = getData;
