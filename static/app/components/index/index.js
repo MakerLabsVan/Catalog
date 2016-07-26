@@ -58,6 +58,13 @@ indexApp.controller("indexCtrl", ["$scope", '$http', "mapService", "highlightSer
         // but entries.key works here
 
     });
+    // GET END
+
+    $scope.sendClickAnalytic = function () {
+        ga('send', 'event', 'Clicked an Entry', 'click', 'Entry');
+    };
+
+    
 
     $scope.categories = {
         "studio": "Studios",
@@ -185,6 +192,7 @@ indexApp.controller("indexCtrl", ["$scope", '$http', "mapService", "highlightSer
         $scope.showEntryDetails(entry);
         $scope.showLoc(entry);
         $scope.highlightItem(category + '_' + entry.key, entry.type);
+        $scope.sendClickAnalytic();
     };
 
 }]);

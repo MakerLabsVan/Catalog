@@ -12,4 +12,3 @@
 
 ga('create', 'UA-80444877-1', 'auto');
 ga('send', 'pageview');
-
