@@ -1,6 +1,26 @@
-var indexApp = angular.module("indexApp", ['d3mapping']);
+var indexApp = angular.module('indexApp', ['d3mapping']);
 
-indexApp.controller("indexCtrl", ["$scope", '$http', "mapService", "highlightService", "httpRequests", function ($scope, $http, mapService, highlightService, httpRequests) {
+indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 'highlightService', 'httpRequests', function ($scope, $http, $interval, mapService, highlightService, httpRequests) {
+
+    // 5 minutes
+    const refreshTime = 300000;
+
+    var checkIdle = $interval(function () {
+        location.reload();
+    }, refreshTime);
+
+    var resetCheck = function () {
+        $interval.cancel(checkIdle);
+        checkIdle = $interval(function () {
+            location.reload();
+        }, refreshTime);
+    };
+
+    $('body').click(function () {
+        resetCheck();
+        console.log("Reset!");
+    });
+
 
     httpRequests.pub_getCatalog().then(function (data) {
         $scope.data = data;
@@ -65,12 +85,11 @@ indexApp.controller("indexCtrl", ["$scope", '$http', "mapService", "highlightSer
     };
 
 
-
     $scope.categories = {
-        "studio": "Studios",
-        "tools": "Tools",
-        "cons": "Consumables",
-        "mats": "Materials"
+        'studio': 'Studios',
+        'tools': 'Tools',
+        'cons': 'Consumables',
+        'mats': 'Materials'
     };
 
     // map ctrl
@@ -82,9 +101,9 @@ indexApp.controller("indexCtrl", ["$scope", '$http', "mapService", "highlightSer
     $scope.changeHeight = function () {
         if ($scope.queryTerm.length >= 2) {
             $('.in').removeClass('in');
-            $("#searchSection").addClass('searchSectionExpanded').removeClass('searchSectionClosed');
+            $('#searchSection').addClass('searchSectionExpanded').removeClass('searchSectionClosed');
         } else {
-            $("#searchSection").addClass('searchSectionClosed').removeClass('searchSectionExpanded');
+            $('#searchSection').addClass('searchSectionClosed').removeClass('searchSectionExpanded');
 
         }
     };
@@ -119,8 +138,8 @@ indexApp.controller("indexCtrl", ["$scope", '$http', "mapService", "highlightSer
     };
 
     $scope.panelBodyMessage = {
-        "name": "MakerLabs",
-        "body": "To use, select an item from the categories or search for a specific item."
+        'name': 'MakerLabs',
+        'body': 'To use, select an item from the categories or search for a specific item.'
     };
 
     $scope.panelTitleName = 'MakerLabs';
@@ -213,7 +232,7 @@ indexApp.factory('httpRequests', function ($http) {
 });
 
 // service to share methods for map construction and resizing
-indexApp.service("mapService", function () {
+indexApp.service('mapService', function () {
     var map = function (id, num) {
         return new mapConstructor(id, num);
     };
@@ -229,7 +248,7 @@ indexApp.service("mapService", function () {
 });
 
 // service to highlight items
-indexApp.service("highlightService", function () {
+indexApp.service('highlightService', function () {
     var lastObject = null;
 
     var highlight = function (objectId, type) {
