@@ -113,13 +113,17 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
 
     // make a new entry
     $scope.form = {};
+
+    $scope.clearSearch = function () {
+        $scope.inputQuery = '';
+    };
+
     $scope.insert = function (row) {
-        // check for at least name (required attr does not work with ng-click)
-        if ($scope.form.name == undefined) {
-            alert('Name must be filled out!');
+        // get type from radio buttons
+        $scope.form.type = $("input[name=typeOptions]:checked").val();
+        if ($scope.form.type == undefined || $scope.form.type == null) {
+            alert("Type has not been set!");
         } else {
-            // get type from radio buttons
-            $scope.form.type = $("input[name=typeOptions]:checked").val();
 
             // make array to pass in
             var values = [];
@@ -193,18 +197,50 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         });
     };
 
+    $scope.changeSendBtnColor = function (type) {
+        var uploadIcon = $('#uploadIcon');
+        var editIcon = $('#editIcon');
+        switch (type) {
+            case 'Studio':
+                uploadIcon.css('color', '#F14A29');
+                editIcon.css('color', '#F14A29');
+                break;
+            case 'Tool':
+                uploadIcon.css('color', '#107CC2');
+                editIcon.css('color', '#107CC2');
+                break;
+            case 'Consumable':
+                uploadIcon.css('color', '#2BAC69');
+                editIcon.css('color', '#2BAC69');
+                break;
+            case 'Material':
+                uploadIcon.css('color', '#F3902C');
+                editIcon.css('color', '#F3902C');
+
+        }
+    };
+
     $scope.selectEntry = function (entry) {
         $scope.selectedEntry = entry;
         $scope.newSelect();
+        $scope.changeSendBtnColor(entry.type);
 
         $scope.highlightItem('admin_' + entry.key, entry.type);
         $('#deleteBtn').removeClass('hidden');
         $('#editBtn').removeClass('hidden');
         $('#submitBtn').addClass('hidden');
 
-        // fill form
+        // fill form (convert string numbers to numbers)
         for (i in entry) {
-            $scope.form[i] = entry[i];
+            if (i === 'width' ||
+                i === 'length' ||
+                i === 'height' ||
+                i === 'quantity' ||
+                i === 'weight') {
+                $scope.form[i] = Number(entry[i]);
+            } else {
+                $scope.form[i] = entry[i];
+            }
         }
 
         var btnGroup = $('#buttonGroup');
@@ -230,14 +266,15 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         }
     };
 
+
     $scope.newForm = function () {
         $scope.form = {};
         $('#buttonGroup').find('.active').removeClass('active');
+        $('#submitBtn').removeClass('hidden');
         $('#deleteBtn').addClass('hidden');
         $('#confirmDel').addClass('hidden');
         $('#editBtn').addClass('hidden');
         $('#confirmEdit').addClass('hidden');
-        $('#submitBtn').removeClass('hidden');
     };
 
     $scope.newSelect = function () {

@@ -1,4 +1,3 @@
-
 var indexApp = angular.module("indexApp", ['d3mapping']);
 
 indexApp.controller("indexCtrl", ["$scope", '$http', "mapService", "highlightService", "httpRequests", function ($scope, $http, mapService, highlightService, httpRequests) {
@@ -31,7 +30,8 @@ indexApp.controller("indexCtrl", ["$scope", '$http', "mapService", "highlightSer
             }
             // 20 could change
             $scope.entries[shiftedData[i][21]] = object;
-        };
+        }
+        ;
 
         // make category data
         $scope.studioEntries = {};
@@ -149,37 +149,36 @@ indexApp.controller("indexCtrl", ["$scope", '$http', "mapService", "highlightSer
         $('#entryDetails').removeClass('hidden');
 
         $scope.isEmpty = function (prop) {
-          return !($scope.selectedObject[prop] === '' ||
-          prop === 'locx' ||
-          prop === 'locy' ||
-          prop === 'metadata' ||
-          prop === 'key');
+            return !($scope.selectedObject[prop] === '' ||
+            prop === 'locx' ||
+            prop === 'locy' ||
+            prop === 'metadata' ||
+            prop === 'key');
         };
     };
 
 
-
-    $scope.lastItem;
+    $scope.lastItem = null;
     //Highlight the studio given the name of the studio as a param
     $scope.showLoc = function (entry) {
-      removeLast($scope.lastItem);
-      $scope.lastItem = entry;
+        removeLast($scope.lastItem);
+        $scope.lastItem = entry;
 
-      if (entry.type == 'Studio') {
-        $scope.map1.studio.highlight( entry.key );
-      } else{
-        $scope.map1.markers.draw( $scope.map1.width(), JSON.parse(entry.metadata) )
-        //TODO:MARKER DISPLAY
-      }
-      $scope.map1.selectFloor( Number(entry.floor) );
+        if (entry.type == 'Studio') {
+            $scope.map1.studio.highlight(entry.key);
+        } else {
+            $scope.map1.markers.draw($scope.map1.width(), JSON.parse(entry.metadata))
+            //TODO:MARKER DISPLAY
+        }
+        $scope.map1.selectFloor(Number(entry.floor));
     }
 
     var removeLast = function (lastItem) {
         $scope.map1.markers.hide();
         if (lastItem != undefined) {
-          $scope.map1.studio.dehighlight(lastItem.key);
+            $scope.map1.studio.dehighlight(lastItem.key);
         }
-      };
+    };
 
     // combined function
     $scope.onSelect = function (entry, category) {
