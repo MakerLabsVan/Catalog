@@ -2,13 +2,17 @@ var indexApp = angular.module('indexApp', ['d3mapping']);
 
 indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 'highlightService', 'httpRequests', function ($scope, $http, $interval, mapService, highlightService, httpRequests) {
 
+    // functions to refresh only on 5 minutes of idling
+    // refreshes on click
     // 5 minutes
     const refreshTime = 300000;
 
+    // start interval promise
     var checkIdle = $interval(function () {
         location.reload();
     }, refreshTime);
 
+    // destroy promise and create new promise to reset the time
     var resetCheck = function () {
         $interval.cancel(checkIdle);
         checkIdle = $interval(function () {
@@ -16,42 +20,43 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
         }, refreshTime);
     };
 
+    // any click will reset the clock
     $('body').click(function () {
         resetCheck();
-        console.log("Reset!");
     });
 
-
+    // request to sheets and parse the data
     httpRequests.pub_getCatalog().then(function (data) {
         $scope.data = data;
 
-        // keys to use for object
+        // minimized property names for object
         $scope.dataLabels = data[1];
 
-        // labels to display
+        // get key index dynamically
+        var keyIndex = $scope.dataLabels.indexOf('key');
+
+        // pretty property names to display
         $scope.entryProperties = data[0];
 
-        // shift data
+        // removed first 2 frozen rows
         $scope.data.shift();
         $scope.data.shift();
-
-        // removed 2 frozen rows
         var shiftedData = $scope.data;
 
         // object entries
         // THIS IS THE NEW DATA LIST IN OBJECT FORM
         $scope.entries = {};
-        // use loop to make the object
+
+        // use loop to populate the object
         for (i in shiftedData) {
             var object = {};
+
             for (j in $scope.dataLabels) {
                 // ex. object.name.label
                 object[$scope.dataLabels[j]] = shiftedData[i][j];
             }
-            // 20 could change
-            $scope.entries[shiftedData[i][21]] = object;
+            $scope.entries[shiftedData[i][keyIndex]] = object;
         }
-        ;
 
         // make category data
         $scope.studioEntries = {};
