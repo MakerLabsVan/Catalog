@@ -98,7 +98,8 @@ indexApp.controller("indexCtrl", ["$scope", '$http', "mapService", "highlightSer
         if (isIndexOf(entry.name) ||
             isIndexOf(entry.type) ||
             isIndexOf(entry.subtype) ||
-            isIndexOf(entry.keywords)) {
+            isIndexOf(entry.keywords ||
+            isIndexOf(entry.key))) {
             return true;
         }
     };
@@ -127,7 +128,7 @@ indexApp.controller("indexCtrl", ["$scope", '$http', "mapService", "highlightSer
         // initialize title
         $scope.panelTitleName = entry.name;
         $scope.panelTitleType = entry.type;
-        $('#ct-index-panel-title-detail').addClass('panelTitle');
+        $('#panelTitleName').addClass('whiteFont');
 
         // change color of panel title
         var elem = $('#indexPanelHeading');

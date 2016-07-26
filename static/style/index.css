@@ -1,6 +1,6 @@
 body {
     font-family: 'Raleway', sans-serif;
-    overflow:hidden;
+    overflow: hidden;
 }
 
 .hidden {
@@ -125,7 +125,7 @@ small {
 
 #indexPanelHeading {
     min-height: 7vh;
-    max-height: 7vh;
+    max-height: 10vh;
 }
 
 #entryBody {
@@ -233,7 +233,6 @@ textarea {
     border-radius: 0px !important;
 }
 
-
 .glyphicon {
     font-size: 20px;
 }
@@ -271,34 +270,35 @@ textarea {
 }
 
 .modal {
-  text-align: center;
+    text-align: center;
 }
 
-.studio{
-  opacity: 0.5;
-  cursor: pointer;
-}
-.studioHighlight{
-  fill: red;
-  opacity : 0.8;
+.studio {
+    opacity: 0.5;
+    cursor: pointer;
 }
 
-.studioGroup{
+.studioHighlight {
+    fill: red;
+    opacity: 0.8;
 }
 
-.isoMap{
-  width: 100%;
-  height: 1000%;
+.studioGroup {
 }
 
-.mapContainer{
-  width: 100%;
-  height: 100%;
+.isoMap {
+    width: 100%;
+    height: 1000%;
+}
+
+.mapContainer {
+    width: 100%;
+    height: 100%;
 }
 
 .marker {
 }
 
 .hide {
-  visibility: hidden;
+    visibility: hidden;
 }
