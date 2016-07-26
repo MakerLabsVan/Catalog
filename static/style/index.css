@@ -190,10 +190,6 @@ small {
     height: 80vh;
 }
 
-#mapContainer {
-    margin-top: -42px;
-}
-
 .inputOptionsBtns {
     font-size: 20px;
     border: none;
