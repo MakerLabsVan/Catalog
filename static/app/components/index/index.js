@@ -98,8 +98,7 @@ indexApp.controller("indexCtrl", ["$scope", '$http', "mapService", "highlightSer
         if (isIndexOf(entry.name) ||
             isIndexOf(entry.type) ||
             isIndexOf(entry.subtype) ||
-            isIndexOf(entry.keywords ||
-            isIndexOf(entry.key))) {
+            isIndexOf(entry.keywords)) {
             return true;
         }
     };
@@ -153,7 +152,8 @@ indexApp.controller("indexCtrl", ["$scope", '$http', "mapService", "highlightSer
           return !($scope.selectedObject[prop] === '' ||
           prop === 'locx' ||
           prop === 'locy' ||
-          prop === 'metadata');
+          prop === 'metadata' ||
+          prop === 'key');
         };
     };
 
