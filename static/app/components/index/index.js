@@ -97,9 +97,9 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
     };
 
     // map controller
-    // TODO: Change map1 to map (error in d3map??)
-    $scope.map1 = mapService.initMap('firstFloorWell', 1);
-    $scope.resizeMap1 = mapService.resize($scope.map1);
+    // TODO: Change map to map (error in d3map??)
+    $scope.map = mapService.initMap('firstFloorWell', 1);
+    $scope.resizemap = mapService.resize($scope.map);
 
     $scope.queryTerm = '';
     // change height of query result box dynamically
@@ -112,7 +112,6 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
         }
     };
 
-    // TODO: return to search results if user closes panel
     $scope.forceShrinkSearch = function () {
         var id = $('#searchSection');
         id.addClass('hidden');
@@ -205,18 +204,18 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
         $scope.lastItem = entry;
 
         if (entry.type == 'Studio') {
-            $scope.map1.studio.highlight(entry.key);
+            $scope.map.studio.highlight(entry.key);
         } else {
-            $scope.map1.markers.draw($scope.map1.width(), JSON.parse(entry.metadata))
+            $scope.map.markers.draw($scope.map.width(), JSON.parse(entry.metadata))
             //TODO:MARKER DISPLAY
         }
-        $scope.map1.selectFloor(Number(entry.floor));
+        $scope.map.selectFloor(Number(entry.floor));
     }
 
     var removeLast = function (lastItem) {
-        $scope.map1.markers.hide();
+        $scope.map.markers.hide();
         if (lastItem != undefined) {
-            $scope.map1.studio.dehighlight(lastItem.key);
+            $scope.map.studio.dehighlight(lastItem.key);
         }
     };
 

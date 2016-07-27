@@ -19,24 +19,24 @@ app.controller('mapController', ['$scope', '$window', '$location', function ($sc
     for ( i in entries ){
       if ( entries[i].type =='Studio' ){
         if ( entries[i].metadata ){
-          $scope.map1.studio.draw( JSON.parse( entries[i].metadata), entries[i].key)
+          $scope.map.studio.draw( JSON.parse( entries[i].metadata), entries[i].key)
         }
       }
     }
     //When studio is clicked, highlight object
-    $scope.map1.studio.onClick( function(id){
+    $scope.map.studio.onClick( function(id){
       $scope.selectedObject = $scope.entries[id];
       $scope.onSelect($scope.entries[id], $scope.entries[id].type.toLowerCase());
       $scope.$apply();
     });
 
-    // $scope.map1.markers.onClick();
+    // $scope.map.markers.onClick();
 
   })
 
   //Resize map objects on window resize
   angular.element($window).bind('resize', function () {
-    $scope.map1.resize();
+    $scope.map.resize();
     // manuall $digest required as resize event is outside of angular
     $scope.$digest();
   })
