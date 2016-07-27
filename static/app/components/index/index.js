@@ -118,6 +118,11 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
         id.addClass('hidden');
     };
 
+    $scope.clearSearch = function () {
+        $scope.queryTerm = '';
+        $scope.forceShrinkSearch();
+    };
+
     // using service to highlight items
     $scope.highlightItem = highlightService.highlight;
 
@@ -153,18 +158,13 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
         }
     };
 
-    $scope.clearSearch = function () {
-        $scope.queryTerm = '';
-        $scope.forceShrinkSearch();
-    };
 
     // default panel message
     $scope.panelBodyMessage = {
-        'name': 'MakerLabs',
         'body': 'To use, select an item from the categories or search for a specific item.'
     };
 
-    $scope.panelTitleName = 'MakerLabs';
+    $scope.panelTitleName = 'MakerLabs Catalog System';
     $scope.panelTitleType = '';
 
     // display entry details when clicked
@@ -221,7 +221,7 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
             //TODO:MARKER DISPLAY
         }
         $scope.map.selectFloor(Number(entry.floor));
-    }
+    };
 
     var removeLast = function (lastItem) {
         $scope.map.markers.hide();
