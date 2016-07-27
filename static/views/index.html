@@ -25,8 +25,15 @@
                 <div class="panel-group" id="accordion">
                     <div class="row">
                         <div class="col-sm-12">
-                            <input type="search" class="form-control lvl1-box-shadow" placeholder="Search here"
-                                   ng-model="queryTerm" ng-init="changeHeight()" ng-change="changeHeight()"/>
+                            <div class="input-group">
+                                <input type="search" class="form-control"
+                                       placeholder="Start typing here..."
+                                       ng-model="queryTerm" ng-init="changeHeight()" ng-change="changeHeight()"/>
+                                <span class="input-group-btn">
+        <button class="btn btn-default" type="button" ng-click="clearSearch()">Clear</button>
+      </span>
+                            </div>
+
                             <div id="searchSection">
                                 <div ng-repeat="entry in entries">
                                     <div class="entryNames" ng-click="onSelect(entry,'query')"

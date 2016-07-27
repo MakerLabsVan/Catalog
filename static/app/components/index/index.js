@@ -3,7 +3,6 @@ var indexApp = angular.module('indexApp', ['d3mapping']);
 indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 'highlightService', 'httpRequests', function ($scope, $http, $interval, mapService, highlightService, httpRequests) {
 
     // functions to refresh only on 5 minutes of idling
-    // refreshes on click
     // 5 minutes
     const refreshTime = 300000;
 
@@ -97,7 +96,8 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
         'mats': 'Materials'
     };
 
-    // map ctrl
+    // map controller
+    // TODO: Change map1 to map (error in d3map??)
     $scope.map1 = mapService.initMap('firstFloorWell', 1);
     $scope.resizeMap1 = mapService.resize($scope.map1);
 
@@ -109,7 +109,6 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
             $('#searchSection').addClass('searchSectionExpanded').removeClass('searchSectionClosed');
         } else {
             $('#searchSection').addClass('searchSectionClosed').removeClass('searchSectionExpanded');
-
         }
     };
 
@@ -140,6 +139,10 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
                 return entry.name;
             }
         }
+    };
+
+    $scope.clearSearch = function () {
+        $scope.queryTerm = '';
     };
 
     $scope.panelBodyMessage = {

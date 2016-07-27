@@ -8,27 +8,24 @@
           crossorigin="anonymous">
     <link href="/style/index.css" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico"/>
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 </head>
 
 <body>
 <div ng-app="inputApp">
-
-
     <div class="container-fluid" ng-controller="inputCtrl" id="input-background">
         <div class="row">
             <div class="col-sm-2" id="input-result-container">
                 <img class="centerImage" src="/assets/makerlabs.png" alt="MakerLabs" id="input-logo"/>
                 <hr>
                 <div class="row">
-                    <div class="container-fluid">
-                        <div class="col-sm-10">
-                            <input type="search" class="form-control lvl1-box-shadow" placeholder="Search here"
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <input type="search" class="form-control" placeholder="Start typing here..."
                                    ng-model="inputQuery"/>
-
-                        </div>
-                        <div class="col-sm-1 col-sm-pull-1">
-                            <button class="btn btn-default lvl1-box-shadow" ng-click="clearSearch()">
-                                <b>&times;</b></button>
+                            <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Clear</button>
+      </span>
                         </div>
                     </div>
                 </div>
