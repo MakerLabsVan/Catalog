@@ -133,10 +133,15 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
 
             // make key
             values[values.length - 1] = 'A' + String($scope.dataLength + 1);
+            $scope.form.key = 'A' + String($scope.dataLength + 1);
 
             adminHttpRequests.insert(values, row).then(function (result) {
                 console.log(result);
                 $scope.dataLength++;
+
+                // populate local database with new entry
+                $scope.entries[$scope.form.key] = $scope.form;
+
                 $scope.form = {};
             });
         }
