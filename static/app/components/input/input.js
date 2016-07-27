@@ -140,6 +140,7 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
                 $scope.dataLength++;
 
                 // populate local database with new entry
+                // also edits if entry exists
                 $scope.entries[$scope.form.key] = $scope.form;
 
                 $scope.form = {};
@@ -153,7 +154,7 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         // offset to account for frozen rows and the parse function in serverOps
         var index = 0;
         // search for key and count rows
-        for (i in $scope.entries) {
+        for (var i in $scope.entries) {
             if (i === keyString) {
                 break;
             }
@@ -195,11 +196,19 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
 
     // delete an entry
     $scope.delete = function () {
+        // to account for frozen rows on database
+        // TODO: automate in get response
         const offset = 2;
+
         var index = findIndex() + offset;
         adminHttpRequests.delete([index]).then(function (result) {
             $scope.newForm();
             console.log(result);
+
+            // delete local entry
+            delete $scope.entries[$scope.selectedEntry.key];
+            console.log($scope.entries[$scope.selectedEntry.key]);
+
             $scope.dataLength--;
             $scope.form = {};
         });
