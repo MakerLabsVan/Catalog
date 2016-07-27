@@ -106,10 +106,16 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
     $scope.changeHeight = function () {
         if ($scope.queryTerm.length >= 2) {
             $('.in').removeClass('in');
-            $('#searchSection').addClass('searchSectionExpanded').removeClass('searchSectionClosed');
+            $('#searchSection').removeClass('hidden');
         } else {
-            $('#searchSection').addClass('searchSectionClosed').removeClass('searchSectionExpanded');
+            $('#searchSection').addClass('hidden');
         }
+    };
+
+    // TODO: return to search results if user closes panel
+    $scope.forceShrinkSearch = function () {
+        var id = $('#searchSection');
+        id.addClass('hidden');
     };
 
     // using service to highlight items

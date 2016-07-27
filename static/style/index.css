@@ -11,14 +11,10 @@ body {
     text-align: right;
 }
 
-.searchSectionExpanded {
+#searchSection {
     height: auto;
     max-height: 55vh;
     overflow-y: scroll;
-}
-
-.searchSectionClosed {
-    height: 0px;
 }
 
 #firstFloorWell, #secondFloorWell {

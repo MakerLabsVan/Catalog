@@ -33,8 +33,8 @@
         <button class="btn btn-default" type="button" ng-click="clearSearch()">Clear</button>
       </span>
                             </div>
-
-                            <div id="searchSection">
+                            <br>
+                            <div class="hidden" id="searchSection">
                                 <div ng-repeat="entry in entries">
                                     <div class="entryNames" ng-click="onSelect(entry,'query')"
                                          ng-bind="filterSearch(entry)" id="query_{{entry.key}}">
@@ -48,7 +48,7 @@
                         <div class="panel-heading lvl1-box-shadow red categoryMargins">
                             <h4 class="panel-title pointer">
                                 <div data-toggle="collapse" href="#collapse1"
-                                     class="whiteFont standardFont" ng-bind="categories.studio"></div>
+                                     class="whiteFont standardFont" ng-bind="categories.studio" ng-click="forceShrinkSearch()"></div>
                             </h4>
                         </div>
                         <div id="collapse1" class="panel-collapse collapse categoryMargins" data-parent="#accordion">

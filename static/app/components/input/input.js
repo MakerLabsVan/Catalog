@@ -5,7 +5,6 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
     adminHttpRequests.auth().then(function (code) {
         console.log(code);
         $('#auth').attr('href', code);
-
     });
 
     adminHttpRequests.admin_getCatalog().then(function (data) {
@@ -275,6 +274,7 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         $('#confirmDel').addClass('hidden');
         $('#editBtn').addClass('hidden');
         $('#confirmEdit').addClass('hidden');
+        $('#uploadIcon').css('color', 'black');
     };
 
     $scope.newSelect = function () {
