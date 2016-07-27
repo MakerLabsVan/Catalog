@@ -1,3 +1,5 @@
+"use strict";
+
 var indexApp = angular.module('indexApp', ['d3mapping']);
 
 indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 'highlightService', 'httpRequests', function ($scope, $http, $interval, mapService, highlightService, httpRequests) {
@@ -47,10 +49,10 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
         $scope.entries = {};
 
         // use loop to populate the object
-        for (i in shiftedData) {
+        for (var i in shiftedData) {
             var object = {};
 
-            for (j in $scope.dataLabels) {
+            for (var j in $scope.dataLabels) {
                 // ex. object.name.label
                 object[$scope.dataLabels[j]] = shiftedData[i][j];
             }
@@ -63,7 +65,7 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
         $scope.toolEntries = {};
         $scope.consumableEntries = {};
 
-        for (key in $scope.entries) {
+        for (var key in $scope.entries) {
             // why doesn't entries.key work here
             switch ($scope.entries[key].type) {
                 case 'Studio':
@@ -161,7 +163,9 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
 
     // default panel message
     $scope.panelBodyMessage = {
-        'body': 'To use, select an item from the categories or search for a specific item.'
+        // testing template literals
+        'body': `Select a category to find all its listings.
+                 Search for a specific item or keyword through the search bar.`
     };
 
     $scope.panelTitleName = 'MakerLabs Catalog System';

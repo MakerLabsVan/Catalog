@@ -1,3 +1,5 @@
+"use strict";
+
 var inputApp = angular.module('inputApp', ['indexApp']);
 
 inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightService", "adminHttpRequests", function ($scope, $http, mapService, highlightService, adminHttpRequests) {
@@ -17,7 +19,7 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         $scope.entryProperties = data[0];
         // entryProperty object (testing)
         $scope.entryPropertiesObj = {};
-        for (i in $scope.entryProperties) {
+        for (var i in $scope.entryProperties) {
             $scope.entryPropertiesObj[$scope.dataLabels[i]] = $scope.entryProperties[i];
         }
 
@@ -33,16 +35,16 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         // THIS IS THE NEW DATA LIST IN OBJECT FORM
         $scope.entries = {};
         // use loop to make the object
-        for (i in shiftedData) {
+        for (var i in shiftedData) {
             var object = {};
-            for (j in $scope.dataLabels) {
+            for (var j in $scope.dataLabels) {
                 // ex. object.name.label
                 object[$scope.dataLabels[j]] = shiftedData[i][j];
             }
             // number could change
             $scope.entries[shiftedData[i][21]] = object;
         }
-        ;
+
 
         // make category data
         $scope.studioEntries = {};
@@ -50,7 +52,7 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         $scope.toolEntries = {};
         $scope.consumableEntries = {};
 
-        for (key in $scope.entries) {
+        for (var key in $scope.entries) {
             // why doesn't entries.key work here
             switch ($scope.entries[key].type) {
                 case 'Studio':
@@ -230,7 +232,7 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         $('#submitBtn').addClass('hidden');
 
         // fill form (convert string numbers to numbers)
-        for (i in entry) {
+        for (var i in entry) {
             if (i === 'width' ||
                 i === 'length' ||
                 i === 'height' ||
