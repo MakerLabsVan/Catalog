@@ -45,7 +45,6 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
         var shiftedData = $scope.data;
 
         // object entries
-        // THIS IS THE NEW DATA LIST IN OBJECT FORM
         $scope.entries = {};
 
         // use loop to populate the object

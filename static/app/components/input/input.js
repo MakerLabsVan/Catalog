@@ -15,6 +15,9 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         // labels to use for object
         $scope.dataLabels = data[1];
 
+        // key index
+        var keyIndex = $scope.dataLabels.indexOf('key');
+
         // labels to display
         $scope.entryProperties = data[0];
         // entryProperty object (testing)
@@ -32,7 +35,6 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         var shiftedData = $scope.data;
 
         // object entries
-        // THIS IS THE NEW DATA LIST IN OBJECT FORM
         $scope.entries = {};
         // use loop to make the object
         for (var i in shiftedData) {
@@ -42,9 +44,8 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
                 object[$scope.dataLabels[j]] = shiftedData[i][j];
             }
             // number could change
-            $scope.entries[shiftedData[i][21]] = object;
+            $scope.entries[shiftedData[i][keyIndex]] = object;
         }
-
 
         // make category data
         $scope.studioEntries = {};
@@ -53,7 +54,6 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         $scope.consumableEntries = {};
 
         for (var key in $scope.entries) {
-            // why doesn't entries.key work here
             switch ($scope.entries[key].type) {
                 case 'Studio':
                     $scope.studioEntries[key] = $scope.entries[key];
@@ -68,7 +68,6 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
                     $scope.consumableEntries[key] = $scope.entries[key];
             }
         }
-        // but entries.key works here
     });
 
     $scope.authCode = '';
@@ -128,9 +127,12 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
 
             // make array to pass in
             var values = [];
-            for (i in $scope.dataLabels) {
+            for (var i in $scope.dataLabels) {
                 values.push($scope.form[$scope.dataLabels[i]]);
             }
+
+            // make key
+            values[values.length - 1] = 'A' + String($scope.dataLength + 1);
 
             adminHttpRequests.insert(values, row).then(function (result) {
                 console.log(result);
