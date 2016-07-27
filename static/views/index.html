@@ -28,7 +28,7 @@
                             <div class="input-group">
                                 <input type="search" class="form-control"
                                        placeholder="Start typing here..."
-                                       ng-model="queryTerm" ng-init="changeHeight()" ng-change="changeHeight()"/>
+                                       ng-model="queryTerm" ng-change="changeHeight()"/>
                                 <span class="input-group-btn">
         <button class="btn btn-default" type="button" ng-click="clearSearch()">Clear</button>
       </span>
@@ -38,9 +38,9 @@
                                 <div ng-repeat="entry in entries">
                                     <div class="entryNames" ng-click="onSelect(entry,'query')"
                                          ng-bind="filterSearch(entry)" id="query_{{entry.key}}">
-                                        <!-- ENTRIES SHOW HERE-->
                                     </div>
                                 </div>
+                                <!-- ENTRIES SHOW HERE-->
                             </div>
                         </div>
                     </div>
@@ -127,7 +127,7 @@
                 <div class="row">
                     <div class="col-sm-4 view-color">
                         <div class="panel panel-default lvl1-box-shadow" id="entryPanel">
-                            <div class="panel-heading entryTitle" id="indexPanelHeading">
+                            <div class="panel-heading entryTitle white" id="indexPanelHeading">
                                 <p class="panel-title standardFont" ng-bind="panelTitleName" id="panelTitleName">
                                 </p>
                                 <small ng-bind="panelTitleType" class="whiteFont"></small>

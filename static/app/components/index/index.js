@@ -112,6 +112,7 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
         }
     };
 
+    // close result box on panel click
     $scope.forceShrinkSearch = function () {
         var id = $('#searchSection');
         id.addClass('hidden');
@@ -129,6 +130,7 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
         }
     };
 
+    // set of properties to look through
     var isIndexOfSet = function (entry) {
         if (isIndexOf(entry.name) ||
             isIndexOf(entry.type) ||
@@ -138,18 +140,25 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
         }
     };
 
+    // display results through ng-if
     $scope.filterSearch = function (entry) {
         if ($scope.queryTerm.length >= 2) {
             if (isIndexOfSet(entry)) {
+                $('#query_' + entry.key).addClass('searchMargins');
                 return entry.name;
+            } else {
+                $('#query_' + entry.key).removeClass('searchMargins');
+                return '';
             }
         }
     };
 
     $scope.clearSearch = function () {
         $scope.queryTerm = '';
+        $scope.forceShrinkSearch();
     };
 
+    // default panel message
     $scope.panelBodyMessage = {
         'name': 'MakerLabs',
         'body': 'To use, select an item from the categories or search for a specific item.'
@@ -158,6 +167,7 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
     $scope.panelTitleName = 'MakerLabs';
     $scope.panelTitleType = '';
 
+    // display entry details when clicked
     $scope.showEntryDetails = function (entry) {
 
         // TODO: change to var instead of $scope later
@@ -170,18 +180,19 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
 
         // change color of panel title
         var elem = $('#indexPanelHeading');
+        var remove = 'blue orange green white';
         switch (entry.type) {
             case 'Studio':
-                elem.addClass('red').removeClass('blue orange green');
+                elem.addClass('red').removeClass(remove);
                 break;
             case 'Tool':
-                elem.addClass('blue').removeClass('red orange green');
+                elem.addClass('blue').removeClass(remove);
                 break;
             case 'Material':
-                elem.addClass('orange').removeClass('red blue green');
+                elem.addClass('orange').removeClass(remove);
                 break;
             case 'Consumable':
-                elem.addClass('green').removeClass('red blue orange');
+                elem.addClass('green').removeClass(remove);
         }
 
         $('#entryBody').addClass('hidden');
@@ -270,7 +281,6 @@ indexApp.service('highlightService', function () {
             $('#' + objectId).addClass('whiteFont ' + color);
             lastObject = objectId;
         };
-
 
         switch (type) {
             case 'Studio':

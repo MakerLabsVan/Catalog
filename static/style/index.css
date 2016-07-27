@@ -94,7 +94,7 @@ small {
 }
 
 .white {
-    background-color: white;
+    background-color: white !important;
 }
 
 .whiteFont {
@@ -108,6 +108,11 @@ small {
 .listMargins {
     padding: 5px 10px 5px 10px;
     margin: 5px -15px 5px -15px;
+}
+
+.searchMargins {
+    padding: 5px 0px 5px 10px;
+    margin: 5px 0px 5px -15px;
 }
 
 .categoryContainer {
@@ -130,11 +135,6 @@ small {
 
 #entryDetails {
     height: 73vh;
-}
-
-#searchbar {
-    background: white;
-    border: none;
 }
 
 #searchSection {
