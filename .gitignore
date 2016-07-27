@@ -3,3 +3,4 @@ client_secret.json
 makerlabs_client_secret.json
 .idea/
 push.sh
+aws.json

@@ -45,5 +45,9 @@ module.exports = function (router, path, serverOps, public_serverOps) {
             return res.json(result);
         });
     });
-};
 
+    router.get("/S3uri/:id", function (req, res ) {
+      var id = req.params.id;
+      console.log(id);
+    })
+};
