@@ -7,7 +7,7 @@ var s3bucket = process.env.S3_BUCKET || 'makerlabs.catalog';
 exports.getS3URI = function(payload, callback){
   var s3 = new AWS.S3();
   var params = {
-    Bucket: s3bucket, /* required */
+    Bucket: s3bucket,
     Key: payload
   };
   s3.getSignedUrl('getObject', params, function (err, url) {

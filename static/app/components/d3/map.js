@@ -1,33 +1,36 @@
+//ISO MAP VARIABLES, rotation and scaling of Y
 const isoVertScale = 0.58;
 const isoAngle = -135;
 
+const floorTransitionDelay = 1000; //1 second
+
 //TODO:Parse as JSON data
-const ISO = {
-  'isIsometric' : true,
-  'filePath' : "/assets/ISO.png",
-  'mapScaling' : 5.35,
-  'mapWidth' : 920,
-  'scrollMapY' : 650,
-  'firstFloorX' : 550,
-  'firstFloorY' : 650,
-  'secondFloorX' : 460,
-  'secondFloorY' : 605,
-}
 
-//ISOMETRIC MAP
+// //ISOMETRIC MAP
+// const isIsometric = true; //Draws 2d map if false
+// const mapFilePath = "/assets/ISO3.png";
+// const isoMapScale = 7.65; //database value to isometric map conversion
+// const isoMapWidth = 1320; // Width of isometric map, used to dynamically resize map
+// const scrollMapY = 1050; //Vertical scroll until next floor
+// const firstFloorX = 795; //Translate studios into place
+// const firstFloorY = 1915;
+// const secondFloorX = 630;
+// const secondFloorY = 710;
+
+// //ISOMETRIC MAP
 const isIsometric = true; //Draws 2d map if false
-const mapFilePath = "/assets/ISO3.png";
-const isoMapScale = 7.65; //database value to isometric map conversion
-const isoMapWidth = 1320; // Width of isometric map, used to dynamically resize map
-const scrollMapY = 1050; //Vertical scroll until next floor
-const firstFloorX = 795; //Translate studios into place
-const firstFloorY = 1915;
-const secondFloorX = 630;
-const secondFloorY = 710;
+const mapFilePath = "/assets/ISO4.png";
+const isoMapScale = 8.5; //database value to isometric map conversion
+const isoMapWidth = 1464; // Width of isometric map, used to dynamically resize map
+const scrollMapY = 1375; //Vertical scroll until next floor
+const firstFloorX = 880; //Translate studios into place
+const firstFloorY = 2370;
+const secondFloorX = 710;
+const secondFloorY = 790;
 
-//2D MAP
+// 2D MAP
 // const isIsometric = false;
-// const isoMapFilePath = "/assets/2DFloorPlan.png";
+// const mapFilePath = "/assets/2DFloorPlan.png";
 // const isoMapScale = 7.5;
 // const isoMapWidth = 1500;
 // const scrollMapY = 1100;
@@ -36,52 +39,58 @@ const secondFloorY = 710;
 // const secondFloorX = 560;
 // const secondFloorY = 90;
 
-const floorTransitionDelay = 1000; //1 second
-
 /**
-
-* @param { }
+* Makes an map object that provides methods to change the entire map view
+* @param {string} contaienr ID of the element you wish to attach map to (required)
+* @param {number} initial floorNum to view
 *
 **/
 var mapConstructor = function (containerID, floorNum) {
   //Current Floor
   this.currentFloor = floorNum,
   //Container for the map svgs and images
-  this.container = d3.select('#' + containerID)
+  this.viewport = d3.select('#' + containerID)
     .append('svg')
-    .attr('id', 'container' + containerID)
+    .attr('id', 'mapContainer' + containerID)
     .attr('class', 'mapContainer'),
+  //The map img
+  this.map = this.viewport
+    .append("svg:image")
+    .attr("xlink:href", mapFilePath)
+    .attr('preserveAspectRatio', 'xMinYMin meet')
+    .attr('class','isoMap'),
 
+  // addImgMap( this.viewport, mapFilePath ),
   //Returns width of the map container
   this.width = function () {
-      return this.container.node().getBoundingClientRect().width;
+      return this.viewport.node().getBoundingClientRect().width;
   },
   //Returns height of the map container
   this.height = function () {
-      return this.container.node().getBoundingClientRect().height;
+      return this.viewport.node().getBoundingClientRect().height;
   },
-  //The map img
-  this.map = addImgMap( this.container, mapFilePath ),
+
   //initialize studios svgs
-  this.studio = new studio( this.container, this.map, isIsometric ),
+  this.studio = new studio( this.viewport, this.map, isIsometric ),
   //Resize all map objects
   this.markers = new marker( this.studio.building ),
 
   this.resize = function (){
     this.studio.resize( this.width());
-    this.studio.selectFloor( this.width(),this.currentFloor);
+    this.studio.selectFloor( this.width(), this.currentFloor);
   },
   //Move to floor
   this.selectFloor = function( floor ){
     this.currentFloor = floor;
-    this.studio.selectFloor( this.width(),floor);
+    this.studio.selectFloor( this.width(), floor);
   }
 }
 
 /**
-
-* @param { }
-*
+* This object controls all the interactions of the studio objects
+*  @param {selection} The viewport of the map (required)
+*  @param {selection} The map selection object (required)
+*  @param {boolean} if isIsometric is true draws everything on the isometric plane
 **/
 var studio = function(container, map, isIsometric) {
   //Building contains all studio information
@@ -160,8 +169,8 @@ var studio = function(container, map, isIsometric) {
 }
 
 /**
-
-* @param { }
+* This object controls all the interactions of the marker objects
+* @param {selection} The container that we want to draw markers on
 *
 **/
 var marker = function( container ){
@@ -172,6 +181,7 @@ var marker = function( container ){
   this.draw = function( width, markerData ){
     var markerNum = markerData.points.length;
     var currentMarkerNum = this.markerCluster.length;
+
     //Render new markers when there isnt enough
     if ( currentMarkerNum < markerNum ){
       for ( var j = 0; currentMarkerNum+j < markerNum; j++){
@@ -217,17 +227,22 @@ var marker = function( container ){
         'x': this.markerCluster[i].attr('x'),
         'y':this.markerCluster[i].attr('y')
       }
-      console.log(points)
       arrayOfPoints.push( undoMapTrasnformCoords(width, points, isIsometric, floor));
     }
+    console.log(arrayOfPoints);
     return arrayOfPoints;
   }
 }
 
+
+
+
+
+
 var showMarkerOnClick = function( markerCluster){
   d3.select('.isoMap').on('click', function () {
-    var xPos = d3.mouse(d3.select('.studioGroup').node() )[0];
-    var yPos = d3.mouse(d3.select('.studioGroup').node() )[1];
+    var xPos = d3.mouse(d3.select('.studioGroup').node())[0];
+    var yPos = d3.mouse(d3.select('.studioGroup').node())[1];
 
     var marker = addMarker( d3.select('.studioGroup'));
 
@@ -262,6 +277,7 @@ var mapTransformStrings = function ( width, floor, isIso){
   }
 }
 
+// Undo mapTransformCoords function
 var undoMapTrasnformCoords = function( width, oldCoords, isIso,floor){
   var screenScale = getScreenFactor( width);
   var cosA = Math.cos( isoAngle * Math.PI / 180);
@@ -287,10 +303,17 @@ var undoMapTrasnformCoords = function( width, oldCoords, isIso,floor){
     transformY /= isoMapScale;
   }
 
-  var coords = {
-    'x': transformX*cosA + transformY*sinA,
-    'y': -transformX*sinA + transformY*cosA
-  };
+  if (isIso == true){
+    var coords = {
+      'x': transformX*cosA + transformY*sinA,
+      'y': -transformX*sinA + transformY*cosA
+    };
+  } else{
+    var coords = {
+      'x': transformX,
+      'y': transformY
+    };
+  }
 
   return coords;
 }
@@ -302,8 +325,14 @@ var mapTransformCoords = function( width, oldCoords, isIso, floor){
   var sinA = Math.sin( isoAngle * Math.PI / 180);
 
   //Rotation of coordinates
-  var transformX = oldCoords.x*cosA - oldCoords.y*sinA;
-  var transformY = oldCoords.x*sinA + oldCoords.y*cosA;
+  if ( isIso == true){
+    var transformX = oldCoords.x*cosA - oldCoords.y*sinA;
+    var transformY = oldCoords.x*sinA + oldCoords.y*cosA;
+  } else{
+    var transformX = oldCoords.x;
+    var transformY = oldCoords.y;
+  }
+
   //scaling
   transformX *=isoMapScale;
   if ( isIso == true){
@@ -311,7 +340,6 @@ var mapTransformCoords = function( width, oldCoords, isIso, floor){
   }else{
     transformY *= isoMapScale;
   }
-
   //Translate back into floor plane
   if ( floor == 2){
     transformX += secondFloorX;
@@ -320,8 +348,6 @@ var mapTransformCoords = function( width, oldCoords, isIso, floor){
     transformX += firstFloorX;
     transformY += firstFloorY;
   }
-
-
 
   //screensize scale
   transformX*=screenScale;
@@ -335,15 +361,7 @@ var mapTransformCoords = function( width, oldCoords, isIso, floor){
   return coords;
 }
 
-
-//Add map image
-var addImgMap = function (container, filePath) {
-  return container.append("svg:image")
-    .attr("xlink:href", filePath)
-    .attr('preserveAspectRatio', 'xMinYMin meet')
-    .attr('class','isoMap')
-};
-
+// Returns the ratio between the current width of viewport and map viewport width
 var getScreenFactor = function (currentWidth){
   return currentWidth/isoMapWidth;
 }

@@ -50,7 +50,8 @@ module.exports = function (router, path, serverOps, public_serverOps, s3Ops) {
       var id = req.params.id;
       s3Ops.getS3URI( id, function(error, resp){
         if(error) throw error
-        res.send(resp)
+        res.send(resp);
+        console.log(id);
       })
       res.send(id);
       console.log(id);
