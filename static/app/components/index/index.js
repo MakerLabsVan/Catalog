@@ -183,19 +183,19 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
 
         // change color of panel title
         var elem = $('#indexPanelHeading');
-        var remove = 'blue orange green white';
+        var remove = 'red blue orange green white';
         switch (entry.type) {
             case 'Studio':
-                elem.addClass('red').removeClass(remove);
+                elem.removeClass(remove).addClass('red');
                 break;
             case 'Tool':
-                elem.addClass('blue').removeClass(remove);
+                elem.removeClass(remove).addClass('blue');
                 break;
             case 'Material':
-                elem.addClass('orange').removeClass(remove);
+                elem.removeClass(remove).addClass('orange');
                 break;
             case 'Consumable':
-                elem.addClass('green').removeClass(remove);
+                elem.removeClass(remove).addClass('green');
         }
 
         $('#entryBody').addClass('hidden');

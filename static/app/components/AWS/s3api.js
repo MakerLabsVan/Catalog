@@ -2,15 +2,17 @@ var AWS = require('aws-sdk');
 AWS.config.loadFromPath('./aws.json');
 var s3bucket = process.env.S3_BUCKET || 'makerlabs.catalog';
 
-var params = {
-  Bucket: s3bucket /* required */
-};
-
-var s3 = new AWS.S3();
 
 //Used for embedded image on main page
 exports.getS3URI = function(payload, callback){
-
+  var s3 = new AWS.S3();
+  var params = {
+    Bucket: s3bucket, /* required */
+    Key: payload
+  };
+  s3.getSignedUrl('getObject', params, function (err, url) {
+    callback(err, url);
+  })
 }
 
 //Used for input page

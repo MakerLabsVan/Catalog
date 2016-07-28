@@ -1,4 +1,4 @@
-module.exports = function (router, path, serverOps, public_serverOps) {
+module.exports = function (router, path, serverOps, public_serverOps, s3Ops) {
 
     router.get("/", function (req, res) {
         res.sendFile(path + '/static/views/index.html');
@@ -48,6 +48,11 @@ module.exports = function (router, path, serverOps, public_serverOps) {
 
     router.get("/S3uri/:id", function (req, res ) {
       var id = req.params.id;
+      s3Ops.getS3URI( id, function(error, resp){
+        if(error) throw error
+        res.send(resp)
+      })
+      res.send(id);
       console.log(id);
     })
 };
