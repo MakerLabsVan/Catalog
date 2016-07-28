@@ -1,5 +1,5 @@
 var AWS = require('aws-sdk');
-AWS.config.loadFromPath('./aws.json');
+// AWS.config.loadFromPath('./aws.json');
 var s3bucket = process.env.S3_BUCKET || 'makerlabs.catalog';
 
 
