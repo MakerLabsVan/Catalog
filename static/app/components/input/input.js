@@ -303,6 +303,7 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
     $scope.highlightItem = highlightService.highlight;
 
     $scope.map = mapService.initMap('firstFloor', 1);
+    $scope.map.resize();
     $scope.map.markers.onClick();
     $scope.deleteAllMarker = function () {
         $scope.map.markers.deleteAll();
