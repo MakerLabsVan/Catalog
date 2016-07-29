@@ -1,12 +1,12 @@
 "use strict";
 
-var indexApp = angular.module('indexApp', []);
+var indexApp = angular.module('indexApp', ['d3mapping']);
 
 indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 'highlightService', 'httpRequests', function ($scope, $http, $interval, mapService, highlightService, httpRequests) {
 
     // functions to refresh only on 5 minutes of idling
     // 5 minutes
-    const refreshTime = 300000;
+    const refreshTime = 300000;s
 
     // start interval promise
     var checkIdle = $interval(function () {

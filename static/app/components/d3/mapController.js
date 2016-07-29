@@ -1,4 +1,4 @@
-var app = angular.module('d3mapping', [])
+var app = angular.module('d3mapping', []);
 
 //Controller inherits index.js scope
 app.controller('mapController', ['$scope', '$window', '$location', function ($scope, $window, $location) {
@@ -13,7 +13,7 @@ app.controller('mapController', ['$scope', '$window', '$location', function ($sc
             return decodeURIComponent(pair[1]);
         }
     }
-  }
+  };
 
   $scope.$watch('entries',function( entries ){
     for ( i in entries ){
@@ -32,7 +32,7 @@ app.controller('mapController', ['$scope', '$window', '$location', function ($sc
 
     // $scope.map.markers.onClick();
 
-  })
+  });
 
   //Resize map objects on window resize
   angular.element($window).bind('resize', function () {
@@ -40,4 +40,4 @@ app.controller('mapController', ['$scope', '$window', '$location', function ($sc
     // manuall $digest required as resize event is outside of angular
     $scope.$digest();
   })
-}])
+}]);
