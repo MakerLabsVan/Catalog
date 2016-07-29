@@ -83,6 +83,9 @@ var mapConstructor = function (containerID, floorNum) {
   this.selectFloor = function( floor ){
     this.currentFloor = floor;
     this.studio.selectFloor( this.width(), floor);
+  },
+  this.getMarkerLocation = function(){
+      return this.markers.getLocation(this.width(), this.currentFloor);
   }
 }
 
@@ -209,8 +212,12 @@ var marker = function( container ){
     }
   },
 
+  this.deleteLast = function () {
+      this.markerCluster.pop().remove();
+  },
+
   this.deleteAll = function(){
-    for ( i in this.markerCluster){
+    while(this.markerCluster.length != 0){
       this.markerCluster.pop().remove();
     }
   },
@@ -226,16 +233,12 @@ var marker = function( container ){
       var points = {
         'x': this.markerCluster[i].attr('x'),
         'y':this.markerCluster[i].attr('y')
-      }
+      };
       arrayOfPoints.push( undoMapTrasnformCoords(width, points, isIsometric, floor));
     }
-    console.log(arrayOfPoints);
     return arrayOfPoints;
   }
-}
-
-
-
+};
 
 
 

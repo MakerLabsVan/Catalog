@@ -265,10 +265,11 @@
                         </div>
                     </div>
                     <div class="col-sm-8" id="entryMap">
-                        <div class="well well-sm inputWellSize white lvl1-box-shadow" id="firstFloor">
-
+                        <div class="row" ng-click="deleteMarker()">
+                            <p><span ng-click="deleteAllMarker()">Delete All</span></p>
+                            <p><span ng-click="deleteLastMarker()">Delete Last</span></p>
                         </div>
-                        <div class="well well-sm inputWellSize white lvl1-box-shadow hidden" id="secondFloor">
+                        <div class="well well-sm inputWellSize white lvl1-box-shadow" id="firstFloor">
                         </div>
                     </div>
                 </div>
