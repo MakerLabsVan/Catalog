@@ -78,7 +78,6 @@
                             </div><!-- /.modal-dialog -->
                         </div><!-- /.modal -->
                     </div>
-
                 </div>
                 <div class="row">
                     <div class="col-sm-4" id="entryPage">
@@ -105,22 +104,22 @@
                                              data-toggle="buttons" id="buttonGroup">
                                             <div class="btn btn-default noBorderRadius" id="stdTypeDiv"
                                                  ng-click="changeSendBtnColor('Studio')">
-                                                <input type="radio" name="typeOptions" id="option1"
+                                                <input type="radio" name="typeOptions" id="radioStudio"
                                                        autocomplete="off" value="Studio" checked>Studio
                                             </div>
                                             <div class="btn btn-default noBorderRadius" id="toolTypeDiv"
                                                  ng-click="changeSendBtnColor('Tool')">
-                                                <input type="radio" name="typeOptions" id="option2"
+                                                <input type="radio" name="typeOptions" id="radioTool"
                                                        autocomplete="off" value="Tool">Tool
                                             </div>
                                             <div class="btn btn-default noBorderRadius" id="conTypeDiv"
                                                  ng-click="changeSendBtnColor('Consumable')">
-                                                <input type="radio" name="typeOptions" id="option3"
+                                                <input type="radio" name="typeOptions" id="radioConsumable"
                                                        autocomplete="off" value="Consumable">Consumable
                                             </div>
                                             <div class="btn btn-default noBorderRadius" id="matTypeDiv"
                                                  ng-click="changeSendBtnColor('Material')">
-                                                <input type="radio" name="typeOptions" id="option4"
+                                                <input type="radio" name="typeOptions" id="radioMaterial"
                                                        autocomplete="off" value="Material">Material
                                             </div>
                                         </div>
@@ -159,13 +158,16 @@
                                         <div class="col-sm-3 noPadding">
                                             <div class="dropdown">
                                                 <button class="btn btn-block btn-default dropdown-toggle inputAreaHeight"
-                                                        data-toggle="dropdown"
-                                                        ng-bind="entryPropertiesObj.units"></button>
+                                                        data-toggle="dropdown" ng-model="form.units"
+                                                        ng-bind="form.units"></button>
                                                 <ul class="dropdown-menu">
-                                                    <li><a href="#">mm</a></li>
-                                                    <li><a href="#">cm</a></li>
-                                                    <li><a href="#">ft</a></li>
-                                                    <li><a href="#">m</a></li>
+                                                    <li><a ng-click="form.units='Units'">Clear</a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a ng-click="form.units='mm'">mm</a></li>
+                                                    <li><a ng-click="form.units='cm'">cm</a></li>
+                                                    <li><a ng-click="form.units='in'">in</a></li>
+                                                    <li><a ng-click="form.units='ft'">ft</a></li>
+                                                    <li><a ng-click="form.units='m'">m</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -180,12 +182,14 @@
                                         <div class="col-sm-6 noPadding">
                                             <div class="dropdown">
                                                 <button class="btn btn-block btn-default dropdown-toggle inputAreaHeight"
-                                                        data-toggle="dropdown"
-                                                        ng-bind="entryPropertiesObj.weightunit"></button>
+                                                        data-toggle="dropdown" ng-model="form.weightUnits"
+                                                        ng-bind="form.weightUnits"></button>
                                                 <ul class="dropdown-menu col-sm-12">
-                                                    <li><a href="#">g</a></li>
-                                                    <li><a href="#">lbs</a></li>
-                                                    <li><a href="#">kg</a></li>
+                                                    <li><a ng-click="form.weightUnits='Units'">Clear</a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a ng-click="form.weightUnits='lbs'">lbs</a></li>
+                                                    <li><a ng-click="form.weightUnits='kg'">kg</a></li>
+                                                    <li><a ng-click="form.weightUnits='ton'">ton</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -223,10 +227,10 @@
                                     </div>
                                     <div class="row hidden" id="confirmDel">
                                         <div class="col-sm-6 noPadding">
-                                            <button type="button"
-                                                    class="btn btn-block btn-default inputAreaHeight"
-                                                    ng-click="delete()" id="confirmDelText">Confirm
-                                            </button>
+                                            <buttons type="button"
+                                                     class="btn btn-block btn-default inputAreaHeight"
+                                                     ng-click="delete()" id="confirmDelText">Confirm
+                                            </buttons>
                                         </div>
                                         <div class="col-sm-6 noPadding" id="cancelDel">
                                             <button type="button" class="btn btn-block btn-default inputAreaHeight"
@@ -236,11 +240,11 @@
 
                                     </div>
                                     <div class="row hidden" id="editBtn">
-                                        <button type="submit" class="btn btn-block btn-default inputAreaHeight"
-                                                ng-click="confirmEdit()">
+                                        <div class="btn btn-block btn-default inputAreaHeight"
+                                             ng-click="confirmEdit()">
                                         <span class="glyphicon glyphicon-pencil" id="editIcon">
                                             </span>
-                                        </button>
+                                        </div>
                                     </div>
                                     <div class="row hidden" id="confirmEdit">
                                         <div class="col-sm-6 noPadding">
@@ -249,9 +253,9 @@
                                             </button>
                                         </div>
                                         <div class="col-sm-6 noPadding" id="cancelEdit">
-                                            <button type="button" class="btn btn-block btn-default inputAreaHeight"
-                                                    ng-click="cancelEdit()">Cancel
-                                            </button>
+                                            <div class="btn btn-block btn-default inputAreaHeight"
+                                                 ng-click="cancelEdit()">Cancel
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row" id="submitBtn">
@@ -265,9 +269,9 @@
                         </div>
                     </div>
                     <div class="col-sm-8" id="entryMap">
-                        <div class="row" ng-click="deleteMarker()">
-                            <p><span ng-click="deleteAllMarker()">Delete All</span></p>
-                            <p><span ng-click="deleteLastMarker()">Delete Last</span></p>
+                        <div class="row" id="markerButtons">
+                            <div class="btn btn-default"><span ng-click="deleteAllMarker()">Delete All</span></div>
+                            <div class="btn btn-default"><span ng-click="deleteLastMarker()">Delete Last</span></div>
                         </div>
                         <div class="well well-sm inputWellSize white lvl1-box-shadow" id="firstFloor">
                         </div>

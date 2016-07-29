@@ -46,66 +46,66 @@ const secondFloorY = 790;
  *
  **/
 var mapConstructor = function (containerID, floorNum) {
-  //Current Floor
-  this.currentFloor = floorNum,
-  //Container for the map svgs and images
-  this.viewport = d3.select('#' + containerID)
-    .append('svg')
-    .attr('id', 'mapContainer' + containerID)
-    .attr('class', 'mapContainer'),
-  //The map img
-  this.map = this.viewport
-    .append("svg:image")
-    .attr("xlink:href", mapFilePath)
-    .attr('preserveAspectRatio', 'xMinYMin meet')
-    .attr('class','isoMap'),
+    //Current Floor
+    this.currentFloor = floorNum,
+        //Container for the map svgs and images
+        this.viewport = d3.select('#' + containerID)
+            .append('svg')
+            .attr('id', 'mapContainer' + containerID)
+            .attr('class', 'mapContainer'),
+        //The map img
+        this.map = this.viewport
+            .append("svg:image")
+            .attr("xlink:href", mapFilePath)
+            .attr('preserveAspectRatio', 'xMinYMin meet')
+            .attr('class', 'isoMap'),
 
-  // addImgMap( this.viewport, mapFilePath ),
-  //Returns width of the map container
-  this.width = function () {
-      return this.viewport.node().getBoundingClientRect().width;
-  },
-  //Returns height of the map container
-  this.height = function () {
-      return this.viewport.node().getBoundingClientRect().height;
-  },
+        // addImgMap( this.viewport, mapFilePath ),
+        //Returns width of the map container
+        this.width = function () {
+            return this.viewport.node().getBoundingClientRect().width;
+        },
+        //Returns height of the map container
+        this.height = function () {
+            return this.viewport.node().getBoundingClientRect().height;
+        },
 
-  //initialize studios svgs
-  this.studio = new studio( this.viewport, this.map, isIsometric ),
-  //Resize all map objects
-  this.markers = new marker( this.studio.building ),
+        //initialize studios svgs
+        this.studio = new studio(this.viewport, this.map, isIsometric),
+        //Resize all map objects
+        this.markers = new marker(this.studio.building),
 
-  this.resize = function (){
-    this.studio.resize( this.width());
-    this.studio.selectFloor( this.width(), this.currentFloor);
-  },
-  //Move to floor
-  this.selectFloor = function( floor ){
-    this.currentFloor = floor;
-    this.studio.selectFloor( this.width(), floor);
-  },
-  this.swipe = function(){
-    d3.select(this.container)
-    .on("drag", function(){
-      alert('it works!');
-    });
-    console.log(d3.select(this.container));
-  }
-  this.getMarkerLocation = function(){
-      return this.markers.getLocation(this.width(), this.currentFloor);
-  }
+        this.resize = function () {
+            this.studio.resize(this.width());
+            this.studio.selectFloor(this.width(), this.currentFloor);
+        },
+        //Move to floor
+        this.selectFloor = function (floor) {
+            this.currentFloor = floor;
+            this.studio.selectFloor(this.width(), floor);
+        },
+        this.swipe = function () {
+            d3.select(this.container)
+                .on("drag", function () {
+                    alert('it works!');
+                });
+            console.log(d3.select(this.container));
+        }
+    this.getMarkerLocation = function () {
+        return this.markers.getLocation(this.width(), this.currentFloor);
+    }
 }
 
 function touchstarted() {
-  alert('start');
+    alert('start');
 }
 
 function touchended() {
-  alert('end');
+    alert('end');
 }
 
 function touchmoved() {
-  alert('move');
+    alert('move');
 }
 
 /**
