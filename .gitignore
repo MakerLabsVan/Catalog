@@ -1,4 +1,6 @@
 client_secret.json
 /node_modules
-client_secret_2.json
-static/assets/whereAmI2.svg
+makerlabs_client_secret.json
+.idea/
+push.sh
+aws.json

@@ -1,17 +1,20 @@
 body {
     font-family: 'Raleway', sans-serif;
+    overflow: hidden;
 }
 
-.searchSectionExpanded {
+.hidden {
+    display: none !important;
+}
+
+.alignEntryValues {
+    text-align: right;
+}
+
+#searchSection {
     height: auto;
-}
-
-.searchSectionClosed {
-    height: 0vh;
-}
-
-.panelTitle {
-    color: white;
+    max-height: 55vh;
+    overflow-y: scroll;
 }
 
 #firstFloorWell, #secondFloorWell {
@@ -20,12 +23,7 @@ body {
     border: none;
 }
 
-#index-logo, #input-logo {
-    height: 5vh;
-}
-
 #accordion-container {
-    overflow-y: scroll;
     height: 100vh;
     background: white;
 }
@@ -42,20 +40,24 @@ small {
     font-size: 12px;
 }
 
+.well {
+    border: 0px;
+    border-radius: 0;
+}
+
 .view-color {
     background: #fafafa;
 }
 
-#index-main-view {
-    height: 50px;
-}
-
-.entryPO {
+.entryNames {
     font-size: 20px;
-    margin-bottom: 10px;
 }
 
-.entryPO:hover {
+.entryNames:hover {
+    cursor: pointer;
+}
+
+.pointer:hover {
     cursor: pointer;
 }
 
@@ -63,26 +65,76 @@ small {
     background-color: #F14A29 !important;
 }
 
+.lightRed {
+    background-color: #f15f35 !important;
+}
+
 .blue {
     background-color: #107CC2 !important;
+}
+
+.lightBlue {;
+    background-color: #71A0C2 !important;
 }
 
 .orange {
     background-color: #F3902C !important;
 }
 
+.lightOrange {
+    background-color: #F3B681 !important;
+}
+
 .green {
     background-color: #2BAC69 !important;
 }
 
-.category_margins {
-    margin-left: -15px;
-    margin-right: -15px;
+.lightGreen {
+    background-color: #6DAC8D !important;
 }
 
-#searchbar {
-    background: white;
-    border: none;
+.white {
+    background-color: white !important;
+}
+
+.whiteFont {
+    color: white;
+}
+
+.categoryMargins {
+    margin: 0px -15px 0px -15px;
+}
+
+.listMargins {
+    padding: 5px 10px 5px 10px;
+    margin: 5px -15px 5px -15px;
+}
+
+.searchMargins {
+    padding: 5px 0px 5px 10px;
+    margin: 5px 0px 5px -15px;
+}
+
+.categoryContainer {
+    height: 60vh;
+    overflow-y: scroll;
+}
+
+#entryTitle {
+    height: 7vh;
+}
+
+#indexPanelHeading {
+    min-height: 7vh;
+    max-height: 10vh;
+}
+
+#entryBody {
+    height: 73vh;
+}
+
+#entryDetails {
+    height: 73vh;
 }
 
 #searchSection {
@@ -91,90 +143,155 @@ small {
     margin: 20px -15px 20px -15px;
 }
 
-.panel-title {
+.standardFont {
     font-size: 20px;
 }
 
 #input-result-container {
     height: 100vh;
-    overflow-y: scroll;
     background: white;
-}
-
-#index_logo {
-    height: 60px;
-    margin-top: 10px;
-}
-
-#ct-input-forms {
-    overflow-y: scroll;
 }
 
 .lvl1-box-shadow {
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-}
-
-#entryBody {
-    height: 80vh;
-    background: white;
-    font-size: 20px;
-    border: none;
-}
-
-.ct-panel-toggle {
-    color: white;
-}
-
-.ct-panel-toggle:hover {
-    cursor: pointer;
-}
-
-#ct-index-object-name {
-    text-align: right;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 
 .panel {
     border: none;
 }
 
-#ct-edit, #loc-edit {
-    margin-top: 20px;
-}
-
-#index-view-container {
-    margin-left: 70px;
-}
-
-#floor1Tab, #floor2Tab {
-    border-radius: 0px;
-}
-
-#marker1 {
-    z-index: 5 !important;
-}
-
 .nav {
     border: 0px;
 }
 
-#edit-first-floor, #edit-second-floor {
-    height: 80vh;
-    padding-bottom: 30px;
-}
-
-#input-tab-content {
-    height: auto;
-    max-height: 90vh;
+#admin-search-result {
+    margin-top: 20px;
+    max-height: 80vh;
     overflow-y: scroll;
-    background: white;
-    padding-bottom: 10px;
-    padding-top: 10px;
 }
 
-#input-container {
-    margin-top: 2vh;
+.centerImage {
+    width: 100%;
 }
 
-#dimension-drop-down, #weight-drop-down {
-    margin-bottom: -15px;
+.fixedTop {
+    height: 100px;
+}
+
+.pageSize {
+    height: 100vh;
+}
+
+.inputWellSize {
+    height: 80vh;
+}
+
+.inputOptionsBtns {
+    font-size: 20px;
+    border: none;
+    border-radius: 0px;
+    text-align: center;
+    width: 100%;
+    padding: 10px 0 10px 0;
+    color: gray;
+    height: 50px;
+}
+
+.noPadding {
+    padding: 0px;
+}
+
+.noBorderRadius {
+    border-radius: 0px;
+    border: none;
+}
+
+.textAlignCenter {
+    text-align: center;
+}
+
+.inputAreaHeight {
+    height: 50px;
+    border: 1px solid rgba(200, 200, 200, 0.51);
+    border-radius: 0px;
+}
+
+.inputDescHeight {
+    height: 100px;
+}
+
+textarea {
+    resize: none;
+    border-radius: 0px !important;
+}
+
+.glyphicon {
+    font-size: 20px;
+}
+
+#stdTypeDiv:hover {
+    background-color: #F14A29 !important;
+}
+
+#stdTypeDiv.active {
+    background-color: #f15f35 !important;
+}
+
+#toolTypeDiv:hover {
+    background-color: #107CC2 !important;
+}
+
+#toolTypeDiv.active {
+    background-color: #71A0C2 !important;
+}
+
+#conTypeDiv:hover {
+    background-color: #2BAC69 !important;
+}
+
+#conTypeDiv.active {
+    background-color: #6DAC8D !important;
+}
+
+#matTypeDiv:hover {
+    background-color: #F3902C !important;
+}
+
+#matTypeDiv.active {
+    background-color: #F3B681 !important;
+}
+
+.modal {
+    text-align: center;
+}
+
+.studio {
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.studioHighlight {
+    fill: red;
+    opacity: 0.8;
+}
+
+.isoMap {
+    width: 100%;
+    height: 1000%;
+}
+
+.mapContainer {
+    width: 100%;
+    height: 100%;
+}
+
+.marker {
+}
+
+.hide {
+    visibility: hidden;
+}
+
+#deleteIcon, #confirmDelText, #cancelDelText {
+    color: red;
 }

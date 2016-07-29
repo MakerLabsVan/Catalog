@@ -1,238 +1,345 @@
-angular.module("myApp").controller("inputCtrl", ["$scope", "$http", "mapService", "highlightService", "advInputs", function ($scope, $http, mapService, highlightService, advInputs) {
-    // authorized data retrieval 
-    $http.get('/getData')
-        .success(function (data, status, header, config) {
-            $scope.data = data;
-            // $scope.data[0].pop();
-            $scope.entryProperties = $scope.data[0];
-            $scope.data.shift();
-            $scope.dataLength = $scope.data.length;
+"use strict";
 
-            // START
-            // $scope.jsonObjArr = [];
-            // $scope.sunnys_loop = function () {
-            //     var count;
-            //     for (count = 0; count < $scope.dataLength; count++) {
-            //         var jsonObj = {};
-            //         if ($scope.data[count][1] === 'Studio') {
-            //             console.log("Entered the studio loop");
-            //             jsonObj['points'] = [
-            //                 // x y 
-            //                 [Number($scope.data[count][3]), Number($scope.data[count][4])],
-            //                 // xw y
-            //                 [Number($scope.data[count][3]) + Number($scope.data[count][6]), Number($scope.data[count][4])],
-            //                 // xw yh
-            //                 [Number($scope.data[count][3]) + Number($scope.data[count][6]), Number($scope.data[count][4]) + Number($scope.data[count][7])],
-            //                 // x yh
-            //                 [Number($scope.data[count][3]), Number($scope.data[count][4]) + Number($scope.data[count][7])],
-            //             ];
-            //         } else {
-            //             jsonObj['points'] = [Number($scope.data[count][3]), Number($scope.data[count][4])];
-            //         }
-            //         $scope.jsonObjArr.push(jsonObj);
-            //     }
-            // };
+var inputApp = angular.module('inputApp', ['indexApp']);
 
-            // $scope.sunnys_loop();
-            //END
-        })
-        .error(function (data, status, header, config) {
-            // something went wrong
-            alert("Something went wrong! Refresh or call for help!");
-        });
+inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightService", "adminHttpRequests", function ($scope, $http, mapService, highlightService, adminHttpRequests) {
 
-    $scope.inputQuery = '';
-    // make a new entry
-    $scope.formData = {};
-    $scope.newEntry = function () {
-        var localEntry = [];
-        for (var prop in $scope.formData) {
-            if ($scope.formData.hasOwnProperty(prop)) {
-                localEntry.push($scope.formData[prop]);
-            }
+    adminHttpRequests.auth().then(function (code) {
+        console.log(code);
+        $('#auth').attr('href', code);
+    });
+
+    adminHttpRequests.admin_getCatalog().then(function (data) {
+        $scope.data = data;
+
+        // labels to use for object
+        $scope.dataLabels = data[1];
+
+        // key index
+        var keyIndex = $scope.dataLabels.indexOf('key');
+
+        // labels to display
+        $scope.entryProperties = data[0];
+        // entryProperty object (testing)
+        $scope.entryPropertiesObj = {};
+        for (var i in $scope.entryProperties) {
+            $scope.entryPropertiesObj[$scope.dataLabels[i]] = $scope.entryProperties[i];
         }
 
-        // get type from radio buttons
-        $scope.formData.Type = $("input[name='options']:checked").val();
-        $scope.formData.Units = $("select[name='dimDropDown']").val();
-        $scope.formData.Units = $("select[name='weightDropDown']").val();
+        // shift data
+        $scope.data.shift();
+        $scope.data.shift();
+        $scope.dataLength = data.length;
 
-        $http.post('/new', [$scope.formData, $scope.dataLength])
-            .success(function (data, status, header, config) {
-                console.log(data, status);
-                // push to client array
+        // removed 2 frozen rows
+        var shiftedData = $scope.data;
+
+        // object entries
+        $scope.entries = {};
+        // use loop to make the object
+        for (var i in shiftedData) {
+            var object = {};
+            for (var j in $scope.dataLabels) {
+                // ex. object.name.label
+                object[$scope.dataLabels[j]] = shiftedData[i][j];
+            }
+            // number could change
+            $scope.entries[shiftedData[i][keyIndex]] = object;
+        }
+
+        // make category data
+        $scope.studioEntries = {};
+        $scope.materialEntries = {};
+        $scope.toolEntries = {};
+        $scope.consumableEntries = {};
+
+        for (var key in $scope.entries) {
+            switch ($scope.entries[key].type) {
+                case 'Studio':
+                    $scope.studioEntries[key] = $scope.entries[key];
+                    break;
+                case 'Material':
+                    $scope.materialEntries[key] = $scope.entries[key];
+                    break;
+                case 'Tool':
+                    $scope.toolEntries[key] = $scope.entries[key];
+                    break;
+                case 'Consumable':
+                    $scope.consumableEntries[key] = $scope.entries[key];
+            }
+        }
+    });
+
+    $scope.authCode = '';
+    $scope.sendCode = function () {
+        adminHttpRequests.sendCode($scope.authCode).then(function (result) {
+            $scope.authCode = '';
+            console.log(result);
+        })
+    };
+
+    $scope.inputQuery = '';
+    // repeated functions in index
+    var isIndexOf = function (property) {
+        if (property == undefined) {
+            return false;
+        } else if (property.toLowerCase().indexOf($scope.inputQuery.toLowerCase()) != -1) {
+            return true;
+        }
+    };
+
+    var isIndexOfSet = function (entry) {
+        if (isIndexOf(entry.name) ||
+            isIndexOf(entry.type) ||
+            isIndexOf(entry.subtype) ||
+            isIndexOf(entry.keywords)) {
+            return true;
+        }
+    };
+
+    $scope.filterSearch = function (entry) {
+        if ($scope.inputQuery.length >= 2) {
+            if (isIndexOfSet(entry)) {
+                $('#admin_' + entry.key).removeClass('hidden');
+                return entry.name;
+            } else {
+                $('#admin_' + entry.key).addClass('hidden');
+            }
+        } else if ($scope.inputQuery.length == 0 || $scope.inputQuery.length == 1) {
+            $('#admin_' + entry.key).removeClass('hidden');
+            return entry.name;
+        }
+    };
+
+    // make a new entry
+    $scope.form = {};
+
+    $scope.clearSearch = function () {
+        $scope.inputQuery = '';
+    };
+
+    $scope.insert = function (row) {
+        // get type from radio buttons
+        $scope.form.type = $("input[name=typeOptions]:checked").val();
+        if ($scope.form.type == undefined || $scope.form.type == null) {
+            alert("Type has not been set!");
+        } else {
+
+            // make array to pass in
+            var values = [];
+            for (var i in $scope.dataLabels) {
+                values.push($scope.form[$scope.dataLabels[i]]);
+            }
+
+            // make key
+            values[values.length - 1] = 'A' + String($scope.dataLength + 1);
+            $scope.form.key = 'A' + String($scope.dataLength + 1);
+
+            adminHttpRequests.insert(values, row).then(function (result) {
+                console.log(result);
                 $scope.dataLength++;
-                $scope.data.push(localEntry);
-                $scope.formData = {};
-            })
-            .error(function (data, status, header, config) {
-                console.log(data, status);
-            })
+
+                // populate local database with new entry
+                // also edits if entry exists
+                $scope.entries[$scope.form.key] = $scope.form;
+
+                $scope.form = {};
+            });
+        }
+    };
+
+    var findIndex = function () {
+        // find index of selected
+        var keyString = $scope.selectedEntry.key;
+        // offset to account for frozen rows and the parse function in serverOps
+        var index = 0;
+        // search for key and count rows
+        for (var i in $scope.entries) {
+            if (i === keyString) {
+                break;
+            }
+            index++;
+        }
+        console.log(index);
+        // old method that did not account for unorganized rows
+        // var index = parseInt(keyString.slice(1, keyString.length)) - offset;
+        return index;
+    };
+
+    $scope.confirmEdit = function () {
+        $('#confirmEdit').removeClass('hidden');
+        $('#editBtn').addClass('hidden');
+    };
+
+    $scope.cancelEdit = function () {
+        $('#confirmEdit').addClass('hidden');
+        $('#editBtn').removeClass('hidden');
+    };
+
+    // edit an entry
+    $scope.edit = function () {
+        const negativeOffset = 1;
+        // find index of selected
+        var index = findIndex() - negativeOffset;
+        $scope.insert(index);
+    };
+
+    $scope.confirmDelete = function () {
+        $('#confirmDel').removeClass('hidden');
+        $('#deleteBtn').addClass('hidden');
+    };
+
+    $scope.cancelDelete = function () {
+        $('#confirmDel').addClass('hidden');
+        $('#deleteBtn').removeClass('hidden');
     };
 
     // delete an entry
-    $scope.deletePost = function (objectKey) {
-        $scope.index;
-        for (var i = 0; i < $scope.dataLength; i++) {
-            if (objectKey === $scope.data[i][0]) {
-                $scope.index = i;
-                break;
-            }
-        }
+    $scope.delete = function () {
+        // to account for frozen rows on database
+        // TODO: automate in get response
+        const offset = 2;
 
-        $http.post('/delete', [$scope.index])
-            .success(function (data, status, header, config) {
-                console.log(data, status);
-                $scope.dataLength--;
-                $scope.clearEditPage();
-            })
-            .error(function (data, status, header, config) {
-                console.log(data, status);
-            });
-        $scope.data.splice($scope.index, 1);
-    };
+        var index = findIndex() + offset;
+        adminHttpRequests.delete([index]).then(function (result) {
+            $scope.newForm();
+            console.log(result);
 
-    // submit edit
-    $scope.editFormData = {};
-    $scope.editEntry = function (objectKey, metaData) {
-        $scope.index;
-        for (var i = 0; i < $scope.dataLength; i++) {
-            if (objectKey === $scope.data[i][20]) {
-                $scope.index = i + 1;
-                // maybe change all properties?
-                $scope.data[i][0] = $scope.editFormData.Name;
-                break;
-            }
-        }
-        $scope.editFormData.metadata = metaData;
-        $http.post('/edit', [$scope.editFormData, $scope.index])
-            .success(function (data, status, header, config) {
-                console.log(data, status);
-            })
-            .error(function (data, status, header, config) {
-                console.log(data, status);
-            });
-    };
+            // delete local entry
+            delete $scope.entries[$scope.selectedEntry.key];
+            console.log($scope.entries[$scope.selectedEntry.key]);
 
-    // $scope.$watch('jsonObjArr', function () {
-    //     if ($scope.jsonObjArr != undefined) {
-    //         console.log($scope.jsonObjArr[0]);
-
-    //         var i;
-    //         var count;
-    //         for (count = 458; count < $scope.dataLength; count++) {
-    //             for (i = 0; i < $scope.entryProperties.length; i++) {
-    //                 $scope.editFormData[$scope.entryProperties[i]] = $scope.data[count][i];
-    //             }
-    //             $scope.editEntry($scope.data[count][20], JSON.stringify($scope.jsonObjArr[count]));
-    //             $scope.editFormData = {};
-    //         }
-    //     }
-    // });
-
-
-    // change to edit tab
-    $scope.makeActive = function () {
-        document.getElementById('input-edit-tab').className = 'active';
-        document.getElementById('newEntryTab').className = '';
-    };
-
-    // display edit input page
-    $scope.showEditPage = function (curObject) {
-        $scope.object = curObject;
-        var i;
-        // create edit values on click
-        for (i = 0; i < $scope.entryProperties.length; i++) {
-            $scope.editFormData[$scope.entryProperties[i]] = curObject[i];
-        }
-
-        $scope.templateURL = 'editEntryTmpl';
-    };
-
-    // return to default edit page
-    $scope.clearEditPage = function () {
-        $scope.templateURL = 'clearEditPage';
-    };
-
-    // remove location, floor input from the edit page
-    $scope.editPageCols = function (prop) {
-        $scope.$watch('editFormData', function () {
-
-            $('#edit-input-form1').html($('#type-buttons').html());
-            $('#edit-input-form9').html($('#dimension-buttons').html());
-            $('#edit-input-form11').html($('#weight-buttons').html());
-
-            advInputs.removeAll(["#edit-form-group3", "#edit-form-group4", "#edit-form-group5"]);
-
-            $("#edit-input-form0").attr('required', 'true');
-
-            var checkNumValidElem = ['#edit-input-form6', '#edit-input-form7', '#edit-input-form8', '#edit-input-form10', '#edit-input-form12', '#edit-input-form13'];
-            var checkNumValid = ['type', 'min', 'max'];
-            var checkNumValidVals = ['number', '0', '10000'];
-
-            advInputs.setMultAttrs(checkNumValidElem, checkNumValid, checkNumValidVals);
+            $scope.dataLength--;
+            $scope.form = {};
         });
+    };
+
+    $scope.changeSendBtnColor = function (type) {
+        var uploadIcon = $('#uploadIcon');
+        var editIcon = $('#editIcon');
+        switch (type) {
+            case 'Studio':
+                uploadIcon.css('color', '#F14A29');
+                editIcon.css('color', '#F14A29');
+                break;
+            case 'Tool':
+                uploadIcon.css('color', '#107CC2');
+                editIcon.css('color', '#107CC2');
+                break;
+            case 'Consumable':
+                uploadIcon.css('color', '#2BAC69');
+                editIcon.css('color', '#2BAC69');
+                break;
+            case 'Material':
+                uploadIcon.css('color', '#F3902C');
+                editIcon.css('color', '#F3902C');
+
+        }
+    };
+
+    $scope.selectEntry = function (entry) {
+        $scope.selectedEntry = entry;
+        $scope.newSelect();
+        $scope.changeSendBtnColor(entry.type);
+
+        $scope.highlightItem('admin_' + entry.key, entry.type);
+        $('#deleteBtn').removeClass('hidden');
+        $('#editBtn').removeClass('hidden');
+        $('#submitBtn').addClass('hidden');
+
+        // fill form (convert string numbers to numbers)
+        for (var i in entry) {
+            if (i === 'width' ||
+                i === 'length' ||
+                i === 'height' ||
+                i === 'quantity' ||
+                i === 'weight') {
+                $scope.form[i] = Number(entry[i]);
+            } else {
+                $scope.form[i] = entry[i];
+            }
+        }
+
+        var btnGroup = $('#buttonGroup');
+
+        // inactive div
+        btnGroup.find('div.active').removeClass('active');
+        // unchecked btn
+        btnGroup.find('input[name=typeOptions]:checked').prop('checked', false);
+        // active div
+
+        switch (entry.type) {
+            case 'Studio':
+                btnGroup.find('#stdTypeDiv').addClass('active');
+                break;
+            case 'Material':
+                btnGroup.find('#matTypeDiv').addClass('active');
+                break;
+            case 'Tool':
+                btnGroup.find('#toolTypeDiv').addClass('active');
+                break;
+            case 'Consumable':
+                btnGroup.find('#conTypeDiv').addClass('active');
+        }
+    };
+
+
+    $scope.newForm = function () {
+        $scope.form = {};
+        $('#buttonGroup').find('.active').removeClass('active');
+        $('#submitBtn').removeClass('hidden');
+        $('#deleteBtn').addClass('hidden');
+        $('#confirmDel').addClass('hidden');
+        $('#editBtn').addClass('hidden');
+        $('#confirmEdit').addClass('hidden');
+        $('#uploadIcon').css('color', 'black');
+    };
+
+    $scope.newSelect = function () {
+        $('#confirmDel').addClass('hidden');
+        $('#confirmEdit').addClass('hidden');
     };
 
     // highlight selected entry
     $scope.highlightItem = highlightService.highlight;
 
-    // load maps
-    $scope.map1 = mapService.initMap('edit-first-floor', 1);
-    $scope.map2 = mapService.initMap('edit-second-floor', 2);
-
-    // show markers on map on click
-    $scope.map1.marker.onClick();
-    $scope.map2.marker.onClick();
-
-    // save location on selection
-    $scope.getLocation = function (floor) {
-        if (floor == 1) {
-            // translate from pixels to measurement units
-            var pos = $scope.map1.marker.getLocation($scope.map1.width(), $scope.map1.height(), 1);
-            $scope.editFormData["Location x (ft)"] = pos[0].toFixed(1);
-            $scope.editFormData["Location y (ft)"] = pos[1].toFixed(1);
-            $scope.editFormData.Floor = 1;
-        } else {
-            var pos = $scope.map2.marker.getLocation($scope.map2.width(), $scope.map2.height(), 2);
-            $scope.editFormData["Location x (ft)"] = pos[0].toFixed(1);
-            $scope.editFormData["Location y (ft)"] = pos[1].toFixed(1);
-            $scope.editFormData.Floor = 2;
-        }
-    };
-
-
+    // map functions
+    $scope.firstMap = mapService.initMap('firstFloor', 1);
+    $scope.secondMap = mapService.initMap('secondFloor', 2);
 
 }]);
 
-// service not required if using html()
-angular.module("myApp").service("advInputs", function () {
-
-    var removeAll = function (arrayID) {
-        for (var i in arrayID) {
-            $(arrayID[i]).remove();
-        }
-    };
-
-    var setMultAttrs = function (elementArr, attrsArr, valArr) {
-        if (attrsArr.length != valArr.length ||
-            elementArr.length == 0 ||
-            attrsArr.length == 0 ||
-            valArr.length == 0) {
-            console.log("Missing attribute, value, or element!");
-        } else {
-            var j;
-            for (j = 0; j < elementArr.length; j++) {
-                var i;
-                for (i = 0; i < attrsArr.length; i++) {
-                    $(elementArr[j]).attr(attrsArr[i], valArr[i]);
-                }
-            }
-        }
-    }
-
+inputApp.factory('adminHttpRequests', function ($http) {
     return {
-        removeAll: removeAll,
-        setMultAttrs: setMultAttrs
+        auth: function () {
+            return $http.get('authCode')
+                .then(function (result) {
+                    return result.data;
+                })
+        },
+        sendCode: function (code) {
+            return $http.post('sendCode', [code])
+                .then(function (result) {
+                    return result.data;
+                })
+        },
+        admin_getCatalog: function () {
+            return $http.get('getCatalog')
+                .then(function (result) {
+                    return result.data;
+                })
+        },
+        insert: function (entry, row) {
+            return $http.post('new', [entry, row])
+                .then(function (result) {
+                    return result.data;
+                })
+        },
+        delete: function (index) {
+            return $http.post('delete', [index])
+                .then(function (result) {
+                    return result.data;
+                })
+        }
     }
 });

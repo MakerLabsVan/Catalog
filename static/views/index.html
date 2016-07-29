@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-<meta http-equiv="refresh" content="6000; URL=https://whispering-coast-62157.herokuapp.com/?self=frontdesk">
 <!--
     Made by: Andrew Song, Sunny Leung
 -->
@@ -15,137 +14,103 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 </head>
 
-<script type="text/javascript">
-    window.doorbellOptions = {
-        appKey: '3hKfPJss7wisYJT65VGXzcYLFHrxl46aqf4S9lHLjdhb6WSJH8wdxEA59BcTOCtc'
-    };
-    (function (w, d, t) {
-        var hasLoaded = false;
-
-        function l() {
-            if (hasLoaded) {
-                return;
-            }
-            hasLoaded = true;
-            window.doorbellOptions.windowLoaded = true;
-            var g = d.createElement(t);
-            g.id = 'doorbellScript';
-            g.type = 'text/javascript';
-            g.async = true;
-            g.src = 'https://embed.doorbell.io/button/3988?t=' + (new Date().getTime());
-            (d.getElementsByTagName('head')[0] || d.getElementsByTagName('body')[0]).appendChild(g);
-        }
-
-        if (w.attachEvent) {
-            w.attachEvent('onload', l);
-        } else if (w.addEventListener) {
-            w.addEventListener('load', l, false);
-        } else {
-            l();
-        }
-        if (d.readyState == 'complete') {
-            l();
-        }
-    }(window, document, 'script'));
-</script>
-
 <body>
-<div ng-app="myApp">
-    <div class="container-fluid view-color" ng-controller="MainCtrl">
+<div ng-app="indexApp">
+    <div class="container-fluid view-color" ng-controller="indexCtrl">
         <div class="row">
             <div class="col-sm-2" id="accordion-container">
-                <img src="assets/makerlabs.png" alt="makerlablogo" id="index-logo">
+                <img class="centerImage" src="assets/makerlabs.png" alt="makerlablogo" id="index-logo">
                 <hr>
                 <!-- accordion start -->
                 <div class="panel-group" id="accordion">
                     <div class="row">
-                        <div class="col-sm-12 ">
-                            <input type="search" class="form-control lvl1-box-shadow" placeholder="Search here"
-                                   ng-model="queryTerm" ng-change="changeHeight()"
-                            />
-                            <div class="lvl1-box-shadow" id="searchSection">
-                                <div ng-repeat="object in data track by $index">
-                                    <!-- </div index-search-res></div> -->
-                                    <div class="entryPO"
-                                         ng-click="showEntryDetails(object);switchMapsOnClick(object[5]);showLoc(object[20]);highlightItem('search_' + object[20])"
-                                         id="search_{{ object[20] }}">
-                                        {{ queryTerm.length
-                                        < 2 ? '' : object[0].toLowerCase().indexOf(queryTerm.toLowerCase()) !=- 1 || object[1].toLowerCase().indexOf(queryTerm.toLowerCase())
-                                        !=- 1 || object[2].toLowerCase().indexOf(queryTerm.toLowerCase()) !=- 1 || object[15].toLowerCase().indexOf(queryTerm.toLowerCase())
-                                        !=- 1 ? object[0] : '' }} </div>
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <input type="search" class="form-control"
+                                       placeholder="Start typing here..."
+                                       ng-model="queryTerm" ng-change="changeHeight()"/>
+                                <span class="input-group-btn">
+        <button class="btn btn-default" type="button" ng-click="clearSearch()">Clear</button>
+      </span>
+                            </div>
+                            <br>
+                            <div class="hidden" id="searchSection">
+                                <div ng-repeat="entry in entries">
+                                    <div class="entryNames" ng-click="onSelect(entry,'query')"
+                                         ng-bind="filterSearch(entry)" id="query_{{entry.key}}">
+                                    </div>
                                 </div>
+                                <!-- ENTRIES SHOW HERE-->
                             </div>
                         </div>
                     </div>
                     <div class="panel panel-default">
-                        <div class="panel-heading lvl1-box-shadow red category_margins">
-                            <h4 class="panel-title">
+                        <div class="panel-heading lvl1-box-shadow red categoryMargins">
+                            <h4 class="panel-title pointer">
                                 <div data-toggle="collapse" href="#collapse1"
-                                     class="ct-panel-toggle"> {{ categories.studio }} </div>
+                                     class="whiteFont standardFont" ng-bind="categories.studio"
+                                     ng-click="forceShrinkSearch()"></div>
                             </h4>
                         </div>
-                        <div id="collapse1" class="panel-collapse collapse">
-                            <div class="panel-body" id="ct-index-panel-body">
-                                <!-- sheet data -->
-                                <div ng-repeat="object in data">
-                                    <div class="entryPO"
-                                         ng-click="showEntryDetails(object);switchMapsOnClick(object[5]);showLoc(object[20]);highlightItem('studio_' + object[20])"
-                                         id="studio_{{ object[20] }}">
-                                        {{ object[1] === "Studio" ? object[0] : '' }}
+                        <div id="collapse1" class="panel-collapse collapse categoryMargins" data-parent="#accordion">
+                            <div class="panel-body categoryContainer">
+                                <!-- studio data -->
+                                <div ng-repeat="entry in studioEntries">
+                                    <div class="entryNames listMargins"
+                                         ng-click="onSelect(entry,'studio')"
+                                         id="studio_{{ entry.key }}" ng-bind="entry.name">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="panel panel-default">
-                        <div class="panel-heading lvl1-box-shadow blue category_margins">
-                            <h4 class="panel-title">
+                        <div class="panel-heading lvl1-box-shadow blue categoryMargins">
+                            <h4 class="panel-title pointer">
                                 <div data-toggle="collapse" href="#collapse2"
-                                     class="ct-panel-toggle"> {{ categories.tools }} </div>
+                                     class="whiteFont standardFont" ng-bind="categories.tools"></div>
                             </h4>
                         </div>
-                        <div id="collapse2" class="panel-collapse collapse">
-                            <div class="panel-body" id="ct-index-panel-body">
-                                <div ng-repeat="object in data">
-                                    <div ng-click="showEntryDetails(object);showLoc(object[20]);switchMapsOnClick(object[5]);highlightItem('tool_' + object[20])"
-                                         class="entryPO" id="tool_{{ object[20] }}">
-                                        {{ object[1] === "Tool" ? object[0] : '' }}
+                        <div id="collapse2" class="panel-collapse collapse categoryMargins" data-parent="#accordion">
+                            <div class="panel-body categoryContainer">
+                                <div ng-repeat="entry in toolEntries">
+                                    <div ng-click="onSelect(entry,'tool')"
+                                         class="entryNames listMargins" id="tool_{{ entry.key }}" ng-bind="entry.name">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="panel panel-default">
-                        <div class="panel-heading lvl1-box-shadow green category_margins">
-                            <h4 class="panel-title">
+                        <div class="panel-heading lvl1-box-shadow green categoryMargins">
+                            <h4 class="panel-title pointer">
                                 <div data-toggle="collapse" href="#collapse3"
-                                     class="ct-panel-toggle"> {{ categories.cons }} </div>
+                                     class="whiteFont standardFont" ng-bind="categories.cons"></div>
                             </h4>
                         </div>
-                        <div id="collapse3" class="panel-collapse collapse">
-                            <div class="panel-body" id="ct-index-panel-body">
-                                <div ng-repeat="object in data">
-                                    <div ng-click="showEntryDetails(object);showLoc(object[20]);switchMapsOnClick(object[5]);highlightItem('cons_' + object[20])"
-                                         class="entryPO" id="cons_{{ object[20] }}">
-                                        {{ object[1] === "Consumable" ? object[0] : '' }}
+                        <div id="collapse3" class="panel-collapse collapse categoryMargins" data-parent="#accordion">
+                            <div class="panel-body categoryContainer">
+                                <div ng-repeat="entry in consumableEntries">
+                                    <div ng-click="onSelect(entry,'cons')"
+                                         class="entryNames listMargins" id="cons_{{ entry.key }}" ng-bind="entry.name">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="panel panel-default">
-                        <div class="panel-heading lvl1-box-shadow orange category_margins">
-                            <h4 class="panel-title">
+                        <div class="panel-heading lvl1-box-shadow orange categoryMargins">
+                            <h4 class="panel-title pointer">
                                 <div data-toggle="collapse" href="#collapse4"
-                                     class="ct-panel-toggle"> {{ categories.mats }} </div>
+                                     class="whiteFont standardFont" ng-bind="categories.mats"></div>
                             </h4>
                         </div>
-                        <div id="collapse4" class="panel-collapse collapse">
-                            <div class="panel-body" id="ct-index-panel-body">
-                                <div ng-repeat="object in data">
-                                    <div ng-click="showEntryDetails(object);showLoc(object[20]);switchMapsOnClick(object[5]);highlightItem('material_' + object[20])"
-                                         class="entryPO" id="material_{{ object[20] }}">
-                                        {{ object[1] === "Material" ? object[0] : '' }}
+                        <div id="collapse4" class="panel-collapse collapse categoryMargins" data-parent="#accordion">
+                            <div class="panel-body categoryContainer" id="ct-index-panel-body">
+                                <div ng-repeat="entry in materialEntries">
+                                    <div ng-click="onSelect(entry,'material')"
+                                         class="entryNames listMargins" id="material_{{ entry.key }}"
+                                         ng-bind="entry.name">
                                     </div>
                                 </div>
                             </div>
@@ -153,52 +118,43 @@
                     </div>
                 </div>
             </div>
-            <div id="index-main-view">
-                <!--top empty panel-->
-            </div>
-            <div class="col-sm-3 view-color" id="index-view-container">
-                <div class="panel panel-default lvl1-box-shadow" id="ct-index-panel">
-                    <div class="panel-heading" id="indexPanelHeading">
-                        <p class="panel-title" id="ct-index-panel-title-detail">
-                            <!--panel title-->
-                            {{ panelTitleName }}
-                            <small>{{ panelTitleType }}</small>
-                        </p>
-                    </div>
-                    <div class="panel-body" id="entryBody">
-                        <!--panel body-->
-                        <p>Welcome to MakerLabs' Catalog system.</p>
-                        <p>To use, either start searching for an item or look under the categories.</p>
+            <div class="col-sm-10">
+                <div class="row">
+                    <div class="fixedTop">
+                        <!--top empty panel-->
                     </div>
                 </div>
-            </div>
-            <div ng-controller="mapController">
-                <div class="col-sm-6">
-                    <div role="tabpanel">
-                        <!-- Nav tabs -->
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" class="active" id="firstLi">
-                                <a href="#firstFloor" aria-controls="firstFloor" role="tab" data-toggle="tab"
-                                   ng-click="resizeMap" id="floor1Tab">
-                                    F1
-                                </a>
-                            </li>
-                            <li role="presentation" class="" id="secondLi">
-                                <a href="#secondFloor" aria-controls="secondFloor" role="tab" data-toggle="tab"
-                                   ng-click="resizeMap" id="floor2Tab">
-                                    F2
-                                </a>
-                            </li>
-                        </ul>
-                        <!-- Tab panes -->
-                        <div class="tab-content lvl1-box-shadow">
-                            <div role="tabpanel" class="tab-pane active" ng-model="fstFloorSize" id="firstFloor">
-                                <div class="well well-lg" id="firstFloorWell">
+                <div class="row">
+                    <div class="col-sm-4 view-color">
+                        <div class="panel panel-default lvl1-box-shadow" id="entryPanel">
+                            <div class="panel-heading entryTitle white" id="indexPanelHeading">
+                                <p class="panel-title standardFont" ng-bind="panelTitleName" id="panelTitleName">
+                                </p>
+                                <small ng-bind="panelTitleType" class="whiteFont"></small>
+                            </div>
+                            <div class="panel-body white standardFont" id="entryBody">
+                                <!--panel body-->
+                                <div class="" id="welcomeMessage">
+                                    <p ng-bind="panelBodyMessage.body"></p>
                                 </div>
                             </div>
-                            <div role="tabpanel" class="tab-pane" ng-model="secFloorSize" id="secondFloor">
-                                <div class="well well-lg" id="secondFloorWell">
+                            <div class="panel-body hidden white standardFont" id="entryDetails">
+                                <div class="col-sm-12" ng-repeat="prop in dataLabels track by $index">
+                                    <div class="row" ng-if="isEmpty(prop)" id="{{ selectedObject.key }}{{ prop }}">
+
+                                        <div class="col-sm-6" ng-bind="entryProperties[$index] + ':'">
+                                        </div>
+                                        <div class="col-sm-6 alignEntryValues" ng-bind="selectedObject[prop]">
+                                        </div>
+
+                                    </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-controller="mapController">
+                        <div class="col-sm-8" id="mapContainer">
+                            <div class="well well-lg lvl1-box-shadow" id="firstFloorWell">
                             </div>
                         </div>
                     </div>
@@ -208,67 +164,17 @@
     </div>
 </div>
 
-<script type="text/javascript">
-    window.doorbellOptions = {
-        appKey: '3hKfPJss7wisYJT65VGXzcYLFHrxl46aqf4S9lHLjdhb6WSJH8wdxEA59BcTOCtc'
-    };
-    (function (w, d, t) {
-        var hasLoaded = false;
-
-        function l() {
-            if (hasLoaded) {
-                return;
-            }
-            hasLoaded = true;
-            window.doorbellOptions.windowLoaded = true;
-            var g = d.createElement(t);
-            g.id = 'doorbellScript';
-            g.type = 'text/javascript';
-            g.async = true;
-            g.src = 'https://embed.doorbell.io/button/3988?t=' + (new Date().getTime());
-            (d.getElementsByTagName('head')[0] || d.getElementsByTagName('body')[0]).appendChild(g);
-        }
-
-        if (w.attachEvent) {
-            w.attachEvent('onload', l);
-        } else if (w.addEventListener) {
-            w.addEventListener('load', l, false);
-        } else {
-            l();
-        }
-        if (d.readyState == 'complete') {
-            l();
-        }
-    }(window, document, 'script'));
-</script>
-
+<script src="/app/components/feedback/feedback.js"></script>
+<script src="/app/components/analytics/analytics.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
         integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
         crossorigin="anonymous"></script>
-<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="//d3js.org/d3.v4.js"></script>
 <script src="/app/components/index/index.js"></script>
-<script src="/app/components/d3/d3demo.js"></script>
-<script src="/app/components/d3/d3map.js"></script>
-<script>
-    (function (i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r;
-        i[r] = i[r] || function () {
-                    (i[r].q = i[r].q || []).push(arguments)
-                }, i[r].l = 1 * new Date();
-        a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
-        a.async = 1;
-        a.src = g;
-        m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-
-    ga('create', 'UA-80444877-1', 'auto');
-    ga('send', 'pageview');
-
-</script>
-
+<script src="/app/components/d3/map.js"></script>
+<script src="/app/components/d3/mapController.js"></script>
 
 </body>
 

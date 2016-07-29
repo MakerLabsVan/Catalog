@@ -1,8 +1,29 @@
 var path = __dirname;
 var gapi = require(path + "/static/app/components/googlesheets/googlesheetsapi.js");
+var oauth = require(path + '/static/app/components/googlesheets/oauth2login.js');
+var auth = oauth.OAuth2Client;
+
+var checkForToken = function (callback) {
+    oauth.checkForToken(function (result) {
+        callback(result);
+    })
+};
+
+var sendUrl = function (callback) {
+    oauth.sendUrl(function (result) {
+        callback(result)
+    });
+};
+
+var getCode = function (code, callback) {
+    console.log("serverops: " + code);
+    oauth.getNewToken(auth, code, function (result) {
+        callback(result);
+    })
+};
 
 var getData = function (fn) {
-    gapi.auth(gapi.getDataList, function (result) {
+    gapi.getDataList(auth, function (result) {
         fn(result);
     });
 };
@@ -11,23 +32,26 @@ var parse = function (req, row, res) {
     var body = {
         stdData: {
             "majorDimension": "ROWS",
-            "values": [
-                [req.Name, req.Type, req.Subtype, req['Location x (ft)'], req['Location y (ft)'], req.Floor, req.Width, req.Length, req.Height, req.Units, req.Weight, req['Weight Unit'], req.Quantity, req.Price, req.Description, req.Keywords, req.Image, req.metadata, req['Primary Supplier'], req.Link, req.Key]
-            ]
+            "values": [req]
         },
         row: row
-    }
-    gapi.auth(gapi.sheetWrite, body, function (result) {
+    };
+
+    gapi.sheetWrite(auth, body, function (result) {
         res(result);
     });
+
 };
 
 var delEntry = function (index, response) {
-    gapi.auth(gapi.deleteEntry, index, function (res) {
-        response(res);
+    gapi.deleteEntry(auth, index, function (result) {
+        response(result);
     });
-}
+};
 
 exports.getData = getData;
 exports.parse = parse;
 exports.delEntry = delEntry;
+exports.sendUrl = sendUrl;
+exports.getCode = getCode;
+exports.checkForToken = checkForToken;
