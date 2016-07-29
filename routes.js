@@ -18,7 +18,8 @@ module.exports = function (router, path, serverOps, public_serverOps, s3Ops) {
     });
 
     router.get("/input", function (req, res) {
-        serverOps.checkForToken(function (result) { });
+        serverOps.checkForToken(function (result) {
+        });
         res.sendFile(path + '/static/views/input.html');
     });
 
@@ -46,14 +47,16 @@ module.exports = function (router, path, serverOps, public_serverOps, s3Ops) {
         });
     });
 
-    router.get("/S3uri/:id", function (req, res ) {
-      var id = req.params.id;
-      s3Ops.getS3URI( id, function(error, resp){
-        if(error) throw error
-        res.send(resp);
+    router.get("/S3uri/:id", function (req, res) {
+        var id = req.params.id;
+        s3Ops.getS3URI("Studio/" + id, function (error, resp) {
+            if (error) {
+                throw error;
+            }
+            res.send(resp);
+            console.log(id);
+        });
+        res.send(id);
         console.log(id);
-      })
-      res.send(id);
-      console.log(id);
-    })
+    });
 };
