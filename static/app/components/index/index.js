@@ -6,7 +6,7 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
 
     // functions to refresh only on 5 minutes of idling
     // 5 minutes
-    const refreshTime = 300000;s
+    const refreshTime = 300000;
 
     // start interval promise
     var checkIdle = $interval(function () {
