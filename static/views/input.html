@@ -157,10 +157,17 @@
                                                    ng-model="form.height" max="10000">
                                         </div>
                                         <div class="col-sm-3 noPadding">
-                                            <input type="text" name="entryInput"
-                                                   class="form-control  inputAreaHeight"
-                                                   placeholder="{{ entryPropertiesObj.units }}"
-                                                   ng-model="form.units">
+                                            <div class="dropdown">
+                                                <button class="btn btn-block btn-default dropdown-toggle inputAreaHeight"
+                                                        data-toggle="dropdown"
+                                                        ng-bind="entryPropertiesObj.units"></button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#">mm</a></li>
+                                                    <li><a href="#">cm</a></li>
+                                                    <li><a href="#">ft</a></li>
+                                                    <li><a href="#">m</a></li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -171,10 +178,16 @@
                                                    ng-model="form.weight" max="10000">
                                         </div>
                                         <div class="col-sm-6 noPadding">
-                                            <input type="text" name="entryInput"
-                                                   class="form-control inputAreaHeight"
-                                                   placeholder="{{ entryPropertiesObj.weightunit }}"
-                                                   ng-model="form.weightunit">
+                                            <div class="dropdown">
+                                                <button class="btn btn-block btn-default dropdown-toggle inputAreaHeight"
+                                                        data-toggle="dropdown"
+                                                        ng-bind="entryPropertiesObj.weightunit"></button>
+                                                <ul class="dropdown-menu col-sm-12">
+                                                    <li><a href="#">g</a></li>
+                                                    <li><a href="#">lbs</a></li>
+                                                    <li><a href="#">kg</a></li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row">

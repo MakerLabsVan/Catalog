@@ -89,7 +89,6 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
         ga('send', 'event', 'Clicked an Entry', 'click', type);
     };
 
-
     $scope.categories = {
         'studio': 'Studios',
         'tools': 'Tools',
