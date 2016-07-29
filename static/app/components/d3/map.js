@@ -91,6 +91,9 @@ var mapConstructor = function (containerID, floorNum) {
     });
     console.log(d3.select(this.container));
   }
+  this.getMarkerLocation = function(){
+      return this.markers.getLocation(this.width(), this.currentFloor);
+  }
 }
 
 function touchstarted() {
@@ -228,8 +231,12 @@ var marker = function( container ){
     }
   },
 
+  this.deleteLast = function () {
+      this.markerCluster.pop().remove();
+  },
+
   this.deleteAll = function(){
-    for ( i in this.markerCluster){
+    while(this.markerCluster.length != 0){
       this.markerCluster.pop().remove();
     }
   },
@@ -245,16 +252,12 @@ var marker = function( container ){
       var points = {
         'x': this.markerCluster[i].attr('x'),
         'y':this.markerCluster[i].attr('y')
-      }
+      };
       arrayOfPoints.push( undoMapTrasnformCoords(width, points, isIsometric, floor));
     }
-    console.log(arrayOfPoints);
     return arrayOfPoints;
   }
-}
-
-
-
+};
 
 
 

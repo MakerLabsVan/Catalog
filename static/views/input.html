@@ -157,10 +157,17 @@
                                                    ng-model="form.height" max="10000">
                                         </div>
                                         <div class="col-sm-3 noPadding">
-                                            <input type="text" name="entryInput"
-                                                   class="form-control  inputAreaHeight"
-                                                   placeholder="{{ entryPropertiesObj.units }}"
-                                                   ng-model="form.units">
+                                            <div class="dropdown">
+                                                <button class="btn btn-block btn-default dropdown-toggle inputAreaHeight"
+                                                        data-toggle="dropdown"
+                                                        ng-bind="entryPropertiesObj.units"></button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#">mm</a></li>
+                                                    <li><a href="#">cm</a></li>
+                                                    <li><a href="#">ft</a></li>
+                                                    <li><a href="#">m</a></li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -171,10 +178,16 @@
                                                    ng-model="form.weight" max="10000">
                                         </div>
                                         <div class="col-sm-6 noPadding">
-                                            <input type="text" name="entryInput"
-                                                   class="form-control inputAreaHeight"
-                                                   placeholder="{{ entryPropertiesObj.weightunit }}"
-                                                   ng-model="form.weightunit">
+                                            <div class="dropdown">
+                                                <button class="btn btn-block btn-default dropdown-toggle inputAreaHeight"
+                                                        data-toggle="dropdown"
+                                                        ng-bind="entryPropertiesObj.weightunit"></button>
+                                                <ul class="dropdown-menu col-sm-12">
+                                                    <li><a href="#">g</a></li>
+                                                    <li><a href="#">lbs</a></li>
+                                                    <li><a href="#">kg</a></li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -252,10 +265,11 @@
                         </div>
                     </div>
                     <div class="col-sm-8" id="entryMap">
-                        <div class="well well-sm inputWellSize white lvl1-box-shadow" id="firstFloor">
-
+                        <div class="row" ng-click="deleteMarker()">
+                            <p><span ng-click="deleteAllMarker()">Delete All</span></p>
+                            <p><span ng-click="deleteLastMarker()">Delete Last</span></p>
                         </div>
-                        <div class="well well-sm inputWellSize white lvl1-box-shadow hidden" id="secondFloor">
+                        <div class="well well-sm inputWellSize white lvl1-box-shadow" id="firstFloor">
                         </div>
                     </div>
                 </div>
@@ -265,13 +279,17 @@
 </div>
 
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+
+<!-- development Angular -->
+<!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.js"></script>-->
+
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
         integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
         crossorigin="anonymous"></script>
-<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-<script src="../app/components/d3/d3demo.js"></script>
-<script src="../app/components/d3/d3map.js"></script>
+<script src="//d3js.org/d3.v4.min.js" charset="utf-8"></script>
+<script src="../app/components/d3/map.js"></script>
+<script src="/app/components/d3/mapController.js"></script>
 <script src="../app/components/index/index.js"></script>
 <script src="../app/components/input/input.js"></script>
 <script>

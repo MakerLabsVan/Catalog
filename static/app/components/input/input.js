@@ -1,5 +1,3 @@
-"use strict";
-
 var inputApp = angular.module('inputApp', ['indexApp']);
 
 inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightService", "adminHttpRequests", function ($scope, $http, mapService, highlightService, adminHttpRequests) {
@@ -74,6 +72,7 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
     $scope.sendCode = function () {
         adminHttpRequests.sendCode($scope.authCode).then(function (result) {
             $scope.authCode = '';
+            location.reload();
             console.log(result);
         })
     };
@@ -303,9 +302,19 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
     // highlight selected entry
     $scope.highlightItem = highlightService.highlight;
 
-    // map functions
-    $scope.firstMap = mapService.initMap('firstFloor', 1);
-    $scope.secondMap = mapService.initMap('secondFloor', 2);
+    $scope.map = mapService.initMap('firstFloor', 1);
+    $scope.map.markers.onClick();
+    $scope.deleteAllMarker = function () {
+        $scope.map.markers.deleteAll();
+    };
+    $scope.deleteLastMarker = function () {
+        $scope.map.markers.deleteLast()
+    };
+
+    $('#firstFloor').click(function () {
+        console.log($scope.map.getMarkerLocation());
+    })
+
 
 }]);
 
