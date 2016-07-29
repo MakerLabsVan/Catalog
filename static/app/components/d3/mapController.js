@@ -31,6 +31,7 @@ app.controller('mapController', ['$scope', '$window', '$location', function ($sc
     });
 
     // $scope.map.markers.onClick();
+    $scope.map.swipe()
 
   })
 

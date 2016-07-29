@@ -83,7 +83,26 @@ var mapConstructor = function (containerID, floorNum) {
   this.selectFloor = function( floor ){
     this.currentFloor = floor;
     this.studio.selectFloor( this.width(), floor);
+  },
+  this.swipe = function(){
+    d3.select(this.container)
+    .on("drag", function(){
+      alert('it works!');
+    });
+    console.log(d3.select(this.container));
   }
+}
+
+function touchstarted() {
+  alert('start');
+}
+
+function touchended() {
+  alert('end');
+}
+
+function touchmoved() {
+  alert('move');
 }
 
 /**
