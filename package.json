@@ -16,10 +16,11 @@
     "google-auth-library": "^0.9.8",
     "google-spreadsheet": "^2.0.3",
     "googleapis": "^7.1.0",
-    "node": "0.0.0",
+    "node": "latest",
     "pug": "^2.0.0-beta2",
     "requirejs": "^2.2.0",
     "winston": "^2.2.0",
-    "winston-google-spreadsheet": "0.0.5"
+    "winston-google-spreadsheet": "0.0.5",
+    "aws-sdk": "latest"
   }
 }
