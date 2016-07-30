@@ -244,8 +244,8 @@ var marker = function (container) {
 
             for (i in this.markerCluster) {
                 var points = {
-                    'x': this.markerCluster[i].attr('x'),
-                    'y': this.markerCluster[i].attr('y')
+                    'x': this.markerCluster[i].attr('x') + Number(this.markerCluster[i].attr('width')/2),
+                    'y': this.markerCluster[i].attr('y') + Number(this.markerCluster[i].attr('height'))
                 };
                 arrayOfPoints.push(undoMapTrasnformCoords(width, points, isIsometric, floor));
             }
