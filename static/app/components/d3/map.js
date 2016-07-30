@@ -29,11 +29,11 @@ const secondFloorY = 790;
 // const secondFloorY = 90;
 
 /**
-* Makes an map object that provides methods to change the entire map view
-* @param {string} contaienr ID of the element you wish to attach map to (required)
-* @param {number} initial floorNum to view
-*
-**/
+ * Makes an map object that provides methods to change the entire map view
+ * @param {string} contaienr ID of the element you wish to attach map to (required)
+ * @param {number} initial floorNum to view
+ *
+ **/
 var mapConstructor = function (containerID, floorNum) {
   //Current Floor
   this.currentFloor = floorNum,
@@ -85,15 +85,15 @@ var mapConstructor = function (containerID, floorNum) {
 }
 
 function touchstarted() {
-  alert('start');
+    alert('start');
 }
 
 function touchended() {
-  alert('end');
+    alert('end');
 }
 
 function touchmoved() {
-  alert('move');
+    alert('move');
 }
 
 /**
@@ -125,7 +125,7 @@ var studio = function(container, map, isIsometric) {
   *  @param {json} payload.metadata, contains points which has an array of points (required)
   *  @param {string} payload.subtype, adds class for css styling
   **/
-  this.draw = function ( payload) {
+  this.draw = function ( payload ) {
     this.floor[ Number(payload.floor) - 1 ]
       .append('g')
       .attr('id', payload.id)
@@ -146,248 +146,246 @@ var studio = function(container, map, isIsometric) {
       this.floor[i].attr('transform', transform);
     }
   },
+  this.selectFloor = function (width, floorNum) {
+      var screenScale = getScreenFactor(width);
+      switch (floorNum) {
+          case 1:
+              var setFloor = 'translate(0,' + -scrollMapY * screenScale + ') ';
+              break;
+          case 2:
+              var setFloor = 'translate(0,0) ';
+              break;
+          default:
+              var setFloor = 'translate(0,' + -scrollMapY * screenScale + ') ';
+              break;
+      }
 
-  this.selectFloor = function ( width, floorNum){
-    var screenScale = getScreenFactor(width);
-    switch(floorNum) {
-    case 1:
-      var setFloor = 'translate(0,'+ -scrollMapY*screenScale+') ';
-      break;
-    case 2:
-        var setFloor = 'translate(0,0) ';
-        break;
-    default:
-      var setFloor = 'translate(0,'+ -scrollMapY*screenScale+') ';
-      break;
-    }
-
-    this.building.transition().attr('transform', setFloor).duration(floorTransitionDelay);
-    map.transition().attr('transform', setFloor).duration(floorTransitionDelay);
-  }
+      this.building.transition().attr('transform', setFloor).duration(floorTransitionDelay);
+      map.transition().attr('transform', setFloor).duration(floorTransitionDelay);
+  },
 
   //Highlight studio
-  this.highlight = function ( objID) {
-    this.building.select('#' + objID)
-      .classed('studioHighlight',true)
+  this.highlight = function (objID) {
+      this.building.select('#' + objID)
+          .classed('studioHighlight', true)
   },
 
-  //Dehighlight studio
-  this.dehighlight = function ( objID) {
-    this.building.select('#' + objID)
-      .classed('studioHighlight',false)
-  },
+      //Dehighlight studio
+      this.dehighlight = function (objID) {
+          this.building.select('#' + objID)
+              .classed('studioHighlight', false)
+      },
 
-  //on studio click, pass the studio's ID to callback function
-  this.onClick = function ( callback ){
-    d3.selectAll('.studio').on('click', function(){
-      callback( d3.select(this).attr('id') )  ;
-    })
-  }
+      //on studio click, pass the studio's ID to callback function
+      this.onClick = function (callback) {
+          d3.selectAll('.studio').on('click', function () {
+              callback(d3.select(this).attr('id'));
+          })
+      }
 }
 
 /**
-* This object controls all the interactions of the marker objects
-* @param {selection} The container that we want to draw markers on
-*
-**/
-var marker = function( container ){
+ * This object controls all the interactions of the marker objects
+ * @param {selection} The container that we want to draw markers on
+ *
+ **/
+var marker = function (container) {
 
-  this.markerCluster = [],
-  // Draw all markers in the metadata
-  // @param {markerData} json which contains points and floor
-  this.draw = function( width, markerData ){
-    var markerNum = markerData.points.length;
-    var currentMarkerNum = this.markerCluster.length;
+    this.markerCluster = [],
+        // Draw all markers in the metadata
+        // @param {markerData} json which contains points and floor
+        this.draw = function (width, markerData) {
+            var markerNum = markerData.points.length;
+            var currentMarkerNum = this.markerCluster.length;
 
-    //Render new markers when there isnt enough
-    if ( currentMarkerNum < markerNum ){
-      for ( var j = 0; currentMarkerNum+j < markerNum; j++){
-        this.markerCluster.push( addMarker( container, currentMarkerNum + j));
-      }
-    }
-    for ( k in markerData.points ){
-      var coords = mapTransformCoords(width, markerData.points[k], isIsometric, markerData.floor )
+            //Render new markers when there isnt enough
+            if (currentMarkerNum < markerNum) {
+                for (var j = 0; currentMarkerNum + j < markerNum; j++) {
+                    this.markerCluster.push(addMarker(container, currentMarkerNum + j));
+                }
+            }
+            for (k in markerData.points) {
+                var coords = mapTransformCoords(width, markerData.points[k], isIsometric, markerData.floor)
 
-      //Adjust for marker size
-      coords.x -= Number(this.markerCluster[k].attr('width'))/2;
-      coords.y -= Number(this.markerCluster[k].attr('height'));
+                //Adjust for marker size
+                coords.x -= Number(this.markerCluster[k].attr('width')) / 2;
+                coords.y -= Number(this.markerCluster[k].attr('height'));
 
-      this.markerCluster[k]
-        .classed('hide',false)
-        .classed('floor' + markerData.floor,true)
-        .attr('x', coords.x)
-        .attr('y', coords.y)
-    }
-  },
+                this.markerCluster[k]
+                    .classed('hide', false)
+                    .classed('floor' + markerData.floor, true)
+                    .attr('x', coords.x)
+                    .attr('y', coords.y)
+            }
+        },
 
-  this.hide = function(){
-    for (i in this.markerCluster){
-      this.markerCluster[i].classed( 'hide', true);
-    }
-  },
+        this.hide = function () {
+            for (i in this.markerCluster) {
+                this.markerCluster[i].classed('hide', true);
+            }
+        },
 
-  this.deleteLast = function () {
-      this.markerCluster.pop().remove();
-  },
+        this.deleteLast = function () {
+            this.markerCluster.pop().remove();
+        },
 
-  this.deleteAll = function(){
-    while(this.markerCluster.length != 0){
-      this.markerCluster.pop().remove();
-    }
-  },
+        this.deleteAll = function () {
+            while (this.markerCluster.length != 0) {
+                this.markerCluster.pop().remove();
+            }
+        },
 
-  this.onClick = function(){
-    showMarkerOnClick( this.markerCluster, container);
-  },
+        this.onClick = function () {
+            showMarkerOnClick(this.markerCluster, container);
+        },
 
-  this.getLocation = function( width, floor){
-    var arrayOfPoints = [];
+        this.getLocation = function (width, floor) {
+            var arrayOfPoints = [];
 
-    for (i in this.markerCluster){
-      var points = {
-        'x': this.markerCluster[i].attr('x'),
-        'y':this.markerCluster[i].attr('y')
-      };
-      arrayOfPoints.push( undoMapTrasnformCoords(width, points, isIsometric, floor));
-    }
-    return arrayOfPoints;
-  }
+            for (i in this.markerCluster) {
+                var points = {
+                    'x': this.markerCluster[i].attr('x'),
+                    'y': this.markerCluster[i].attr('y')
+                };
+                arrayOfPoints.push(undoMapTrasnformCoords(width, points, isIsometric, floor));
+            }
+            return arrayOfPoints;
+        }
 };
 
 
+var showMarkerOnClick = function (markerCluster) {
+    d3.select('.isoMap').on('click', function () {
+        var xPos = d3.mouse(d3.select('.studioGroup').node())[0];
+        var yPos = d3.mouse(d3.select('.studioGroup').node())[1];
 
-var showMarkerOnClick = function( markerCluster){
-  d3.select('.isoMap').on('click', function () {
-    var xPos = d3.mouse(d3.select('.studioGroup').node())[0];
-    var yPos = d3.mouse(d3.select('.studioGroup').node())[1];
+        var marker = addMarker(d3.select('.studioGroup'));
 
-    var marker = addMarker( d3.select('.studioGroup'));
+        marker
+            .attr('x', xPos - Number(marker.attr('width') / 2))
+            .attr('y', yPos - Number(marker.attr('height')));
 
-    marker
-      .attr('x', xPos - Number(marker.attr('width')/2) )
-      .attr('y', yPos - Number(marker.attr('height')) );
-
-    markerCluster.push(marker);
-  })
+        markerCluster.push(marker);
+    })
 }
 
 //For Transforming groups of studios
-var mapTransformStrings = function ( width, floor, isIso){
-  if ( isNaN( width) ){
-    return;
-  }
-  var screenScale = getScreenFactor( width);
+var mapTransformStrings = function (width, floor, isIso) {
+    if (isNaN(width)) {
+        return;
+    }
+    var screenScale = getScreenFactor(width);
 
-  if ( floor === 2 ){
-    var translate = 'translate('+secondFloorX*screenScale+','+ secondFloorY*screenScale+') '; // second floor
-  } else {
-    var translate = 'translate('+firstFloorX*screenScale+','+ firstFloorY*screenScale+') '; // first floor
-  }
+    if (floor === 2) {
+        var translate = 'translate(' + secondFloorX * screenScale + ',' + secondFloorY * screenScale + ') '; // second floor
+    } else {
+        var translate = 'translate(' + firstFloorX * screenScale + ',' + firstFloorY * screenScale + ') '; // first floor
+    }
 
-  if ( isIso == true){
-    var scale = 'scale('+isoMapScale*screenScale+','+isoMapScale*screenScale*isoVertScale+') ';
-    var rotate = 'rotate('+isoAngle+', 0, 0) ';
-    return translate + scale + rotate;
-  } else {
-    var scale = 'scale('+isoMapScale*screenScale+','+isoMapScale*screenScale+') '; //0.58 vertical scale for isometric map
-    return translate + scale;
-  }
+    if (isIso == true) {
+        var scale = 'scale(' + isoMapScale * screenScale + ',' + isoMapScale * screenScale * isoVertScale + ') ';
+        var rotate = 'rotate(' + isoAngle + ', 0, 0) ';
+        return translate + scale + rotate;
+    } else {
+        var scale = 'scale(' + isoMapScale * screenScale + ',' + isoMapScale * screenScale + ') '; //0.58 vertical scale for isometric map
+        return translate + scale;
+    }
 }
 
 // Undo mapTransformCoords function
-var undoMapTrasnformCoords = function( width, oldCoords, isIso,floor){
-  var screenScale = getScreenFactor( width);
-  var cosA = Math.cos( isoAngle * Math.PI / 180);
-  var sinA = Math.sin( isoAngle * Math.PI / 180);
+var undoMapTrasnformCoords = function (width, oldCoords, isIso, floor) {
+    var screenScale = getScreenFactor(width);
+    var cosA = Math.cos(isoAngle * Math.PI / 180);
+    var sinA = Math.sin(isoAngle * Math.PI / 180);
 
-  var transformX = oldCoords.x/screenScale;
-  var transformY = oldCoords.y/screenScale;
+    var transformX = oldCoords.x / screenScale;
+    var transformY = oldCoords.y / screenScale;
 
 
-  if ( floor === 2){
-    transformX -= secondFloorX;
-    transformY -= secondFloorY;
-  }else{
-    transformX -= firstFloorX;
-    transformY -= firstFloorY;
-  }
+    if (floor === 2) {
+        transformX -= secondFloorX;
+        transformY -= secondFloorY;
+    } else {
+        transformX -= firstFloorX;
+        transformY -= firstFloorY;
+    }
 
-  //scaling
-  transformX /=isoMapScale;
-  if ( isIso == true){
-    transformY /=(isoMapScale * isoVertScale);
-  }else{
-    transformY /= isoMapScale;
-  }
+    //scaling
+    transformX /= isoMapScale;
+    if (isIso == true) {
+        transformY /= (isoMapScale * isoVertScale);
+    } else {
+        transformY /= isoMapScale;
+    }
 
-  if (isIso == true){
-    var coords = {
-      'x': transformX*cosA + transformY*sinA,
-      'y': -transformX*sinA + transformY*cosA
-    };
-  } else{
-    var coords = {
-      'x': transformX,
-      'y': transformY
-    };
-  }
+    if (isIso == true) {
+        var coords = {
+            'x': transformX * cosA + transformY * sinA,
+            'y': -transformX * sinA + transformY * cosA
+        };
+    } else {
+        var coords = {
+            'x': transformX,
+            'y': transformY
+        };
+    }
 
-  return coords;
+    return coords;
 }
 
 //Mapping points to map
-var mapTransformCoords = function( width, oldCoords, isIso, floor){
-  var screenScale = getScreenFactor( width);
-  var cosA = Math.cos( isoAngle * Math.PI / 180);
-  var sinA = Math.sin( isoAngle * Math.PI / 180);
+var mapTransformCoords = function (width, oldCoords, isIso, floor) {
+    var screenScale = getScreenFactor(width);
+    var cosA = Math.cos(isoAngle * Math.PI / 180);
+    var sinA = Math.sin(isoAngle * Math.PI / 180);
 
-  //Rotation of coordinates
-  if ( isIso == true){
-    var transformX = oldCoords.x*cosA - oldCoords.y*sinA;
-    var transformY = oldCoords.x*sinA + oldCoords.y*cosA;
-  } else{
-    var transformX = oldCoords.x;
-    var transformY = oldCoords.y;
-  }
+    //Rotation of coordinates
+    if (isIso == true) {
+        var transformX = oldCoords.x * cosA - oldCoords.y * sinA;
+        var transformY = oldCoords.x * sinA + oldCoords.y * cosA;
+    } else {
+        var transformX = oldCoords.x;
+        var transformY = oldCoords.y;
+    }
 
-  //scaling
-  transformX *=isoMapScale;
-  if ( isIso == true){
-    transformY *=(isoMapScale * isoVertScale);
-  }else{
-    transformY *= isoMapScale;
-  }
-  //Translate back into floor plane
-  if ( floor == 2){
-    transformX += secondFloorX;
-    transformY += secondFloorY;
-  }else{
-    transformX += firstFloorX;
-    transformY += firstFloorY;
-  }
+    //scaling
+    transformX *= isoMapScale;
+    if (isIso == true) {
+        transformY *= (isoMapScale * isoVertScale);
+    } else {
+        transformY *= isoMapScale;
+    }
+    //Translate back into floor plane
+    if (floor == 2) {
+        transformX += secondFloorX;
+        transformY += secondFloorY;
+    } else {
+        transformX += firstFloorX;
+        transformY += firstFloorY;
+    }
 
-  //screensize scale
-  transformX*=screenScale;
-  transformY*=screenScale;
+    //screensize scale
+    transformX *= screenScale;
+    transformY *= screenScale;
 
-  var coords = {
-    'x': transformX,
-    'y': transformY
-  };
+    var coords = {
+        'x': transformX,
+        'y': transformY
+    };
 
-  return coords;
+    return coords;
 }
 
 // Returns the ratio between the current width of viewport and map viewport width
-var getScreenFactor = function (currentWidth){
-  return currentWidth/isoMapWidth;
+var getScreenFactor = function (currentWidth) {
+    return currentWidth / isoMapWidth;
 }
 
 var addMarker = function (container) {
-  return container
-    .append('svg:image')
-    .attr('xlink:href', '/assets/marker.svg')
-    .attr('width', 50)
-    .attr('height', 50 )
-    .classed('marker',true);
+    return container
+        .append('svg:image')
+        .attr('xlink:href', '/assets/marker.svg')
+        .attr('width', 50)
+        .attr('height', 50)
+        .classed('marker', true);
 };

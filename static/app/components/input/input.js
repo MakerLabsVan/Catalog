@@ -112,6 +112,8 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
 
     // make a new entry
     $scope.form = {};
+    $scope.form.units = 'Units';
+    $scope.form.weightUnits = 'Units';
 
     $scope.clearSearch = function () {
         $scope.inputQuery = '';
@@ -143,6 +145,8 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
                 $scope.entries[$scope.form.key] = $scope.form;
 
                 $scope.form = {};
+                $scope.form.units = 'Units';
+                $scope.form.weightUnits = 'Units';
             });
         }
     };
@@ -210,6 +214,8 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
 
             $scope.dataLength--;
             $scope.form = {};
+            $scope.form.units = 'Units';
+            $scope.form.weightUnits = 'Units';
         });
     };
 
@@ -266,25 +272,31 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         // unchecked btn
         btnGroup.find('input[name=typeOptions]:checked').prop('checked', false);
         // active div
-
         switch (entry.type) {
             case 'Studio':
                 btnGroup.find('#stdTypeDiv').addClass('active');
+                $('input#radiostudio').prop('checked', true);
                 break;
             case 'Material':
                 btnGroup.find('#matTypeDiv').addClass('active');
+                $('input#radioMaterial').prop('checked', true);
                 break;
             case 'Tool':
                 btnGroup.find('#toolTypeDiv').addClass('active');
+                $('input#radioTool').prop('checked', true);
                 break;
             case 'Consumable':
                 btnGroup.find('#conTypeDiv').addClass('active');
+                $('input#radioConsumable').prop('checked', true);
+
         }
     };
 
 
     $scope.newForm = function () {
         $scope.form = {};
+        $scope.form.units = 'Units';
+        $scope.form.weightUnits = 'Units';
         $('#buttonGroup').find('.active').removeClass('active');
         $('#submitBtn').removeClass('hidden');
         $('#deleteBtn').addClass('hidden');
