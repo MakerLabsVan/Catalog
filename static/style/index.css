@@ -265,14 +265,27 @@ textarea {
     text-align: center;
 }
 
+/*Lithium fire from Adobe color*/
 .studio {
-    opacity: 0.5;
+    opacity: 0.7;
     cursor: pointer;
+    fill: #606AA6;
+}
+
+.Staff {
+  fill: #FAFF9E;
+}
+
+.Common {
+  fill: #A3FAFF;
+}
+.Available {
+  fill: #8EFF58;
 }
 
 .studioHighlight {
-    fill: red;
-    opacity: 0.8;
+    fill: #FF3654;
+    opacity: 1;
 }
 
 .isoMap {

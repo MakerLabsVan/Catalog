@@ -19,7 +19,13 @@ app.controller('mapController', ['$scope', '$window', '$location', function ($sc
     for ( i in entries ){
       if ( entries[i].type =='Studio' ){
         if ( entries[i].metadata ){
-          $scope.map.studio.draw( JSON.parse( entries[i].metadata), entries[i].key)
+          var payload = {
+            'metadata': JSON.parse( entries[i].metadata),
+            'subtype': entries[i].subtype,
+            'floor': entries[i].floor,
+            'id': entries[i].key
+          };
+          $scope.map.studio.draw( payload );
         }
       }
     }
@@ -31,7 +37,7 @@ app.controller('mapController', ['$scope', '$window', '$location', function ($sc
     });
 
     // $scope.map.markers.onClick();
-    $scope.map.swipe()
+    $scope.map.swipe();
 
   });
 
