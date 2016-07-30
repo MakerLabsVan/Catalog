@@ -7,24 +7,13 @@ const floorTransitionDelay = 1000; //1 second
 //TODO:Parse as JSON data
 
 // //ISOMETRIC MAP
-// const isIsometric = true; //Draws 2d map if false
-// const mapFilePath = "/assets/ISO3.png";
-// const isoMapScale = 7.65; //database value to isometric map conversion
-// const isoMapWidth = 1320; // Width of isometric map, used to dynamically resize map
-// const scrollMapY = 1050; //Vertical scroll until next floor
-// const firstFloorX = 795; //Translate studios into place
-// const firstFloorY = 1915;
-// const secondFloorX = 630;
-// const secondFloorY = 710;
-
-// //ISOMETRIC MAP
 const isIsometric = true; //Draws 2d map if false
 const mapFilePath = "/assets/ISO4.png";
 const isoMapScale = 8.5; //database value to isometric map conversion
 const isoMapWidth = 1464; // Width of isometric map, used to dynamically resize map
 const scrollMapY = 1375; //Vertical scroll until next floor
-const firstFloorX = 880; //Translate studios into place
-const firstFloorY = 2370;
+const firstFloorX = 875; //Translate studios into place
+const firstFloorY = 2365;
 const secondFloorX = 710;
 const secondFloorY = 790;
 
@@ -46,54 +35,53 @@ const secondFloorY = 790;
  *
  **/
 var mapConstructor = function (containerID, floorNum) {
-    //Current Floor
-    this.currentFloor = floorNum,
-        //Container for the map svgs and images
-        this.viewport = d3.select('#' + containerID)
-            .append('svg')
-            .attr('id', 'mapContainer' + containerID)
-            .attr('class', 'mapContainer'),
-        //The map img
-        this.map = this.viewport
-            .append("svg:image")
-            .attr("xlink:href", mapFilePath)
-            .attr('preserveAspectRatio', 'xMinYMin meet')
-            .attr('class', 'isoMap'),
+  //Current Floor
+  this.currentFloor = floorNum,
+  //Container for the map svgs and images
+  this.viewport = d3.select('#' + containerID)
+    .append('svg')
+    .attr('id', 'mapContainer' + containerID)
+    .attr('class', 'mapContainer'),
+  //The map img
+  this.map = this.viewport
+    .append("svg:image")
+    .attr("xlink:href", mapFilePath)
+    .attr('preserveAspectRatio', 'xMinYMin meet')
+    .attr('class','isoMap'),
 
-        // addImgMap( this.viewport, mapFilePath ),
-        //Returns width of the map container
-        this.width = function () {
-            return this.viewport.node().getBoundingClientRect().width;
-        },
-        //Returns height of the map container
-        this.height = function () {
-            return this.viewport.node().getBoundingClientRect().height;
-        },
+  // addImgMap( this.viewport, mapFilePath ),
+  //Returns width of the map container
+  this.width = function () {
+      return this.viewport.node().getBoundingClientRect().width;
+  },
+  //Returns height of the map container
+  this.height = function () {
+      return this.viewport.node().getBoundingClientRect().height;
+  },
 
-        //initialize studios svgs
-        this.studio = new studio(this.viewport, this.map, isIsometric),
-        //Resize all map objects
-        this.markers = new marker(this.studio.building),
+  //initialize studios svgs
+  this.studio = new studio( this.viewport, this.map, isIsometric ),
+  //Resize all map objects
+  this.markers = new marker( this.studio.building ),
 
-        this.resize = function () {
-            this.studio.resize(this.width());
-            this.studio.selectFloor(this.width(), this.currentFloor);
-        },
-        //Move to floor
-        this.selectFloor = function (floor) {
-            this.currentFloor = floor;
-            this.studio.selectFloor(this.width(), floor);
-        },
-        this.swipe = function () {
-            d3.select(this.container)
-                .on("drag", function () {
-                    alert('it works!');
-                });
-            console.log(d3.select(this.container));
-        }
-    this.getMarkerLocation = function () {
-        return this.markers.getLocation(this.width(), this.currentFloor);
-    }
+  this.resize = function (){
+    this.studio.resize( this.width());
+    this.studio.selectFloor( this.width(), this.currentFloor);
+  },
+  //Move to floor
+  this.selectFloor = function( floor ){
+    this.currentFloor = floor;
+    this.studio.selectFloor( this.width(), floor);
+  },
+  this.swipe = function(){
+    d3.select(this.container)
+    .on("drag", function(){
+      alert('it works!');
+    });
+  }
+  this.getMarkerLocation = function(){
+      return this.markers.getLocation(this.width(), this.currentFloor);
+  }
 }
 
 function touchstarted() {
@@ -109,87 +97,91 @@ function touchmoved() {
 }
 
 /**
- * This object controls all the interactions of the studio objects
- *  @param {selection} The viewport of the map (required)
- *  @param {selection} The map selection object (required)
- *  @param {boolean} if isIsometric is true draws everything on the isometric plane
- **/
-var studio = function (container, map, isIsometric) {
-    //Building contains all studio information
-    this.building = container
-        .append('g')
-        .classed('studioGroup', true),
+* This object controls all the interactions of the studio objects
+*  @param {selection} The viewport of the map (required)
+*  @param {selection} The map selection object (required)
+*  @param {boolean} if isIsometric is true draws everything on the isometric plane
+**/
+var studio = function(container, map, isIsometric) {
+  //Building contains all studio information
+  this.building = container
+    .append('g')
+    .classed('studioGroup',true),
 
-        //The floor is an array of g elements for each floor in the bulding
-        this.floor = [
-            this.building
-                .append('g')
-                .classed('floor1', true),
-            this.building
-                .append('g')
-                .classed('floor2', true)
-        ],
+  //The floor is an array of g elements for each floor in the bulding
+  this.floor =[
+    this.building
+      .append('g')
+      .classed('floor1',true),
+    this.building
+      .append('g')
+      .classed('floor2',true)
+  ],
 
-        //Params: StudioData object that contains studio location and id
-        this.draw = function (studioData, id) {
-            this.floor[Number(studioData.floor) - 1]
-                .append('g')
-                .attr('id', id)
-                .classed('studio', true)
-                .selectAll('polygon')
-                .data(studioData.points)
-                .enter()
-                .append('polygon')
-                .attr("points", function (d) {
-                    return d.polygon.map(function (d) {
-                        return [(d.x), (d.y)].join(",");
-                    }).join(" ");
-                })
-        },
+  /**
+  * This object controls all the interactions of the studio objects
+  *  @param {number} payload.floor, indicates which floor to draw on(required)
+  *  @param {string} payload.id, assigns dom id (required)
+  *  @param {json} payload.metadata, contains points which has an array of points (required)
+  *  @param {string} payload.subtype, adds class for css styling
+  **/
+  this.draw = function ( payload ) {
+    this.floor[ Number(payload.floor) - 1 ]
+      .append('g')
+      .attr('id', payload.id)
+      .classed('studio',true)
+      .classed(payload.subtype, true)
+      .selectAll('polygon')
+      .data( payload.metadata.points)
+      .enter()
+      .append('polygon')
+      .attr("points",function(d) {
+        return d.polygon.map( function(d) { return [(d.x),(d.y)].join(","); }).join(" ");
+      });
+  },
 
-        this.resize = function (mapWidth) {
-            for (var i = 0; i < this.floor.length; i++) {
-                transform = mapTransformStrings(mapWidth, i + 1, isIsometric); //Floor number is i+1
-                this.floor[i].attr('transform', transform);
-            }
-        },
+  this.resize = function ( mapWidth) {
+    for ( var i = 0; i < this.floor.length; i++){
+      transform = mapTransformStrings( mapWidth, i+1, isIsometric); //Floor number is i+1
+      this.floor[i].attr('transform', transform);
+    }
+  },
+  this.selectFloor = function (width, floorNum) {
+      var screenScale = getScreenFactor(width);
+      switch (floorNum) {
+          case 1:
+              var setFloor = 'translate(0,' + -scrollMapY * screenScale + ') ';
+              break;
+          case 2:
+              var setFloor = 'translate(0,0) ';
+              break;
+          default:
+              var setFloor = 'translate(0,' + -scrollMapY * screenScale + ') ';
+              break;
+      }
 
-        this.selectFloor = function (width, floorNum) {
-            var screenScale = getScreenFactor(width);
-            switch (floorNum) {
-                case 1:
-                    var setFloor = 'translate(0,' + -scrollMapY * screenScale + ') ';
-                    break;
-                case 2:
-                    var setFloor = 'translate(0,0) ';
-                    break;
-                default:
-                    var setFloor = 'translate(0,' + -scrollMapY * screenScale + ') ';
-                    break;
-            }
+      this.building.transition().attr('transform', setFloor).duration(floorTransitionDelay);
+      map.transition().attr('transform', setFloor).duration(floorTransitionDelay);
+  },
 
-            this.building.transition().attr('transform', setFloor).duration(floorTransitionDelay);
-            map.transition().attr('transform', setFloor).duration(floorTransitionDelay);
-        }
+  //Highlight studio
+  this.highlight = function (objID) {
+      this.building.select('#' + objID)
+          .classed('studioHighlight', true)
+  },
 
-    //Highlight studio
-    this.highlight = function (objID) {
-        this.building.select('#' + objID)
-            .classed('studioHighlight', true)
-    },
+      //Dehighlight studio
+      this.dehighlight = function (objID) {
+          this.building.select('#' + objID)
+              .classed('studioHighlight', false)
+      },
 
-        //Dehighlight studio
-        this.dehighlight = function (objID) {
-            this.building.select('#' + objID)
-                .classed('studioHighlight', false)
-        },
-
-        //on studio click, pass the studio's ID to callback function
-        this.onClick = function (callback) {
-            d3.selectAll('.studio').on('click', function () {
-                callback(d3.select(this).attr('id'));
-            })
-        }
+      //on studio click, pass the studio's ID to callback function
+      this.onClick = function (callback) {
+          d3.selectAll('.studio').on('click', function () {
+              callback(d3.select(this).attr('id'));
+          })
+      }
 }
 
 /**
@@ -252,8 +244,8 @@ var marker = function (container) {
 
             for (i in this.markerCluster) {
                 var points = {
-                    'x': this.markerCluster[i].attr('x'),
-                    'y': this.markerCluster[i].attr('y')
+                    'x': this.markerCluster[i].attr('x') + Number(this.markerCluster[i].attr('width')/2),
+                    'y': this.markerCluster[i].attr('y') + Number(this.markerCluster[i].attr('height'))
                 };
                 arrayOfPoints.push(undoMapTrasnformCoords(width, points, isIsometric, floor));
             }
