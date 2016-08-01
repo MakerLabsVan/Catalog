@@ -126,6 +126,7 @@ var studio = function(container, map, isIsometric) {
   *  @param {string} payload.subtype, adds class for css styling
   **/
   this.draw = function ( payload ) {
+    if ((Number(payload.floor) - 1) < 0 ){return}
     this.floor[ Number(payload.floor) - 1 ]
       .append('g')
       .attr('id', payload.id)
@@ -256,10 +257,11 @@ var marker = function (container) {
 
 var showMarkerOnClick = function (markerCluster) {
     d3.select('.isoMap').on('click', function () {
-        var xPos = d3.mouse(d3.select('.studioGroup').node())[0];
-        var yPos = d3.mouse(d3.select('.studioGroup').node())[1];
+        var studioGroup =d3.select('.studioGroup');
+        var xPos = d3.mouse(studioGroup.node())[0];
+        var yPos = d3.mouse(studioGroup.node())[1];
 
-        var marker = addMarker(d3.select('.studioGroup'));
+        var marker = addMarker(studioGroup);
 
         marker
             .attr('x', xPos - Number(marker.attr('width') / 2))
@@ -385,7 +387,7 @@ var addMarker = function (container) {
     return container
         .append('svg:image')
         .attr('xlink:href', '/assets/marker.svg')
-        .attr('width', 50)
-        .attr('height', 50)
+        .attr('width', 40)
+        .attr('height', 40)
         .classed('marker', true);
 };
