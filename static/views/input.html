@@ -82,7 +82,7 @@
                 <div class="row">
                     <div class="col-sm-4" id="entryPage">
                         <div class="well well-sm inputWellSize white lvl1-box-shadow noPadding">
-                            <form ng-submit="insert(dataLength)">
+                            <form ng-submit="insert(dataLength, 'new')">
                                 <div class="container-fluid">
                                     <div class="row">
                                         <div class="col-sm-12 noPadding inputAreaHeight">
@@ -182,8 +182,10 @@
                                         <div class="col-sm-6 noPadding">
                                             <div class="dropdown">
                                                 <button class="btn btn-block btn-default dropdown-toggle inputAreaHeight"
-                                                        data-toggle="dropdown" ng-model="form.weightUnits"
-                                                        ng-bind="form.weightUnits"></button>
+                                                        data-toggle="dropdown" ng-model="form.weightUnits">
+                                                    <span ng-bind="form.weightUnits"></span>
+                                                    <span class="caret"></span>
+                                                </button>
                                                 <ul class="dropdown-menu col-sm-12">
                                                     <li><a ng-click="form.weightUnits='Units'">Clear</a></li>
                                                     <li class="divider"></li>
@@ -249,7 +251,7 @@
                                     <div class="row hidden" id="confirmEdit">
                                         <div class="col-sm-6 noPadding">
                                             <button type="button" class="btn btn-block btn-default inputAreaHeight"
-                                                    ng-click="edit()">Confirm
+                                                    ng-click="edit('edit')">Confirm
                                             </button>
                                         </div>
                                         <div class="col-sm-6 noPadding" id="cancelEdit">
@@ -262,6 +264,7 @@
                                         <button type="submit" class="btn btn-block btn-default inputAreaHeight">
                                         <span class="glyphicon glyphicon-cloud-upload" id="uploadIcon">
                                             </span>
+                                            Submit
                                         </button>
                                     </div>
                                 </div>
@@ -270,8 +273,10 @@
                     </div>
                     <div class="col-sm-8" id="entryMap">
                         <div class="row" id="markerButtons">
-                            <div class="btn btn-default"><span ng-click="deleteAllMarker()">Delete All</span></div>
-                            <div class="btn btn-default"><span ng-click="deleteLastMarker()">Delete Last</span></div>
+                            <div class="btn btn-default lvl1-box-shadow"><span
+                                    ng-click="deleteAllMarker()">Delete All</span></div>
+                            <div class="btn btn-default lvl1-box-shadow"><span
+                                    ng-click="deleteLastMarker()">Delete Last</span></div>
                         </div>
                         <div class="well well-sm inputWellSize white lvl1-box-shadow" id="firstFloor">
                         </div>

@@ -37,7 +37,7 @@ a {
 }
 
 small {
-    font-size: 12px;
+    font-size: 1em;
 }
 
 .well {
@@ -50,7 +50,7 @@ small {
 }
 
 .entryNames {
-    font-size: 20px;
+    font-size: 1.5em;
 }
 
 .entryNames:hover {
@@ -144,7 +144,7 @@ small {
 }
 
 .standardFont {
-    font-size: 20px;
+    font-size: 1.5em;
 }
 
 #input-result-container {
@@ -187,7 +187,7 @@ small {
 }
 
 .inputOptionsBtns {
-    font-size: 20px;
+    font-size: 1.5em;
     border: none;
     border-radius: 0px;
     text-align: center;
@@ -225,8 +225,8 @@ textarea {
     border-radius: 0px !important;
 }
 
-.glyphicon {
-    font-size: 20px;
+.glyphicon-cloud-upload {
+    font-size: 2em;
 }
 
 #stdTypeDiv:hover {
@@ -304,4 +304,18 @@ textarea {
 
 #deleteIcon, #confirmDelText, #cancelDelText {
     color: red;
+}
+
+#markerButtons {
+    position: absolute;
+    margin: 30px 0px 0px 30px;
+}
+
+#markerButtons > div {
+    border-radius: 0px;
+    border: none;
+}
+
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
 }
