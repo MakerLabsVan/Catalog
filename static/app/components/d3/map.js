@@ -245,10 +245,10 @@ var marker = function (container) {
 
             for (i in this.markerCluster) {
                 var points = {
-                    'x': this.markerCluster[i].attr('x') + Number(this.markerCluster[i].attr('width')/2),
-                    'y': this.markerCluster[i].attr('y') + Number(this.markerCluster[i].attr('height'))
+                    'x': Number(this.markerCluster[i].attr('x')) + Number(this.markerCluster[i].attr('width'))/2,
+                    'y': Number(this.markerCluster[i].attr('y')) + Number(this.markerCluster[i].attr('height'))
                 };
-                arrayOfPoints.push(undoMapTrasnformCoords(width, points, isIsometric, floor));
+                arrayOfPoints.push(undoMapTransformCoords(width, points, isIsometric, floor));
             }
             return arrayOfPoints;
         }
@@ -295,7 +295,7 @@ var mapTransformStrings = function (width, floor, isIso) {
 }
 
 // Undo mapTransformCoords function
-var undoMapTrasnformCoords = function (width, oldCoords, isIso, floor) {
+var undoMapTransformCoords = function (width, oldCoords, isIso, floor) {
     var screenScale = getScreenFactor(width);
     var cosA = Math.cos(isoAngle * Math.PI / 180);
     var sinA = Math.sin(isoAngle * Math.PI / 180);
