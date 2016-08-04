@@ -345,6 +345,11 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         metaObj.pop();
         $scope.map.markers.deleteLast()
     };
+    $scope.changeFloor = function () {
+      $scope.map.nextFloor();
+      $scope.map.resize();
+      $scope.map.markers.deleteAll();
+    };
 
     $('#firstFloor').click(function () {
         metaObj = $scope.map.getMarkerLocation();

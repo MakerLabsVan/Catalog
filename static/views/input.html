@@ -271,13 +271,18 @@
                             </form>
                         </div>
                     </div>
+
                     <div class="col-sm-8" id="entryMap">
-                        <div class="row" id="markerButtons">
-                            <div class="btn btn-default lvl1-box-shadow"><span
-                                    ng-click="deleteAllMarker()">Delete All</span></div>
-                            <div class="btn btn-default lvl1-box-shadow"><span
-                                    ng-click="deleteLastMarker()">Delete Last</span></div>
-                        </div>
+                      <div class="row" id="markerButtons">
+                        <div class="container">
+                        <div class="col-sm-1 btn btn-default lvl1-box-shadow"><span
+                          ng-click="deleteAllMarker()">Delete All</span></div>
+                          <div class="col-sm-1 btn btn-default lvl1-box-shadow"><span
+                            ng-click="deleteLastMarker()">Delete Last</span></div>
+                              <div class="col-sm-2 col-sm-offset-5 btn btn-default lvl1-box-shadow"><span
+                                ng-click="changeFloor()">Change Floor</span></div>
+                              </div>
+                            </div>
                         <div class="well well-sm inputWellSize white lvl1-box-shadow" id="firstFloor">
                         </div>
                     </div>

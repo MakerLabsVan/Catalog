@@ -37,6 +37,15 @@ const secondFloorY = 790;
 var mapConstructor = function (containerID, floorNum) {
   //Current Floor
   this.currentFloor = floorNum,
+
+  this.nextFloor = function() {
+    if ( this.currentFloor === 1){
+      this.currentFloor = 2;
+    } else {
+      this.currentFloor = 1;
+    }
+  },
+
   //Container for the map svgs and images
   this.viewport = d3.select('#' + containerID)
     .append('svg')
@@ -74,7 +83,7 @@ var mapConstructor = function (containerID, floorNum) {
     this.studio.selectFloor( this.width(), floor);
   },
   this.swipe = function(){
-    d3.select(this.container)
+    d3.select(this.studio.Building)
     .on("drag", function(){
       alert('it works!');
     });
