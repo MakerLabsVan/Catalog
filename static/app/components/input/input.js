@@ -135,6 +135,8 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
                 'points': metaObj
             });
 
+            $scope.form.floor = $scope.map.currentFloor;
+
             // make array to pass in
             var values = [];
             for (var i in $scope.dataLabels) {
