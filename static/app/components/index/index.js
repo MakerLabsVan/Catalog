@@ -89,7 +89,6 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
         ga('send', 'event', 'Clicked an Entry', 'click', type);
     };
 
-
     $scope.categories = {
         'studio': 'Studios',
         'tools': 'Tools',
@@ -173,7 +172,6 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
     // display entry details when clicked
     $scope.showEntryDetails = function (entry) {
 
-        // TODO: change to var instead of $scope later
         $scope.selectedObject = entry;
 
         // initialize title
@@ -210,12 +208,11 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
         };
     };
 
-
-    $scope.lastItem = null;
+    var lastItem = null;
     //Highlight the studio given the name of the studio as a param
     $scope.showLoc = function (entry) {
-        removeLast($scope.lastItem);
-        $scope.lastItem = entry;
+        removeLast(lastItem);
+        lastItem = entry;
 
         if (entry.type == 'Studio') {
             $scope.map.studio.highlight(entry.key);

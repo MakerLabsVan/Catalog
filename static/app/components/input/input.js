@@ -1,5 +1,3 @@
-"use strict";
-
 var inputApp = angular.module('inputApp', ['indexApp']);
 
 inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightService", "adminHttpRequests", function ($scope, $http, mapService, highlightService, adminHttpRequests) {
@@ -30,6 +28,7 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         $scope.data.shift();
         $scope.data.shift();
         $scope.dataLength = data.length;
+        console.log($scope.dataLength);
 
         // removed 2 frozen rows
         var shiftedData = $scope.data;
@@ -74,6 +73,7 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
     $scope.sendCode = function () {
         adminHttpRequests.sendCode($scope.authCode).then(function (result) {
             $scope.authCode = '';
+            location.reload();
             console.log(result);
         })
     };
@@ -113,17 +113,27 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
 
     // make a new entry
     $scope.form = {};
+    $scope.form.units = 'Units';
+    $scope.form.weightUnits = 'Units';
 
     $scope.clearSearch = function () {
         $scope.inputQuery = '';
     };
 
-    $scope.insert = function (row) {
+    var metaObj = [];
+
+    $scope.insert = function (row, status) {
         // get type from radio buttons
         $scope.form.type = $("input[name=typeOptions]:checked").val();
         if ($scope.form.type == undefined || $scope.form.type == null) {
             alert("Type has not been set!");
         } else {
+            // parse metadata from $scope.metaObj
+
+
+            $scope.form.metadata = JSON.stringify({
+                'points': metaObj
+            });
 
             // make array to pass in
             var values = [];
@@ -131,19 +141,29 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
                 values.push($scope.form[$scope.dataLabels[i]]);
             }
 
-            // make key
-            values[values.length - 1] = 'A' + String($scope.dataLength + 1);
-            $scope.form.key = 'A' + String($scope.dataLength + 1);
+            // make key new or existing
+            if ($scope.form.key != undefined) {
+                values[values.length - 1] = $scope.form.key;
+            } else {
+                values[values.length - 1] = 'A' + String($scope.dataLength + 1);
+                $scope.form.key = 'A' + String($scope.dataLength + 1);
+            }
 
             adminHttpRequests.insert(values, row).then(function (result) {
                 console.log(result);
-                $scope.dataLength++;
+                if (status === 'new') {
+                    $scope.dataLength++;
+                }
+                console.log($scope.dataLength);
 
                 // populate local database with new entry
                 // also edits if entry exists
                 $scope.entries[$scope.form.key] = $scope.form;
 
                 $scope.form = {};
+                $scope.form.units = 'Units';
+                $scope.form.weightUnits = 'Units';
+                $scope.deleteAllMarker();
             });
         }
     };
@@ -160,7 +180,7 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
             }
             index++;
         }
-        console.log(index);
+        console.log("In findIndex:" + index);
         // old method that did not account for unorganized rows
         // var index = parseInt(keyString.slice(1, keyString.length)) - offset;
         return index;
@@ -177,11 +197,10 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
     };
 
     // edit an entry
-    $scope.edit = function () {
-        const negativeOffset = 1;
+    $scope.edit = function (status) {
         // find index of selected
-        var index = findIndex() - negativeOffset;
-        $scope.insert(index);
+        var index = findIndex();
+        $scope.insert(index, status);
     };
 
     $scope.confirmDelete = function () {
@@ -211,6 +230,8 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
 
             $scope.dataLength--;
             $scope.form = {};
+            $scope.form.units = 'Units';
+            $scope.form.weightUnits = 'Units';
         });
     };
 
@@ -260,6 +281,9 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
             }
         }
 
+
+        // parse string to json
+        $scope.form.metadata = JSON.parse(entry.metadata);
         var btnGroup = $('#buttonGroup');
 
         // inactive div
@@ -267,25 +291,31 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         // unchecked btn
         btnGroup.find('input[name=typeOptions]:checked').prop('checked', false);
         // active div
-
         switch (entry.type) {
             case 'Studio':
                 btnGroup.find('#stdTypeDiv').addClass('active');
+                $('input#radiostudio').prop('checked', true);
                 break;
             case 'Material':
                 btnGroup.find('#matTypeDiv').addClass('active');
+                $('input#radioMaterial').prop('checked', true);
                 break;
             case 'Tool':
                 btnGroup.find('#toolTypeDiv').addClass('active');
+                $('input#radioTool').prop('checked', true);
                 break;
             case 'Consumable':
                 btnGroup.find('#conTypeDiv').addClass('active');
+                $('input#radioConsumable').prop('checked', true);
+
         }
     };
 
 
     $scope.newForm = function () {
         $scope.form = {};
+        $scope.form.units = 'Units';
+        $scope.form.weightUnits = 'Units';
         $('#buttonGroup').find('.active').removeClass('active');
         $('#submitBtn').removeClass('hidden');
         $('#deleteBtn').addClass('hidden');
@@ -303,9 +333,24 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
     // highlight selected entry
     $scope.highlightItem = highlightService.highlight;
 
-    // map functions
-    $scope.firstMap = mapService.initMap('firstFloor', 1);
-    $scope.secondMap = mapService.initMap('secondFloor', 2);
+    $scope.map = mapService.initMap('firstFloor', 1);
+    $scope.map.resize();
+    $scope.map.markers.onClick();
+    $scope.deleteAllMarker = function () {
+        metaObj = [];
+        $scope.map.markers.deleteAll();
+
+    };
+    $scope.deleteLastMarker = function () {
+        metaObj.pop();
+        $scope.map.markers.deleteLast()
+    };
+
+    $('#firstFloor').click(function () {
+        metaObj = $scope.map.getMarkerLocation();
+        console.log(metaObj);
+    });
+
 
 }]);
 

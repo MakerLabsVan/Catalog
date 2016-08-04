@@ -1,4 +1,4 @@
-var app = angular.module('d3mapping', [])
+var app = angular.module('d3mapping', []);
 
 //Controller inherits index.js scope
 app.controller('mapController', ['$scope', '$window', '$location', function ($scope, $window, $location) {
@@ -13,13 +13,19 @@ app.controller('mapController', ['$scope', '$window', '$location', function ($sc
             return decodeURIComponent(pair[1]);
         }
     }
-  }
+  };
 
   $scope.$watch('entries',function( entries ){
     for ( i in entries ){
       if ( entries[i].type =='Studio' ){
         if ( entries[i].metadata ){
-          $scope.map.studio.draw( JSON.parse( entries[i].metadata), entries[i].key)
+          var payload = {
+            'metadata': JSON.parse( entries[i].metadata),
+            'subtype': entries[i].subtype,
+            'floor': entries[i].floor,
+            'id': entries[i].key
+          };
+          $scope.map.studio.draw( payload );
         }
       }
     }
@@ -31,8 +37,9 @@ app.controller('mapController', ['$scope', '$window', '$location', function ($sc
     });
 
     // $scope.map.markers.onClick();
+    $scope.map.swipe();
 
-  })
+  });
 
   //Resize map objects on window resize
   angular.element($window).bind('resize', function () {
@@ -40,4 +47,4 @@ app.controller('mapController', ['$scope', '$window', '$location', function ($sc
     // manuall $digest required as resize event is outside of angular
     $scope.$digest();
   })
-}])
+}]);
