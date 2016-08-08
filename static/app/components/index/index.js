@@ -65,7 +65,6 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
         $scope.consumableEntries = {};
 
         for (var key in $scope.entries) {
-            // why doesn't entries.key work here
             switch ($scope.entries[key].type) {
                 case 'Studio':
                     $scope.studioEntries[key] = $scope.entries[key];
