@@ -2,9 +2,9 @@
     angular.module('public')
         .controller('MainController', MainController);
 
-    MainController.$inject = ['$interval', 'retriever'];
+    MainController.$inject = ['$interval', 'dataService'];
 
-    function MainController($interval, retriever) {
+    function MainController($interval, dataService) {
         // class refresh
         var checkIdle = checkIdle;
         var resetCheck = resetCheck;
@@ -16,7 +16,8 @@
         activate();
 
         function activate() {
-            retriever.get().then(function (data) {
+            dataService.get().then(function (data) {
+                console.log(data);
                 vm.data = data;
                 return vm.data;
             })

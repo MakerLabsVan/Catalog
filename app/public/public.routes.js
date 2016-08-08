@@ -10,8 +10,11 @@ module.exports = function (router, path) {
     });
 
     router.get("/publicGet", function (req, res) {
-        publicGAPI.PubGetData(function (data) {
+        publicGAPI.PubGetData(callback);
+
+        function callback(data) {
             return res.json(data);
-        })
+        }
+
     })
 };
