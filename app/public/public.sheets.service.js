@@ -1,3 +1,5 @@
+// TODO: rename into get.service.js or sheets.get.service.js
+
 (function () {
     angular.module("public")
         .factory("retriever", retriever);

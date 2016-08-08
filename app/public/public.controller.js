@@ -5,6 +5,7 @@
     MainController.$inject = ['$interval', 'retriever'];
 
     function MainController($interval, retriever) {
+        // class refresh
         var checkIdle = checkIdle;
         var resetCheck = resetCheck;
         const refreshTime = 300000;
@@ -15,13 +16,13 @@
         activate();
 
         function activate() {
-            // why return
-            return retriever.get().then(function (data) {
+            retriever.get().then(function (data) {
                 vm.data = data;
                 return vm.data;
             })
         }
 
+        // decl. refresh
         // start interval promise
         checkIdle = $interval(function () {
             location.reload();
