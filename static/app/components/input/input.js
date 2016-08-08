@@ -174,7 +174,7 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         // find index of selected
         var keyString = $scope.selectedEntry.key;
         // offset to account for frozen rows and the parse function in serverOps
-        var index = 5;
+        var index = 4;
         // search for key and count rows
         for (var i in $scope.entries) {
             if (i === keyString) {
