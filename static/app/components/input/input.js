@@ -135,6 +135,8 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
                 'points': metaObj
             });
 
+            $scope.form.floor = $scope.map.currentFloor;
+
             // make array to pass in
             var values = [];
             for (var i in $scope.dataLabels) {
@@ -344,6 +346,11 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
     $scope.deleteLastMarker = function () {
         metaObj.pop();
         $scope.map.markers.deleteLast()
+    };
+    $scope.changeFloor = function () {
+      $scope.map.nextFloor();
+      $scope.map.resize();
+      $scope.map.markers.deleteAll();
     };
 
     $('#firstFloor').click(function () {

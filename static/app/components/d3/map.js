@@ -37,6 +37,15 @@ const secondFloorY = 790;
 var mapConstructor = function (containerID, floorNum) {
   //Current Floor
   this.currentFloor = floorNum,
+
+  this.nextFloor = function() {
+    if ( this.currentFloor === 1){
+      this.currentFloor = 2;
+    } else {
+      this.currentFloor = 1;
+    }
+  },
+
   //Container for the map svgs and images
   this.viewport = d3.select('#' + containerID)
     .append('svg')
@@ -74,7 +83,7 @@ var mapConstructor = function (containerID, floorNum) {
     this.studio.selectFloor( this.width(), floor);
   },
   this.swipe = function(){
-    d3.select(this.container)
+    d3.select(this.studio.Building)
     .on("drag", function(){
       alert('it works!');
     });
@@ -126,6 +135,7 @@ var studio = function(container, map, isIsometric) {
   *  @param {string} payload.subtype, adds class for css styling
   **/
   this.draw = function ( payload ) {
+    if ((Number(payload.floor) - 1) < 0 ){return}
     this.floor[ Number(payload.floor) - 1 ]
       .append('g')
       .attr('id', payload.id)
@@ -244,10 +254,10 @@ var marker = function (container) {
 
             for (i in this.markerCluster) {
                 var points = {
-                    'x': this.markerCluster[i].attr('x') + Number(this.markerCluster[i].attr('width')/2),
-                    'y': this.markerCluster[i].attr('y') + Number(this.markerCluster[i].attr('height'))
+                    'x': Number(this.markerCluster[i].attr('x')) + Number(this.markerCluster[i].attr('width'))/2,
+                    'y': Number(this.markerCluster[i].attr('y')) + Number(this.markerCluster[i].attr('height'))
                 };
-                arrayOfPoints.push(undoMapTrasnformCoords(width, points, isIsometric, floor));
+                arrayOfPoints.push(undoMapTransformCoords(width, points, isIsometric, floor));
             }
             return arrayOfPoints;
         }
@@ -256,10 +266,11 @@ var marker = function (container) {
 
 var showMarkerOnClick = function (markerCluster) {
     d3.select('.isoMap').on('click', function () {
-        var xPos = d3.mouse(d3.select('.studioGroup').node())[0];
-        var yPos = d3.mouse(d3.select('.studioGroup').node())[1];
+        var studioGroup =d3.select('.studioGroup');
+        var xPos = d3.mouse(studioGroup.node())[0];
+        var yPos = d3.mouse(studioGroup.node())[1];
 
-        var marker = addMarker(d3.select('.studioGroup'));
+        var marker = addMarker(studioGroup);
 
         marker
             .attr('x', xPos - Number(marker.attr('width') / 2))
@@ -293,7 +304,7 @@ var mapTransformStrings = function (width, floor, isIso) {
 }
 
 // Undo mapTransformCoords function
-var undoMapTrasnformCoords = function (width, oldCoords, isIso, floor) {
+var undoMapTransformCoords = function (width, oldCoords, isIso, floor) {
     var screenScale = getScreenFactor(width);
     var cosA = Math.cos(isoAngle * Math.PI / 180);
     var sinA = Math.sin(isoAngle * Math.PI / 180);
@@ -385,7 +396,7 @@ var addMarker = function (container) {
     return container
         .append('svg:image')
         .attr('xlink:href', '/assets/marker.svg')
-        .attr('width', 50)
-        .attr('height', 50)
+        .attr('width', 40)
+        .attr('height', 40)
         .classed('marker', true);
 };

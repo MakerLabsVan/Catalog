@@ -237,6 +237,11 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
         $scope.sendClickAnalytic(entry.type);
     };
 
+    $scope.changeFloor = function () {
+      $scope.map.nextFloor();
+      $scope.map.resize();
+    };
+
 }]);
 
 // promise services for http requests
