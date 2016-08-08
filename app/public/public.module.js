@@ -1,3 +1,3 @@
 (function () {
-    angular.module('public', []);
+    angular.module('app', []);
 })();

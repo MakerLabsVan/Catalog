@@ -1,10 +1,10 @@
 (function () {
-    angular.module('public')
-        .controller('MainController', MainController);
+    angular.module('app')
+        .controller('publicController', publicController);
 
-    MainController.$inject = ['$interval', 'dataService'];
+    publicController.$inject = ['$interval', 'dataService'];
 
-    function MainController($interval, dataService) {
+    function publicController($interval, dataService) {
         // class refresh
         var checkIdle = checkIdle;
         var resetCheck = resetCheck;
@@ -23,6 +23,7 @@
             })
         }
 
+        // TODO: move to refresh.service.js
         // decl. refresh
         // start interval promise
         checkIdle = $interval(function () {
