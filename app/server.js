@@ -11,6 +11,7 @@ app.use(express.static(path + "/vendor"));
 app.use(express.static(path + "/public"));
 app.use(express.static(path + "/services"));
 app.use(express.static(path + "/img"));
+app.use(express.static(path + "/app.module.js"));
 app.use("/", router);
 
 app.listen(PORT || 3000, function () {
