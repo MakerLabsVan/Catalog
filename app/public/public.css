@@ -1,0 +1,85 @@
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+body {
+    overflow: hidden;
+}
+
+.panel-title {
+    font-size: 20px;
+}
+
+.cursor:hover {
+    cursor: pointer;
+}
+
+.page-header {
+    margin: 0px 0px 0px 0px;
+}
+
+.panel-body {
+    height: 60vh;
+}
+
+.navbar {
+    background: white;
+}
+
+.navbar-brand {
+    padding: 0px 0px 0px 0px;
+}
+
+#logo {
+    height: 100%;
+}
+
+#map, #details, #list {
+    height: 86vh;
+}
+
+#list {
+    padding: 0;
+}
+
+.red {
+    background-color: #F14A29 !important;
+}
+
+.lightRed {
+    background-color: #f15f35 !important;
+}
+
+.blue {
+    background-color: #107CC2 !important;
+}
+
+.lightBlue {
+    background-color: #71A0C2 !important;
+}
+
+.orange {
+    background-color: #F3902C !important;
+}
+
+.lightOrange {
+    background-color: #F3B681 !important;
+}
+
+.green {
+    background-color: #2BAC69 !important;
+}
+
+.lightGreen {
+    background-color: #6DAC8D !important;
+}
+
+.white {
+    background-color: white !important;
+}
+
+.whiteFont {
+    color: white !important;
+}
+
+
