@@ -10,6 +10,10 @@
         // http://codetunnel.io/angularjs-controller-as-or-scope/
         var vm = this;
         vm.data = {};
+        vm.details = {};
+        vm.title = "MakerLabs";
+
+        vm.filter = filter;
         vm.sendMetric = analytics();
         vm.select = select;
 
@@ -18,6 +22,7 @@
         //////////////////////////////////////////////
         function activate() {
             dataService.get().then(function (data) {
+                // TODO: separate data into its own bindable objects
                 console.log(data);
                 vm.data = data;
                 return vm.data;
@@ -25,7 +30,19 @@
         }
 
         function select(key) {
-            console.log("Selected " + key);
+            console.log(vm.data.all[key]);
+            var entry = vm.data.all[key];
+            vm.title = entry.name;
+            vm.details = entry;
+        }
+
+        function filter(attr, value) {
+            return !(attr === 'locx' ||
+            attr === 'locy' ||
+            attr === 'floor' ||
+            attr === 'metadata' ||
+            attr === 'key' ||
+            value === '');
         }
 
         // TODO: move to refresh.service.js

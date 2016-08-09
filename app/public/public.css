@@ -3,16 +3,26 @@
    ========================================================================== */
 
 body {
-    height: 100vh;
+    overflow: hidden;
+    height: 100%;
 }
 
 footer {
     position: absolute;
     bottom: 0px;
+    right: 5px;
 }
 
 h2 {
     margin: 0;
+}
+
+#footer-row {
+    height: 5vh;
+}
+
+#info-row {
+    height: 90vh;
 }
 
 .panel-title {
@@ -28,7 +38,7 @@ h2 {
 }
 
 .panel-body {
-    height: 50vh;
+    height: 60vh;
     overflow-y: scroll;
 }
 

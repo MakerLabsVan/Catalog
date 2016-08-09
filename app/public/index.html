@@ -122,11 +122,14 @@
                 </div>
             </div>
             <div class="col-md-3" id="details">
-                <h2 id="entry-title">Entry</h2>
-                <div>
-                    <p>
-                        lorem ipsum
-                    </p>
+                <h2 id="entry-title" ng-model="title" ng-bind="public.title"></h2>
+                <div ng-repeat="value in public.details track by $index">
+                    <div ng-if="public.filter(public.data.minimized[$index], value)">
+                        <div ng-bind="public.data.display[$index]">
+                        </div>
+                        <div ng-bind="value">
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-md-7" id="map">
@@ -134,9 +137,11 @@
             </div>
         </div>
     </div>
-    <footer>
-        <p>&copy; MakerLabs 2016</p>
-    </footer>
+    <div class="row" id="footer-row">
+        <footer>
+            <p>&copy; MakerLabs 2016</p>
+        </footer>
+    </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
