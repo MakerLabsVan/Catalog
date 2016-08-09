@@ -133,13 +133,10 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         } else {
             // parse metadata from $scope.metaObj
 
-            if (status === 'new') {
-                $scope.form.metadata = JSON.stringify({
-                    'points': metaObj
-                });
-            } else {
-
-            }
+            console.log(metaObj);
+            $scope.form.metadata = JSON.stringify({
+                'points': metaObj
+            });
 
             $scope.form.floor = $scope.map.currentFloor;
 
@@ -154,7 +151,6 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
                 values[values.length - 1] = $scope.form.key;
             } else {
                 // KEYGEN (takes last key for new keygen (can cause gaps)
-                console.log($scope.forKeyUseOnly);
                 var tempkey = $scope.forKeyUseOnly[$scope.fixedForKey - 1][21];
                 console.log(tempkey);
                 var slice = tempkey.slice(1, tempkey.length);
@@ -277,6 +273,8 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
     };
 
     $scope.selectEntry = function (entry) {
+        $scope.showLoc(entry);
+
         $scope.selectedEntry = entry;
         $scope.newSelect();
         $scope.changeSendBtnColor(entry.type);
@@ -299,10 +297,9 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
             }
         }
 
-
         // parse string to json
-        console.log(entry.metadata);
         $scope.form.metadata["points"] = entry.metadata["points"];
+        console.log("from select:" + $scope.form.metadata);
         var btnGroup = $('#buttonGroup');
 
         // inactive div
@@ -374,6 +371,31 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         metaObj = $scope.map.getMarkerLocation();
         console.log(metaObj);
     });
+
+
+    var lastItem = null;
+    //Highlight the studio given the name of the studio as a param
+    $scope.showLoc = function (entry) {
+        console.log(entry);
+        console.log(entry.metadata);
+        removeLast(lastItem);
+        lastItem = entry;
+
+        if (entry.type == 'Studio') {
+            $scope.map.studio.highlight(entry.key);
+        } else {
+            $scope.map.markers.draw($scope.map.width(), JSON.parse(entry.metadata));
+            //TODO:MARKER DISPLAY
+        }
+        $scope.map.selectFloor(Number(entry.floor));
+    };
+
+    var removeLast = function (lastItem) {
+        $scope.map.markers.hide();
+        if (lastItem != undefined) {
+            $scope.map.studio.dehighlight(lastItem.key);
+        }
+    };
 
 
 }]);
