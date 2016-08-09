@@ -49,7 +49,7 @@ module.exports = function (router, path, serverOps, public_serverOps, s3Ops) {
 
     router.get("/S3uri/:id", function (req, res) {
         var id = req.params.id;
-        s3Ops.getS3URI("Studio/" + id, function (error, resp) {
+        s3Ops.getS3URI(id, function (error, resp) {
             if (error) {
                 throw error;
             }
@@ -59,4 +59,16 @@ module.exports = function (router, path, serverOps, public_serverOps, s3Ops) {
         res.send(id);
         console.log(id);
     });
+
+    router.get("/buckets", function (req, res) {
+        s3Ops.listBucket(function (err, data) {
+            if (err) {
+                console.log(err);
+                return res.json(err);
+            } else {
+                console.log(data);
+                return res.json(data);
+            }
+        })
+    })
 };

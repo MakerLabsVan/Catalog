@@ -291,7 +291,9 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
                 i === 'height' ||
                 i === 'quantity' ||
                 i === 'weight') {
-                $scope.form[i] = Number(entry[i]);
+                if (i != undefined) {
+                    $scope.form[i] = Number(entry[i]);
+                }
             } else {
                 $scope.form[i] = entry[i];
             }
@@ -332,6 +334,7 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         $scope.form = {};
         $scope.form.units = 'Units';
         $scope.form.weightUnits = 'Units';
+        $scope.deleteAllMarker();
         $('#buttonGroup').find('.active').removeClass('active');
         $('#submitBtn').removeClass('hidden');
         $('#deleteBtn').addClass('hidden');
