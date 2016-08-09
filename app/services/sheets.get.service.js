@@ -1,5 +1,3 @@
-// TODO: rename into get.service.js or sheets.get.service.js
-
 (function () {
     'use strict';
 

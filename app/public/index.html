@@ -21,24 +21,18 @@
     <link rel="stylesheet" href="public.css">
 
 </head>
-<body>
+<body ng-app="app">
 <!--[if lt IE 8]>
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
 <![endif]-->
-<nav class="navbar navbar-default navbar-static-top" role="navigation">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <span class="navbar-brand">
-                <img src="makerlabsbanner.png" alt="MakerLabs Logo" id="logo">
-            </span>
-        </div>
-    </div>
-</nav>
 
-<div class="container-fluid" ng-app="app">
+<div class="container-fluid">
     <div ng-controller="publicController as public">
-        <div class="row">
+        <div class="row" id="nav-row">
+            <img src="makerlabsbanner.png" alt="MakerLabs Logo" id="logo">
+        </div>
+        <div class="row" id="info-row">
             <div class="col-md-2" id="list">
                 <!-- search bar -->
                 <div class="form-group">
@@ -48,10 +42,11 @@
                     </div>
                 </div>
                 <!-- accordion group -->
+                <!-- TODO: Change Id's for collapsible panels -->
                 <div class="panel-group" id="accordion">
-                    <div class="panel panel-default cursor" data-toggle="collapse" data-parent="#accordion"
-                         href="#collapse0">
-                        <div class="panel-heading">
+                    <div class="panel panel-default">
+                        <div class="panel-heading cursor" data-toggle="collapse" data-parent="#accordion"
+                             href="#collapse0">
                             <h4 class="panel-title">
                                 <span>Search Results</span>
                             </h4>
@@ -64,33 +59,33 @@
                             </div>
                         </div>
                     </div>
-                    <div class="panel panel-default cursor" data-toggle="collapse" data-parent="#accordion"
-                         href="#collapse1">
-                        <div class="panel-heading red">
+                    <div class="panel panel-default">
+                        <div class="panel-heading red cursor" data-toggle="collapse" data-parent="#accordion"
+                             href="#collapse1">
                             <h4 class="panel-title whiteFont">
                                 <span>Studio</span>
                             </h4>
                         </div>
                         <div id="collapse1" class="panel-collapse collapse">
-                            <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                commodo consequat.
+                            <div class="panel-body">
+                                <div ng-repeat="studio in public.data.studios">
+                                    <p ng-bind="studio.name" ng-click="public.select(studio.key)"></p>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="panel panel-default">
-                        <div class="panel-heading cursor blue" data-toggle="collapse" data-parent="#accordion"
+                        <div class="panel-heading blue cursor" data-toggle="collapse" data-parent="#accordion"
                              href="#collapse2">
                             <h4 class="panel-title whiteFont">
                                 <span>Tools</span>
                             </h4>
                         </div>
                         <div id="collapse2" class="panel-collapse collapse">
-                            <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                commodo consequat.
+                            <div class="panel-body">
+                                <div ng-repeat="tool in public.data.tools">
+                                    <p ng-bind="tool.name"></p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -102,10 +97,10 @@
                             </h4>
                         </div>
                         <div id="collapse3" class="panel-collapse collapse">
-                            <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                commodo consequat.
+                            <div class="panel-body">
+                                <div ng-repeat="consumable in public.data.consumables">
+                                    <p ng-bind="consumable.name"></p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -117,21 +112,17 @@
                             </h4>
                         </div>
                         <div id="collapse4" class="panel-collapse collapse">
-                            <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                commodo consequat.
+                            <div class="panel-body">
+                                <div ng-repeat="material in public.data.materials">
+                                    <p ng-bind="material.name"></p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-3" id="details">
-                <div class="page-header">
-                    <h1>Entry
-                        <small>Type</small>
-                    </h1>
-                </div>
+                <h2 id="entry-title">Entry</h2>
                 <div>
                     <p>
                         lorem ipsum
@@ -142,12 +133,10 @@
                 <h2>Map</h2>
             </div>
         </div>
-        <hr>
-        <footer>
-            <p>&copy; MakerLabs 2016</p>
-        </footer>
-
     </div>
+    <footer>
+        <p>&copy; MakerLabs 2016</p>
+    </footer>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
@@ -161,6 +150,8 @@
 <script src="public.module.js"></script>
 <script src="public.controller.js"></script>
 <script src="sheets.get.service.js"></script>
+<script src="refresh.service.js"></script>
+<script src="analytics.service.js"></script>
 
 </body>
 </html>

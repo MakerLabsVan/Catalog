@@ -1,5 +1,5 @@
 var path = __dirname;
-var PORT = process.env.PORT || 3000;
+var PORT = process.env.PORT || 4000;
 var express = require("express");
 var app = express();
 var router = express.Router();
@@ -14,6 +14,6 @@ app.use(express.static(path + "/img"));
 app.use(express.static(path + "/app.module.js"));
 app.use("/", router);
 
-app.listen(PORT || 3000, function () {
+app.listen(PORT || 4000, function () {
     console.log(path);
 });
