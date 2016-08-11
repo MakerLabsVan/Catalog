@@ -33,7 +33,7 @@
                     <div class="container-fluid">
                         <div ng-repeat="entry in entries">
                             <div class="entryNames listMargins" ng-bind="filterSearch(entry)" id="admin_{{ entry.key }}"
-                                 ng-click="showLoc(entry.key);selectEntry(entry)">
+                                 ng-click="selectEntry(entry)">
                             </div>
                         </div>
                     </div>

@@ -28,10 +28,12 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         $scope.data.shift();
         $scope.data.shift();
         $scope.dataLength = data.length;
+        $scope.fixedForKey = data.length;
         console.log($scope.dataLength);
 
         // removed 2 frozen rows
         var shiftedData = $scope.data;
+        $scope.forKeyUseOnly = shiftedData;
 
         // object entries
         $scope.entries = {};
@@ -67,6 +69,7 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
                     $scope.consumableEntries[key] = $scope.entries[key];
             }
         }
+        console.log($scope.entries);
     });
 
     $scope.authCode = '';
@@ -130,7 +133,7 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         } else {
             // parse metadata from $scope.metaObj
 
-
+            console.log(metaObj);
             $scope.form.metadata = JSON.stringify({
                 'points': metaObj
             });
@@ -147,16 +150,25 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
             if ($scope.form.key != undefined) {
                 values[values.length - 1] = $scope.form.key;
             } else {
-                values[values.length - 1] = 'A' + String($scope.dataLength + 1);
-                $scope.form.key = 'A' + String($scope.dataLength + 1);
+                // KEYGEN (takes last key for new keygen (can cause gaps)
+                var tempkey = $scope.forKeyUseOnly[$scope.fixedForKey - 1][21];
+                console.log(tempkey);
+                var slice = tempkey.slice(1, tempkey.length);
+                // TODO: change A to increment
+                var newKey = 'A' + (Number(slice) + 1);
+
+                values[values.length - 1] = String(newKey);
+                $scope.form.key = String(newKey);
             }
 
             adminHttpRequests.insert(values, row).then(function (result) {
                 console.log(result);
                 if (status === 'new') {
                     $scope.dataLength++;
+                    $scope.fixedForKey++;
+                    $scope.forKeyUseOnly.push(values);
                 }
-                console.log($scope.dataLength);
+                console.log('Fixed' + $scope.fixedForKey);
 
                 // populate local database with new entry
                 // also edits if entry exists
@@ -174,7 +186,7 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         // find index of selected
         var keyString = $scope.selectedEntry.key;
         // offset to account for frozen rows and the parse function in serverOps
-        var index = 4;
+        var index = 0;
         // search for key and count rows
         for (var i in $scope.entries) {
             if (i === keyString) {
@@ -261,6 +273,8 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
     };
 
     $scope.selectEntry = function (entry) {
+        $scope.showLoc(entry);
+
         $scope.selectedEntry = entry;
         $scope.newSelect();
         $scope.changeSendBtnColor(entry.type);
@@ -277,15 +291,17 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
                 i === 'height' ||
                 i === 'quantity' ||
                 i === 'weight') {
-                $scope.form[i] = Number(entry[i]);
+                if (i != undefined) {
+                    $scope.form[i] = Number(entry[i]);
+                }
             } else {
                 $scope.form[i] = entry[i];
             }
         }
 
-
         // parse string to json
-        $scope.form.metadata = JSON.parse(entry.metadata);
+        $scope.form.metadata["points"] = entry.metadata["points"];
+        console.log("from select:" + $scope.form.metadata);
         var btnGroup = $('#buttonGroup');
 
         // inactive div
@@ -318,6 +334,7 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         $scope.form = {};
         $scope.form.units = 'Units';
         $scope.form.weightUnits = 'Units';
+        $scope.deleteAllMarker();
         $('#buttonGroup').find('.active').removeClass('active');
         $('#submitBtn').removeClass('hidden');
         $('#deleteBtn').addClass('hidden');
@@ -348,15 +365,40 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         $scope.map.markers.deleteLast()
     };
     $scope.changeFloor = function () {
-      $scope.map.nextFloor();
-      $scope.map.resize();
-      $scope.map.markers.deleteAll();
+        $scope.map.nextFloor();
+        $scope.map.resize();
+        $scope.map.markers.deleteAll();
     };
 
     $('#firstFloor').click(function () {
         metaObj = $scope.map.getMarkerLocation();
         console.log(metaObj);
     });
+
+
+    var lastItem = null;
+    //Highlight the studio given the name of the studio as a param
+    $scope.showLoc = function (entry) {
+        console.log(entry);
+        console.log(entry.metadata);
+        removeLast(lastItem);
+        lastItem = entry;
+
+        if (entry.type == 'Studio') {
+            $scope.map.studio.highlight(entry.key);
+        } else {
+            $scope.map.markers.draw($scope.map.width(), JSON.parse(entry.metadata));
+            //TODO:MARKER DISPLAY
+        }
+        $scope.map.selectFloor(Number(entry.floor));
+    };
+
+    var removeLast = function (lastItem) {
+        $scope.map.markers.hide();
+        if (lastItem != undefined) {
+            $scope.map.studio.dehighlight(lastItem.key);
+        }
+    };
 
 
 }]);

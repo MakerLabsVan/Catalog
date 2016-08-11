@@ -238,8 +238,8 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
     };
 
     $scope.changeFloor = function () {
-      $scope.map.nextFloor();
-      $scope.map.resize();
+        $scope.map.nextFloor();
+        $scope.map.resize();
     };
 
 }]);
