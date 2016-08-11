@@ -173,6 +173,7 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
             .then(function (url) {
                 $("#entryImg").attr("src", url).on("error", function () {
                     console.log("Missing");
+                    $("#entryImg").attr("src", "/assets/makerlabs100.png");
                 });
             });
     };
