@@ -69,12 +69,40 @@ small {
     background-color: #F14A29 !important;
 }
 
+.redScroll {
+
+}
+
+.redScroll::-webkit-scrollbar {
+    width: 10px;
+    background-color: #fafafa;
+}
+
+.redScroll::-webkit-scrollbar-thumb {
+    background-color: #F14A29;
+    border-radius: 10px;
+}
+
 .lightRed {
     background-color: #f15f35 !important;
 }
 
 .blue {
     background-color: #107CC2 !important;
+}
+
+.blueScroll {
+
+}
+
+.blueScroll::-webkit-scrollbar {
+    width: 10px;
+    background-color: #fafafa;
+}
+
+.blueScroll::-webkit-scrollbar-thumb {
+    background-color: #107CC2;
+    border-radius: 10px;
 }
 
 .lightBlue {;
@@ -85,12 +113,40 @@ small {
     background-color: #F3902C !important;
 }
 
+.orangeScroll {
+
+}
+
+.orangeScroll::-webkit-scrollbar {
+    width: 10px;
+    background-color: #fafafa;
+}
+
+.orangeScroll::-webkit-scrollbar-thumb {
+    background-color: #F3902C;
+    border-radius: 10px;
+}
+
 .lightOrange {
     background-color: #F3B681 !important;
 }
 
 .green {
     background-color: #2BAC69 !important;
+}
+
+.greenScroll {
+
+}
+
+.greenScroll::-webkit-scrollbar {
+    width: 10px;
+    background-color: #fafafa;
+}
+
+.greenScroll::-webkit-scrollbar-thumb {
+    background-color: #2BAC69;
+    border-radius: 10px;
 }
 
 .lightGreen {
@@ -103,6 +159,25 @@ small {
 
 .whiteFont {
     color: white;
+}
+
+.greyScroll {
+
+}
+
+.greyScroll::-webkit-scrollbar {
+    width: 10px;
+    background-color: #fafafa;
+}
+
+.greyScroll::-webkit-scrollbar-thumb {
+    background-color: #444444;
+    border-radius: 10px;
+}
+
+.round {
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
 }
 
 .categoryMargins {
@@ -125,16 +200,6 @@ small {
     height: 60vh;
     overflow-y: scroll;
     margin-right: 20px;
-}
-
-.categoryContainer::-webkit-scrollbar {
-    width: 10px;
-    background-color: #fafafa;
-}
-
-.categoryContainer::-webkit-scrollbar-thumb {
-    background-color: #F14A29;
-    border-radius: 10px;
 }
 
 #entryTitle {

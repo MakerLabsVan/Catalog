@@ -34,9 +34,9 @@
       </span>
                             </div>
                             <br>
-                            <div class="hidden" id="searchSection">
+                            <div class="hidden greyScroll" id="searchSection">
                                 <div ng-repeat="entry in entries">
-                                    <div class="entryNames" ng-click="onSelect(entry,'query')"
+                                    <div class="entryNames round" ng-click="onSelect(entry,'query')"
                                          ng-bind="filterSearch(entry)" id="query_{{entry.key}}">
                                     </div>
                                 </div>
@@ -53,10 +53,10 @@
                             </h4>
                         </div>
                         <div id="collapse1" class="panel-collapse collapse categoryMargins" data-parent="#accordion">
-                            <div class="panel-body categoryContainer">
+                            <div class="panel-body categoryContainer redScroll">
                                 <!-- studio data -->
                                 <div ng-repeat="entry in studioEntries">
-                                    <div class="entryNames listMargins"
+                                    <div class="entryNames round listMargins"
                                          ng-click="onSelect(entry,'studio')"
                                          id="studio_{{ entry.key }}" ng-bind="entry.name">
                                     </div>
@@ -73,10 +73,11 @@
                             </h4>
                         </div>
                         <div id="collapse2" class="panel-collapse collapse categoryMargins" data-parent="#accordion">
-                            <div class="panel-body categoryContainer">
+                            <div class="panel-body categoryContainer blueScroll">
                                 <div ng-repeat="entry in toolEntries">
                                     <div ng-click="onSelect(entry,'tool')"
-                                         class="entryNames listMargins" id="tool_{{ entry.key }}" ng-bind="entry.name">
+                                         class="entryNames round listMargins" id="tool_{{ entry.key }}"
+                                         ng-bind="entry.name">
                                     </div>
                                 </div>
                             </div>
@@ -91,10 +92,11 @@
                             </h4>
                         </div>
                         <div id="collapse3" class="panel-collapse collapse categoryMargins" data-parent="#accordion">
-                            <div class="panel-body categoryContainer">
+                            <div class="panel-body categoryContainer greenScroll">
                                 <div ng-repeat="entry in consumableEntries">
                                     <div ng-click="onSelect(entry,'cons')"
-                                         class="entryNames listMargins" id="cons_{{ entry.key }}" ng-bind="entry.name">
+                                         class="entryNames round listMargins" id="cons_{{ entry.key }}"
+                                         ng-bind="entry.name">
                                     </div>
                                 </div>
                             </div>
@@ -109,10 +111,10 @@
                             </h4>
                         </div>
                         <div id="collapse4" class="panel-collapse collapse categoryMargins" data-parent="#accordion">
-                            <div class="panel-body categoryContainer" id="ct-index-panel-body">
+                            <div class="panel-body categoryContainer orangeScroll" id="ct-index-panel-body">
                                 <div ng-repeat="entry in materialEntries">
                                     <div ng-click="onSelect(entry,'material')"
-                                         class="entryNames listMargins" id="material_{{ entry.key }}"
+                                         class="entryNames round listMargins" id="material_{{ entry.key }}"
                                          ng-bind="entry.name">
                                     </div>
                                 </div>
