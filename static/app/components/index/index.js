@@ -79,7 +79,7 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
                     $scope.consumableEntries[key] = $scope.entries[key];
             }
         }
-        // but entries.key works here
+        console.log($scope.entries);
 
     });
     // GET END
@@ -168,8 +168,23 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
     $scope.panelTitleName = 'MakerLabs Catalog System';
     $scope.panelTitleType = '';
 
+    var getImage = function (type, image) {
+        httpRequests.getImage(type + '/' + image)
+            .then(function (url) {
+                $("#entryImg").attr("src", url).on("error", function () {
+                    console.log("Missing");
+                });
+            });
+    };
+
     // display entry details when clicked
     $scope.showEntryDetails = function (entry) {
+
+        // reset
+        $("#entryImg").attr("src", "/assets/makerlabs100.png");
+
+        // get image
+        getImage(entry.type, entry.image);
 
         $scope.selectedObject = entry;
 
@@ -254,6 +269,12 @@ indexApp.factory('httpRequests', function ($http) {
                 .then(function (result) {
                     // return the data
                     return result.data;
+                })
+        },
+        getImage: function (key) {
+            return $http.post('object', [key])
+                .then(function (url) {
+                    return String(url.data);
                 })
         }
     }

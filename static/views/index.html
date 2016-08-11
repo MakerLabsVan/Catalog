@@ -18,7 +18,7 @@
 <div ng-app="indexApp">
     <div class="container-fluid view-color" ng-controller="indexCtrl">
         <div class="row">
-            <div class="col-sm-2" id="accordion-container">
+            <div class="col-sm-2 lvl1-box-shadow" id="accordion-container">
                 <img class="centerImage" src="assets/makerlabs.png" alt="makerlablogo" id="index-logo">
                 <hr>
                 <!-- accordion start -->
@@ -68,7 +68,8 @@
                         <div class="panel-heading lvl1-box-shadow blue categoryMargins">
                             <h4 class="panel-title pointer">
                                 <div data-toggle="collapse" href="#collapse2"
-                                     class="whiteFont standardFont" ng-bind="categories.tools"></div>
+                                     class="whiteFont standardFont" ng-bind="categories.tools"
+                                     ng-click="forceShrinkSearch()"></div>
                             </h4>
                         </div>
                         <div id="collapse2" class="panel-collapse collapse categoryMargins" data-parent="#accordion">
@@ -85,7 +86,8 @@
                         <div class="panel-heading lvl1-box-shadow green categoryMargins">
                             <h4 class="panel-title pointer">
                                 <div data-toggle="collapse" href="#collapse3"
-                                     class="whiteFont standardFont" ng-bind="categories.cons"></div>
+                                     class="whiteFont standardFont" ng-bind="categories.cons"
+                                     ng-click="forceShrinkSearch()"></div>
                             </h4>
                         </div>
                         <div id="collapse3" class="panel-collapse collapse categoryMargins" data-parent="#accordion">
@@ -102,7 +104,8 @@
                         <div class="panel-heading lvl1-box-shadow orange categoryMargins">
                             <h4 class="panel-title pointer">
                                 <div data-toggle="collapse" href="#collapse4"
-                                     class="whiteFont standardFont" ng-bind="categories.mats"></div>
+                                     class="whiteFont standardFont" ng-bind="categories.mats"
+                                     ng-click="forceShrinkSearch()"></div>
                             </h4>
                         </div>
                         <div id="collapse4" class="panel-collapse collapse categoryMargins" data-parent="#accordion">
@@ -120,11 +123,6 @@
             </div>
             <div class="col-sm-10">
                 <div class="row">
-                    <div class="fixedTop">
-                        <!--top empty panel-->
-                    </div>
-                </div>
-                <div class="row">
                     <div class="col-sm-4 view-color">
                         <div class="panel panel-default lvl1-box-shadow" id="entryPanel">
                             <div class="panel-heading entryTitle white" id="indexPanelHeading">
@@ -139,14 +137,21 @@
                                 </div>
                             </div>
                             <div class="panel-body hidden white standardFont" id="entryDetails">
-                                <div class="col-sm-12" ng-repeat="prop in dataLabels track by $index">
-                                    <div class="row" ng-if="isEmpty(prop)" id="{{ selectedObject.key }}{{ prop }}">
-
-                                        <div class="col-sm-6" ng-bind="entryProperties[$index] + ':'">
+                                <div class="col-sm-12">
+                                    <div class="row" id="detailInfoRow">
+                                        <div class="row" ng-repeat="prop in dataLabels track by $index"
+                                             ng-if="isEmpty(prop)" id="{{ selectedObject.key }}{{ prop }}">
+                                            <div class="col-sm-6" ng-bind="entryProperties[$index] + ':'">
+                                            </div>
+                                            <div class="col-sm-6 alignEntryValues" ng-bind="selectedObject[prop]">
+                                            </div>
                                         </div>
-                                        <div class="col-sm-6 alignEntryValues" ng-bind="selectedObject[prop]">
+                                    </div>
+                                    <div class="row" id="detailImageRow">
+                                        <hr>
+                                        <div>
+                                            <img class="centerImage" src="" alt="" id="entryImg">
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -155,12 +160,13 @@
                     <div ng-controller="mapController">
                         <div class="col-sm-8" id="mapContainer">
 
-                          <div class="row" id="markerButtons">
-                            <div class="container">
-                                  <div class="col-sm-2 col-sm-offset-7 btn btn-default lvl1-box-shadow"
-                                    ng-click="changeFloor()">Change Floor</div>
-                                  </div>
+                            <div class="row" id="markerButtons">
+                                <div class="container">
+                                    <div class="col-sm-2 col-sm-offset-7 btn btn-default lvl1-box-shadow"
+                                         ng-click="changeFloor()">Change Floor
+                                    </div>
                                 </div>
+                            </div>
 
                             <div class="well well-lg lvl1-box-shadow" id="firstFloorWell">
                             </div>

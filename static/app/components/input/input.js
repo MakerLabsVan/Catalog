@@ -3,7 +3,6 @@ var inputApp = angular.module('inputApp', ['indexApp']);
 inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightService", "adminHttpRequests", function ($scope, $http, mapService, highlightService, adminHttpRequests) {
 
     adminHttpRequests.auth().then(function (code) {
-        console.log(code);
         $('#auth').attr('href', code);
     });
 
@@ -29,7 +28,6 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         $scope.data.shift();
         $scope.dataLength = data.length;
         $scope.fixedForKey = data.length;
-        console.log($scope.dataLength);
 
         // removed 2 frozen rows
         var shiftedData = $scope.data;
@@ -77,7 +75,6 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         adminHttpRequests.sendCode($scope.authCode).then(function (result) {
             $scope.authCode = '';
             location.reload();
-            console.log(result);
         })
     };
 
@@ -133,7 +130,6 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         } else {
             // parse metadata from $scope.metaObj
 
-            console.log(metaObj);
             $scope.form.metadata = JSON.stringify({
                 'points': metaObj
             });
@@ -152,7 +148,6 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
             } else {
                 // KEYGEN (takes last key for new keygen (can cause gaps)
                 var tempkey = $scope.forKeyUseOnly[$scope.fixedForKey - 1][21];
-                console.log(tempkey);
                 var slice = tempkey.slice(1, tempkey.length);
                 // TODO: change A to increment
                 var newKey = 'A' + (Number(slice) + 1);
@@ -162,13 +157,11 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
             }
 
             adminHttpRequests.insert(values, row).then(function (result) {
-                console.log(result);
                 if (status === 'new') {
                     $scope.dataLength++;
                     $scope.fixedForKey++;
                     $scope.forKeyUseOnly.push(values);
                 }
-                console.log('Fixed' + $scope.fixedForKey);
 
                 // populate local database with new entry
                 // also edits if entry exists
@@ -194,9 +187,6 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
             }
             index++;
         }
-        console.log("In findIndex:" + index);
-        // old method that did not account for unorganized rows
-        // var index = parseInt(keyString.slice(1, keyString.length)) - offset;
         return index;
     };
 
@@ -236,11 +226,9 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         var index = findIndex() + offset;
         adminHttpRequests.delete([index]).then(function (result) {
             $scope.newForm();
-            console.log(result);
 
             // delete local entry
             delete $scope.entries[$scope.selectedEntry.key];
-            console.log($scope.entries[$scope.selectedEntry.key]);
 
             $scope.dataLength--;
             $scope.form = {};
@@ -286,12 +274,13 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
 
         // fill form (convert string numbers to numbers)
         for (var i in entry) {
+            console.log(entry[i]);
             if (i === 'width' ||
                 i === 'length' ||
                 i === 'height' ||
                 i === 'quantity' ||
                 i === 'weight') {
-                if (i != undefined) {
+                if (entry[i] !== "") {
                     $scope.form[i] = Number(entry[i]);
                 }
             } else {
@@ -301,7 +290,6 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
 
         // parse string to json
         $scope.form.metadata["points"] = entry.metadata["points"];
-        console.log("from select:" + $scope.form.metadata);
         var btnGroup = $('#buttonGroup');
 
         // inactive div
@@ -372,15 +360,13 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
 
     $('#firstFloor').click(function () {
         metaObj = $scope.map.getMarkerLocation();
-        console.log(metaObj);
     });
 
 
     var lastItem = null;
     //Highlight the studio given the name of the studio as a param
     $scope.showLoc = function (entry) {
-        console.log(entry);
-        console.log(entry.metadata);
+
         removeLast(lastItem);
         lastItem = entry;
 
