@@ -4,25 +4,41 @@
 
 body {
     overflow: hidden;
-    height: 100%;
-}
-
-footer {
-    position: absolute;
-    bottom: 0px;
-    right: 5px;
+    height: 100vh;
 }
 
 h2 {
     margin: 0;
 }
 
-#footer-row {
-    height: 5vh;
+hr {
+    margin-top: 0px;
 }
 
 #info-row {
     height: 90vh;
+}
+
+.thin {
+    opacity: 0.5;
+}
+
+.attr-font {
+    font-size: 20px;
+    font-size: 2vmin;
+}
+
+.panel-heading {
+    height: 40px;
+}
+
+.panel-heading > h4 {
+    font-size: 18px;
+    font-size: 2vmin;
+}
+
+.panel-group .panel + .panel {
+    margin-top: 0px;
 }
 
 .panel-title {
@@ -40,6 +56,17 @@ h2 {
 .panel-body {
     height: 60vh;
     overflow-y: scroll;
+}
+
+.names {
+    font-size: 16px;
+    font-size: 2vmin;
+    padding: 10px 0px 10px 0px;
+    margin: 0;
+}
+
+.click {
+    cursor: pointer;
 }
 
 .navbar {

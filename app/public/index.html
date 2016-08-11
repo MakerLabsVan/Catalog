@@ -38,7 +38,8 @@
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-                        <input type="search" name="searchBar" id="searchBar" class="form-control" title="searchBar">
+                        <input type="search" name="searchBar" id="searchBar" class="form-control" title="searchBar"
+                               placeholder="Search here" ng-model="public.query">
                     </div>
                 </div>
                 <!-- accordion group -->
@@ -52,10 +53,10 @@
                             </h4>
                         </div>
                         <div id="collapse0" class="panel-collapse collapse">
-                            <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                commodo consequat.
+                            <div class="panel-body">
+                                <div ng-repeat="entry in public.data.all" ng-if="public.search()">
+                                    <p ng-bind="entry.name" ng-click="public.select(entry.key)"></p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -66,10 +67,10 @@
                                 <span>Studio</span>
                             </h4>
                         </div>
-                        <div id="collapse1" class="panel-collapse collapse">
+                        <div id="collapse1" class="panel-collapse collapse in">
                             <div class="panel-body">
-                                <div ng-repeat="studio in public.data.studios">
-                                    <p ng-bind="studio.name" ng-click="public.select(studio.key)"></p>
+                                <div class="click" ng-repeat="studio in public.data.studios">
+                                    <p class="names" ng-bind="studio.name" ng-click="public.select(studio.key)"></p>
                                 </div>
                             </div>
                         </div>
@@ -83,8 +84,8 @@
                         </div>
                         <div id="collapse2" class="panel-collapse collapse">
                             <div class="panel-body">
-                                <div ng-repeat="tool in public.data.tools">
-                                    <p ng-bind="tool.name"></p>
+                                <div class="click" ng-repeat="tool in public.data.tools">
+                                    <p class="names" ng-bind="tool.name" ng-click="public.select(tool.key)"></p>
                                 </div>
                             </div>
                         </div>
@@ -98,8 +99,9 @@
                         </div>
                         <div id="collapse3" class="panel-collapse collapse">
                             <div class="panel-body">
-                                <div ng-repeat="consumable in public.data.consumables">
-                                    <p ng-bind="consumable.name"></p>
+                                <div class="click" ng-repeat="consumable in public.data.consumables">
+                                    <p class="names" ng-bind="consumable.name"
+                                       ng-click="public.select(consumable.key)"></p>
                                 </div>
                             </div>
                         </div>
@@ -113,8 +115,8 @@
                         </div>
                         <div id="collapse4" class="panel-collapse collapse">
                             <div class="panel-body">
-                                <div ng-repeat="material in public.data.materials">
-                                    <p ng-bind="material.name"></p>
+                                <div class="click" ng-repeat="material in public.data.materials">
+                                    <p class="names" ng-bind="material.name" ng-click="public.select(material.key)"></p>
                                 </div>
                             </div>
                         </div>
@@ -125,9 +127,10 @@
                 <h2 id="entry-title" ng-model="title" ng-bind="public.title"></h2>
                 <div ng-repeat="value in public.details track by $index">
                     <div ng-if="public.filter(public.data.minimized[$index], value)">
-                        <div ng-bind="public.data.display[$index]">
+                        <hr>
+                        <div class="thin" ng-bind="public.data.display[$index]">
                         </div>
-                        <div ng-bind="value">
+                        <div class="attr-font" ng-bind="value">
                         </div>
                     </div>
                 </div>
@@ -136,11 +139,6 @@
                 <h2>Map</h2>
             </div>
         </div>
-    </div>
-    <div class="row" id="footer-row">
-        <footer>
-            <p>&copy; MakerLabs 2016</p>
-        </footer>
     </div>
 </div>
 

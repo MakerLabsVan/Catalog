@@ -11,8 +11,10 @@
         var vm = this;
         vm.data = {};
         vm.details = {};
+        vm.searchResult = {};
+        vm.query = '';
         vm.title = "MakerLabs";
-
+        // TODO: possibly a service
         vm.filter = filter;
         vm.sendMetric = analytics();
         vm.select = select;
@@ -29,8 +31,20 @@
             })
         }
 
+        function search() {
+            if (vm.query.length >= 2) {
+                var data = vm.data.all;
+                for (var i in data) {
+                    if (data[i].toLowerCase().indexOf(vm.query.toLowerCase()) != -1) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+        }
+
         function select(key) {
-            console.log(vm.data.all[key]);
             var entry = vm.data.all[key];
             vm.title = entry.name;
             vm.details = entry;
@@ -44,6 +58,7 @@
             attr === 'key' ||
             value === '');
         }
+
 
         // TODO: move to refresh.service.js
         // class refresh
