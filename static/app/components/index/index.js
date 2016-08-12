@@ -84,9 +84,14 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
     });
     // GET END
 
+    $scope.sendQueryAnalytic = function () {
+        ga('send', 'event', 'Search query', 'click', $scope.queryTerm);
+    };
     $scope.sendClickAnalytic = function (type) {
         ga('send', 'event', 'Clicked an Entry', 'click', type);
+        $scope.sendQueryAnalytic();
     };
+
 
     $scope.categories = {
         'studio': 'Studios',
