@@ -197,7 +197,7 @@ small {
 }
 
 .categoryContainer {
-    height: 60vh;
+    height: 65vh;
     overflow-y: scroll;
     margin-right: 20px;
 }
