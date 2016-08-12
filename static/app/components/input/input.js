@@ -123,6 +123,10 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
     var metaObj = [];
 
     $scope.insert = function (row, status) {
+
+        metaObj = $scope.map.getMarkerLocation();
+        console.log(metaObj);
+
         // get type from radio buttons
         $scope.form.type = $("input[name=typeOptions]:checked").val();
         if ($scope.form.type == undefined || $scope.form.type == null) {
@@ -262,7 +266,7 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
 
     $scope.selectEntry = function (entry) {
         $scope.showLoc(entry);
-
+        $scope.map.markers.onDrag();
         $scope.selectedEntry = entry;
         $scope.newSelect();
         $scope.changeSendBtnColor(entry.type);
@@ -357,11 +361,6 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         $scope.map.resize();
         $scope.map.markers.deleteAll();
     };
-
-    $('#firstFloor').click(function () {
-        metaObj = $scope.map.getMarkerLocation();
-    });
-
 
     var lastItem = null;
     //Highlight the studio given the name of the studio as a param
