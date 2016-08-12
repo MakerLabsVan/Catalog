@@ -28,6 +28,15 @@ hr {
     font-size: 2vmin;
 }
 
+.round-right-edge {
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.no-border {
+    border: none;
+}
+
 .panel-heading {
     height: 40px;
 }
@@ -42,7 +51,7 @@ hr {
 }
 
 .panel-title {
-    font-size: 1em;
+    font-size: 1vmin;
 }
 
 .cursor:hover {
@@ -55,6 +64,7 @@ hr {
 
 .panel-body {
     height: 60vh;
+    width: 300px;
     overflow-y: scroll;
 }
 
@@ -128,4 +138,10 @@ hr {
     color: white !important;
 }
 
+.search-bar-ht {
+    height: 50px;
+}
 
+#searchBar {
+    font-size: 2vmin;
+}

@@ -35,18 +35,20 @@
         <div class="row" id="info-row">
             <div class="col-md-2" id="list">
                 <!-- search bar -->
-                <div class="form-group">
-                    <div class="input-group">
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-                        <input type="search" name="searchBar" id="searchBar" class="form-control" title="searchBar"
+                <div class="form-group" id="search-form-group">
+                    <div class="input-group search-bar-ht">
+                        <input type="search" name="searchBar" id="searchBar" class="form-control search-bar-ht"
+                               title="searchBar"
                                placeholder="Search here" ng-model="public.query">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                     </div>
                 </div>
                 <!-- accordion group -->
                 <!-- TODO: Change Id's for collapsible panels -->
                 <div class="panel-group" id="accordion">
-                    <div class="panel panel-default">
-                        <div class="panel-heading cursor" data-toggle="collapse" data-parent="#accordion"
+                    <div class="panel panel-default no-border">
+                        <div class="panel-heading cursor round-right-edge" data-toggle="collapse"
+                             data-parent="#accordion"
                              href="#collapse0">
                             <h4 class="panel-title">
                                 <span>Search Results</span>
@@ -60,11 +62,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading red cursor" data-toggle="collapse" data-parent="#accordion"
+                    <div class="panel panel-default no-border">
+                        <div class="panel-heading red cursor round-right-edge" data-toggle="collapse"
+                             data-parent="#accordion"
                              href="#collapse1">
                             <h4 class="panel-title whiteFont">
-                                <span>Studio</span>
+                                <span>Studio <span class="badge" ng-bind="public.data.badge.studios"></span> </span>
                             </h4>
                         </div>
                         <div id="collapse1" class="panel-collapse collapse in">
@@ -75,11 +78,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading blue cursor" data-toggle="collapse" data-parent="#accordion"
+                    <div class="panel panel-default no-border">
+                        <div class="panel-heading blue cursor round-right-edge" data-toggle="collapse"
+                             data-parent="#accordion"
                              href="#collapse2">
                             <h4 class="panel-title whiteFont">
-                                <span>Tools</span>
+                                <span>Tools <span class="badge" ng-bind="public.data.badge.tools"></span></span>
                             </h4>
                         </div>
                         <div id="collapse2" class="panel-collapse collapse">
@@ -90,11 +94,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading cursor green" data-toggle="collapse" data-parent="#accordion"
+                    <div class="panel panel-default no-border">
+                        <div class="panel-heading cursor green round-right-edge" data-toggle="collapse"
+                             data-parent="#accordion"
                              href="#collapse3">
                             <h4 class="panel-title whiteFont">
-                                <span>Consumables</span>
+                                <span>Consumables <span class="badge"
+                                                        ng-bind="public.data.badge.consumables"></span></span>
                             </h4>
                         </div>
                         <div id="collapse3" class="panel-collapse collapse">
@@ -106,11 +112,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading cursor orange" data-toggle="collapse" data-parent="#accordion"
+                    <div class="panel panel-default no-border">
+                        <div class="panel-heading cursor orange round-right-edge" data-toggle="collapse"
+                             data-parent="#accordion"
                              href="#collapse4">
                             <h4 class="panel-title whiteFont">
-                                <span>Materials</span>
+                                <span>Materials <span class="badge" ng-bind="public.data.badge.materials"></span></span>
                             </h4>
                         </div>
                         <div id="collapse4" class="panel-collapse collapse">

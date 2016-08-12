@@ -14,6 +14,7 @@
         vm.searchResult = {};
         vm.query = '';
         vm.title = "MakerLabs";
+
         // TODO: possibly a service
         vm.filter = filter;
         vm.sendMetric = analytics();
@@ -35,11 +36,7 @@
             if (vm.query.length >= 2) {
                 var data = vm.data.all;
                 for (var i in data) {
-                    if (data[i].toLowerCase().indexOf(vm.query.toLowerCase()) != -1) {
-                        return true;
-                    } else {
-                        return false;
-                    }
+                    return (data[i].toLowerCase().indexOf(vm.query.toLowerCase()) != -1);
                 }
             }
         }

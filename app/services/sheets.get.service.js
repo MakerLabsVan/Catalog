@@ -19,10 +19,19 @@
                         object.display = dataArr[0];
                         object.minimized = dataArr[1];
                         object.all = {};
+
                         object.studios = {};
                         object.tools = {};
                         object.materials = {};
                         object.consumables = {};
+
+                        object.badge = {
+                            "studios": 0,
+                            "tools": 0,
+                            "materials": 0,
+                            "consumables": 0
+                        };
+
                         var keyIndex = object.minimized.indexOf("key");
 
                         doubleShift();
@@ -52,15 +61,19 @@
                             switch (temp.type) {
                                 case "Studio":
                                     object.studios[temp.key] = temp;
+                                    object.badge.studios++;
                                     break;
                                 case "Tool":
                                     object.tools[temp.key] = temp;
+                                    object.badge.tools++;
                                     break;
                                 case "Material":
                                     object.materials[temp.key] = temp;
+                                    object.badge.materials++;
                                     break;
                                 case "Consumable":
                                     object.consumables[temp.key] = temp;
+                                    object.badge.consumables++;
                             }
                         }
 
