@@ -10,7 +10,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Catalog</title>
+    <title>Boilerplate Catalog</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -29,11 +29,9 @@
 
 <div class="container-fluid">
     <div ng-controller="publicController as public">
-        <div class="row" id="nav-row">
-            <img src="makerlabsbanner.png" alt="MakerLabs Logo" id="logo">
-        </div>
         <div class="row" id="info-row">
             <div class="col-md-2" id="list">
+                <img src="makerlabsbanner.png" alt="MakerLabs Logo" id="logo">
                 <!-- search bar -->
                 <div class="form-group" id="search-form-group">
                     <div class="input-group search-bar-ht">
@@ -55,9 +53,9 @@
                             </h4>
                         </div>
                         <div id="collapse0" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <div ng-repeat="entry in public.data.all" ng-if="public.search()">
-                                    <p ng-bind="entry.name" ng-click="public.select(entry.key)"></p>
+                            <div class="panel-body greyScroll">
+                                <div class="click round-right-edge" ng-repeat="entry in public.data.all" id="q-{{ entry.key }}">
+                                    <p class="names" ng-bind="entry.name" ng-click="public.querySelect(entry.key)"></p>
                                 </div>
                             </div>
                         </div>
@@ -71,8 +69,9 @@
                             </h4>
                         </div>
                         <div id="collapse1" class="panel-collapse collapse in">
-                            <div class="panel-body">
-                                <div class="click" ng-repeat="studio in public.data.studios">
+                            <div class="panel-body redScroll">
+                                <div class="click round-right-edge" ng-repeat="studio in public.data.studios"
+                                     id="{{ studio.key }}">
                                     <p class="names" ng-bind="studio.name" ng-click="public.select(studio.key)"></p>
                                 </div>
                             </div>
@@ -87,8 +86,9 @@
                             </h4>
                         </div>
                         <div id="collapse2" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <div class="click" ng-repeat="tool in public.data.tools">
+                            <div class="panel-body blueScroll">
+                                <div class="click round-right-edge" ng-repeat="tool in public.data.tools"
+                                     id="{{ tool.key }}">
                                     <p class="names" ng-bind="tool.name" ng-click="public.select(tool.key)"></p>
                                 </div>
                             </div>
@@ -104,8 +104,9 @@
                             </h4>
                         </div>
                         <div id="collapse3" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <div class="click" ng-repeat="consumable in public.data.consumables">
+                            <div class="panel-body greenScroll">
+                                <div class="click round-right-edge" ng-repeat="consumable in public.data.consumables"
+                                     id="{{ consumable.key }}">
                                     <p class="names" ng-bind="consumable.name"
                                        ng-click="public.select(consumable.key)"></p>
                                 </div>
@@ -121,8 +122,9 @@
                             </h4>
                         </div>
                         <div id="collapse4" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <div class="click" ng-repeat="material in public.data.materials">
+                            <div class="panel-body orangeScroll">
+                                <div class="click round-right-edge" ng-repeat="material in public.data.materials"
+                                     id="{{ material.key }}">
                                     <p class="names" ng-bind="material.name" ng-click="public.select(material.key)"></p>
                                 </div>
                             </div>
@@ -132,13 +134,14 @@
             </div>
             <div class="col-md-3" id="details">
                 <h2 id="entry-title" ng-model="title" ng-bind="public.title"></h2>
+                <hr>
                 <div ng-repeat="value in public.details track by $index">
                     <div ng-if="public.filter(public.data.minimized[$index], value)">
-                        <hr>
                         <div class="thin" ng-bind="public.data.display[$index]">
                         </div>
                         <div class="attr-font" ng-bind="value">
                         </div>
+                        <hr>
                     </div>
                 </div>
             </div>
@@ -161,6 +164,7 @@
 <script src="public.controller.js"></script>
 <script src="sheets.get.service.js"></script>
 <script src="refresh.service.js"></script>
+<script src="highlight.service.js"></script>
 <script src="analytics.service.js"></script>
 
 </body>

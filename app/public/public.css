@@ -16,7 +16,7 @@ hr {
 }
 
 #info-row {
-    height: 90vh;
+    height: 100vh;
 }
 
 .thin {
@@ -29,6 +29,8 @@ hr {
 }
 
 .round-right-edge {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
     border-bottom-right-radius: 20px;
     border-top-right-radius: 20px;
 }
@@ -63,15 +65,16 @@ hr {
 }
 
 .panel-body {
-    height: 60vh;
-    width: 300px;
+    height: 65vh;
+    width: 16vw;
     overflow-y: scroll;
+    padding: 0;
 }
 
 .names {
     font-size: 16px;
     font-size: 2vmin;
-    padding: 10px 0px 10px 0px;
+    padding: 10px 0px 10px 5px;
     margin: 0;
 }
 
@@ -79,27 +82,39 @@ hr {
     cursor: pointer;
 }
 
-.navbar {
-    background: white;
-}
-
-#nav-row {
-    height: 5vh;
-}
-
 #logo {
     height: 5vh;
-}
-
-#map, #details, #list {
 }
 
 #list {
     padding: 0;
 }
 
+#details {
+    height: 100vh;
+    border-right: 1px solid #eeeeee;
+    padding: 10px 0;
+}
+
+#map {
+    padding: 10px 0;
+}
 .red {
     background-color: #F14A29 !important;
+}
+
+.redScroll {
+
+}
+
+.redScroll::-webkit-scrollbar {
+    width: 10px;
+    background-color: #fafafa;
+}
+
+.redScroll::-webkit-scrollbar-thumb {
+    background-color: #F14A29;
+    border-radius: 10px;
 }
 
 .lightRed {
@@ -110,12 +125,40 @@ hr {
     background-color: #107CC2 !important;
 }
 
-.lightBlue {
+.blueScroll {
+
+}
+
+.blueScroll::-webkit-scrollbar {
+    width: 10px;
+    background-color: #fafafa;
+}
+
+.blueScroll::-webkit-scrollbar-thumb {
+    background-color: #107CC2;
+    border-radius: 10px;
+}
+
+.lightBlue {;
     background-color: #71A0C2 !important;
 }
 
 .orange {
     background-color: #F3902C !important;
+}
+
+.orangeScroll {
+
+}
+
+.orangeScroll::-webkit-scrollbar {
+    width: 10px;
+    background-color: #fafafa;
+}
+
+.orangeScroll::-webkit-scrollbar-thumb {
+    background-color: #F3902C;
+    border-radius: 10px;
 }
 
 .lightOrange {
@@ -124,6 +167,20 @@ hr {
 
 .green {
     background-color: #2BAC69 !important;
+}
+
+.greenScroll {
+
+}
+
+.greenScroll::-webkit-scrollbar {
+    width: 10px;
+    background-color: #fafafa;
+}
+
+.greenScroll::-webkit-scrollbar-thumb {
+    background-color: #2BAC69;
+    border-radius: 10px;
 }
 
 .lightGreen {
@@ -135,7 +192,21 @@ hr {
 }
 
 .whiteFont {
-    color: white !important;
+    color: white;
+}
+
+.greyScroll {
+
+}
+
+.greyScroll::-webkit-scrollbar {
+    width: 10px;
+    background-color: #fafafa;
+}
+
+.greyScroll::-webkit-scrollbar-thumb {
+    background-color: #444444;
+    border-radius: 10px;
 }
 
 .search-bar-ht {

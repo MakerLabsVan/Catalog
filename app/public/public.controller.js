@@ -2,9 +2,9 @@
     angular.module('app')
         .controller('publicController', publicController);
 
-    publicController.$inject = ['$interval', 'dataService', 'analytics'];
+    publicController.$inject = ['$interval', 'dataService', 'highlightService', 'analytics'];
 
-    function publicController($interval, dataService, analytics) {
+    function publicController($interval, dataService, highlightService, analytics) {
         // use this (avoids using $scope but still allows access)
         // store 'this' in a capture variable so context does not change
         // http://codetunnel.io/angularjs-controller-as-or-scope/
@@ -14,11 +14,15 @@
         vm.searchResult = {};
         vm.query = '';
         vm.title = "MakerLabs";
+        vm.lastSelected = null;
 
-        // TODO: possibly a service
+        // functions
         vm.filter = filter;
         vm.sendMetric = analytics();
         vm.select = select;
+        vm.querySelect = querySelect;
+        vm.queryHL = highlightService.searchHL;
+
 
         activate();
 
@@ -32,19 +36,24 @@
             })
         }
 
-        function search() {
-            if (vm.query.length >= 2) {
-                var data = vm.data.all;
-                for (var i in data) {
-                    return (data[i].toLowerCase().indexOf(vm.query.toLowerCase()) != -1);
-                }
-            }
-        }
-
         function select(key) {
             var entry = vm.data.all[key];
             vm.title = entry.name;
             vm.details = entry;
+
+            // highlight
+            highlightService.highlight(entry.key, entry.type, vm.lastSelected);
+            vm.lastSelected = key;
+        }
+
+        function querySelect(key) {
+            var entry = vm.data.all[key];
+            var qkey = "q-" + entry.key;
+            vm.title = entry.name;
+            vm.details = entry;
+
+            highlightService.highlight(qkey, entry.type, vm.lastSelected);
+            vm.lastSelected = qkey;
         }
 
         function filter(attr, value) {
