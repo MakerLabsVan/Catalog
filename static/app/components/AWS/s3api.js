@@ -2,37 +2,32 @@ var AWS = require('aws-sdk');
 var s3 = new AWS.S3();
 // AWS.config.loadFromPath('./aws.json');
 var s3bucket = process.env.S3_BUCKET || 'makerlabs.catalog';
+var compressed = "compressed/";
 
-//TODO: export members on top
+//TODO: export members on top REMAKE!!!!!
 exports.listBucket = function (callback) {
     s3.listBuckets(function (err, data) {
         callback(err, data);
     })
 };
 
-//Used for embedded image on main page
-exports.getS3URI = function (payload, callback) {
+exports.listBucketObjects = function (callback) {
     var params = {
-        Bucket: s3bucket,
-        Key: payload
+        Bucket: s3bucket
     };
-    s3.getSignedUrl('getObject', params, function (err, url) {
-        callback(err, url);
+
+    s3.listObjects(params, function (err, data) {
+        callback(err, data);
     })
 };
 
-//Used for input page
-exports.deleteImg = function (payload, callback) {
+exports.getUrl = function (key, callback) {
+    // key is bucket + file name
+    var params = {
+        Bucket: s3bucket,
+        Key: String(compressed + key)
+    };
 
-};
-
-//Used for input page
-exports.uploadFile = function (payload, callback) {
-
-};
-
-//Used for input page
-exports.updateFile = function (payload, callback) {
-
+    callback(s3.getSignedUrl('getObject', params));
 };
 

@@ -18,9 +18,10 @@ body {
 }
 
 #firstFloorWell, #secondFloorWell {
-    height: 80vh;
+    height: 100vh;
     background: white;
     border: none;
+    padding-top: 10vh;
 }
 
 #accordion-container {
@@ -41,16 +42,19 @@ small {
 }
 
 .well {
-    border: 0px;
     border-radius: 0;
 }
 
 .view-color {
-    background: #fafafa;
+    background: white;
 }
 
 .entryNames {
     font-size: 1.5em;
+}
+
+#entryDetails {
+    height: 100vh;
 }
 
 .entryNames:hover {
@@ -65,12 +69,40 @@ small {
     background-color: #F14A29 !important;
 }
 
+.redScroll {
+
+}
+
+.redScroll::-webkit-scrollbar {
+    width: 10px;
+    background-color: #fafafa;
+}
+
+.redScroll::-webkit-scrollbar-thumb {
+    background-color: #F14A29;
+    border-radius: 10px;
+}
+
 .lightRed {
     background-color: #f15f35 !important;
 }
 
 .blue {
     background-color: #107CC2 !important;
+}
+
+.blueScroll {
+
+}
+
+.blueScroll::-webkit-scrollbar {
+    width: 10px;
+    background-color: #fafafa;
+}
+
+.blueScroll::-webkit-scrollbar-thumb {
+    background-color: #107CC2;
+    border-radius: 10px;
 }
 
 .lightBlue {;
@@ -81,12 +113,40 @@ small {
     background-color: #F3902C !important;
 }
 
+.orangeScroll {
+
+}
+
+.orangeScroll::-webkit-scrollbar {
+    width: 10px;
+    background-color: #fafafa;
+}
+
+.orangeScroll::-webkit-scrollbar-thumb {
+    background-color: #F3902C;
+    border-radius: 10px;
+}
+
 .lightOrange {
     background-color: #F3B681 !important;
 }
 
 .green {
     background-color: #2BAC69 !important;
+}
+
+.greenScroll {
+
+}
+
+.greenScroll::-webkit-scrollbar {
+    width: 10px;
+    background-color: #fafafa;
+}
+
+.greenScroll::-webkit-scrollbar-thumb {
+    background-color: #2BAC69;
+    border-radius: 10px;
 }
 
 .lightGreen {
@@ -101,8 +161,29 @@ small {
     color: white;
 }
 
+.greyScroll {
+
+}
+
+.greyScroll::-webkit-scrollbar {
+    width: 10px;
+    background-color: #fafafa;
+}
+
+.greyScroll::-webkit-scrollbar-thumb {
+    background-color: #444444;
+    border-radius: 10px;
+}
+
+.round {
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
 .categoryMargins {
     margin: 0px -15px 0px -15px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
 }
 
 .listMargins {
@@ -116,8 +197,9 @@ small {
 }
 
 .categoryContainer {
-    height: 60vh;
+    height: 65vh;
     overflow-y: scroll;
+    margin-right: 20px;
 }
 
 #entryTitle {
@@ -130,17 +212,13 @@ small {
 }
 
 #entryBody {
-    height: 73vh;
-}
-
-#entryDetails {
-    height: 73vh;
+    height: 100vh;
 }
 
 #searchSection {
     background: #fafafa;
-    padding: 0px 0px 0px 20px;
-    margin: 20px -15px 20px -15px;
+    padding: 0px 0px 0px 10px;
+    margin: 0px 10px 20px -15px;
 }
 
 .standardFont {
@@ -172,6 +250,11 @@ small {
 
 .centerImage {
     width: 100%;
+}
+
+#entryImg {
+    max-height: 100%;
+    border-radius: 40px;
 }
 
 .fixedTop {
@@ -273,14 +356,15 @@ textarea {
 }
 
 .Staff {
-  fill: #FAFF9E;
+    fill: #FAFF9E;
 }
 
 .Common {
-  fill: #A3FAFF;
+    fill: #A3FAFF;
 }
+
 .Available {
-  fill: #8EFF58;
+    fill: #8EFF58;
 }
 
 .studioHighlight {
@@ -310,7 +394,6 @@ textarea {
     position: absolute;
     margin: 30px 0px 0px 30px;
 }
-
 
 input[type=number]::-webkit-inner-spin-button {
     -webkit-appearance: none;

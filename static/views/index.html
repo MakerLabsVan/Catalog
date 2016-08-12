@@ -12,13 +12,15 @@
     <link rel="stylesheet" href="/style/index.css">
     <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico"/>
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 </head>
 
 <body>
 <div ng-app="indexApp">
     <div class="container-fluid view-color" ng-controller="indexCtrl">
         <div class="row">
-            <div class="col-sm-2" id="accordion-container">
+            <div class="col-sm-2 lvl1-box-shadow" id="accordion-container">
                 <img class="centerImage" src="assets/makerlabs.png" alt="makerlablogo" id="index-logo">
                 <hr>
                 <!-- accordion start -->
@@ -34,9 +36,9 @@
       </span>
                             </div>
                             <br>
-                            <div class="hidden" id="searchSection">
+                            <div class="hidden greyScroll" id="searchSection">
                                 <div ng-repeat="entry in entries">
-                                    <div class="entryNames" ng-click="onSelect(entry,'query')"
+                                    <div class="entryNames round" ng-click="onSelect(entry,'query')"
                                          ng-bind="filterSearch(entry)" id="query_{{entry.key}}">
                                     </div>
                                 </div>
@@ -53,10 +55,10 @@
                             </h4>
                         </div>
                         <div id="collapse1" class="panel-collapse collapse categoryMargins" data-parent="#accordion">
-                            <div class="panel-body categoryContainer">
+                            <div class="panel-body categoryContainer redScroll">
                                 <!-- studio data -->
                                 <div ng-repeat="entry in studioEntries">
-                                    <div class="entryNames listMargins"
+                                    <div class="entryNames round listMargins"
                                          ng-click="onSelect(entry,'studio')"
                                          id="studio_{{ entry.key }}" ng-bind="entry.name">
                                     </div>
@@ -68,14 +70,16 @@
                         <div class="panel-heading lvl1-box-shadow blue categoryMargins">
                             <h4 class="panel-title pointer">
                                 <div data-toggle="collapse" href="#collapse2"
-                                     class="whiteFont standardFont" ng-bind="categories.tools"></div>
+                                     class="whiteFont standardFont" ng-bind="categories.tools"
+                                     ng-click="forceShrinkSearch()"></div>
                             </h4>
                         </div>
                         <div id="collapse2" class="panel-collapse collapse categoryMargins" data-parent="#accordion">
-                            <div class="panel-body categoryContainer">
+                            <div class="panel-body categoryContainer blueScroll">
                                 <div ng-repeat="entry in toolEntries">
                                     <div ng-click="onSelect(entry,'tool')"
-                                         class="entryNames listMargins" id="tool_{{ entry.key }}" ng-bind="entry.name">
+                                         class="entryNames round listMargins" id="tool_{{ entry.key }}"
+                                         ng-bind="entry.name">
                                     </div>
                                 </div>
                             </div>
@@ -85,14 +89,16 @@
                         <div class="panel-heading lvl1-box-shadow green categoryMargins">
                             <h4 class="panel-title pointer">
                                 <div data-toggle="collapse" href="#collapse3"
-                                     class="whiteFont standardFont" ng-bind="categories.cons"></div>
+                                     class="whiteFont standardFont" ng-bind="categories.cons"
+                                     ng-click="forceShrinkSearch()"></div>
                             </h4>
                         </div>
                         <div id="collapse3" class="panel-collapse collapse categoryMargins" data-parent="#accordion">
-                            <div class="panel-body categoryContainer">
+                            <div class="panel-body categoryContainer greenScroll">
                                 <div ng-repeat="entry in consumableEntries">
                                     <div ng-click="onSelect(entry,'cons')"
-                                         class="entryNames listMargins" id="cons_{{ entry.key }}" ng-bind="entry.name">
+                                         class="entryNames round listMargins" id="cons_{{ entry.key }}"
+                                         ng-bind="entry.name">
                                     </div>
                                 </div>
                             </div>
@@ -102,14 +108,15 @@
                         <div class="panel-heading lvl1-box-shadow orange categoryMargins">
                             <h4 class="panel-title pointer">
                                 <div data-toggle="collapse" href="#collapse4"
-                                     class="whiteFont standardFont" ng-bind="categories.mats"></div>
+                                     class="whiteFont standardFont" ng-bind="categories.mats"
+                                     ng-click="forceShrinkSearch()"></div>
                             </h4>
                         </div>
                         <div id="collapse4" class="panel-collapse collapse categoryMargins" data-parent="#accordion">
-                            <div class="panel-body categoryContainer" id="ct-index-panel-body">
+                            <div class="panel-body categoryContainer orangeScroll" id="ct-index-panel-body">
                                 <div ng-repeat="entry in materialEntries">
                                     <div ng-click="onSelect(entry,'material')"
-                                         class="entryNames listMargins" id="material_{{ entry.key }}"
+                                         class="entryNames round listMargins" id="material_{{ entry.key }}"
                                          ng-bind="entry.name">
                                     </div>
                                 </div>
@@ -119,11 +126,6 @@
                 </div>
             </div>
             <div class="col-sm-10">
-                <div class="row">
-                    <div class="fixedTop">
-                        <!--top empty panel-->
-                    </div>
-                </div>
                 <div class="row">
                     <div class="col-sm-4 view-color">
                         <div class="panel panel-default lvl1-box-shadow" id="entryPanel">
@@ -139,14 +141,29 @@
                                 </div>
                             </div>
                             <div class="panel-body hidden white standardFont" id="entryDetails">
-                                <div class="col-sm-12" ng-repeat="prop in dataLabels track by $index">
-                                    <div class="row" ng-if="isEmpty(prop)" id="{{ selectedObject.key }}{{ prop }}">
-
-                                        <div class="col-sm-6" ng-bind="entryProperties[$index] + ':'">
+                                <div class="col-sm-12">
+                                    <div class="row" id="detailInfoRow">
+                                        <div class="row" ng-repeat="prop in dataLabels track by $index"
+                                             ng-if="isEmpty(prop)" id="{{ selectedObject.key }}{{ prop }}">
+                                            <div class="col-sm-6" ng-bind="entryProperties[$index] + ':'">
+                                            </div>
+                                            <div class="col-sm-6 alignEntryValues" ng-bind="selectedObject[prop]">
+                                            </div>
                                         </div>
-                                        <div class="col-sm-6 alignEntryValues" ng-bind="selectedObject[prop]">
+                                    </div>
+                                    <div class="row" id="detailImageRow">
+                                        <hr>
+                                        <div>
+                                            <div id="loading">
+                                                <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                            <div class="hidden" id="not-found">
+                                                <i class="fa fa-exclamation-triangle fa-3x" aria-hidden="true"></i>
+                                                <h3>Image not Found</h3>
+                                            </div>
+                                            <img class="centerImage hidden" src="" alt="" id="entryImg">
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -155,12 +172,13 @@
                     <div ng-controller="mapController">
                         <div class="col-sm-8" id="mapContainer">
 
-                          <div class="row" id="markerButtons">
-                            <div class="container">
-                                  <div class="col-sm-2 col-sm-offset-7 btn btn-default lvl1-box-shadow"
-                                    ng-click="changeFloor()">Change Floor</div>
-                                  </div>
+                            <div class="row" id="markerButtons">
+                                <div class="container">
+                                    <div class="col-sm-2 col-sm-offset-7 btn btn-default lvl1-box-shadow"
+                                         ng-click="changeFloor()">Change Floor
+                                    </div>
                                 </div>
+                            </div>
 
                             <div class="well well-lg lvl1-box-shadow" id="firstFloorWell">
                             </div>

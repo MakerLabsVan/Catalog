@@ -47,19 +47,6 @@ module.exports = function (router, path, serverOps, public_serverOps, s3Ops) {
         });
     });
 
-    router.get("/S3uri/:id", function (req, res) {
-        var id = req.params.id;
-        s3Ops.getS3URI(id, function (error, resp) {
-            if (error) {
-                throw error;
-            }
-            res.send(resp);
-            console.log(id);
-        });
-        res.send(id);
-        console.log(id);
-    });
-
     router.get("/buckets", function (req, res) {
         s3Ops.listBucket(function (err, data) {
             if (err) {
@@ -70,5 +57,25 @@ module.exports = function (router, path, serverOps, public_serverOps, s3Ops) {
                 return res.json(data);
             }
         })
-    })
+    });
+
+    router.get("/bucketObjects", function (req, res) {
+        s3Ops.listBucketObjects(function (err, data) {
+            if (err) {
+                console.log(err);
+                return res.json(err);
+            } else {
+                console.log(data);
+                return res.json(data.Contents);
+            }
+        })
+    });
+
+    router.post("/object", function (req, res) {
+        s3Ops.getUrl(req.body[0], function (url) {
+            console.log(req.body[0]);
+            console.log("url" + url);
+            return res.json(url);
+        })
+    });
 };

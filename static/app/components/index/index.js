@@ -79,7 +79,7 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
                     $scope.consumableEntries[key] = $scope.entries[key];
             }
         }
-        // but entries.key works here
+        console.log($scope.entries);
 
     });
     // GET END
@@ -157,7 +157,6 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
         }
     };
 
-
     // default panel message
     $scope.panelBodyMessage = {
         // testing template literals
@@ -168,8 +167,27 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
     $scope.panelTitleName = 'MakerLabs Catalog System';
     $scope.panelTitleType = '';
 
+    var getImage = function (type, image) {
+        httpRequests.getImage(type + '/' + image)
+            .then(function (url) {
+                $("#entryImg").removeClass("hidden");
+                $("#loading").addClass("hidden");
+                $("#not-found").addClass("hidden");
+                $("#entryImg").attr("src", url).on("error", function () {
+                    $("#entryImg").addClass("hidden");
+                    $("#not-found").removeClass("hidden");
+                });
+            });
+    };
+
     // display entry details when clicked
     $scope.showEntryDetails = function (entry) {
+        $("#entryImg").addClass("hidden");
+        $("#not-found").addClass("hidden");
+        $("#loading").removeClass("hidden");
+
+        // get image
+        getImage(entry.type, entry.image);
 
         $scope.selectedObject = entry;
 
@@ -254,6 +272,12 @@ indexApp.factory('httpRequests', function ($http) {
                 .then(function (result) {
                     // return the data
                     return result.data;
+                })
+        },
+        getImage: function (key) {
+            return $http.post('object', [key])
+                .then(function (url) {
+                    return String(url.data);
                 })
         }
     }
