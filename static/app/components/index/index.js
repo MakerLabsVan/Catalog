@@ -157,7 +157,6 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
         }
     };
 
-
     // default panel message
     $scope.panelBodyMessage = {
         // testing template literals
@@ -171,18 +170,21 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
     var getImage = function (type, image) {
         httpRequests.getImage(type + '/' + image)
             .then(function (url) {
+                $("#entryImg").removeClass("hidden");
+                $("#loading").addClass("hidden");
+                $("#not-found").addClass("hidden");
                 $("#entryImg").attr("src", url).on("error", function () {
-                    console.log("Missing");
-                    $("#entryImg").attr("src", "/assets/makerlabs100.png");
+                    $("#entryImg").addClass("hidden");
+                    $("#not-found").removeClass("hidden");
                 });
             });
     };
 
     // display entry details when clicked
     $scope.showEntryDetails = function (entry) {
-
-        // reset
-        $("#entryImg").attr("src", "/assets/makerlabs100.png");
+        $("#entryImg").addClass("hidden");
+        $("#not-found").addClass("hidden");
+        $("#loading").removeClass("hidden");
 
         // get image
         getImage(entry.type, entry.image);

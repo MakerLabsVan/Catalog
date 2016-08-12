@@ -254,6 +254,7 @@ small {
 
 #entryImg {
     max-height: 100%;
+    border-radius: 40px;
 }
 
 .fixedTop {
