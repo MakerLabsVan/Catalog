@@ -271,8 +271,11 @@ var marker = function (container) {
 
 var drag = d3.drag()
   .on("drag", function(d) {
-    d.x = d3.event.x;
-    d.y = d3.event.y;
+    var obj = d3.select(this);
+    obj.attr('x',d3.event.x - Number(obj.attr('width')/2));
+    obj.attr('y',d3.event.y -  Number(obj.attr('height')));
+    console.log(this.x)
+    console.log(d3.event.x)
   });
 
 
