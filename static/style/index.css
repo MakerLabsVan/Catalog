@@ -13,7 +13,7 @@ body {
 
 #searchSection {
     height: auto;
-    max-height: 55vh;
+    max-height: 60vh;
     overflow-y: scroll;
 }
 
@@ -226,19 +226,26 @@ small {
 #searchSection {
     background: #fafafa;
     padding: 0px 0px 0px 10px;
-    margin: 0px 10px 20px -15px;
+    margin: 0px 10px 20px 0px;
 }
 
 #search-bar-in {
-    border: none;
+    font-size: 1.5em;
+    height: 50px;
+    padding-bottom: 0px;
+    padding-top: 0px;
 }
 
 #search-bar-col {
     padding: 0;
 }
 
+#search-bar-div {
+    height: 50px;
+}
+
 #clear-button {
-    border: none;
+    height: 50px;
 }
 
 .standardFont {
