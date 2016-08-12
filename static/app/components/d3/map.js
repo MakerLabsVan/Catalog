@@ -107,7 +107,7 @@ function touchmoved() {
 
 /**
 * This object controls all the interactions of the studio objects
-*  @param {selection} The viewport of the map (required)
+*  @param {selection} The viewport svg of the map (required)
 *  @param {selection} The map selection object (required)
 *  @param {boolean} if isIsometric is true draws everything on the isometric plane
 **/
@@ -260,8 +260,23 @@ var marker = function (container) {
                 arrayOfPoints.push(undoMapTransformCoords(width, points, isIsometric, floor));
             }
             return arrayOfPoints;
+        },
+
+        this.onDrag = function(){
+          for (i in this.markerCluster) {
+              this.markerCluster[i].call(drag);
+          }
         }
 };
+
+var drag = d3.drag()
+  .on("drag", function(d) {
+    var obj = d3.select(this);
+    obj.attr('x',d3.event.x - Number(obj.attr('width')/2));
+    obj.attr('y',d3.event.y -  Number(obj.attr('height')));
+    console.log(this.x)
+    console.log(d3.event.x)
+  });
 
 
 var showMarkerOnClick = function (markerCluster) {
@@ -274,7 +289,8 @@ var showMarkerOnClick = function (markerCluster) {
 
         marker
             .attr('x', xPos - Number(marker.attr('width') / 2))
-            .attr('y', yPos - Number(marker.attr('height')));
+            .attr('y', yPos - Number(marker.attr('height')))
+            .call(drag);
 
         markerCluster.push(marker);
     })
