@@ -215,10 +215,30 @@ small {
     height: 100vh;
 }
 
+#entry-container {
+    padding-right: 0;
+}
+
+#mapContainer {
+    padding: 0px;
+}
+
 #searchSection {
     background: #fafafa;
     padding: 0px 0px 0px 10px;
     margin: 0px 10px 20px -15px;
+}
+
+#search-bar-in {
+    border: none;
+}
+
+#search-bar-col {
+    padding: 0;
+}
+
+#clear-button {
+    border: none;
 }
 
 .standardFont {

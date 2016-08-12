@@ -22,17 +22,16 @@
         <div class="row">
             <div class="col-sm-2 lvl1-box-shadow" id="accordion-container">
                 <img class="centerImage" src="assets/makerlabs.png" alt="makerlablogo" id="index-logo">
-                <hr>
                 <!-- accordion start -->
                 <div class="panel-group" id="accordion">
                     <div class="row">
-                        <div class="col-sm-12">
-                            <div class="input-group">
+                        <div class="col-sm-12" id="search-bar-col">
+                            <div class="input-group" id="search-bar-div">
                                 <input type="search" class="form-control"
                                        placeholder="Start typing here..."
-                                       ng-model="queryTerm" ng-change="changeHeight()"/>
+                                       ng-model="queryTerm" ng-change="changeHeight()" id="search-bar-in"/>
                                 <span class="input-group-btn">
-        <button class="btn btn-default" type="button" ng-click="clearSearch()">Clear</button>
+        <button class="btn btn-default" type="button" ng-click="clearSearch()" id="clear-button">Clear</button>
       </span>
                             </div>
                             <br>
@@ -127,7 +126,7 @@
             </div>
             <div class="col-sm-10">
                 <div class="row">
-                    <div class="col-sm-4 view-color">
+                    <div class="col-sm-4 view-color" id="entry-container">
                         <div class="panel panel-default lvl1-box-shadow" id="entryPanel">
                             <div class="panel-heading entryTitle white" id="indexPanelHeading">
                                 <p class="panel-title standardFont" ng-bind="panelTitleName" id="panelTitleName">
