@@ -38,7 +38,8 @@
                         <input type="search" name="searchBar" id="search-bar" class="form-control search-bar-ht"
                                title="searchBar"
                                placeholder="Search here" ng-model="public.query">
-                        <span class="input-group-addon" ng-click="public.clear()"><span class="glyphicon glyphicon-remove"></span></span>
+                        <span class="input-group-addon" ng-click="public.clear()"><span
+                                class="glyphicon glyphicon-remove"></span></span>
                     </div>
                 </div>
                 <!-- accordion group -->
@@ -54,8 +55,9 @@
                         <div id="collapse0" class="panel-collapse collapse">
                             <div class="panel-body grey-scroll">
                                 <!-- TODO: Why is ng-bind so much faster than ng-if, ng-show -->
-                                <div class="click round-right-edge search-font search-pad" ng-repeat="entry in public.data.all"
-                                     ng-bind="public.search(entry.name, entry.key)"
+                                <div class="click round-right-edge search-font search-pad"
+                                     ng-repeat="entry in public.data.all"
+                                     ng-bind="public.search(entry)"
                                      ng-click="public.querySelect(entry.key)" id="q-{{ entry.key }}">
                                 </div>
                             </div>

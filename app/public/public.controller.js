@@ -71,12 +71,12 @@
             value === '');
         }
 
-        function search(name, key) {
+        function search(entry) {
             if (vm.query.length >= 2) {
-                return searchService.search(vm.query, name, key);
+                return searchService.search(vm.query, entry);
             } else {
-                $("#q-" + key).addClass("search-pad");
-                return name;
+                $("#q-" + entry.key).addClass("search-pad");
+                return entry.name;
             }
         }
 
