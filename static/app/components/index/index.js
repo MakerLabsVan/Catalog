@@ -257,7 +257,7 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
         $scope.showEntryDetails(entry);
         $scope.showLoc(entry);
         $scope.highlightItem(category + '_' + entry.key, entry.type);
-        $scope.sendClickAnalytic(entry.name.,entry.type);
+        $scope.sendClickAnalytic(entry.name,entry.type);
     };
 
     $scope.changeFloor = function () {
