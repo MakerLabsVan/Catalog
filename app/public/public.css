@@ -24,8 +24,8 @@ hr {
 }
 
 .attr-font {
+    font-size: 1.5em;
     font-size: 20px;
-    font-size: 2vmin;
 }
 
 .round-right-edge {
@@ -44,8 +44,8 @@ hr {
 }
 
 .panel-heading > h4 {
+    font-size: 1.5em;
     font-size: 18px;
-    font-size: 2vmin;
 }
 
 .panel-group .panel + .panel {
@@ -53,7 +53,7 @@ hr {
 }
 
 .panel-title {
-    font-size: 1vmin;
+    font-size: 1em;
 }
 
 .cursor:hover {
@@ -66,14 +66,14 @@ hr {
 
 .panel-body {
     height: 65vh;
-    width: 16vw;
+    /* width: 16vw; */
     overflow-y: scroll;
     padding: 0;
 }
 
 .names {
+    font-size: 1.5em;
     font-size: 16px;
-    font-size: 2vmin;
     padding: 10px 0px 10px 5px;
     margin: 0;
 }
@@ -93,12 +93,13 @@ hr {
 #details {
     height: 100vh;
     border-right: 1px solid #eeeeee;
-    padding: 10px 0;
+    padding: 20px;
 }
 
 #map {
-    padding: 10px 0;
+    padding: 20px;
 }
+
 .red {
     background-color: #F14A29 !important;
 }

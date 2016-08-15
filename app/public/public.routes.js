@@ -5,16 +5,13 @@ module.exports = function (router, path) {
         res.sendFile("index.html");
     });
 
-    router.get("/Hello", function (req, res) {
-        res.send("Hello World");
-    });
-
     router.get("/publicGet", function (req, res) {
         publicGAPI.PubGetData(callback);
 
         function callback(data) {
             return res.json(data);
         }
+    });
 
-    })
+    
 };

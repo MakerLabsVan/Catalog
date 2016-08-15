@@ -42,7 +42,6 @@
                     </div>
                 </div>
                 <!-- accordion group -->
-                <!-- TODO: Change Id's for collapsible panels -->
                 <div class="panel-group" id="accordion">
                     <div class="panel panel-default no-border">
                         <div class="panel-heading cursor round-right-edge" data-toggle="collapse"
@@ -54,7 +53,8 @@
                         </div>
                         <div id="collapse0" class="panel-collapse collapse">
                             <div class="panel-body greyScroll">
-                                <div class="click round-right-edge" ng-repeat="entry in public.data.all" id="q-{{ entry.key }}">
+                                <div class="click round-right-edge" ng-repeat="entry in public.data.all"
+                                     id="q-{{ entry.key }}">
                                     <p class="names" ng-bind="entry.name" ng-click="public.querySelect(entry.key)"></p>
                                 </div>
                             </div>

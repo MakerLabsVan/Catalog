@@ -29,13 +29,13 @@
         //////////////////////////////////////////////
         function activate() {
             dataService.get().then(function (data) {
-                // TODO: separate data into its own bindable objects
                 console.log(data);
                 vm.data = data;
                 return vm.data;
             })
         }
 
+        // TODO: select and querySelect share too much code
         function select(key) {
             var entry = vm.data.all[key];
             vm.title = entry.name;
@@ -62,6 +62,8 @@
             attr === 'floor' ||
             attr === 'metadata' ||
             attr === 'key' ||
+            attr === 'image' ||
+            attr === 'keywords' ||
             value === '');
         }
 
