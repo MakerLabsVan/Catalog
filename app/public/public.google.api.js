@@ -18,7 +18,6 @@ var PubGetData = function (callback) {
         var rows = response.values;
         callback(rows);
     });
-
 };
 exports.PubGetData = PubGetData;
 

@@ -3,20 +3,19 @@ var s3 = new AWS.S3();
 var s3bucket = process.env.S3_BUCKET || 'makerlabs.catalog';
 var compressed = "compressed/";
 
-module.exports = {
+var service = {
     listBucket: listBucket,
     listBucketObjects: listBucketObjects,
     getUrl: getUrl
 };
 
-//TODO: export members on top REMAKE!!!!!
-exports.listBucket = function (callback) {
+function listBucket(callback) {
     s3.listBuckets(function (err, data) {
         callback(err, data);
-    })
-};
+    });
+}
 
-exports.listBucketObjects = function (callback) {
+function listBucketObjects(callback) {
     var params = {
         Bucket: s3bucket
     };
@@ -24,9 +23,9 @@ exports.listBucketObjects = function (callback) {
     s3.listObjects(params, function (err, data) {
         callback(err, data);
     })
-};
+}
 
-exports.getUrl = function (key, callback) {
+function getUrl(key, callback) {
     // key is bucket + file name
     var params = {
         Bucket: s3bucket,
@@ -34,5 +33,6 @@ exports.getUrl = function (key, callback) {
     };
 
     callback(s3.getSignedUrl('getObject', params));
-};
+}
 
+exports.service = service;

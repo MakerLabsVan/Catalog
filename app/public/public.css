@@ -67,6 +67,7 @@ hr {
 .panel-body {
     height: 65vh;
     /* width: 16vw; */
+    margin-right: 15px;
     overflow-y: scroll;
     padding: 0;
 }
