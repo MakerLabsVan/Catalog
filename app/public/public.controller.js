@@ -2,27 +2,26 @@
     angular.module('app')
         .controller('publicController', publicController);
 
-    publicController.$inject = ['$interval', 'dataService', 'highlightService', 'analytics'];
+    publicController.$inject = ['$interval', 'dataService', 'searchService', 'highlightService', 'analytics'];
 
-    function publicController($interval, dataService, highlightService, analytics) {
+    function publicController($interval, dataService, searchService, highlightService, analytics) {
         // use this (avoids using $scope but still allows access)
         // store 'this' in a capture variable so context does not change
         // http://codetunnel.io/angularjs-controller-as-or-scope/
         var vm = this;
         vm.data = {};
         vm.details = {};
-        vm.searchResult = {};
         vm.query = '';
         vm.title = "MakerLabs";
         vm.lastSelected = null;
 
         // functions
+        vm.clear = clear;
         vm.filter = filter;
+        vm.querySelect = querySelect;
+        vm.search = search;
         vm.sendMetric = analytics();
         vm.select = select;
-        vm.querySelect = querySelect;
-        vm.queryHL = highlightService.searchHL;
-
 
         activate();
 
@@ -33,6 +32,10 @@
                 vm.data = data;
                 return vm.data;
             })
+        }
+
+        function clear() {
+            vm.query = '';
         }
 
         // TODO: select and querySelect share too much code
@@ -68,6 +71,14 @@
             value === '');
         }
 
+        function search(name, key) {
+            if (vm.query.length >= 2) {
+                return searchService.search(vm.query, name, key);
+            } else {
+                $("#q-" + key).addClass("search-pad");
+                return name;
+            }
+        }
 
         // TODO: move to refresh.service.js
         // class refresh

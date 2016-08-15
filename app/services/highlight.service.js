@@ -13,24 +13,24 @@
         /////////////////////////////////////////
         function highlight(key, type, prev) {
             var changeSelection = function (color) {
-                $('#' + prev).removeClass('whiteFont lightRed lightOrange lightGreen lightBlue');
-                $('#' + key).addClass('whiteFont ' + color);
-                $('#entry-title').removeClass('whiteFont lightRed lightOrange lightGreen lightBlue').addClass('whiteFont ' + color);
+                $('#' + prev).removeClass('white-font light-red light-orange light-green light-blue');
+                $('#' + key).addClass('white-font ' + color);
+                $('#entry-title').removeClass('white-font light-red light-orange light-green light-blue').addClass('white-font ' + color);
                 prev = key;
             };
 
             switch (type) {
                 case 'Studio':
-                    changeSelection('lightRed');
+                    changeSelection('light-red');
                     break;
                 case 'Material':
-                    changeSelection('lightOrange');
+                    changeSelection('light-orange');
                     break;
                 case 'Consumable':
-                    changeSelection('lightGreen');
+                    changeSelection('light-green');
                     break;
                 case 'Tool':
-                    changeSelection('lightBlue');
+                    changeSelection('light-blue');
             }
         }
     }

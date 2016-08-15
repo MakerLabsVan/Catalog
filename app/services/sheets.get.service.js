@@ -25,6 +25,7 @@
                         object.materials = {};
                         object.consumables = {};
 
+                        // displays number of entries in a category
                         object.badge = {
                             "studios": 0,
                             "tools": 0,

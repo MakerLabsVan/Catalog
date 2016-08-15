@@ -68,7 +68,7 @@ hr {
 
 .panel-body {
     height: 65vh;
-    /* width: 16vw; */
+    /* width: 18vw; */
     margin-right: 15px;
     overflow-y: scroll;
     padding: 0;
@@ -76,7 +76,7 @@ hr {
 
 .names {
     font-size: 1.5em;
-    font-size: 16px;
+    font-size: 18px;
     padding: 10px 0px 10px 5px;
     margin: 0;
 }
@@ -111,21 +111,21 @@ hr {
     background-color: #F14A29 !important;
 }
 
-.redScroll {
+.red-scroll {
 
 }
 
-.redScroll::-webkit-scrollbar {
+.red-scroll::-webkit-scrollbar {
     width: 10px;
     background-color: #fafafa;
 }
 
-.redScroll::-webkit-scrollbar-thumb {
+.red-scroll::-webkit-scrollbar-thumb {
     background-color: #F14A29;
     border-radius: 10px;
 }
 
-.lightRed {
+.light-red {
     background-color: #f15f35 !important;
 }
 
@@ -133,21 +133,21 @@ hr {
     background-color: #107CC2 !important;
 }
 
-.blueScroll {
+.blue-scroll {
 
 }
 
-.blueScroll::-webkit-scrollbar {
+.blue-scroll::-webkit-scrollbar {
     width: 10px;
     background-color: #fafafa;
 }
 
-.blueScroll::-webkit-scrollbar-thumb {
+.blue-scroll::-webkit-scrollbar-thumb {
     background-color: #107CC2;
     border-radius: 10px;
 }
 
-.lightBlue {;
+.light-blue {;
     background-color: #71A0C2 !important;
 }
 
@@ -155,21 +155,21 @@ hr {
     background-color: #F3902C !important;
 }
 
-.orangeScroll {
+.orange-scroll {
 
 }
 
-.orangeScroll::-webkit-scrollbar {
+.orange-scroll::-webkit-scrollbar {
     width: 10px;
     background-color: #fafafa;
 }
 
-.orangeScroll::-webkit-scrollbar-thumb {
+.orange-scroll::-webkit-scrollbar-thumb {
     background-color: #F3902C;
     border-radius: 10px;
 }
 
-.lightOrange {
+.light-orange {
     background-color: #F3B681 !important;
 }
 
@@ -177,21 +177,21 @@ hr {
     background-color: #2BAC69 !important;
 }
 
-.greenScroll {
+.green-scroll {
 
 }
 
-.greenScroll::-webkit-scrollbar {
+.green-scroll::-webkit-scrollbar {
     width: 10px;
     background-color: #fafafa;
 }
 
-.greenScroll::-webkit-scrollbar-thumb {
+.green-scroll::-webkit-scrollbar-thumb {
     background-color: #2BAC69;
     border-radius: 10px;
 }
 
-.lightGreen {
+.light-green {
     background-color: #6DAC8D !important;
 }
 
@@ -199,20 +199,20 @@ hr {
     background-color: white !important;
 }
 
-.whiteFont {
+.white-font {
     color: white;
 }
 
-.greyScroll {
+.grey-scroll {
 
 }
 
-.greyScroll::-webkit-scrollbar {
+.grey-scroll::-webkit-scrollbar {
     width: 10px;
     background-color: #fafafa;
 }
 
-.greyScroll::-webkit-scrollbar-thumb {
+.grey-scroll::-webkit-scrollbar-thumb {
     background-color: #444444;
     border-radius: 10px;
 }
@@ -221,6 +221,16 @@ hr {
     height: 50px;
 }
 
-#searchBar {
-    font-size: 2vmin;
+#search-bar {
+    font-size: 1.5em;
+}
+
+.search-font {
+    font-size: 1.5em;
+    font-size: 18px;
+    margin: 0;
+}
+
+.search-pad {
+    padding: 10px 0px 10px 5px;
 }

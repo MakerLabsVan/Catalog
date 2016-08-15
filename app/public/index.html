@@ -35,10 +35,10 @@
                 <!-- search bar -->
                 <div class="form-group" id="search-form-group">
                     <div class="input-group search-bar-ht">
-                        <input type="search" name="searchBar" id="searchBar" class="form-control search-bar-ht"
+                        <input type="search" name="searchBar" id="search-bar" class="form-control search-bar-ht"
                                title="searchBar"
                                placeholder="Search here" ng-model="public.query">
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                        <span class="input-group-addon" ng-click="public.clear()"><span class="glyphicon glyphicon-remove"></span></span>
                     </div>
                 </div>
                 <!-- accordion group -->
@@ -52,10 +52,11 @@
                             </h4>
                         </div>
                         <div id="collapse0" class="panel-collapse collapse">
-                            <div class="panel-body greyScroll">
-                                <div class="click round-right-edge" ng-repeat="entry in public.data.all"
-                                     id="q-{{ entry.key }}">
-                                    <p class="names" ng-bind="entry.name" ng-click="public.querySelect(entry.key)"></p>
+                            <div class="panel-body grey-scroll">
+                                <!-- TODO: Why is ng-bind so much faster than ng-if, ng-show -->
+                                <div class="click round-right-edge search-font search-pad" ng-repeat="entry in public.data.all"
+                                     ng-bind="public.search(entry.name, entry.key)"
+                                     ng-click="public.querySelect(entry.key)" id="q-{{ entry.key }}">
                                 </div>
                             </div>
                         </div>
@@ -64,12 +65,12 @@
                         <div class="panel-heading red cursor round-right-edge" data-toggle="collapse"
                              data-parent="#accordion"
                              href="#collapse1">
-                            <h4 class="panel-title whiteFont">
+                            <h4 class="panel-title white-font">
                                 <span>Studio <span class="badge" ng-bind="public.data.badge.studios"></span> </span>
                             </h4>
                         </div>
                         <div id="collapse1" class="panel-collapse collapse in">
-                            <div class="panel-body redScroll">
+                            <div class="panel-body red-scroll">
                                 <div class="click round-right-edge" ng-repeat="studio in public.data.studios"
                                      id="{{ studio.key }}">
                                     <p class="names" ng-bind="studio.name" ng-click="public.select(studio.key)"></p>
@@ -81,12 +82,12 @@
                         <div class="panel-heading blue cursor round-right-edge" data-toggle="collapse"
                              data-parent="#accordion"
                              href="#collapse2">
-                            <h4 class="panel-title whiteFont">
+                            <h4 class="panel-title white-font">
                                 <span>Tools <span class="badge" ng-bind="public.data.badge.tools"></span></span>
                             </h4>
                         </div>
                         <div id="collapse2" class="panel-collapse collapse">
-                            <div class="panel-body blueScroll">
+                            <div class="panel-body blue-scroll">
                                 <div class="click round-right-edge" ng-repeat="tool in public.data.tools"
                                      id="{{ tool.key }}">
                                     <p class="names" ng-bind="tool.name" ng-click="public.select(tool.key)"></p>
@@ -98,13 +99,13 @@
                         <div class="panel-heading cursor green round-right-edge" data-toggle="collapse"
                              data-parent="#accordion"
                              href="#collapse3">
-                            <h4 class="panel-title whiteFont">
+                            <h4 class="panel-title white-font">
                                 <span>Consumables <span class="badge"
                                                         ng-bind="public.data.badge.consumables"></span></span>
                             </h4>
                         </div>
                         <div id="collapse3" class="panel-collapse collapse">
-                            <div class="panel-body greenScroll">
+                            <div class="panel-body green-scroll">
                                 <div class="click round-right-edge" ng-repeat="consumable in public.data.consumables"
                                      id="{{ consumable.key }}">
                                     <p class="names" ng-bind="consumable.name"
@@ -117,12 +118,12 @@
                         <div class="panel-heading cursor orange round-right-edge" data-toggle="collapse"
                              data-parent="#accordion"
                              href="#collapse4">
-                            <h4 class="panel-title whiteFont">
+                            <h4 class="panel-title white-font">
                                 <span>Materials <span class="badge" ng-bind="public.data.badge.materials"></span></span>
                             </h4>
                         </div>
                         <div id="collapse4" class="panel-collapse collapse">
-                            <div class="panel-body orangeScroll">
+                            <div class="panel-body orange-scroll">
                                 <div class="click round-right-edge" ng-repeat="material in public.data.materials"
                                      id="{{ material.key }}">
                                     <p class="names" ng-bind="material.name" ng-click="public.select(material.key)"></p>
@@ -166,6 +167,7 @@
 <script src="public.controller.js"></script>
 <script src="sheets.get.service.js"></script>
 <script src="refresh.service.js"></script>
+<script src="search.service.js"></script>
 <script src="highlight.service.js"></script>
 <script src="analytics.service.js"></script>
 
