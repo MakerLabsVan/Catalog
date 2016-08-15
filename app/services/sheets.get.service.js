@@ -45,7 +45,7 @@
                         }
 
                         function entries() {
-                            // combine objectifying and categorizing
+                            // parse array of json into object form
                             for (var i in dataArr) {
                                 var temp = {};
                                 for (var j in object.minimized) {
@@ -56,7 +56,7 @@
                             }
                         }
 
-                        // TODO: not pass in entry; make inline statement?
+                        // parse each entry into their respective categories
                         function categorize(temp) {
                             switch (temp.type) {
                                 case "Studio":
