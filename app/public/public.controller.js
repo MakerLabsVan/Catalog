@@ -64,6 +64,7 @@
             attr === 'key' ||
             attr === 'image' ||
             attr === 'keywords' ||
+            attr === 'name' ||
             value === '');
         }
 

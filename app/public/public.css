@@ -9,6 +9,8 @@ body {
 
 h2 {
     margin: 0;
+    padding: 10px;
+    font-size: 2em;
 }
 
 hr {
@@ -94,7 +96,11 @@ hr {
 #details {
     height: 100vh;
     border-right: 1px solid #eeeeee;
-    padding: 20px;
+    padding: 0 0 0 10px;
+}
+
+#entry-title {
+    border-radius: 10px;
 }
 
 #map {

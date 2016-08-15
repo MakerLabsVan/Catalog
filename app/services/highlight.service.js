@@ -15,6 +15,7 @@
             var changeSelection = function (color) {
                 $('#' + prev).removeClass('whiteFont lightRed lightOrange lightGreen lightBlue');
                 $('#' + key).addClass('whiteFont ' + color);
+                $('#entry-title').removeClass('whiteFont lightRed lightOrange lightGreen lightBlue').addClass('whiteFont ' + color);
                 prev = key;
             };
 
