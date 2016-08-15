@@ -87,8 +87,8 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
     $scope.sendQueryAnalytic = function () {
         ga('send', 'event', 'Search query', 'click', $scope.queryTerm);
     };
-    $scope.sendClickAnalytic = function (type) {
-        ga('send', 'event', 'Clicked an Entry', 'click', type);
+    $scope.sendClickAnalytic = function (name, type) {
+        ga('send', 'event', 'Clicked an Entry', name, type);
         $scope.sendQueryAnalytic();
     };
 
@@ -257,7 +257,7 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
         $scope.showEntryDetails(entry);
         $scope.showLoc(entry);
         $scope.highlightItem(category + '_' + entry.key, entry.type);
-        $scope.sendClickAnalytic(entry.type);
+        $scope.sendClickAnalytic(entry.name.,entry.type);
     };
 
     $scope.changeFloor = function () {
