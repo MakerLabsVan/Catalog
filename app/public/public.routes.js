@@ -1,17 +1,26 @@
 module.exports = function (router, path) {
-    var publicGAPI = require(path + "/public/public.google.api.js");
+    var gapi = require(path + "/API/google.public.js");
+    var s3 = require(path + "/API/s3.public.js");
 
     router.get("/", function (req, res) {
         res.sendFile("index.html");
     });
 
     router.get("/publicGet", function (req, res) {
-        publicGAPI.PubGetData(callback);
+        gapi.PubGetData(callback);
 
         function callback(data) {
             return res.json(data);
         }
     });
+
+    router.get("/image", function (req, res) {
+        s3.getUrl(req.body[0], function (url) {
+            console.log(req.body[0]);
+            console.log("Url: " + url);
+            return res.json(url);
+        })
+    })
 
 
 };

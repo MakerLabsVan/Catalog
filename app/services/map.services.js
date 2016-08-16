@@ -178,15 +178,17 @@
 
             function selectFloor(width, floor) {
                 var screenScale = getScreenFactor(width);
+
+                var setFloor;
                 switch (floor) {
                     case 1:
-                        var setFloor = 'translate(0,' + -SCROLL_MAP_Y * screenScale + ') ';
+                        setFloor = 'translate(0,' + -SCROLL_MAP_Y * screenScale + ') ';
                         break;
                     case 2:
-                        var setFloor = 'translate(0,0) ';
+                        setFloor = 'translate(0,0) ';
                         break;
                     default:
-                        var setFloor = 'translate(0,' + -SCROLL_MAP_Y * screenScale + ') ';
+                        setFloor = 'translate(0,' + -SCROLL_MAP_Y * screenScale + ') ';
                         break;
                 }
 
