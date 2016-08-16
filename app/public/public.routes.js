@@ -14,8 +14,8 @@ module.exports = function (router, path) {
         }
     });
 
-    router.get("/image", function (req, res) {
-        s3.getUrl(req.body[0], function (url) {
+    router.post("/image", function (req, res) {
+        s3.service.getUrl(req.body[0], function (url) {
             console.log(req.body[0]);
             console.log("Url: " + url);
             return res.json(url);

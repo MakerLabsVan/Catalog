@@ -18,6 +18,8 @@
     <link rel="shortcut icon" href="makerlabsfavicon.png">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
     <link rel="stylesheet" href="public.css">
 
 </head>
@@ -149,6 +151,17 @@
                         <hr>
                     </div>
                 </div>
+                <div>
+                    <div class="hidden" id="loading">
+                        <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="hidden" id="not-found">
+                        <i class="fa fa-exclamation-triangle fa-3x" aria-hidden="true"></i>
+                        <h3>Image not Found</h3>
+                    </div>
+                    <img class="centerImage hidden" src="" alt="" id="entry-image">
+                </div>
             </div>
             <div class="col-md-7" id="map">
                 <div id="map-container">
@@ -170,6 +183,7 @@
 <script src="//d3js.org/d3.v4.js"></script>
 <script src="public.module.js"></script>
 <script src="public.controller.js"></script>
+<script src="s3.service.js"></script>
 <script src="sheets.get.service.js"></script>
 <script src="refresh.service.js"></script>
 <script src="search.service.js"></script>
