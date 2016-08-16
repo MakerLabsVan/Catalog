@@ -18,7 +18,6 @@
         // functions
         vm.clear = clear;
         vm.filter = filter;
-        vm.loadImage = loadImage;
         vm.querySelect = querySelect;
         vm.search = search;
         vm.sendMetric = analytics();
@@ -67,6 +66,7 @@
                 })
         }
 
+        // show the loading, not-found icons when req'd
         function imageResponse() {
             // show loading icon when clicked and change on load
             $("#entry-image").addClass(hdn);
@@ -85,7 +85,6 @@
             vm.lastSelected = key;
 
             imageResponse();
-
             // load image
             loadImage(entry.type, entry.name);
 
@@ -101,7 +100,6 @@
             vm.lastSelected = qkey;
 
             imageResponse();
-
             loadImage(entry.type, entry.name);
         }
 

@@ -115,6 +115,10 @@ hr {
     margin: 0 auto;
 }
 
+#loading, #not-found {
+    text-align: center;
+}
+
 #map {
     height: 100vh;
     padding: 20px;
