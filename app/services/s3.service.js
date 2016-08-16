@@ -9,6 +9,7 @@ var service = {
     getUrl: getUrl
 };
 
+////////////////////////////////////////
 function listBucket(callback) {
     s3.listBuckets(function (err, data) {
         callback(err, data);

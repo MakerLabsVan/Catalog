@@ -38,7 +38,7 @@
                         <input type="search" name="searchBar" id="search-bar" class="form-control search-bar-ht"
                                title="searchBar"
                                placeholder="Search here" ng-model="public.query">
-                        <span class="input-group-addon" ng-click="public.clear()"><span
+                        <span class="input-group-addon cursor" ng-click="public.clear()"><span
                                 class="glyphicon glyphicon-remove"></span></span>
                     </div>
                 </div>
@@ -150,8 +150,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-7" id="map" ng-controller="mapController as map">
-                <div class="map-container">
+            <div class="col-md-7" id="map">
+                <div id="map-container">
 
                 </div>
             </div>
@@ -168,10 +168,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
 <script src="analytics.js"></script>
 <script src="//d3js.org/d3.v4.js"></script>
-<script src="map.js"></script>
-<script src="map.module.js"></script>
-<script src="map.controller.js"></script>
-<script src="map.service.js"></script>
 <script src="public.module.js"></script>
 <script src="public.controller.js"></script>
 <script src="sheets.get.service.js"></script>
