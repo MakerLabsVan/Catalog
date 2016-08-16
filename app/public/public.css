@@ -107,6 +107,14 @@ hr {
     border-radius: 10px;
 }
 
+#entry-image {
+    /* can change to better fit image */
+    max-height: 45vh;
+    border-radius: 40px;
+    display: block;
+    margin: 0 auto;
+}
+
 #map {
     height: 100vh;
     padding: 20px;

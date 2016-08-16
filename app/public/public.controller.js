@@ -67,6 +67,13 @@
                 })
         }
 
+        function imageResponse() {
+            // show loading icon when clicked and change on load
+            $("#entry-image").addClass(hdn);
+            $("#not-found").addClass(hdn);
+            $("#loading").removeClass(hdn);
+        }
+
         // TODO: select and querySelect share too much code
         function select(key) {
             var entry = vm.data.all[key];
@@ -77,10 +84,7 @@
             highlightService.highlight(entry.key, entry.type, vm.lastSelected);
             vm.lastSelected = key;
 
-            // show loading icon when clicked and change on load
-            $("#entry-image").addClass(hdn);
-            $("#not-found").addClass(hdn);
-            $("#loading").removeClass(hdn);
+            imageResponse();
 
             // load image
             loadImage(entry.type, entry.name);
@@ -95,6 +99,10 @@
 
             highlightService.highlight(qkey, entry.type, vm.lastSelected);
             vm.lastSelected = qkey;
+
+            imageResponse();
+
+            loadImage(entry.type, entry.name);
         }
 
 
