@@ -1,11 +1,10 @@
 body {
     font-family: 'Raleway', sans-serif;
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 #touch-me {
-    position: absolute;
-    left: 20px;
+    float: left;
 }
 
 .hidden {
@@ -70,6 +69,19 @@ small {
 
 .entryNames {
     font-size: 1.5em;
+}
+
+#entryMap {
+    height: 92vh;
+    padding: 0;
+}
+
+.edit-buttons {
+    height: 5vh;
+}
+
+#firstFloor {
+    padding: 0px 10px 0px 10px;
 }
 
 #entryDetails {
