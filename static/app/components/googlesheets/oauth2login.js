@@ -3,17 +3,15 @@ var auth = new googleAuth();
 var fs = require('fs');
 
 // set client information
-var clientId = '656449394957-h1hmtinqs9mrd2rn11ef6jal6gdb300r.apps.googleusercontent.com';
-var clientSecret = 'AihJh0QO2Hx4aekcvS32Ekk6';
-var redirectUrl = 'urn:ietf:wg:oauth:2.0:oob';
+var clientId = process.env["CLIENT_ID"];
+var clientSecret = process.env["CLIENT_SECRET"];
+var redirectUrl = process.env["REDIRECT_URL"];
 
 var OAuth2Client = new auth.OAuth2(clientId, clientSecret, redirectUrl);
 var SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
 var TOKEN_DIR = (process.env.HOME || process.env.HOMEPATH ||
     process.env.USERPROFILE) + '/.credentials/';
 var TOKEN_PATH = TOKEN_DIR + 'sheets.makerlabs.json';
-
-// init oauth2 client with client information
 
 // get redirect url for auth code
 var url = OAuth2Client.generateAuthUrl({
