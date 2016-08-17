@@ -8,7 +8,7 @@ const floorTransitionDelay = 1000; //1 second
 
 // //ISOMETRIC MAP
 const isIsometric = true; //Draws 2d map if false
-const mapFilePath = "/assets/ISO4.png";
+const mapFilePath = "assets/ISO4.png";
 const isoMapScale = 8.5; //database value to isometric map conversion
 const isoMapWidth = 1464; // Width of isometric map, used to dynamically resize map
 const scrollMapY = 1375; //Vertical scroll until next floor
@@ -56,7 +56,10 @@ var mapConstructor = function (containerID, floorNum) {
             .append("svg:image")
             .attr("xlink:href", mapFilePath)
             .attr('preserveAspectRatio', 'xMinYMin meet')
-            .attr('class', 'isoMap'),
+            .attr('class', 'isoMap')
+            .attr('width',"100%")
+            .attr('height',"1000%")
+            .attr('id','map-png'),
 
         // addImgMap( this.viewport, mapFilePath ),
         //Returns width of the map container
