@@ -3,7 +3,7 @@ module.exports = function (router, path) {
     var s3 = require(path + "/API/s3.public.js");
 
     router.get("/", function (req, res) {
-        res.sendFile("index.html");
+        res.sendFile(path + "/public/public.html");
     });
 
     router.get("/publicGet", function (req, res) {
@@ -20,7 +20,11 @@ module.exports = function (router, path) {
             console.log("Url: " + url);
             return res.json(url);
         })
-    })
+    });
+
+    router.get("*", function (req, res) {
+        res.sendFile(path + "/404.html");
+    });
 
 
 };

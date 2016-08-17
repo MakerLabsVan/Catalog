@@ -4,7 +4,7 @@
 
 (function () {
 
-    angular.module("app")
+    angular.module('app')
         .service("S3Service", S3Service);
 
     S3Service.$inject = ["$http"];

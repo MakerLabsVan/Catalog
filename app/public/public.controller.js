@@ -103,7 +103,6 @@
             loadImage(entry.type, entry.name);
         }
 
-
         function search(entry) {
             if (vm.query.length >= 2) {
                 return searchService.search(vm.query, entry);
@@ -137,6 +136,5 @@
         $('body').click(function () {
             resetCheck();
         });
-
     }
 })();

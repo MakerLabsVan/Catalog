@@ -49,12 +49,12 @@
                     <div class="panel panel-default no-border">
                         <div class="panel-heading cursor round-right-edge" data-toggle="collapse"
                              data-parent="#accordion"
-                             href="#collapse0">
+                             href="#collapse-search" id="panel-search">
                             <h4 class="panel-title">
                                 <span>Search Results</span>
                             </h4>
                         </div>
-                        <div id="collapse0" class="panel-collapse collapse">
+                        <div id="collapse-search" class="panel-collapse collapse">
                             <div class="panel-body grey-scroll">
                                 <!-- TODO: Why is ng-bind so much faster than ng-if, ng-show -->
                                 <div class="click round-right-edge search-font search-pad"
@@ -68,12 +68,12 @@
                     <div class="panel panel-default no-border">
                         <div class="panel-heading red cursor round-right-edge" data-toggle="collapse"
                              data-parent="#accordion"
-                             href="#collapse1">
+                             href="#collapse-studio">
                             <h4 class="panel-title white-font">
                                 <span>Studio <span class="badge" ng-bind="public.data.badge.studios"></span> </span>
                             </h4>
                         </div>
-                        <div id="collapse1" class="panel-collapse collapse in">
+                        <div id="collapse-studio" class="panel-collapse collapse in">
                             <div class="panel-body red-scroll">
                                 <div class="click round-right-edge" ng-repeat="studio in public.data.studios"
                                      id="{{ studio.key }}">
@@ -85,12 +85,12 @@
                     <div class="panel panel-default no-border">
                         <div class="panel-heading blue cursor round-right-edge" data-toggle="collapse"
                              data-parent="#accordion"
-                             href="#collapse2">
+                             href="#collapse-tool">
                             <h4 class="panel-title white-font">
                                 <span>Tools <span class="badge" ng-bind="public.data.badge.tools"></span></span>
                             </h4>
                         </div>
-                        <div id="collapse2" class="panel-collapse collapse">
+                        <div id="collapse-tool" class="panel-collapse collapse">
                             <div class="panel-body blue-scroll">
                                 <div class="click round-right-edge" ng-repeat="tool in public.data.tools"
                                      id="{{ tool.key }}">
@@ -102,13 +102,13 @@
                     <div class="panel panel-default no-border">
                         <div class="panel-heading cursor green round-right-edge" data-toggle="collapse"
                              data-parent="#accordion"
-                             href="#collapse3">
+                             href="#collapse-consumable">
                             <h4 class="panel-title white-font">
                                 <span>Consumables <span class="badge"
                                                         ng-bind="public.data.badge.consumables"></span></span>
                             </h4>
                         </div>
-                        <div id="collapse3" class="panel-collapse collapse">
+                        <div id="collapse-consumable" class="panel-collapse collapse">
                             <div class="panel-body green-scroll">
                                 <div class="click round-right-edge" ng-repeat="consumable in public.data.consumables"
                                      id="{{ consumable.key }}">
@@ -121,12 +121,12 @@
                     <div class="panel panel-default no-border">
                         <div class="panel-heading cursor orange round-right-edge" data-toggle="collapse"
                              data-parent="#accordion"
-                             href="#collapse4">
+                             href="#collapse-material">
                             <h4 class="panel-title white-font">
                                 <span>Materials <span class="badge" ng-bind="public.data.badge.materials"></span></span>
                             </h4>
                         </div>
-                        <div id="collapse4" class="panel-collapse collapse">
+                        <div id="collapse-material" class="panel-collapse collapse">
                             <div class="panel-body orange-scroll">
                                 <div class="click round-right-edge" ng-repeat="material in public.data.materials"
                                      id="{{ material.key }}">
@@ -175,13 +175,46 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.1.0.min.js"
         integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+<!-- jQuery local fallback -->
+<script>
+    window.jQuery || document.write('<script src="jquery-3.1.0.min.js"><\/script>')
+</script>
+
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+<!-- bootstrap js local fallback -->
+<script>
+    if (typeof($.fn.modal) === 'undefined') {
+        document.write('<script src="bootstrap.min.js"><\/script>')
+    }
+</script>
+
+<!-- bootstrap css fallback -->
+<script>
+    $(document).ready(function () {
+        var bodyColor = $('body').css('color');
+        if (bodyColor != 'rgb(51, 51, 51)') {
+            $("head").prepend('<link rel="stylesheet" href="bootstrap.min.css">');
+        }
+    });
+</script>
+<!-- dev -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>-->
+<!-- angular local fallback -->
+<script>
+    window.jQuery || document.write('<script src="jquery-3.1.0.min.js"><\/script>')
+</script>
+
 <script src="analytics.js"></script>
-<script src="//d3js.org/d3.v4.js"></script>
-<script src="public.module.js"></script>
+<script src="https://d3js.org/d3.v4.js"></script>
+<!-- d3 local fallback -->
+<script>
+    window.d3 || document.write('<script src="d3.min.js"><\/script>')
+</script>
+
+<script src="app.module.js"></script>
 <script src="public.controller.js"></script>
 <script src="s3.service.js"></script>
 <script src="sheets.get.service.js"></script>
