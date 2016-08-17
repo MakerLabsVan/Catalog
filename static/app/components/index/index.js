@@ -167,11 +167,7 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
     };
 
     // default panel message
-    $scope.panelBodyMessage = {
-        // testing template literals
-        'body': `Select a category to find all its listings.
-                 Search for a specific item or keyword through the search bar.`
-    };
+    $scope.panelBodyMessage =  "Select a category to find all its listings. Search for a specific item or keyword through the search bar.";
 
     $scope.panelTitleName = 'MakerLabs Catalog System';
     $scope.panelTitleType = '';
