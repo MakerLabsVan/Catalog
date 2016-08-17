@@ -271,7 +271,7 @@ small {
 
 #admin-search-result {
     margin-top: 20px;
-    max-height: 80vh;
+    max-height: 85vh;
     overflow-y: scroll;
 }
 
@@ -284,16 +284,16 @@ small {
     border-radius: 40px;
 }
 
+#entryPage {
+    padding: 0;
+}
+
 .fixedTop {
     height: 100px;
 }
 
 .pageSize {
     height: 100vh;
-}
-
-.inputWellSize {
-    height: 80vh;
 }
 
 .inputOptionsBtns {
@@ -419,7 +419,7 @@ textarea {
 
 #markerButtons {
     position: absolute;
-    margin: 30px 0px 0px 30px;
+    margin: 0px 0px 0px 30px;
 }
 
 input[type=number]::-webkit-inner-spin-button {

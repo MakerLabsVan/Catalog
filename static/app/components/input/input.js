@@ -194,6 +194,37 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         return index;
     };
 
+    // TODO: Expand into other numerical properties
+    $scope.increase = function (prop) {
+        console.log($scope.form[prop]);
+        var cur = 0;
+        if ($scope.form[prop] == undefined) {
+            cur += 1;
+            console.log("undef: " + cur);
+        } else {
+            cur = Number($scope.form[prop]);
+            cur += 1;
+            console.log("!undef: " + cur);
+
+        }
+        $scope.form[prop] = cur;
+    };
+
+    $scope.decrease = function (prop) {
+        console.log($scope.form[prop]);
+        var cur = 0;
+        if ($scope.form[prop] == undefined) {
+            console.log("undef: " + cur);
+        } else {
+            cur = Number($scope.form[prop]);
+            if (cur > 0) {
+                cur -= 1;
+                console.log("!undef: " + cur);
+            }
+        }
+        $scope.form[prop] = cur;
+    };
+
     $scope.confirmEdit = function () {
         $('#confirmEdit').removeClass('hidden');
         $('#editBtn').addClass('hidden');

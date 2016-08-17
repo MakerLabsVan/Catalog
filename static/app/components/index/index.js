@@ -87,9 +87,13 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
     $scope.sendQueryAnalytic = function () {
         ga('send', 'event', 'Search query', 'click', $scope.queryTerm);
     };
-    $scope.sendClickAnalytic = function (type) {
-        ga('send', 'event', 'Clicked an Entry', 'click', type);
+    $scope.sendClickAnalytic = function (entry) {
+        ga('send', 'event', 'Clicked an Entry', 'click', [entry.name, entry.type, entry.key]);
         $scope.sendQueryAnalytic();
+    };
+
+    $scope.sendMapAnalytic = function (entry) {
+        ga('send', 'event', 'Click an entry on the map', 'click', [entry.name, entry.type, entry.key]);
     };
 
 
@@ -149,7 +153,6 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
         }
     };
 
-    // display results through ng-if
     $scope.filterSearch = function (entry) {
         if ($scope.queryTerm.length >= 2) {
             if (isIndexOfSet(entry)) {
@@ -257,7 +260,7 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
         $scope.showEntryDetails(entry);
         $scope.showLoc(entry);
         $scope.highlightItem(category + '_' + entry.key, entry.type);
-        $scope.sendClickAnalytic(entry.type);
+        $scope.sendClickAnalytic(entry);
     };
 
     $scope.changeFloor = function () {
@@ -291,10 +294,12 @@ indexApp.factory('httpRequests', function ($http) {
 // service to share methods for map construction and resizing
 indexApp.service('mapService', function () {
     var map = function (id, num) {
+        // mapConstructor = map
         return new mapConstructor(id, num);
     };
 
     var resizeMap = function (map) {
+        // map.resize
         map.resize();
     };
 
