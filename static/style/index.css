@@ -1,6 +1,6 @@
 body {
     font-family: 'Raleway', sans-serif;
-    /*overflow: hidden;*/
+    overflow: hidden;
 }
 
 #touch-me {
@@ -23,14 +23,19 @@ body {
 }
 
 #firstFloorWell {
-    height: 95vh;
+    height: 93vh;
     background: white;
     border: none;
     margin: 0;
+    padding-top: 0px;
+    padding-bottom: 0px;
 }
 
 #markerButtons {
-    height: 5vh;
+    height: 7vh;
+    border-left: none;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 #accordion {
@@ -68,8 +73,9 @@ small {
 }
 
 #entryDetails {
-    height: 90vh;
+    height: 93vh;
     padding: 0;
+    margin: -1px 0px -1px 0px;
 }
 
 .entryNames:hover {
@@ -227,7 +233,9 @@ small {
 }
 
 #entryBody {
-    height: 90vh;
+    height: 93vh;
+    /* account for top/bottom borders */
+    margin: -1px 0px -1px 0px;
 }
 
 #entry-container {
