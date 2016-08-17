@@ -5,7 +5,7 @@ var fs = require('fs');
 // set client information
 var clientId = process.env["CLIENT_ID"];
 var clientSecret = process.env["CLIENT_SECRET"];
-var redirectUrl = process.env["REDIRECT_URL"] || "http://localhost";
+var redirectUrl = process.env["REDIRECT_URL"];
 
 var OAuth2Client = new auth.OAuth2(clientId, clientSecret, redirectUrl);
 var SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];

@@ -90,6 +90,14 @@ small {
     margin: -1px 0px -1px 0px;
 }
 
+input[type="file"] {
+    display: none;
+}
+
+#file-in-label {
+    padding-top: 10px;
+}
+
 .entryNames:hover {
     cursor: pointer;
 }

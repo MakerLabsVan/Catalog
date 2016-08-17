@@ -205,6 +205,18 @@
                                            ng-model="form.keywords">
                                 </div>
                                 <div class="row">
+                                    <div class="col-sm-9 noPadding">
+                                        <input class="form-control inputAreaHeight" type="text" ng-model="form.image"
+                                               placeholder="Image file" disabled/>
+                                    </div>
+                                    <div class="col-sm-3 noPadding">
+                                        <label class="btn btn-block btn-default inputAreaHeight" id="file-in-label">
+                                            <span>Browse</span>
+                                            <input type="file" accept="image/*" id="file-input"/>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <textarea class="form-control" rows="6"
                                               placeholder="{{ entryPropertiesObj.description }}"
                                               ng-model="form.description"></textarea>
