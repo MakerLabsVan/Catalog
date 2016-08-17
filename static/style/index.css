@@ -1,6 +1,11 @@
 body {
     font-family: 'Raleway', sans-serif;
-    overflow: hidden;
+    /*overflow: hidden;*/
+}
+
+#touch-me {
+    position: absolute;
+    left: 20px;
 }
 
 .hidden {
@@ -17,16 +22,25 @@ body {
     overflow-y: scroll;
 }
 
-#firstFloorWell, #secondFloorWell {
-    height: 100vh;
+#firstFloorWell {
+    height: 95vh;
     background: white;
     border: none;
-    padding-top: 10vh;
+    margin: 0;
+}
+
+#markerButtons {
+    height: 5vh;
+}
+
+#accordion {
+    margin: 0;
 }
 
 #accordion-container {
-    height: 100vh;
+    height: 95vh;
     background: white;
+    padding-bottom: 0px;
 }
 
 .panel-heading {
@@ -54,7 +68,8 @@ small {
 }
 
 #entryDetails {
-    height: 100vh;
+    height: 90vh;
+    padding: 0;
 }
 
 .entryNames:hover {
@@ -212,14 +227,16 @@ small {
 }
 
 #entryBody {
-    height: 100vh;
+    height: 90vh;
 }
 
 #entry-container {
     padding-right: 0;
+    max-height: 100vh;
 }
 
 #mapContainer {
+    height: 95vh;
     padding: 0px;
 }
 
@@ -286,6 +303,11 @@ small {
 
 #entryPage {
     padding: 0;
+}
+
+#entryPanel {
+    border: 1px solid #cacaca;
+    margin: 0;
 }
 
 .fixedTop {
@@ -415,11 +437,6 @@ textarea {
 
 #deleteIcon, #confirmDelText, #cancelDelText {
     color: red;
-}
-
-#markerButtons {
-    position: absolute;
-    margin: 0px 0px 0px 30px;
 }
 
 input[type=number]::-webkit-inner-spin-button {

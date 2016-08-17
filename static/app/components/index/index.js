@@ -181,10 +181,8 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
             .then(function (url) {
                 $("#entryImg").removeClass("hidden");
                 $("#loading").addClass("hidden");
-                $("#not-found").addClass("hidden");
                 $("#entryImg").attr("src", url).on("error", function () {
                     $("#entryImg").addClass("hidden");
-                    $("#not-found").removeClass("hidden");
                 });
             });
     };
@@ -230,6 +228,7 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
             prop === 'locx' ||
             prop === 'locy' ||
             prop === 'metadata' ||
+            prop === 'name' ||
             prop === 'key');
         };
     };
