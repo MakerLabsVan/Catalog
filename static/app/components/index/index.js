@@ -89,6 +89,7 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
     };
     $scope.sendClickAnalytic = function (entry) {
         ga('send', 'event', 'Clicked an Entry', 'click', [entry.name, entry.type, entry.key]);
+
         $scope.sendQueryAnalytic();
     };
 
