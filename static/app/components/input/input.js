@@ -419,6 +419,19 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         }
     };
 
+    // TODO: ? = () => i think this is a shorthand function decl?
+    (function () {
+        document.getElementById("file-input").onchange = () => {
+            const files = document.getElementById('file-input').files;
+            const file = files[0];
+            if (file != null) {
+                $scope.form.image = file.name;
+                $scope.$apply();
+            } else {
+                console.log("file not uploaded");
+            }
+        }
+    })();
 
     // default from heroku s3 direct upload docs for nodejs
     var fileHandler = function () {
@@ -462,8 +475,7 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
             if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
                     // display file name
-                    $scope.form.image = file.name;
-                    $scope.$apply();
+
                     console.log(url);
                 }
                 else {
