@@ -115,6 +115,7 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
     $scope.form = {};
     $scope.form.units = 'Units';
     $scope.form.weightUnits = 'Units';
+    $scope.form.image = "Image name";
 
     $scope.clearSearch = function () {
         $scope.inputQuery = '';
@@ -416,6 +417,7 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         }
     };
 
+
     // default from heroku s3 direct upload docs for nodejs
     (() => {
         document.getElementById("file-input").onchange = () => {
@@ -429,8 +431,15 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
     })();
 
     function getSignedRequest(file) {
+        // make path to upload to
+        var folder = $("input[name=typeOptions]:checked").val();
+        if (folder == undefined) {
+            alert("Please select a type!");
+            return;
+        }
+
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', `/sign-s3?file-name=${file.name}&file-type=${file.type}`);
+        xhr.open('GET', `/sign-s3?file-name=${file.name}&file-type=${file.type}&folder=${folder}`);
         xhr.onreadystatechange = () => {
             if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
@@ -451,6 +460,8 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         xhr.onreadystatechange = () => {
             if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
+                    $scope.form.image = file.name;
+                    $scope.$apply();
                     console.log(url);
                 }
                 else {

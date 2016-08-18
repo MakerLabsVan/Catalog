@@ -14,12 +14,18 @@ exports.getUrl = function (key, callback) {
     callback(s3.getSignedUrl('getObject', params));
 };
 
+exports.putObj = function (key, callback) {
+
+};
+
 exports.upload = function (req, res, callback) {
     const fileName = req.query['file-name'];
     const fileType = req.query['file-type'];
+    const folder = req.query['folder'];
+    const key = compressed + folder + "/" + fileName;
     const s3Params = {
         Bucket: s3bucket,
-        Key: fileName,
+        Key: key,
         Expires: 60,
         ContentType: fileType,
         ACL: 'public-read'

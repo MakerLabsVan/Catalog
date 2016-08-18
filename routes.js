@@ -80,10 +80,12 @@ module.exports = function (router, path, serverOps, public_serverOps, s3Ops) {
     });
 
     router.get('/sign-s3', function (req, res) {
-        console.log("req body: " + req.body);
         s3Ops.upload(req, res, function (response) {
             console.log(response);
-        })
-    })
+        });
+    });
 
+    router.post("/put", function (req, res) {
+
+    })
 };
