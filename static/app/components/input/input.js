@@ -254,7 +254,6 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         $('#confirmDel').removeClass('hidden');
         $('#deleteBtn').addClass('hidden');
 
-        $scope.cancelDelete();
     };
 
     $scope.cancelDelete = function () {
@@ -301,7 +300,9 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
             $scope.form = {};
             $scope.form.units = 'Units';
             $scope.form.weightUnits = 'Units';
+            $scope.cancelDelete();
         });
+
     };
 
     $scope.changeSendBtnColor = function (type) {
