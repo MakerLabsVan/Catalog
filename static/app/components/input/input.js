@@ -160,6 +160,8 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
                 values[values.length - 1] = String(newKey);
                 $scope.form.key = String(newKey);
             }
+            // upload image when selected
+            fileHandler();
 
             adminHttpRequests.insert(values, row).then(function (result) {
                 if (status === 'new') {
@@ -419,16 +421,15 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
 
 
     // default from heroku s3 direct upload docs for nodejs
-    (() => {
-        document.getElementById("file-input").onchange = () => {
-            const files = document.getElementById('file-input').files;
-            const file = files[0];
-            if (file == null) {
-                return alert('No file selected.');
-            }
-            getSignedRequest(file);
-        };
-    })();
+    var fileHandler = function () {
+        const files = document.getElementById('file-input').files;
+        const file = files[0];
+        if (file == null) {
+            console.log("No file was selected");
+            return;
+        }
+        getSignedRequest(file);
+    };
 
     function getSignedRequest(file) {
         // make path to upload to
@@ -460,6 +461,7 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         xhr.onreadystatechange = () => {
             if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
+                    // display file name
                     $scope.form.image = file.name;
                     $scope.$apply();
                     console.log(url);
