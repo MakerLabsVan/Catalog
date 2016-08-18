@@ -221,6 +221,32 @@
                                               placeholder="{{ entryPropertiesObj.description }}"
                                               ng-model="form.description"></textarea>
                                 </div>
+                                <div class="row" id="submitBtn">
+                                    <button type="submit" class="btn btn-block btn-default inputAreaHeight">
+                                        <span class="glyphicon glyphicon-cloud-upload" id="uploadIcon">
+                                            </span>
+                                        Submit
+                                    </button>
+                                </div>
+                                <div class="row hidden" id="free-studio-btn">
+                                    <button type="button" ng-click="confirmFree()"
+                                            class="btn btn-block btn-default inputAreaHeight">
+                                        Make Studio Available
+                                    </button>
+                                </div>
+                                <div class="row hidden" id="confirm-free">
+                                    <div class="col-sm-6 noPadding">
+                                        <button type="button"
+                                                class="btn btn-block btn-default inputAreaHeight"
+                                                ng-click="freeStudio()" id="confirm-free-text">Confirm
+                                        </button>
+                                    </div>
+                                    <div class="col-sm-6 noPadding" id="cancel-free">
+                                        <button type="button" class="btn btn-block btn-default inputAreaHeight"
+                                                ng-click="cancelFree()" id="cancel-free-text">Cancel
+                                        </button>
+                                    </div>
+                                </div>
                                 <div class="row hidden" id="deleteBtn">
                                     <button type="button"
                                             class="btn btn-block btn-default inputAreaHeight"
@@ -239,7 +265,6 @@
                                                 ng-click="cancelDelete()" id="cancelDelText">Cancel
                                         </button>
                                     </div>
-
                                 </div>
                                 <div class="row hidden" id="editBtn">
                                     <div class="btn btn-block btn-default inputAreaHeight"
@@ -260,13 +285,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row" id="submitBtn">
-                                    <button type="submit" class="btn btn-block btn-default inputAreaHeight">
-                                        <span class="glyphicon glyphicon-cloud-upload" id="uploadIcon">
-                                            </span>
-                                        Submit
-                                    </button>
-                                </div>
+
                             </div>
                         </form>
                     </div>
@@ -310,8 +329,6 @@
                                     </div><!-- /.modal-dialog -->
                                 </div><!-- /.modal -->
                             </div>
-                        </div>
-                        <div class="container-fluid">
                             <div class="row">
                                 <div class="btn-group" role="group">
                                     <button type="button" class="btn btn-default edit-buttons"

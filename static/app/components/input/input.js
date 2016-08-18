@@ -165,6 +165,7 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
 
             adminHttpRequests.insert(values, row).then(function (result) {
                 if (status === 'new') {
+                    // fix local length and keys
                     $scope.dataLength++;
                     $scope.fixedForKey++;
                     $scope.forKeyUseOnly.push(values);
@@ -174,10 +175,12 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
                 // also edits if entry exists
                 $scope.entries[$scope.form.key] = $scope.form;
 
-                $scope.form = {};
-                $scope.form.units = 'Units';
-                $scope.form.weightUnits = 'Units';
-                $scope.deleteAllMarker();
+                if (status === "new") {
+                    $scope.form = {};
+                    $scope.form.units = 'Units';
+                    $scope.form.weightUnits = 'Units';
+                    $scope.deleteAllMarker();
+                }
             });
         }
     };
@@ -231,6 +234,7 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
     $scope.confirmEdit = function () {
         $('#confirmEdit').removeClass('hidden');
         $('#editBtn').addClass('hidden');
+
     };
 
     $scope.cancelEdit = function () {
@@ -243,16 +247,41 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         // find index of selected
         var index = findIndex();
         $scope.insert(index, status);
+        $scope.cancelEdit();
     };
 
     $scope.confirmDelete = function () {
         $('#confirmDel').removeClass('hidden');
         $('#deleteBtn').addClass('hidden');
+
+        $scope.cancelDelete();
     };
 
     $scope.cancelDelete = function () {
         $('#confirmDel').addClass('hidden');
         $('#deleteBtn').removeClass('hidden');
+    };
+
+    $scope.freeStudio = function () {
+        $scope.form.name = "Available Studio";
+        $scope.form.type = "Studio";
+        $scope.form.subtype = "Available";
+        $scope.form.keywords = "";
+        $scope.form.description = "";
+        $scope.form.image = "";
+
+        $scope.edit("edit");
+        $scope.cancelFree();
+    };
+
+    $scope.confirmFree = function () {
+        $("#free-studio-btn").addClass("hidden");
+        $("#confirm-free").removeClass("hidden");
+    };
+
+    $scope.cancelFree = function () {
+        $("#free-studio-btn").removeClass("hidden");
+        $("#confirm-free").addClass("hidden");
     };
 
     // delete an entry
@@ -309,6 +338,14 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         $('#deleteBtn').removeClass('hidden');
         $('#editBtn').removeClass('hidden');
         $('#submitBtn').addClass('hidden');
+
+        // show free-studio btn
+        if (entry.type === "Studio") {
+            $('#free-studio-btn').removeClass("hidden");
+        } else {
+            $('#free-studio-btn').addClass("hidden");
+        }
+
 
         // fill form (convert string numbers to numbers)
         for (var i in entry) {
@@ -367,6 +404,7 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         $('#confirmDel').addClass('hidden');
         $('#editBtn').addClass('hidden');
         $('#confirmEdit').addClass('hidden');
+        $('#free-studio-btn').addClass('hidden');
         $('#uploadIcon').css('color', 'black');
     };
 
