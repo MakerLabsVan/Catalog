@@ -113,8 +113,8 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
 
     // make a new entry
     $scope.form = {};
-    $scope.form.units = 'Units';
-    $scope.form.weightUnits = 'Units';
+    $scope.form.units = 'Select Unit';
+    $scope.form.weightUnits = 'Select Unit';
     $scope.form.image = "Image name";
 
     $scope.clearSearch = function () {
@@ -130,7 +130,7 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
 
         // get type from radio buttons
         $scope.form.type = $("input[name=typeOptions]:checked").val();
-        if ($scope.form.type == undefined || $scope.form.type == null) {
+        if ($scope.form.type == undefined || $scope.form.type == null || $scope.form.type === '') {
             alert("Type has not been set!");
         } else {
             // parse metadata from $scope.metaObj
@@ -175,10 +175,12 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
                 // also edits if entry exists
                 $scope.entries[$scope.form.key] = $scope.form;
 
-                $scope.form = {};
-                $scope.form.units = 'Units';
-                $scope.form.weightUnits = 'Units';
-                $scope.deleteAllMarker();
+                if (status === "new") {
+                    $scope.form = {};
+                    $scope.form.units = 'Select Unit';
+                    $scope.form.weightUnits = 'Select Unit';
+                    $scope.deleteAllMarker();
+                }
             });
         }
     };
@@ -327,6 +329,7 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
     };
 
     $scope.selectEntry = function (entry) {
+        $scope.form = {};
         $scope.showLoc(entry);
         $scope.map.markers.onDrag();
         $scope.selectedEntry = entry;
@@ -394,8 +397,8 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
 
     $scope.newForm = function () {
         $scope.form = {};
-        $scope.form.units = 'Units';
-        $scope.form.weightUnits = 'Units';
+        $scope.form.units = 'Select Unit';
+        $scope.form.weightUnits = 'Select Unit';
         $scope.deleteAllMarker();
         $('#buttonGroup').find('.active').removeClass('active');
         $('#submitBtn').removeClass('hidden');
@@ -405,6 +408,8 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         $('#confirmEdit').addClass('hidden');
         $('#free-studio-btn').addClass('hidden');
         $('#uploadIcon').css('color', 'black');
+
+        highlightService.clearHighlight();
     };
 
     $scope.newSelect = function () {

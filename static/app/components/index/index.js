@@ -331,7 +331,13 @@ indexApp.service('highlightService', function () {
                 changeSelection('lightBlue');
         }
     };
+
+    var clearHighlight = function () {
+        $('#' + lastObject).removeClass('whiteFont lightRed lightOrange lightGreen lightBlue');
+    };
+
     return {
-        highlight: highlight
+        highlight: highlight,
+        clearHighlight: clearHighlight
     }
 });
