@@ -175,12 +175,10 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
                 // also edits if entry exists
                 $scope.entries[$scope.form.key] = $scope.form;
 
-                if (status === "new") {
-                    $scope.form = {};
-                    $scope.form.units = 'Units';
-                    $scope.form.weightUnits = 'Units';
-                    $scope.deleteAllMarker();
-                }
+                $scope.form = {};
+                $scope.form.units = 'Units';
+                $scope.form.weightUnits = 'Units';
+                $scope.deleteAllMarker();
             });
         }
     };
