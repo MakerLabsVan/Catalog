@@ -175,12 +175,18 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
                 // also edits if entry exists
                 $scope.entries[$scope.form.key] = $scope.form;
 
-                if (status === "new") {
-                    $scope.form = {};
-                    $scope.form.units = 'Select Unit';
-                    $scope.form.weightUnits = 'Select Unit';
-                    $scope.deleteAllMarker();
-                }
+                $scope.form = {};
+                $scope.form.units = 'Select Unit';
+                $scope.form.weightUnits = 'Select Unit';
+                $scope.deleteAllMarker();
+                highlightService.clearHighlight();
+                // clear type btn
+                var btnGroup = $('#buttonGroup');
+
+                // deactivate div
+                btnGroup.find('div.active').removeClass('active');
+                // uncheck button
+                btnGroup.find('input[name=typeOptions]:checked').prop('checked', false);
             });
         }
     };
