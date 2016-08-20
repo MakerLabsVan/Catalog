@@ -20,6 +20,8 @@
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"
           integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    <!-- materialize for input forms -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
     <link rel="stylesheet" href="public.css">
 
 </head>
@@ -40,7 +42,7 @@
                         <input type="search" name="searchBar" id="search-bar" class="form-control search-bar-ht"
                                title="searchBar"
                                placeholder="Search here" ng-model="public.query">
-                        <span class="input-group-addon cursor" ng-click="public.clear()"><span
+                        <span class="input-group-addon cursor" ng-click="public.clear()" id="remove-icon"><span
                                 class="glyphicon glyphicon-remove"></span></span>
                     </div>
                 </div>
@@ -156,10 +158,6 @@
                         <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
                         <span class="sr-only">Loading...</span>
                     </div>
-                    <div class="hidden" id="not-found">
-                        <i class="fa fa-exclamation-triangle fa-3x" aria-hidden="true"></i>
-                        <h3>Image not Found</h3>
-                    </div>
                     <img class="centerImage hidden" src="" alt="" id="entry-image">
                 </div>
             </div>
@@ -213,6 +211,9 @@
 <script>
     window.d3 || document.write('<script src="d3.min.js"><\/script>')
 </script>
+
+<!-- materialize for inputs -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 
 <script src="app.module.js"></script>
 <script src="public.controller.js"></script>

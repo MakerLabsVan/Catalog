@@ -36,15 +36,6 @@ hr {
     font-size: 2em;
 }
 
-.thin {
-    opacity: 0.5;
-}
-
-.attr-font {
-    font-size: 1.5em;
-    font-size: 20px;
-}
-
 .round-right-edge {
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
@@ -109,9 +100,13 @@ hr {
 }
 
 #details {
-    height: 100vh;
     border-right: 1px solid #eeeeee;
     padding: 0 0 0 10px;
+}
+
+#form {
+    height: 95vh;
+    overflow-y: scroll;
 }
 
 #entry-title {
@@ -258,4 +253,8 @@ hr {
 
 .search-pad {
     padding: 10px 0px 10px 5px;
+}
+
+#name {
+    margin: 0;
 }

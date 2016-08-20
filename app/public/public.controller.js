@@ -1,5 +1,5 @@
 (function () {
-    angular.module('app')
+    angular.module("app")
         .controller('publicController', publicController);
 
     publicController.$inject = ['$interval', 'dataService', 'searchService', 'highlightService', 'S3Service', 'analytics'];
@@ -60,9 +60,7 @@
                     console.log(url);
                     $("#entry-image").attr("src", url).on("error", function () {
                         $("#entry-image").addClass(hdn);
-                        $("#not-found").removeClass(hdn);
                     })
-
                 })
         }
 
@@ -87,7 +85,6 @@
             imageResponse();
             // load image
             loadImage(entry.type, entry.name);
-
         }
 
         function querySelect(key) {

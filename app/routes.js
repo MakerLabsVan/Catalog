@@ -6,6 +6,10 @@ module.exports = function (router, path) {
         res.sendFile(path + "/public/public.html");
     });
 
+    router.get("/admin", function (req, res) {
+        res.sendFile(path + "/admin/admin.html");
+    });
+
     router.get("/publicGet", function (req, res) {
         gapi.PubGetData(callback);
 
@@ -21,10 +25,4 @@ module.exports = function (router, path) {
             return res.json(url);
         })
     });
-
-    router.get("*", function (req, res) {
-        res.sendFile(path + "/404.html");
-    });
-
-
 };

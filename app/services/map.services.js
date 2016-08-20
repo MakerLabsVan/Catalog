@@ -1,5 +1,5 @@
 (function () {
-    angular.module('app')
+    angular.module("app")
         .service("mapService", mapService);
 
     function mapService() {

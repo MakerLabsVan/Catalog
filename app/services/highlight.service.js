@@ -1,6 +1,6 @@
 (function () {
 
-    angular.module('app')
+    angular.module("app")
         .service("highlightService", highlightService);
 
     function highlightService() {
