@@ -239,8 +239,9 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
         if (entry.type == 'Studio') {
             $scope.map.studio.highlight(entry.key);
         } else {
-            $scope.map.markers.draw($scope.map.width(), JSON.parse(entry.metadata))
-            //TODO:MARKER DISPLAY
+          if (entry.metadata) {
+            $scope.map.markers.draw($scope.map.width(), JSON.parse(entry.metadata));
+          }
         }
         $scope.map.selectFloor(Number(entry.floor));
     };
