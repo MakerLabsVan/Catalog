@@ -268,7 +268,7 @@
                     <ul class="collapsible" data-collapsible="expandable">
                         <li>
                             <div class="collapsible-header">
-                                Metadata
+                                Description and Keywords
                             </div>
                             <div class="collapsible-body">
                                 <br>
@@ -277,6 +277,46 @@
                                         <textarea id="description" class="materialize-textarea"
                                                   placeholder="{{ admin.details.description }}"></textarea>
                                         <label for="description">Description</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <textarea placeholder="{{ admin.details.keywords }}" id="keywords"
+                                                  class="materialize-textarea"></textarea>
+                                        <label for="keywords">Keywords</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="row no-margin">
+                    <ul class="collapsible" data-collapsible="expandable">
+                        <li>
+                            <div class="collapsible-header">
+                                Image
+                            </div>
+                            <div class="collapsible-body">
+                                <br>
+                                <div class="row">
+                                    <div class="hidden" id="loading">
+                                        <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                    <div class="hidden" id="not-found">
+                                        <p>No Image</p>
+                                    </div>
+                                    <img class="centerImage hidden" src="" alt="" id="entry-image">
+                                </div>
+                                <div class="row">
+                                    <div class="file-field input-field" id="input-file">
+                                        <div class="btn">
+                                            <span>File</span>
+                                            <input type="file">
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <input class="file-path validate" type="text">
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -3,9 +3,9 @@
     angular.module("app")
         .controller("adminController", adminController);
 
-    adminController.$inject = ["dataService", "highlightService", "searchService"];
+    adminController.$inject = ["dataService", "highlightService", "searchService", "S3Service"];
 
-    function adminController(dataService, highlightService, searchService) {
+    function adminController(dataService, highlightService, searchService, S3Service) {
         var vm = this;
         vm.data = {};
         vm.details = {};
@@ -58,6 +58,9 @@
             // highlight
             highlightService.highlight(entry.key, entry.type, vm.lastSelected);
             vm.lastSelected = key;
+
+            imageResponse();
+            loadImage(entry.type, entry.name)
         }
 
         function querySelect(key) {
@@ -96,6 +99,27 @@
             }
             vm.details.quantity = qty;
         }
+
+        function loadImage(type, name) {
+            S3Service.getURL(type + "/" + name)
+                .then(function (url) {
+                    $("#entry-image").removeClass(hdn);
+                    $("#loading").addClass(hdn);
+                    console.log(url);
+                    $("#entry-image").attr("src", url).on("error", function () {
+                        $("#entry-image").addClass(hdn);
+                        $("#not-found").removeClass(hdn);
+                    })
+                })
+        }
+
+        function imageResponse() {
+            // show loading icon when clicked and change on load
+            $("#entry-image").addClass(hdn);
+            $("#not-found").addClass(hdn);
+            $("#loading").removeClass(hdn);
+        }
+
     }
 
 })();

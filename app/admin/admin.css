@@ -104,7 +104,7 @@ hr {
 }
 
 #details {
-    max-height:100vh;
+    max-height: 100vh;
     border-right: 1px solid #eeeeee;
     padding: 0 15px 0 15px;
     overflow-y: auto;
@@ -119,15 +119,19 @@ hr {
     border-radius: 10px;
 }
 
+#input-file {
+    padding: 0px 10px 0 10px;
+}
+
 #entry-image {
-    /* can change to better fit image */
-    max-height: 45vh;
+    /* changed to max-width for input page only */
+    max-width: 10vw;
     border-radius: 40px;
     display: block;
     margin: 0 auto;
 }
 
-#loading {
+#loading, #not-found {
     text-align: center;
 }
 
