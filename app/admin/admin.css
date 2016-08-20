@@ -47,6 +47,10 @@ hr {
     border: none;
 }
 
+.no-margin {
+    margin: 0;
+}
+
 .panel-heading {
     height: 40px;
 }
@@ -100,8 +104,10 @@ hr {
 }
 
 #details {
+    max-height:100vh;
     border-right: 1px solid #eeeeee;
-    padding: 0 0 0 10px;
+    padding: 0 15px 0 15px;
+    overflow-y: auto;
 }
 
 #form {
@@ -134,10 +140,6 @@ hr {
     background-color: #F14A29 !important;
 }
 
-.red-scroll {
-
-}
-
 .red-scroll::-webkit-scrollbar {
     width: 10px;
     background-color: #fafafa;
@@ -154,10 +156,6 @@ hr {
 
 .blue {
     background-color: #107CC2 !important;
-}
-
-.blue-scroll {
-
 }
 
 .blue-scroll::-webkit-scrollbar {
@@ -178,10 +176,6 @@ hr {
     background-color: #F3902C !important;
 }
 
-.orange-scroll {
-
-}
-
 .orange-scroll::-webkit-scrollbar {
     width: 10px;
     background-color: #fafafa;
@@ -198,10 +192,6 @@ hr {
 
 .green {
     background-color: #2BAC69 !important;
-}
-
-.green-scroll {
-
 }
 
 .green-scroll::-webkit-scrollbar {
@@ -224,10 +214,6 @@ hr {
 
 .white-font {
     color: white;
-}
-
-.grey-scroll {
-
 }
 
 .grey-scroll::-webkit-scrollbar {

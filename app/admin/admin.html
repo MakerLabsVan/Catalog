@@ -141,7 +141,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3" id="details">
+            <div class="col-md-3 grey-scroll" id="details">
                 <br>
                 <!--<div ng-repeat="value in admin.details track by $index">-->
                 <div class="row">
@@ -170,7 +170,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row no-margin">
                     <ul class="collapsible" data-collapsible="expandable">
                         <li>
                             <div class="collapsible-header">
@@ -218,9 +218,70 @@
                         </li>
                     </ul>
                 </div>
-                <div class="row">
-
-
+                <div class="row no-margin">
+                    <ul class="collapsible" data-collapsible="expandable">
+                        <li>
+                            <div class="collapsible-header">
+                                Dimension
+                            </div>
+                            <div class="collapsible-body">
+                                <br>
+                                <div class="row">
+                                    <div class="input-field col s3">
+                                        <input placeholder="{{ admin.details.width }}" id="width" type="text"
+                                               class="validate">
+                                        <label for="width">Width</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input placeholder="{{ admin.details.length }}" id="length" type="text"
+                                               class="validate">
+                                        <label for="length">Length</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input placeholder="{{ admin.details.height }}" id="height" type="text"
+                                               class="validate">
+                                        <label for="height">Height</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input placeholder="{{ admin.details.units }}" id="unit" type="text"
+                                               class="validate">
+                                        <label for="unit">Unit</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <input placeholder="{{ admin.details.weight }}" id="weight" type="text"
+                                               class="validate">
+                                        <label for="weight">Weight</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <input placeholder="{{ admin.details.weightunit }}" id="weightunit" type="text"
+                                               class="validate">
+                                        <label for="weightunit">Weight Unit</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="row no-margin">
+                    <ul class="collapsible" data-collapsible="expandable">
+                        <li>
+                            <div class="collapsible-header">
+                                Metadata
+                            </div>
+                            <div class="collapsible-body">
+                                <br>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <textarea id="description" class="materialize-textarea"
+                                                  placeholder="{{ admin.details.description }}"></textarea>
+                                        <label for="description">Description</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="col-md-7" id="map">
