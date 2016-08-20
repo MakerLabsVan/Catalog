@@ -19,6 +19,8 @@
         vm.querySelect = querySelect;
         vm.search = search;
         vm.select = select;
+        vm.increaseQty = increaseQty;
+        vm.decreaseQty = decreaseQty;
 
         var hdn = "hidden";
 
@@ -77,7 +79,23 @@
             }
         }
 
+        function increaseQty() {
+            var qty = Number(vm.details.quantity);
+            if (qty != undefined) {
+                qty += 1;
+            }
+            vm.details.quantity = qty;
+        }
 
+        function decreaseQty() {
+            var qty = Number(vm.details.quantity);
+            if (qty != undefined) {
+                if (qty > 0) {
+                    qty -= 1;
+                }
+            }
+            vm.details.quantity = qty;
+        }
     }
 
 })();
