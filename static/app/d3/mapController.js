@@ -37,7 +37,7 @@ app.controller('mapController', ['$scope', '$window', '$location', function ($sc
         $scope.map.studio.onClick(function (id) {
             $scope.selectedObject = $scope.entries[id];
             $scope.onSelect($scope.entries[id], $scope.entries[id].type.toLowerCase());
-            $scope.sendMapAnalyic($scope.selectedObject);
+            $scope.sendMapAnalytic($scope.selectedObject);
             $scope.$apply();
         });
 

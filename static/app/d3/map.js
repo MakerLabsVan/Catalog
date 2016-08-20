@@ -57,9 +57,9 @@ var mapConstructor = function (containerID, floorNum) {
             .attr("xlink:href", mapFilePath)
             .attr('preserveAspectRatio', 'xMinYMin meet')
             .attr('class', 'isoMap')
-            .attr('width',"100%")
-            .attr('height',"1000%")
-            .attr('id','map-png'),
+            .attr('width', "100%")
+            .attr('height', "1000%")
+            .attr('id', 'map-png'),
 
         // addImgMap( this.viewport, mapFilePath ),
         //Returns width of the map container

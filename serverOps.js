@@ -1,6 +1,6 @@
 var path = __dirname;
-var gapi = require(path + "/static/app/components/googlesheets/googlesheetsapi.js");
-var oauth = require(path + '/static/app/components/googlesheets/oauth2login.js');
+var gapi = require(path + "/static/app/googlesheets/googlesheetsapi.js");
+var oauth = require(path + '/static/app/googlesheets/oauth2login.js');
 var auth = oauth.OAuth2Client;
 
 var checkForToken = function (callback) {
