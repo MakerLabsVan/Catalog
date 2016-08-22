@@ -23,6 +23,7 @@
         vm.sendMetric = analytics();
         vm.select = select;
 
+        // map service
         var hdn = "hidden";
 
         activate();

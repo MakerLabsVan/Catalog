@@ -120,6 +120,7 @@ hr {
 
 #entry-image {
     /* can change to better fit image */
+    max-width: 20vw;
     max-height: 45vh;
     border-radius: 40px;
     display: block;
@@ -130,7 +131,7 @@ hr {
     text-align: center;
 }
 
-#map {
+#map-container {
     height: 100vh;
     padding: 20px;
 }

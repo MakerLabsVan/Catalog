@@ -9,7 +9,7 @@
 
         // ISOMETRIC MAP
         const IS_ISOMETRIC = true; //Draws 2d map if false
-        const MAP_FILE_PATH = "/assets/ISO4.png";
+        const MAP_FILE_PATH = "ISO4.png";
         const ISO_MAP_SCALE = 8.5; //database value to isometric map conversion
         const ISO_MAP_WIDTH = 1464; // Width of isometric map, used to dynamically resize map
         const SCROLL_MAP_Y = 1375; //Vertical scroll until next floor
@@ -20,6 +20,7 @@
 
         var service = {
             // main map object (check below)
+            init: init,
             map: map,
             studio: studio,
             marker: marker,
@@ -32,57 +33,87 @@
         };
 
         var drag = drag;
+        var displayMarkerOnClick = displayMarkerOnClick;
         var getScreenFactor = getScreenFactor;
 
         return service;
 
         ///////////////////////////////////////////////
+        function init(container, floor, entries) {
+            service.map(container, floor);
+            for (i in entries) {
+                if (entries[i].type == 'Studio') {
+                    if (entries[i].metadata) {
+                        var payload = {
+                            'metadata': JSON.parse(entries[i].metadata),
+                            'subtype': entries[i].subtype,
+                            'floor': entries[i].floor,
+                            'id': entries[i].key
+                        };
+                        // service.map.studio.draw(payload);
+                    }
+                }
+            }
+        }
+
         /**
          * Makes an map object that provides methods to change the entire map view
          * @param {string} container ID of the element you wish to attach map to (required)
          * @param {number} floor to view
          *
          **/
+        // constructor
         function map(container, floor) {
+            console.log("Called map fn");
             var vm = this;
             vm.curFloor = floor;
             vm.nextFloor = nextFloor;
             // container for the map svgs and images
-            vm.viewport = viewport;
+            vm.viewport = null;
             // the map image
-            vm.map = map;
+            vm.bgMap = null;
             // return width/height of map container
             vm.width = width;
             vm.height = height;
-            vm.studio = studio;
-            vm.markers = markers;
+            vm.studio = null;
+            vm.markers = null;
             vm.resize = resize;
             vm.selectFloor = selectFloor;
             vm.swipe = swipe;
             vm.getMarkerLocation = getMarkerLocation;
 
+            activate();
+
             ///////////////////////////
+
+            function activate() {
+                vm.viewport = d3.select('#' + container)
+                    .append('svg')
+                    .attr('id', 'mapContainer' + container)
+                    .attr('class', 'mapContainer')
+                    .attr('width', '100%')
+                    .attr('height', '100%');
+
+                vm.bgMap = vm.viewport
+                    .append("svg:image")
+                    .attr("xlink:href", MAP_FILE_PATH)
+                    .attr('preserveAspectRatio', 'xMinYMin meet')
+                    .attr('width', '100%')
+                    .attr('height', '1000%')
+                    .attr('class', 'isoMap');
+
+                console.log(service);
+
+                vm.studio = new service.studio(vm.viewport, vm.bgMap, IS_ISOMETRIC);
+                vm.markers = new service.marker(vm.studio.building);
+            }
+
             function nextFloor() {
                 if (vm.curFloor == 1) {
                     vm.curFloor = 2;
                 } else {
                     vm.curFloor = 1;
                 }
-            }
-
-            function viewport() {
-                return d3.select('#' + container)
-                    .append('svg')
-                    .attr('id', 'mapContainer' + container)
-                    .attr('class', 'mapContainer');
-            }
-
-            function map() {
-                return vm.viewport
-                    .append("svg:image")
-                    .attr("xlink:href", MAP_FILE_PATH)
-                    .attr('preserveAspectRatio', 'xMinYMin meet')
-                    .attr('class', 'isoMap');
             }
 
             function width() {
@@ -92,14 +123,6 @@
             function height() {
                 return vm.viewport.node().getBoundingClientRect().height;
 
-            }
-
-            function studio() {
-                return new service.studio(vm.viewport, vm.map, IS_ISOMETRIC);
-            }
-
-            function markers() {
-                return new service.marker(vm.studio.building());
             }
 
             function resize() {
@@ -113,7 +136,7 @@
             }
 
             function swipe() {
-                d3.select(vm.studio.Building)
+                d3.select(vm.studio.building)
                     .on("drag", dragAlert);
 
                 function dragAlert() {
@@ -128,8 +151,8 @@
 
         function studio(container, map, IS_ISOMETRIC) {
             var vm = this;
-            vm.building = building;
-            vm.floor = floor;
+            vm.building = null;
+            vm.floor = null;
             vm.draw = draw;
             vm.resize = resize;
             vm.selectFloor = selectFloor;
@@ -137,23 +160,23 @@
             vm.dehighlight = dehighlight;
             vm.onClick = onClick;
 
+            activate();
 
             //////////////////////////////////
-            function building() {
-                return container
+
+            function activate() {
+                vm.building = container
                     .append('g')
                     .classed('studioGroup', true);
-            }
 
-            function floor() {
-                return [
+                vm.floor = [
                     vm.building
                         .append('g')
                         .classed('floor1', true),
                     vm.building
                         .append('g')
                         .classed('floor2', true)
-                ]
+                ];
             }
 
             function draw(payload) {
@@ -176,6 +199,13 @@
                     });
             }
 
+            function resize(mapWidth) {
+                for (var i = 0; i < vm.floor.length; i++) {
+                    var transform = service.transformStudio(mapWidth, i + 1, IS_ISOMETRIC); //Floor number is i+1
+                    vm.floor[i].attr('transform', transform);
+                }
+            }
+
             function selectFloor(width, floor) {
                 var screenScale = getScreenFactor(width);
 
@@ -193,7 +223,7 @@
                 }
 
                 vm.building.transition().attr('transform', setFloor).duration(FLOOR_TRANSITION_DELAY);
-                service.map.map.transition().attr('transform', setFloor).duration(FLOOR_TRANSITION_DELAY);
+                map.transition().attr('transform', setFloor).duration(FLOOR_TRANSITION_DELAY);
             }
 
             function highlight(id) {
@@ -261,8 +291,28 @@
                 vm.markerCluster.pop().remove();
             }
 
+            function deleteAll() {
+                while (vm.markerCluster.length != 0) {
+                    vm.markerCluster.pop().remove();
+                }
+            }
+
             function onClick() {
+                // TODO: magician sunny's container
                 service.displayMarker(vm.markerCluster, container);
+            }
+
+            function getLocation(width, floor) {
+                var arrayOfPoints = [];
+
+                for (var i in vm.markerCluster) {
+                    var points = {
+                        'x': Number(vm.markerCluster[i].attr('x')) + Number(vm.markerCluster[i].attr('width')) / 2,
+                        'y': Number(vm.markerCluster[i].attr('y')) + Number(vm.markerCluster[i].attr('height'))
+                    };
+                    arrayOfPoints.push(undo(width, points, IS_ISOMETRIC, floor));
+                }
+                return arrayOfPoints;
             }
 
             function onDrag() {
@@ -412,6 +462,13 @@
 
 
     }
+
+    drag = d3.drag()
+        .on("drag", function (d) {
+            var obj = d3.select(this);
+            obj.attr('x', d3.event.x - Number(obj.attr('width') / 2));
+            obj.attr('y', d3.event.y - Number(obj.attr('height')));
+        });
 
 
 })();
