@@ -108,6 +108,7 @@ hr {
     border-right: 1px solid #eeeeee;
     padding: 0 15px 0 15px;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 #form {
@@ -125,7 +126,7 @@ hr {
 
 #entry-image {
     /* changed to max-width for input page only */
-    max-width: 10vw;
+    max-width: 20vw;
     border-radius: 40px;
     display: block;
     margin: 0 auto;

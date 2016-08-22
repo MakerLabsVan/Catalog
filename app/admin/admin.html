@@ -143,16 +143,17 @@
             </div>
             <div class="col-md-3 grey-scroll" id="details">
                 <br>
-                <!--<div ng-repeat="value in admin.details track by $index">-->
                 <div class="row">
                     <div class="input-field col s12">
-                        <input placeholder="{{ admin.details.name }}" id="name" type="text" class="validate">
+                        <input placeholder="{{ admin.details.name }}" id="name" type="text"
+                               ng-model="admin.details.name" class="validate">
                         <label for="name">Name</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s8">
-                        <input placeholder="{{ admin.details.quantity }}" id="qty" type="number" class="validate">
+                        <input placeholder="{{ admin.details.quantity }}" id="qty" type="number"
+                               ng-model="admin.details.quantity" class="validate">
                         <label for="qty">Quantity</label>
                     </div>
                     <div class="input-field col s2">
@@ -202,6 +203,7 @@
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <input placeholder="{{ admin.details.subtype }}" id="subtype" type="text"
+                                               ng-model="admin.details.subtype"
                                                class="validate">
                                         <label for="subtype">Subtype</label>
                                     </div>
@@ -209,7 +211,7 @@
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <input placeholder="{{ admin.details.sublocation }}" id="sublocation"
-                                               type="text"
+                                               type="text" ng-model="admin.details.sublocation"
                                                class="validate">
                                         <label for="sublocation">Sublocation</label>
                                     </div>
@@ -229,21 +231,25 @@
                                 <div class="row">
                                     <div class="input-field col s3">
                                         <input placeholder="{{ admin.details.width }}" id="width" type="text"
+                                               ng-model="admin.details.width"
                                                class="validate">
                                         <label for="width">Width</label>
                                     </div>
                                     <div class="input-field col s3">
                                         <input placeholder="{{ admin.details.length }}" id="length" type="text"
+                                               ng-model="admin.details.length"
                                                class="validate">
                                         <label for="length">Length</label>
                                     </div>
                                     <div class="input-field col s3">
                                         <input placeholder="{{ admin.details.height }}" id="height" type="text"
+                                               ng-model="admin.details.height"
                                                class="validate">
                                         <label for="height">Height</label>
                                     </div>
                                     <div class="input-field col s3">
                                         <input placeholder="{{ admin.details.units }}" id="unit" type="text"
+                                               ng-model="admin.details.units"
                                                class="validate">
                                         <label for="unit">Unit</label>
                                     </div>
@@ -251,11 +257,13 @@
                                 <div class="row">
                                     <div class="input-field col s6">
                                         <input placeholder="{{ admin.details.weight }}" id="weight" type="text"
+                                               ng-model="admin.details.weight"
                                                class="validate">
                                         <label for="weight">Weight</label>
                                     </div>
                                     <div class="input-field col s6">
                                         <input placeholder="{{ admin.details.weightunit }}" id="weightunit" type="text"
+                                               ng-model="admin.details.weightunit"
                                                class="validate">
                                         <label for="weightunit">Weight Unit</label>
                                     </div>
@@ -275,13 +283,15 @@
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <textarea id="description" class="materialize-textarea"
-                                                  placeholder="{{ admin.details.description }}"></textarea>
+                                                  placeholder="{{ admin.details.description }}"
+                                                  ng-model="admin.details.description"></textarea>
                                         <label for="description">Description</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <textarea placeholder="{{ admin.details.keywords }}" id="keywords"
+                                                  ng-model="admin.details.keywords"
                                                   class="materialize-textarea"></textarea>
                                         <label for="keywords">Keywords</label>
                                     </div>
@@ -312,7 +322,7 @@
                                     <div class="file-field input-field" id="input-file">
                                         <div class="btn">
                                             <span>File</span>
-                                            <input type="file">
+                                            <input type="file" id="file">
                                         </div>
                                         <div class="file-path-wrapper">
                                             <input class="file-path validate" type="text">

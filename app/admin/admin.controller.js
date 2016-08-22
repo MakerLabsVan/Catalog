@@ -3,9 +3,10 @@
     angular.module("app")
         .controller("adminController", adminController);
 
-    adminController.$inject = ["dataService", "highlightService", "searchService", "S3Service"];
+    adminController.$inject = ["$scope", "dataService", "highlightService", "searchService", "S3Service"];
+    // scope for digest
 
-    function adminController(dataService, highlightService, searchService, S3Service) {
+    function adminController($scope, dataService, highlightService, searchService, S3Service) {
         var vm = this;
         vm.data = {};
         vm.details = {};
@@ -54,6 +55,25 @@
             var entry = vm.data.all[key];
             vm.title = entry.name;
             vm.details = entry;
+            // convert to num
+            vm.details.quantity = Number(vm.details.quantity);
+
+            // uncheck previous type
+            $("input[name=radio-type]:checked").prop('checked', false);
+            // select correct radio
+            switch (vm.details.type) {
+                case "Studio":
+                    $('input#radio-studio').prop('checked', true);
+                    break;
+                case "Tool":
+                    $('input#radio-tool').prop('checked', true);
+                    break;
+                case "Material":
+                    $('input#radio-material').prop('checked', true);
+                    break;
+                case "Consumable":
+                    $('input#radio-consumable').prop('checked', true);
+            }
 
             // highlight
             highlightService.highlight(entry.key, entry.type, vm.lastSelected);
@@ -119,6 +139,19 @@
             $("#not-found").addClass(hdn);
             $("#loading").removeClass(hdn);
         }
+
+        (function () {
+            document.getElementById("file").onchange = () => {
+                const files = document.getElementById('file').files;
+                const file = files[0];
+                if (file != null) {
+                    console.log(file.name);
+                    $scope.$digest();
+                } else {
+                    console.log("file not uploaded");
+                }
+            }
+        })();
 
     }
 
