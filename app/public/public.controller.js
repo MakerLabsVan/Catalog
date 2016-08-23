@@ -33,8 +33,8 @@
             dataService.get().then(function (data) {
                 console.log(data);
                 vm.data = data;
-                console.log(data.studios)
-                mapService.activate('map-container',1,data.studios)
+                // console.log(mapService.map('map-container',1))
+                mapService.activate('map-container',2,data.studios)
                 return vm.data;
             })
         }

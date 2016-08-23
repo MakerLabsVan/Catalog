@@ -25,14 +25,24 @@
                 // main map object (check below)
                 activate: activate,
                 map: mapConstructor,
+                switchFloor: map.nextFloor,
+                resize: map.resize,
                 studio: map.studio,
                 marker: map.marker,
+
             };
 
             return service;
 
             function activate (container, floor, entries ){
               service.map = new mapConstructor(container, floor);
+              service.switchFloor = service.map.nextFloor;
+              service.resize = service.map.resize;
+              service.studio = service.map.studio;
+              service.marker = service.map.marker;
+              service.draw = service.studio.draw;
+
+
               for (i in entries) {
                       if (entries[i].metadata) {
                           var payload = {
@@ -74,18 +84,11 @@
                 vm.studio = new studio(vm.viewport, vm.map, IS_ISOMETRIC);
                 vm.markers = new marker(vm.studio.building);
                 vm.currentFloor = floorNum;
-                vm.nextFloor = nextFloor;
                 vm.resize = resize;
                 vm.selectFloor = selectFloor;
+                vm.nextFloor = nextFloor;
                 vm.getMarkerLocation = getMarkerLocation;
 
-                function nextFloor(){
-                  if (vm.currentFloor === 1) {
-                         vm.currentFloor = 2;
-                     } else {
-                         vm.currentFloor = 1;
-                     }
-                };
                 function width(){
                   return vm.viewport.node().getBoundingClientRect().width;
                 };
@@ -100,6 +103,17 @@
                 function selectFloor(floor) {
                       vm.currentFloor = floor;
                       vm.studio.selectFloor(vm.width(), floor);
+                };
+                function nextFloor(){
+
+                  vm.currentFloor === 1 ? vm.currentFloor = 2 : vm.currentFloor = 1;
+                  console.log(vm.currentFloor)
+                  // if (vm.currentFloor === 1) {
+                  //   vm.currentFloor = 2;
+                  // } else {
+                  //   vm.currentFloor = 1;
+                  // }
+                  vm.resize();
                 };
                 function getMarkerLocation() {
                       return vm.markers.getLocation(vm.width(), vm.currentFloor);
@@ -220,8 +234,9 @@
                 vm.onClick = onClick;
                 vm.getLocation = getLocation;
                 vm.onDrag = onDrag;
-                    // Draw all markers in the metadata
-                    // @param {markerData} json which contains points and floor
+
+                // Draw all markers in the metadata
+                // @param {markerData} json which contains points and floor
                 function draw(width, markerData) {
                     var markerNum = markerData.points.length;
                     var currentMarkerNum = vm.markerCluster.length;
