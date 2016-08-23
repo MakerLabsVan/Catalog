@@ -3,27 +3,28 @@
     angular.module("app")
         .controller("adminController", adminController);
 
-    adminController.$inject = ["$scope", "$window", "sheetsGetService", "highlightService", "searchService", "S3Service", "oauthService"];
+    adminController.$inject = ["$scope", "$window", "sheetsGetService", "sheetsWriteService", "highlightService", "searchService", "S3Service", "oauthService"];
     // scope for digest
 
-    function adminController($scope, $window, sheetsGetService, highlightService, searchService, S3Service, oauthService) {
+    function adminController($scope, $window, sheetsGetService, sheetsWriteService, highlightService, searchService, S3Service, oauthService) {
         var vm = this;
         vm.authCode = '';
         vm.data = {};
         vm.details = {};
         vm.lastSelected = null;
-        vm.query = '';
         vm.title = "MakerLabs";
+        vm.query = '';
 
         // functions
         vm.auth = auth;
+        vm.checkCode = checkCode;
         vm.clear = clear;
         vm.decreaseQty = decreaseQty;
         vm.filter = filter;
         vm.increaseQty = increaseQty;
+        vm.newEntry = newEntry;
         vm.querySelect = querySelect;
         vm.search = search;
-        vm.checkCode = checkCode;
         vm.select = select;
 
 
@@ -91,6 +92,7 @@
 
             imageResponse();
             loadImage(entry.type, entry.name)
+            console.log(vm.details);
         }
 
         // sends the code to server for validation
@@ -112,6 +114,7 @@
 
             highlightService.highlight(qkey, entry.type, vm.lastSelected);
             vm.lastSelected = qkey;
+            console.log(vm.details);
         }
 
         function search(entry) {
@@ -129,6 +132,44 @@
                 qty += 1;
             }
             vm.details.quantity = qty;
+        }
+
+        function newEntry() {
+            // send the data to the server to write to sheets
+
+            // make body to send
+            var body = [];
+            for (var i in vm.data.minimized) {
+                var key = vm.data.minimized[i];
+                body.push(vm.details[key]);
+            }
+
+
+            // make http post request
+            sheetsWriteService.write(body).then(function (result) {
+                console.log(result);
+            })
+        }
+
+        function keyGen(body) {
+            // make key new or existing
+            if (vm.details.key != undefined) {
+                body[body.length - 1] = vm.details.key;
+            } else {
+                // KEYGEN (takes last key for new keygen (can cause gaps)
+                var tempkey = vm.data.array[vm.data.all.length - 1][vm.data.keyIndex];
+                // remove first letter and only get digits
+                var slice = tempkey.slice(1, tempkey.length);
+                // TODO: change A to increment
+                var newKey = 'A' + (Number(slice) + 1);
+
+                // last index is the new key
+                body[body.length - 1] = String(newKey);
+                // save locally
+                vm.details.key = String(newKey);
+            }
+            // upload image when selected
+            fileHandler();
         }
 
         function decreaseQty() {

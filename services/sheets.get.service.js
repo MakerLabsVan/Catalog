@@ -20,6 +20,8 @@
                         object.minimized = dataArr[1];
                         object.all = {};
                         object.all.length = 0;
+                        object.array = [];
+                        object.keyIndex = 0;
 
                         object.studios = {};
                         object.tools = {};
@@ -34,7 +36,8 @@
                             "consumables": 0
                         };
 
-                        var keyIndex = object.minimized.indexOf("key");
+                        // save for keygen in admin.controller.js
+                        object.keyIndex = object.minimized.indexOf("key");
 
                         doubleShift();
                         entries();
@@ -44,6 +47,8 @@
                             // TODO: different way?
                             dataArr.shift();
                             dataArr.shift();
+                            // save for keygen in admin.controller.js
+                            object.array = dataArr;
                         }
 
                         function entries() {

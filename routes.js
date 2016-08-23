@@ -1,17 +1,22 @@
 module.exports = function (router, path) {
-    var gapi = require(path + "/API/google.public.js");
+    var gapiPublic = require(path + "/API/google.public.js");
+    var gapiAdmin = require(path + "/API/google.admin.js");
     var s3 = require(path + "/API/s3.public.js");
     var oauth = require(path + "/API/oauth.admin.js");
+    var auth = oauth.OAuth2Client;
 
     router.get("/", sendHome);
     router.get("/publicGet", publicGet);
     router.get("/admin", sendAdmin);
     router.post("/image", image);
-
     // oauth2
     router.get("/authCode", authCode);
     router.post("/sendCode", sendCode);
+    // gapi
+    router.post("/newEntry", newEntry);
 
+    // parse post data to send to google api
+    var parse = parse;
 
     ////////////////////////////
     function sendHome(req, res) {
@@ -23,9 +28,8 @@ module.exports = function (router, path) {
     }
 
     function publicGet(req, res) {
-        gapi.PubGetData(callback);
+        gapiPublic.PubGetData(callback);
 
-        ////////////////////////////////////////
         function callback(data) {
             return res.json(data);
         }
@@ -46,8 +50,27 @@ module.exports = function (router, path) {
     }
 
     function sendCode(req, res) {
-        oauth.getNewToken(oauth.OAuth2Client, req.body[0], function (result) {
+        oauth.getNewToken(auth, req.body[0], function (result) {
             return res.json(result);
         })
+    }
+
+    function newEntry(req, res) {
+        console.log(req.body[0]);
+        return res.json({"Recieved": "Recieved"});
+    }
+
+    function parse(values, row, callback) {
+        var body = {
+            stdData: {
+                "majorDimension": "ROWS",
+                "values": [values]
+            },
+            row: row
+        };
+
+        gapiAdmin.sheetWrite(auth, body, function (result) {
+            callback(result);
+        });
     }
 };

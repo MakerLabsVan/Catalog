@@ -333,6 +333,23 @@
                         </li>
                     </ul>
                 </div>
+                <div class="row">
+                    <div class="input-field col-md-2 col-md-offset-8">
+                        <a class="btn-floating btn-large waves-effect waves-light green">
+                            <i class="material-icons">
+                                cancel
+                            </i>
+                        </a>
+                    </div>
+                    <div class="input-field col-md-2">
+                        <a class="btn-floating btn-large waves-effect waves-light green"
+                           ng-click="admin.newEntry()">
+                            <i class="material-icons">
+                                send
+                            </i>
+                        </a>
+                    </div>
+                </div>
             </div>
             <div class="col-md-7" id="map">
                 <div class="row">
@@ -427,13 +444,14 @@
 
 <script src="app.module.js"></script>
 <script src="admin.controller.js"></script>
-<script src="s3.service.js"></script>
-<script src="sheets.get.service.js"></script>
-<script src="refresh.service.js"></script>
-<script src="search.service.js"></script>
-<script src="highlight.service.js"></script>
 <script src="analytics.service.js"></script>
+<script src="highlight.service.js"></script>
 <script src="oauth.service.js"></script>
+<script src="s3.service.js"></script>
+<script src="refresh.service.js"></script>
+<script src="sheets.get.service.js"></script>
+<script src="sheets.write.service.js"></script>
+<script src="search.service.js"></script>
 
 </body>
 </html>
