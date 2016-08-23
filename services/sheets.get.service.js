@@ -2,11 +2,11 @@
     'use strict';
 
     angular.module("app")
-        .factory("dataService", dataService);
+        .factory("sheetsGetService", sheetsGetService);
 
-    dataService.$inject = ["$http"];
+    sheetsGetService.$inject = ["$http"];
 
-    function dataService($http) {
+    function sheetsGetService($http) {
         return {
             get: function () {
                 return $http.get("/publicGet")
@@ -19,6 +19,7 @@
                         object.display = dataArr[0];
                         object.minimized = dataArr[1];
                         object.all = {};
+                        object.all.length = 0;
 
                         object.studios = {};
                         object.tools = {};
@@ -54,6 +55,8 @@
                                 }
                                 object.all[dataArr[i][keyIndex]] = temp;
                                 categorize(temp);
+                                // count all entries
+                                object.all.length++;
                             }
                         }
 

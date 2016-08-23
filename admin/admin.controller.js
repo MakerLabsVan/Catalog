@@ -3,25 +3,29 @@
     angular.module("app")
         .controller("adminController", adminController);
 
-    adminController.$inject = ["$scope", "dataService", "highlightService", "searchService", "S3Service"];
+    adminController.$inject = ["$scope", "$window", "sheetsGetService", "highlightService", "searchService", "S3Service", "oauthService"];
     // scope for digest
 
-    function adminController($scope, dataService, highlightService, searchService, S3Service) {
+    function adminController($scope, $window, sheetsGetService, highlightService, searchService, S3Service, oauthService) {
         var vm = this;
+        vm.authCode = '';
         vm.data = {};
         vm.details = {};
+        vm.lastSelected = null;
         vm.query = '';
         vm.title = "MakerLabs";
-        vm.lastSelected = null;
 
         // functions
+        vm.auth = auth;
         vm.clear = clear;
+        vm.decreaseQty = decreaseQty;
         vm.filter = filter;
+        vm.increaseQty = increaseQty;
         vm.querySelect = querySelect;
         vm.search = search;
+        vm.checkCode = checkCode;
         vm.select = select;
-        vm.increaseQty = increaseQty;
-        vm.decreaseQty = decreaseQty;
+
 
         var hdn = "hidden";
 
@@ -29,13 +33,19 @@
 
         //////////////////////////////
         function activate() {
-            dataService.get().then(saveData);
+            sheetsGetService.get().then(saveData);
 
             function saveData(data) {
                 console.log(data);
                 vm.data = data;
                 return vm.data;
             }
+        }
+
+        function auth() {
+            oauthService.auth().then(function (url) {
+                $("#auth-link").attr("href", url);
+            })
         }
 
         function clear() {
@@ -81,6 +91,17 @@
 
             imageResponse();
             loadImage(entry.type, entry.name)
+        }
+
+        // sends the code to server for validation
+        function checkCode() {
+            if (vm.authCode.length != 0) {
+                oauthService.code(vm.authCode).then(function (result) {
+                    vm.authCode = '';
+                    console.log(result);
+                    $window.location.reload();
+                })
+            }
         }
 
         function querySelect(key) {
@@ -153,8 +174,13 @@
             }
         })();
 
-
-
+        ////////////////// plugins /////////////////
+        // modal plug in for materialize.js
+        $(document).ready(function () {
+            $('.modal-trigger').leanModal({
+                dismissible: true
+            });
+        });
     }
 
 })();
