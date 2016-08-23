@@ -86,7 +86,7 @@ var mapConstructor = function (containerID, floorNum) {
             this.studio.selectFloor(this.width(), floor);
         },
         this.swipe = function () {
-            d3.select(this.studio.Building)
+            d3.select(this.studio.building)
                 .on("drag", function () {
                     alert('it works!');
                 });

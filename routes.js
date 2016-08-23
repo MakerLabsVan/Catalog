@@ -1,6 +1,10 @@
 module.exports = function (router, path, serverOps, public_serverOps, s3Ops) {
 
-    router.get("/", function (req, res) {
+    router.get('/', function (req, res) {
+        res.sendFile(path + '/static/app/dashboard/dashboard.html');
+    });
+
+    router.get("/index", function (req, res) {
         res.sendFile(path + '/static/views/index.html');
     });
 
