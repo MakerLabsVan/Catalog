@@ -2,7 +2,7 @@
 
 var indexApp = angular.module('indexApp', ['d3mapping']);
 
-indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 'highlightService', 'httpRequests', function ($scope, $http, $interval, mapService, highlightService, httpRequests) {
+indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'mapService', 'highlightService', 'httpRequests', function ($scope, $http, $interval, $window, mapService, highlightService, httpRequests) {
 
     // functions to refresh only on 5 minutes of idling
     // 5 minutes
@@ -10,14 +10,14 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
 
     // start interval promise
     var checkIdle = $interval(function () {
-        location.reload();
+        $window.location.href = '/';
     }, refreshTime);
 
     // destroy promise and create new promise to reset the time
     var resetCheck = function () {
         $interval.cancel(checkIdle);
         checkIdle = $interval(function () {
-            location.reload();
+            $window.location.href = '/';
         }, refreshTime);
     };
 
@@ -239,9 +239,9 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', 'mapService', 
         if (entry.type == 'Studio') {
             $scope.map.studio.highlight(entry.key);
         } else {
-          if (entry.metadata) {
-            $scope.map.markers.draw($scope.map.width(), JSON.parse(entry.metadata));
-          }
+            if (entry.metadata) {
+                $scope.map.markers.draw($scope.map.width(), JSON.parse(entry.metadata));
+            }
         }
         $scope.map.selectFloor(Number(entry.floor));
     };

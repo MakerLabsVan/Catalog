@@ -16,21 +16,32 @@
 </head>
 
 <body>
-<div ng-app="dashboard">
-    <div ng-controller="dashboardController">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 align-text">
-                    <img src="assets/dashboard-site.jpg">
-                </div>
-                <div class="col-md-4 align-text">
-                    Sign in
-                </div>
-                <div class="col-md-4 align-text">
-                    <img src="assets/dashboard-catalog.jpg">
+<div class="container">
+    <div class="row" id="routes-row">
+        <a href="http://www.makerlabs.com/">
+            <div class="col-md-3 col-md-offset-1 box" id="site">
+                <!--<img class="img-circle" src="assets/dashboard-site.jpg">-->
+                <div class="center-text">
+                    <h1 class="letter">S</h1>
+                    <h4>site</h4>
                 </div>
             </div>
+        </a>
+        <div class="col-md-3 box" id="signin">
+            <div class="center-text">
+                <h1 class="letter">G</h1>
+                <h4>guest</h4>
+            </div>
         </div>
+        <a href="/index">
+            <div class="col-md-3 box" id="catalog">
+                <!--<img class="img-circle" src="assets/dashboard-catalog.jpg">-->
+                <div class="center-text">
+                    <h1 class="letter">C</h1>
+                    <h4>catalog</h4>
+                </div>
+            </div>
+        </a>
     </div>
 </div>
 
@@ -40,8 +51,6 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
         integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
         crossorigin="anonymous"></script>
-<script src="app/dashboard/dashboard.module.js"></script>
-<script src="app/dashboard/dashboard.controller.js"></script>
 </body>
 
 </html>

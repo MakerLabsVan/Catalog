@@ -1,8 +1,88 @@
+/* Gradient animation from https://www.gradient-animator.com/*/
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+
+}
+
 body {
-    background: #fafafa;
+    font-family: 'Raleway', sans-serif;
+    background: linear-gradient(232deg, #f14a29, #830071, #107cc2, #2bac69);
+    background-size: 800% 800%;
+
+    -webkit-animation: AnimationName 30s ease infinite;
+    -moz-animation: AnimationName 30s ease infinite;
+    animation: AnimationName 30s ease infinite;
 }
 
-.align-text {
+@-webkit-keyframes AnimationName {
+    0% {
+        background-position: 0% 94%
+    }
+    50% {
+        background-position: 100% 7%
+    }
+    100% {
+        background-position: 0% 94%
+    }
+}
+
+@-moz-keyframes AnimationName {
+    0% {
+        background-position: 0% 94%
+    }
+    50% {
+        background-position: 100% 7%
+    }
+    100% {
+        background-position: 0% 94%
+    }
+}
+
+@keyframes AnimationName {
+    0% {
+        background-position: 0% 94%
+    }
+    50% {
+        background-position: 100% 7%
+    }
+    100% {
+        background-position: 0% 94%
+    }
+}
+
+/* end gradient */
+
+#routes-row {
+    margin-top: 30%;
+}
+
+.center-text {
     text-align: center;
+    color: whitesmoke;
 }
 
+.box {
+    height: 300px;
+    border-radius: 10%;
+    border: 2px solid whitesmoke;
+}
+
+/* stay inside container and round*/
+.img-circle {
+    max-height: 100%;
+    max-width: 100%;
+    border-radius: 50%;
+}
+
+#site, #signin {
+    margin-right: 40px;
+}
+
+.letter {
+    color: whitesmoke;
+    margin-top: 50px;
+    font-size: 10em;
+}
