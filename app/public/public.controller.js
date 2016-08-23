@@ -2,9 +2,9 @@
     angular.module("app")
         .controller('publicController', publicController);
 
-    publicController.$inject = ['$interval', 'dataService', 'searchService', 'highlightService', 'S3Service', 'analytics'];
+    publicController.$inject = ['$interval', 'dataService', 'searchService', 'highlightService', 'S3Service', 'analytics', 'mapService'];
 
-    function publicController($interval, dataService, searchService, highlightService, S3Service, analytics) {
+    function publicController($interval, dataService, searchService, highlightService, S3Service, analytics, mapService) {
         // use this (avoids using $scope but still allows access)
         // store 'this' in a capture variable so context does not change
         // http://codetunnel.io/angularjs-controller-as-or-scope/
@@ -33,6 +33,8 @@
             dataService.get().then(function (data) {
                 console.log(data);
                 vm.data = data;
+                console.log(data.studios)
+                mapService.activate('map-container',1,data.studios)
                 return vm.data;
             })
         }
