@@ -45,7 +45,7 @@
                   }
               }
               service.map.resize();
-            };
+            }
 
             /**
              * Makes an map object that provides methods to change the entire map view
