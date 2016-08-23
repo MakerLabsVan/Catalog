@@ -335,6 +335,43 @@
                 </div>
             </div>
             <div class="col-md-7" id="map">
+                <div class="row">
+                    <div class="fixed-action-btn horizontal click-to-toggle" id="fab-menu">
+                        <a class="btn-floating btn-large red">
+                            <i class="material-icons">menu</i>
+                        </a>
+                        <ul>
+                            <li>
+                                <a class="btn-floating red modal-trigger" ng-click="admin.auth()" href="#auth-modal">
+                                    <i class="material-icons">lock_open</i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="auth-modal" class="modal">
+                        <div class="modal-content no-radius" id="auth-content">
+                            <h4>Google Sheets Authorization</h4>
+                            <a class="waves-effect waves-light btn btn-block pink lighten-3" href="" target="_blank"
+                               id="auth-link">Open
+                                Authorization Page</a>
+                            <hr/>
+                            <div class="input-field col s12">
+                                <input id="code" type="password" ng-model="admin.authCode">
+                                <label for="code">Code</label>
+                            </div>
+                            <div>
+                                <button class="btn waves-effect waves-light pink accent-2 modal-action modal-close"
+                                        type="button"
+                                        name="submit-code" ng-click="admin.checkCode()">Submit
+                                </button>
+                                <button class="btn waves-effect waves-light pink accent-2 modal-action modal-close"
+                                        type="button"
+                                        name="close-code">Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div id="map-container">
 
                 </div>
@@ -396,6 +433,7 @@
 <script src="search.service.js"></script>
 <script src="highlight.service.js"></script>
 <script src="analytics.service.js"></script>
+<script src="oauth.service.js"></script>
 
 </body>
 </html>

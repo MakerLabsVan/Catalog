@@ -3,8 +3,7 @@
    ========================================================================== */
 
 body {
-    /*overflow: hidden;*/
-    height: 100vh;
+    overflow: auto;
 }
 
 .container-fluid {
@@ -45,6 +44,10 @@ hr {
 
 .no-border {
     border: none;
+}
+
+.no-radius {
+    border-radius: 0;
 }
 
 .no-margin {
@@ -255,4 +258,17 @@ input::-webkit-inner-spin-button {
     /* display: none; <- Crashes Chrome on hover */
     -webkit-appearance: none;
     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+#fab-menu {
+    bottom: 20px;
+    right: 20px;
+}
+
+#auth-modal {
+    margin-top: 0;
+}
+
+#auth-modal, #auth-content {
+    height: 30vh;
 }
