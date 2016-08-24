@@ -3,10 +3,10 @@
     angular.module("app")
         .controller("adminController", adminController);
 
-    adminController.$inject = ["$scope", "$window", "sheetsGetService", "sheetsWriteService", "highlightService", "searchService", "S3Service", "oauthService"];
+    adminController.$inject = ["$scope", "$window", "sheetsGetService", "sheetsWriteService", "highlightService", "searchService", "S3Service", "oauthService", "mapService"];
     // scope for digest
 
-    function adminController($scope, $window, sheetsGetService, sheetsWriteService, highlightService, searchService, S3Service, oauthService) {
+    function adminController($scope, $window, sheetsGetService, sheetsWriteService, highlightService, searchService, S3Service, oauthService, mapService) {
         var vm = this;
         vm.authCode = '';
         vm.data = {};
@@ -40,10 +40,19 @@
 
             function saveData(data) {
                 console.log(data);
+
+                mapService.activate('map-container', 1);
+                mapService.marker.onClick();
+
                 vm.data = data;
                 return vm.data;
             }
         }
+
+        //Map Stuff
+        window.onresize = function () {
+            mapService.resize();
+        };
 
         function auth() {
             oauthService.auth().then(function (url) {
@@ -79,6 +88,11 @@
             // convert to num
             vm.details.quantity = Number(vm.details.quantity);
 
+
+            if ( entry.type != "Studio"){
+              mapService.marker.draw(mapService.map.width(), JSON.parse(entry.metadata));
+              mapService.marker.onDrag();
+            }
             // uncheck previous type
             $("input[name=radio-type]:checked").prop('checked', false);
             // select correct radio

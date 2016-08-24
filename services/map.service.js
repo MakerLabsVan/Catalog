@@ -22,6 +22,13 @@
             const MARKER_SIZE = 40; // in PX
             const MARKER_PATH = '/marker.svg';
 
+            var drag = d3.drag()
+            .on("drag", function (d) {
+              var obj = d3.select(this);
+              obj.attr('x', d3.event.x - Number(obj.attr('width') / 2));
+              obj.attr('y', d3.event.y - Number(obj.attr('height')));
+            });
+
             var service = {
                 // main map object (check below)
                 activate: activate,
@@ -290,21 +297,15 @@
 
                 function onDrag() {
                     for (i in vm.markerCluster) {
-                        vm.markerCluster[i].call(drag);
+                      vm.markerCluster[i].call(drag);
                     }
                 };
             };
 
 
-            var drag = d3.drag()
-                .on("drag", function (d) {
-                    var obj = d3.select(vm);
-                    obj.attr('x', d3.event.x - Number(obj.attr('width') / 2));
-                    obj.attr('y', d3.event.y - Number(obj.attr('height')));
-                });
 
 
-            var showMarkerOnClick = function (markerCluster) {
+            function showMarkerOnClick (markerCluster) {
                 d3.select('.isoMap').on('click', function () {
                     var studioGroup = d3.select('.studioGroup');
                     var xPos = d3.mouse(studioGroup.node())[0];
