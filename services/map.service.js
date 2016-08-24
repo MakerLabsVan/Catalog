@@ -59,8 +59,8 @@
 
         /**
          * Makes an map object that provides methods to change the entire map view
-         * @param {string} container ID of the element you wish to attach map to (required)
-         * @param {number} initial floorNum to view
+         * @param {string} containerID of the element you wish to attach map to (required)
+         * @param {number} floorNum to view
          *
          **/
         function mapConstructor(containerID, floorNum) {
@@ -91,28 +91,28 @@
 
             function width() {
                 return vm.viewport.node().getBoundingClientRect().width;
-            };
+            }
             function height() {
                 return vm.viewport.node().getBoundingClientRect().height;
-            };
+            }
             function resize() {
                 vm.studio.resize(vm.width());
                 vm.studio.selectFloor(vm.width(), vm.currentFloor);
-            };
+            }
             //Move to floor
             function selectFloor(floor) {
                 vm.currentFloor = Number(floor);
                 vm.studio.selectFloor(vm.width(), floor);
                 vm.resize();
-            };
+            }
             function nextFloor() {
                 vm.currentFloor === 1 ? vm.currentFloor = 2 : vm.currentFloor = 1;
                 vm.resize();
-            };
+            }
             function getMarkerLocation() {
                 return vm.markers.getLocation(vm.width(), vm.currentFloor);
-            };
-        };
+            }
+        }
         function nextFloor() {
 
             vm.currentFloor === 1 ? vm.currentFloor = 2 : vm.currentFloor = 1;
@@ -123,17 +123,17 @@
             //   vm.currentFloor = 1;
             // }
             vm.resize();
-        };
+        }
         function getMarkerLocation() {
             return vm.markers.getLocation(vm.width(), vm.currentFloor);
-        };
-    };
+        }
+    }
 
     /**
      * vm object controls all the interactions of the studio objects
-     *  @param {selection} The viewport svg of the map (required)
-     *  @param {selection} The map selection object (required)
-     *  @param {boolean} if isIsometric is true draws everything on the isometric plane
+     *  @param {selection} container svg of the map (required)
+     *  @param {selection} map selection object (required)
+     *  @param {boolean} IS_ISOMETRIC is true draws everything on the isometric plane
      **/
     function studio(container, map, IS_ISOMETRIC) {
         var vm = this;
@@ -155,7 +155,7 @@
         vm.selectFloor = selectFloor;
         vm.highlight = highlight;
         vm.dehighlight = dehighlight;
-        vm.onClick = onClick
+        vm.onClick = onClick;
 
         /**
          * vm object controls all the interactions of the studio objects
@@ -182,14 +182,14 @@
                         return [(d.x), (d.y)].join(",");
                     }).join(" ");
                 });
-        };
+        }
 
         function resize(mapWidth) {
             for (var i = 0; i < vm.floor.length; i++) {
                 transform = mapTransformStrings(mapWidth, i + 1, IS_ISOMETRIC); //Floor number is i+1
                 vm.floor[i].attr('transform', transform);
             }
-        };
+        }
         function selectFloor(width, floorNum) {
             var screenScale = getScreenFactor(width);
             switch (floorNum) {
@@ -206,28 +206,28 @@
 
             vm.building.transition().attr('transform', setFloor).duration(FLOOR_TRANSITION_DELAY);
             map.transition().attr('transform', setFloor).duration(FLOOR_TRANSITION_DELAY);
-        };
+        }
 
         //on studio click, pass the studio's ID to callback function
         function onClick(callback) {
             d3.selectAll('.studio').on('click', function () {
                 callback(d3.select(this).attr('id'));
             })
-        };
-    };
+        }
+    }
 
     //Dehighlight studio
     function dehighlight(objID) {
         vm.building.select('#' + objID)
             .classed('studioHighlight', false)
-    };
+    }
 
     //on studio click, pass the studio's ID to callback function
     function onClick(callback) {
         d3.selectAll('.studio').on('click', function () {
             callback(d3.select(vm).attr('id'));
         })
-    };
+    }
 
     /**
      * vm object controls all the interactions of the marker objects
