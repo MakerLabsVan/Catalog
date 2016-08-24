@@ -58,7 +58,7 @@
                                 <span>Search Results</span>
                             </h4>
                         </div>
-                        <div id="collapse-search" class="panel-collapse collapse">
+                        <div id="collapse-search" class="panel-collapse collapse in">
                             <div class="panel-body grey-scroll">
                                 <!-- TODO: Why is ng-bind so much faster than ng-if, ng-show -->
                                 <div class="click round-right-edge search-font search-pad"
@@ -77,7 +77,7 @@
                                 <span>Studio <span class="badge" ng-bind="admin.data.badge.Studio"></span> </span>
                             </h4>
                         </div>
-                        <div id="collapse-studio" class="panel-collapse collapse in">
+                        <div id="collapse-studio" class="panel-collapse collapse">
                             <div class="panel-body red-scroll">
                                 <div class="click round-right-edge" ng-repeat="studio in admin.data.Studio"
                                      id="{{ studio.key }}">
