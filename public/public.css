@@ -260,3 +260,27 @@ hr {
 .search-pad {
     padding: 10px 0px 10px 5px;
 }
+
+/*Lithium fire from Adobe color*/
+.studio {
+    opacity: 0.7;
+    cursor: pointer;
+    fill: #606AA6;
+}
+
+.Staff {
+    fill: #FAFF9E;
+}
+
+.Common {
+    fill: #A3FAFF;
+}
+
+.Available {
+    fill: #8EFF58;
+}
+
+.studioHighlight {
+    fill: #FF3654;
+    opacity: 1;
+}
