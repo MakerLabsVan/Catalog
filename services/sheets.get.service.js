@@ -23,17 +23,17 @@
                         object.array = [];
                         object.keyIndex = 0;
 
-                        object.studios = {};
-                        object.tools = {};
-                        object.materials = {};
-                        object.consumables = {};
+                        object.Studio = {};
+                        object.Tool = {};
+                        object.Material = {};
+                        object.Consumable = {};
 
                         // displays number of entries in a category
                         object.badge = {
-                            "studios": 0,
-                            "tools": 0,
-                            "materials": 0,
-                            "consumables": 0
+                            "Studio": 0,
+                            "Tool": 0,
+                            "Material": 0,
+                            "Consumable": 0
                         };
 
                         // save for keygen in admin.controller.js
@@ -67,23 +67,8 @@
 
                         // parse each entry into their respective categories
                         function categorize(temp) {
-                            switch (temp.type) {
-                                case "Studio":
-                                    object.studios[temp.key] = temp;
-                                    object.badge.studios++;
-                                    break;
-                                case "Tool":
-                                    object.tools[temp.key] = temp;
-                                    object.badge.tools++;
-                                    break;
-                                case "Material":
-                                    object.materials[temp.key] = temp;
-                                    object.badge.materials++;
-                                    break;
-                                case "Consumable":
-                                    object.consumables[temp.key] = temp;
-                                    object.badge.consumables++;
-                            }
+                            object[temp.type][temp.key] = temp;
+                            object.badge[temp.type]++;
                         }
 
                         return object;

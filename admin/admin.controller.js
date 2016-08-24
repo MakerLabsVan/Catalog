@@ -84,19 +84,8 @@
             // uncheck previous type
             $("input[name=radio-type]:checked").prop('checked', false);
             // select correct radio
-            switch (vm.details.type) {
-                case "Studio":
-                    $('input#radio-studio').prop('checked', true);
-                    break;
-                case "Tool":
-                    $('input#radio-tool').prop('checked', true);
-                    break;
-                case "Material":
-                    $('input#radio-material').prop('checked', true);
-                    break;
-                case "Consumable":
-                    $('input#radio-consumable').prop('checked', true);
-            }
+            var selector = 'input#radio-' + vm.details.type.toLowerCase();
+            $(selector).prop("checked", true);
 
             // highlight
             highlightService.highlight(key, entry.type, vm.lastSelected);
@@ -178,6 +167,8 @@
             status = 'new';
             vm.details = {};
             vm.details.quantity = 0;
+            // uncheck button
+            $("input[name=radio-type]:checked").prop('checked', false);
         }
 
         function decreaseQty() {

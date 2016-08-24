@@ -17,7 +17,6 @@
         // functions
         vm.clear = clear;
         vm.filter = filter;
-        vm.querySelect = querySelect;
         vm.search = search;
         vm.sendMetric = analytics();
         vm.select = select;
@@ -32,7 +31,7 @@
             sheetsGetService.get().then(function (data) {
                 console.log(data);
                 vm.data = data;
-                mapService.activate('map-container', 1, data.studios)
+                mapService.activate('map-container', 1, data.Studio)
                 return vm.data;
             })
         }
@@ -73,32 +72,28 @@
             $("#loading").removeClass(hdn);
         }
 
-        // TODO: select and querySelect share too much code
+        // TODO: Service?
         function select(key) {
-            var entry = vm.data.all[key];
+            // check if query or not and assign the q- prefix if it is
+            var check = key.slice(0, 2);
+            var tempKey = key;
+            if (check === 'q-') {
+                tempKey = key.slice(2, key.length);
+            }
+
+            var entry = vm.data.all[tempKey];
             vm.title = entry.name;
             vm.details = entry;
+            // convert to num
+            vm.details.quantity = Number(vm.details.quantity);
 
             // highlight
-            highlightService.highlight(entry.key, entry.type, vm.lastSelected);
+            highlightService.highlight(key, entry.type, vm.lastSelected);
             vm.lastSelected = key;
 
             imageResponse();
-            // load image
             loadImage(entry.type, entry.name);
-        }
-
-        function querySelect(key) {
-            var entry = vm.data.all[key];
-            var qkey = "q-" + entry.key;
-            vm.title = entry.name;
-            vm.details = entry;
-
-            highlightService.highlight(qkey, entry.type, vm.lastSelected);
-            vm.lastSelected = qkey;
-
-            imageResponse();
-            loadImage(entry.type, entry.name);
+            console.log(vm.details);
         }
 
         function search(entry) {

@@ -74,12 +74,12 @@
                              data-parent="#accordion"
                              href="#collapse-studio">
                             <h4 class="panel-title white-font">
-                                <span>Studio <span class="badge" ng-bind="admin.data.badge.studios"></span> </span>
+                                <span>Studio <span class="badge" ng-bind="admin.data.badge.Studio"></span> </span>
                             </h4>
                         </div>
                         <div id="collapse-studio" class="panel-collapse collapse in">
                             <div class="panel-body red-scroll">
-                                <div class="click round-right-edge" ng-repeat="studio in admin.data.studios"
+                                <div class="click round-right-edge" ng-repeat="studio in admin.data.Studio"
                                      id="{{ studio.key }}">
                                     <p class="names" ng-bind="studio.name" ng-click="admin.select(studio.key)"></p>
                                 </div>
@@ -91,12 +91,12 @@
                              data-parent="#accordion"
                              href="#collapse-tool">
                             <h4 class="panel-title white-font">
-                                <span>Tools <span class="badge" ng-bind="admin.data.badge.tools"></span></span>
+                                <span>Tool <span class="badge" ng-bind="admin.data.badge.Tool"></span></span>
                             </h4>
                         </div>
                         <div id="collapse-tool" class="panel-collapse collapse">
                             <div class="panel-body blue-scroll">
-                                <div class="click round-right-edge" ng-repeat="tool in admin.data.tools"
+                                <div class="click round-right-edge" ng-repeat="tool in admin.data.Tool"
                                      id="{{ tool.key }}">
                                     <p class="names" ng-bind="tool.name" ng-click="admin.select(tool.key)"></p>
                                 </div>
@@ -108,13 +108,13 @@
                              data-parent="#accordion"
                              href="#collapse-consumable">
                             <h4 class="panel-title white-font">
-                                <span>Consumables <span class="badge"
-                                                        ng-bind="admin.data.badge.consumables"></span></span>
+                                <span>Consumable <span class="badge"
+                                                       ng-bind="admin.data.badge.Consumable"></span></span>
                             </h4>
                         </div>
                         <div id="collapse-consumable" class="panel-collapse collapse">
                             <div class="panel-body green-scroll">
-                                <div class="click round-right-edge" ng-repeat="consumable in admin.data.consumables"
+                                <div class="click round-right-edge" ng-repeat="consumable in admin.data.Consumable"
                                      id="{{ consumable.key }}">
                                     <p class="names" ng-bind="consumable.name"
                                        ng-click="admin.select(consumable.key)"></p>
@@ -127,12 +127,12 @@
                              data-parent="#accordion"
                              href="#collapse-material">
                             <h4 class="panel-title white-font">
-                                <span>Materials <span class="badge" ng-bind="admin.data.badge.materials"></span></span>
+                                <span>Material <span class="badge" ng-bind="admin.data.badge.Material"></span></span>
                             </h4>
                         </div>
                         <div id="collapse-material" class="panel-collapse collapse">
                             <div class="panel-body orange-scroll">
-                                <div class="click round-right-edge" ng-repeat="material in admin.data.materials"
+                                <div class="click round-right-edge" ng-repeat="material in admin.data.Material"
                                      id="{{ material.key }}">
                                     <p class="names" ng-bind="material.name" ng-click="admin.select(material.key)"></p>
                                 </div>
