@@ -139,7 +139,7 @@ hr {
     text-align: center;
 }
 
-#map {
+#map-container {
     height: 100vh;
     padding: 20px;
 }
