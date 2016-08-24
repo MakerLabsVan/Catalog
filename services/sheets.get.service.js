@@ -58,7 +58,7 @@
                                 for (var j in object.minimized) {
                                     temp[object.minimized[j]] = dataArr[i][j];
                                 }
-                                object.all[dataArr[i][keyIndex]] = temp;
+                                object.all[dataArr[i][object.keyIndex]] = temp;
                                 categorize(temp);
                                 // count all entries
                                 object.all.length++;

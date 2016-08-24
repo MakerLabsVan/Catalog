@@ -64,7 +64,7 @@
                                 <div class="click round-right-edge search-font search-pad"
                                      ng-repeat="entry in admin.data.all"
                                      ng-bind="admin.search(entry)"
-                                     ng-click="admin.querySelect(entry.key)" id="q-{{ entry.key }}">
+                                     ng-click="admin.select('q-' + entry.key)" id="q-{{ entry.key }}">
                                 </div>
                             </div>
                         </div>
@@ -334,7 +334,14 @@
                     </ul>
                 </div>
                 <div class="row">
-                    <div class="input-field col-md-2 col-md-offset-8">
+                    <div class="input-field col-md-2 col-md-offset-6">
+                        <a class="btn-floating btn-large waves-effect waves-light green" ng-click="admin.newEntry()">
+                            <i class="material-icons">
+                                create_new_folder
+                            </i>
+                        </a>
+                    </div>
+                    <div class="input-field col-md-2">
                         <a class="btn-floating btn-large waves-effect waves-light green">
                             <i class="material-icons">
                                 cancel
@@ -343,7 +350,7 @@
                     </div>
                     <div class="input-field col-md-2">
                         <a class="btn-floating btn-large waves-effect waves-light green"
-                           ng-click="admin.newEntry()">
+                           ng-click="admin.write()">
                             <i class="material-icons">
                                 send
                             </i>

@@ -11,6 +11,7 @@
         vm.authCode = '';
         vm.data = {};
         vm.details = {};
+        vm.details.quantity = 0;
         vm.lastSelected = null;
         vm.title = "MakerLabs";
         vm.query = '';
@@ -23,12 +24,13 @@
         vm.filter = filter;
         vm.increaseQty = increaseQty;
         vm.newEntry = newEntry;
-        vm.querySelect = querySelect;
         vm.search = search;
         vm.select = select;
+        vm.write = write;
 
 
         var hdn = "hidden";
+        var status = 'new'; // flag for new/edit entry
 
         activate();
 
@@ -63,7 +65,17 @@
         }
 
         function select(key) {
-            var entry = vm.data.all[key];
+            status = 'edit';
+            // check if query or not and assign the q- prefix if it is
+            var check = key.slice(0, 2);
+            console.log("check: " + check);
+            var tempKey = key;
+            if (check === 'q-') {
+                tempKey = key.slice(2, key.length);
+                console.log("TEMP KEY: " + tempKey);
+            }
+
+            var entry = vm.data.all[tempKey];
             vm.title = entry.name;
             vm.details = entry;
             // convert to num
@@ -87,11 +99,11 @@
             }
 
             // highlight
-            highlightService.highlight(entry.key, entry.type, vm.lastSelected);
+            highlightService.highlight(key, entry.type, vm.lastSelected);
             vm.lastSelected = key;
 
             imageResponse();
-            loadImage(entry.type, entry.name)
+            loadImage(entry.type, entry.name);
             console.log(vm.details);
         }
 
@@ -104,17 +116,6 @@
                     $window.location.reload();
                 })
             }
-        }
-
-        function querySelect(key) {
-            var entry = vm.data.all[key];
-            var qkey = "q-" + entry.key;
-            vm.title = entry.name;
-            vm.details = entry;
-
-            highlightService.highlight(qkey, entry.type, vm.lastSelected);
-            vm.lastSelected = qkey;
-            console.log(vm.details);
         }
 
         function search(entry) {
@@ -134,42 +135,49 @@
             vm.details.quantity = qty;
         }
 
-        function newEntry() {
+        function write() {
             // send the data to the server to write to sheets
-
             // make body to send
-            var body = [];
-            for (var i in vm.data.minimized) {
-                var key = vm.data.minimized[i];
-                body.push(vm.details[key]);
+            if (status === 'edit') {
+                vm.data.all[vm.details.key] = vm.details;
+                console.log(vm.details);
+                // TODO: rename category item object
+                // vm.data[vm.details.type][vm.details.key] = vm.details;
+            } else {
+                var body = [];
+                for (var i in vm.data.minimized) {
+                    var key = vm.data.minimized[i];
+                    body.push(vm.details[key]);
+                }
+
+                keyGen(body);
+                console.log(body);
+                // // make http post request
+                // sheetsWriteService.write(body).then(function (result) {
+                //     console.log(result);
+                // })
+
+                vm.newEntry();
             }
-
-
-            // make http post request
-            sheetsWriteService.write(body).then(function (result) {
-                console.log(result);
-            })
         }
 
         function keyGen(body) {
-            // make key new or existing
-            if (vm.details.key != undefined) {
-                body[body.length - 1] = vm.details.key;
-            } else {
-                // KEYGEN (takes last key for new keygen (can cause gaps)
-                var tempkey = vm.data.array[vm.data.all.length - 1][vm.data.keyIndex];
-                // remove first letter and only get digits
-                var slice = tempkey.slice(1, tempkey.length);
-                // TODO: change A to increment
-                var newKey = 'A' + (Number(slice) + 1);
+            // make key new
+            // KEYGEN (takes last key for new keygen (can cause gaps)
+            var tempkey = vm.data.array[vm.data.all.length - 1][vm.data.keyIndex];
+            // remove first letter and only get digits
+            var slice = tempkey.slice(1, tempkey.length);
+            // TODO: change A to increment
+            var newKey = 'A' + (Number(slice) + 1);
 
-                // last index is the new key
-                body[body.length - 1] = String(newKey);
-                // save locally
-                vm.details.key = String(newKey);
-            }
-            // upload image when selected
-            fileHandler();
+            // last index is the new key
+            body[body.length - 1] = String(newKey);
+        }
+
+        function newEntry() {
+            status = 'new';
+            vm.details = {};
+            vm.details.quantity = 0;
         }
 
         function decreaseQty() {
@@ -187,7 +195,6 @@
                 .then(function (url) {
                     $("#entry-image").removeClass(hdn);
                     $("#loading").addClass(hdn);
-                    console.log(url);
                     $("#entry-image").attr("src", url).on("error", function () {
                         $("#entry-image").addClass(hdn);
                         $("#not-found").removeClass(hdn);
