@@ -12,7 +12,8 @@
             const MAP_FILE_PATH = "ISO4.png";
             const ISO_MAP_SCALE = 8.5; //database value to isometric map conversion
             const ISO_MAP_WIDTH = 1464; // Width of isometric map, used to dynamically resize map
-            const SCROLL_MAP_Y = 1375; //Vertical scroll until next floor
+            const SCROLL_MAP_FLOOR_2 = -100;
+            const SCROLL_MAP_FLOOR_1 = 1375; //Vertical scroll until next floor
             const FIRST_FLOOR_X = 875; //Translate studios into place
             const FIRST_FLOOR_Y = 2365;
             const SECOND_FLOOR_X = 710;
@@ -40,8 +41,6 @@
               service.resize = service.map.resize;
               service.studio = service.map.studio;
               service.marker = service.map.markers;
-              service.draw = service.studio.draw;
-
 
               for (i in entries) {
                       if (entries[i].metadata) {
@@ -96,8 +95,8 @@
                   return vm.viewport.node().getBoundingClientRect().height;
                 };
                 function resize() {
-                    vm.studio.resize(vm.width());
-                    vm.studio.selectFloor(vm.width(), vm.currentFloor);
+                  vm.studio.selectFloor(vm.width(), vm.currentFloor);
+                  vm.studio.resize(vm.width());
                 };
                 //Move to floor
                 function selectFloor(floor) {
@@ -179,13 +178,13 @@
                     var screenScale = getScreenFactor(width);
                     switch (floorNum) {
                         case 1:
-                            var setFloor = 'translate(0,' + -SCROLL_MAP_Y * screenScale + ') ';
+                            var setFloor = 'translate(0,' + -SCROLL_MAP_FLOOR_1 * screenScale + ') ';
                             break;
                         case 2:
-                            var setFloor = 'translate(0,0) ';
+                            var setFloor = 'translate(0, '+ -SCROLL_MAP_FLOOR_2 * screenScale + ') ';
                             break;
                         default:
-                            var setFloor = 'translate(0,' + -SCROLL_MAP_Y * screenScale + ') ';
+                            var setFloor = 'translate(0,' + -SCROLL_MAP_FLOOR_1 * screenScale + ') ';
                             break;
                     }
 
