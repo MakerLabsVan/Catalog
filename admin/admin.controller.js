@@ -3,31 +3,34 @@
     angular.module("app")
         .controller("adminController", adminController);
 
-    adminController.$inject = ["$scope", "$window", "sheetsGetService", "highlightService", "searchService", "S3Service", "oauthService"];
+    adminController.$inject = ["$scope", "$window", "sheetsGetService", "sheetsWriteService", "highlightService", "searchService", "S3Service", "oauthService"];
     // scope for digest
 
-    function adminController($scope, $window, sheetsGetService, highlightService, searchService, S3Service, oauthService) {
+    function adminController($scope, $window, sheetsGetService, sheetsWriteService, highlightService, searchService, S3Service, oauthService) {
         var vm = this;
         vm.authCode = '';
         vm.data = {};
         vm.details = {};
+        vm.details.quantity = 0;
         vm.lastSelected = null;
-        vm.query = '';
         vm.title = "MakerLabs";
+        vm.query = '';
 
         // functions
         vm.auth = auth;
+        vm.checkCode = checkCode;
         vm.clear = clear;
         vm.decreaseQty = decreaseQty;
         vm.filter = filter;
         vm.increaseQty = increaseQty;
-        vm.querySelect = querySelect;
+        vm.newEntry = newEntry;
         vm.search = search;
-        vm.checkCode = checkCode;
         vm.select = select;
+        vm.write = write;
 
 
         var hdn = "hidden";
+        var status = 'new'; // flag for new/edit entry
 
         activate();
 
@@ -62,7 +65,15 @@
         }
 
         function select(key) {
-            var entry = vm.data.all[key];
+            status = 'edit';
+            // check if query or not and assign the q- prefix if it is
+            var check = key.slice(0, 2);
+            var tempKey = key;
+            if (check === 'q-') {
+                tempKey = key.slice(2, key.length);
+            }
+
+            var entry = vm.data.all[tempKey];
             vm.title = entry.name;
             vm.details = entry;
             // convert to num
@@ -71,26 +82,16 @@
             // uncheck previous type
             $("input[name=radio-type]:checked").prop('checked', false);
             // select correct radio
-            switch (vm.details.type) {
-                case "Studio":
-                    $('input#radio-studio').prop('checked', true);
-                    break;
-                case "Tool":
-                    $('input#radio-tool').prop('checked', true);
-                    break;
-                case "Material":
-                    $('input#radio-material').prop('checked', true);
-                    break;
-                case "Consumable":
-                    $('input#radio-consumable').prop('checked', true);
-            }
+            var selector = 'input#radio-' + vm.details.type.toLowerCase();
+            $(selector).prop("checked", true);
 
             // highlight
-            highlightService.highlight(entry.key, entry.type, vm.lastSelected);
+            highlightService.highlight(key, entry.type, vm.lastSelected);
             vm.lastSelected = key;
 
             imageResponse();
-            loadImage(entry.type, entry.name)
+            loadImage(entry.type, entry.name);
+            console.log(vm.details);
         }
 
         // sends the code to server for validation
@@ -102,16 +103,6 @@
                     $window.location.reload();
                 })
             }
-        }
-
-        function querySelect(key) {
-            var entry = vm.data.all[key];
-            var qkey = "q-" + entry.key;
-            vm.title = entry.name;
-            vm.details = entry;
-
-            highlightService.highlight(qkey, entry.type, vm.lastSelected);
-            vm.lastSelected = qkey;
         }
 
         function search(entry) {
@@ -131,6 +122,75 @@
             vm.details.quantity = qty;
         }
 
+        /**
+         * Collects input data and sends to server to write to google sheets
+         */
+        function write() {
+            // check if editing or inserting
+            if (status === 'edit') {
+                // assign locally
+                vm.data.all[vm.details.key] = vm.details;
+                vm.data[vm.details.type][vm.details.key] = vm.details;
+                $scope.$digest();
+            } else {
+                // make new entry
+                var body = [];
+                for (var i in vm.data.minimized) {
+                    var key = vm.data.minimized[i];
+                    body.push(vm.details[key]);
+                }
+
+                // make the key
+                keyGen(body);
+                console.log("Post Body: ", body);
+                // // make http post request
+                // sheetsWriteService.write(body).then(function (result) {
+                //     console.log(result);
+                // })
+
+                localSave(vm.details);
+                vm.newEntry();
+            }
+        }
+
+        /**
+         * Saves the new entry to the local database and updates the view after the http request
+         * - must save to data.all, data[type], data.array
+         * @param {object} entry - a new entry made from input form
+         */
+        function localSave(entry) {
+            console.log("FROM LOCALSAVE: ", entry);
+            vm.data.all[entry.key] = entry;
+            vm.data[entry.type][entry.key] = entry;
+            vm.data.array.push(entry);
+        }
+
+        /**
+         * Creates a new key
+         * @param {array} body - an array populated with data from input forms
+         */
+        function keyGen(body) {
+            // takes last key for new keygen (can cause gaps)
+            var tempkey = vm.data.array[vm.data.all.length - 1][vm.data.keyIndex];
+            // remove first letter and only get digits
+            var slice = tempkey.slice(1, tempkey.length);
+            var newKey = 'A' + (Number(slice) + 1);
+
+            // last index is the new key
+            body[body.length - 1] = String(newKey);
+        }
+
+        /**
+         * Clears the form
+         */
+        function newEntry() {
+            status = 'new';
+            vm.details = {};
+            vm.details.quantity = 0;
+            // uncheck button
+            $("input[name=radio-type]:checked").prop('checked', false);
+        }
+
         function decreaseQty() {
             var qty = Number(vm.details.quantity);
             if (qty != undefined) {
@@ -146,7 +206,6 @@
                 .then(function (url) {
                     $("#entry-image").removeClass(hdn);
                     $("#loading").addClass(hdn);
-                    console.log(url);
                     $("#entry-image").attr("src", url).on("error", function () {
                         $("#entry-image").addClass(hdn);
                         $("#not-found").removeClass(hdn);
@@ -166,7 +225,7 @@
                 const files = document.getElementById('file').files;
                 const file = files[0];
                 if (file != null) {
-                    console.log(file.name);
+                    console.log("FILE NAME: ", file.name);
                     $scope.$digest();
                 } else {
                     console.log("file not uploaded");

@@ -18,7 +18,6 @@
 
         vm.clear = clear;
         vm.filter = filter;
-        vm.querySelect = querySelect;
         vm.search = search;
         vm.sendMetric = analytics();
         vm.select = select;
@@ -34,37 +33,37 @@
             sheetsGetService.get().then(function (data) {
                 console.log(data);
                 vm.data = data;
-                mapService.activate('map-container', 1, data.studios);
-                mapService.studio.onClick( function(id){
-                  vm.select(id);
+                mapService.activate('map-container', 1, data.Studio);
+                mapService.studio.onClick(function (id) {
+                    vm.select(id);
                 });
                 return vm.data;
             })
         }
 
         //Map Stuff
-        window.onresize = function (){
-          mapService.resize();
+        window.onresize = function () {
+            mapService.resize();
         };
 
-        function mapSelect( entry ) {
-          var last_temp = vm.lastSelected;
-          if(vm.lastSelected != null){
-            var check_last = vm.lastSelected.slice(0, 2);
-            if ( check_last === 'q-'){
-              var last_temp = vm.lastSelected.slice(2, vm.lastSelected.length);
+        function mapSelect(entry) {
+            var last_temp = vm.lastSelected;
+            if (vm.lastSelected != null) {
+                var check_last = vm.lastSelected.slice(0, 2);
+                if (check_last === 'q-') {
+                    last_temp = vm.lastSelected.slice(2, vm.lastSelected.length);
+                }
             }
-          }
 
-          mapService.marker.hide();
-          mapService.studio.dehighlight(last_temp);
-          mapService.map.selectFloor(entry.floor);
-          
-          if ( entry.type == 'Studio'){
-            mapService.studio.highlight(entry.key);
-          } else {
-            mapService.marker.draw(mapService.map.width(), JSON.parse(entry.metadata))
-          }
+            mapService.marker.hide();
+            mapService.studio.dehighlight(last_temp);
+            mapService.map.selectFloor(entry.floor);
+
+            if (entry.type == 'Studio') {
+                mapService.studio.highlight(entry.key);
+            } else {
+                mapService.marker.draw(mapService.map.width(), JSON.parse(entry.metadata))
+            }
         }
 
 
@@ -104,38 +103,28 @@
             $("#loading").removeClass(hdn);
         }
 
-        // TODO: select and querySelect share too much code
+        // TODO: Service?
         function select(key) {
-            var entry = vm.data.all[key];
+            // check if query or not and assign the q- prefix if it is
+            var check = key.slice(0, 2);
+            var tempKey = key;
+            if (check === 'q-') {
+                tempKey = key.slice(2, key.length);
+            }
+
+            var entry = vm.data.all[tempKey];
             vm.title = entry.name;
             vm.details = entry;
+            // convert to num
+            vm.details.quantity = Number(vm.details.quantity);
 
             // highlight
-            highlightService.highlight(entry.key, entry.type, vm.lastSelected);
-
-
+            highlightService.highlight(key, entry.type, vm.lastSelected);
             vm.mapSelect(entry);
-
             vm.lastSelected = key;
-
-            imageResponse();
-            // load image
-            loadImage(entry.type, entry.name);
-        }
-
-        function querySelect(key) {
-            var entry = vm.data.all[key];
-            var qkey = "q-" + entry.key;
-            vm.title = entry.name;
-            vm.details = entry;
-
-            vm.mapSelect(entry);
-
-            highlightService.highlight(qkey, entry.type, vm.lastSelected);
-            vm.lastSelected = qkey;
-
             imageResponse();
             loadImage(entry.type, entry.name);
+            console.log(vm.details);
         }
 
         function search(entry) {
@@ -171,5 +160,5 @@
         $('body').click(function () {
             resetCheck();
         });
-}
+    }
 })();
