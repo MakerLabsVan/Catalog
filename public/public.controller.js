@@ -1,9 +1,9 @@
 (function () {
     angular.module("app")
         .controller('publicController', publicController);
-    publicController.$inject = ['$interval', 'sheetsGetService', 'searchService', 'highlightService', 'S3Service', 'analytics', 'mapService'];
+    publicController.$inject = ['$scope', '$interval', 'sheetsGetService', 'searchService', 'highlightService', 'S3Service', 'analytics', 'mapService'];
 
-    function publicController($interval, sheetsGetService, searchService, highlightService, S3Service, analytics, mapService) {
+    function publicController($scope, $interval, sheetsGetService, searchService, highlightService, S3Service, analytics, mapService) {
         // use this (avoids using $scope but still allows access)
         // store 'this' in a capture variable so context does not change
         // http://codetunnel.io/angularjs-controller-as-or-scope/
@@ -15,12 +15,14 @@
         vm.lastSelected = null;
 
         // functions
+
         vm.clear = clear;
         vm.filter = filter;
         vm.querySelect = querySelect;
         vm.search = search;
         vm.sendMetric = analytics();
         vm.select = select;
+        vm.mapSelect = mapSelect;
 
         // map service
         var hdn = "hidden";
@@ -32,10 +34,39 @@
             sheetsGetService.get().then(function (data) {
                 console.log(data);
                 vm.data = data;
-                mapService.activate('map-container', 1, data.studios)
+                mapService.activate('map-container', 1, data.studios);
+                mapService.studio.onClick( function(id){
+                  vm.select(id);
+                });
                 return vm.data;
             })
         }
+
+        //Map Stuff
+        window.onresize = function (){
+          mapService.resize();
+        };
+
+        function mapSelect( entry ) {
+          var last_temp = vm.lastSelected;
+          if(vm.lastSelected != null){
+            var check_last = vm.lastSelected.slice(0, 2);
+            if ( check_last === 'q-'){
+              var last_temp = vm.lastSelected.slice(2, vm.lastSelected.length);
+            }
+          }
+
+          mapService.marker.hide();
+          mapService.studio.dehighlight(last_temp);
+          mapService.map.selectFloor(entry.floor);
+          
+          if ( entry.type == 'Studio'){
+            mapService.studio.highlight(entry.key);
+          } else {
+            mapService.marker.draw(mapService.map.width(), JSON.parse(entry.metadata))
+          }
+        }
+
 
         function clear() {
             vm.query = '';
@@ -81,6 +112,10 @@
 
             // highlight
             highlightService.highlight(entry.key, entry.type, vm.lastSelected);
+
+
+            vm.mapSelect(entry);
+
             vm.lastSelected = key;
 
             imageResponse();
@@ -93,6 +128,8 @@
             var qkey = "q-" + entry.key;
             vm.title = entry.name;
             vm.details = entry;
+
+            vm.mapSelect(entry);
 
             highlightService.highlight(qkey, entry.type, vm.lastSelected);
             vm.lastSelected = qkey;
@@ -134,5 +171,5 @@
         $('body').click(function () {
             resetCheck();
         });
-    }
+}
 })();

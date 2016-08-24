@@ -19,7 +19,7 @@
             const SECOND_FLOOR_Y = 790;
 
             const MARKER_SIZE = 40; // in PX
-            const MARKER_PATH = '/assets/marker.svg';
+            const MARKER_PATH = '/marker.svg';
 
             var service = {
                 // main map object (check below)
@@ -28,7 +28,7 @@
                 switchFloor: map.nextFloor,
                 resize: map.resize,
                 studio: map.studio,
-                marker: map.marker,
+                marker: map.markers,
 
             };
 
@@ -39,7 +39,7 @@
               service.switchFloor = service.map.nextFloor;
               service.resize = service.map.resize;
               service.studio = service.map.studio;
-              service.marker = service.map.marker;
+              service.marker = service.map.markers;
               service.draw = service.studio.draw;
 
 
@@ -101,18 +101,12 @@
                 };
                 //Move to floor
                 function selectFloor(floor) {
-                      vm.currentFloor = floor;
+                      vm.currentFloor = Number(floor);
                       vm.studio.selectFloor(vm.width(), floor);
+                      vm.resize();
                 };
                 function nextFloor(){
-
                   vm.currentFloor === 1 ? vm.currentFloor = 2 : vm.currentFloor = 1;
-                  console.log(vm.currentFloor)
-                  // if (vm.currentFloor === 1) {
-                  //   vm.currentFloor = 2;
-                  // } else {
-                  //   vm.currentFloor = 1;
-                  // }
                   vm.resize();
                 };
                 function getMarkerLocation() {
@@ -214,7 +208,7 @@
                     //on studio click, pass the studio's ID to callback function
                 function onClick(callback) {
                     d3.selectAll('.studio').on('click', function () {
-                        callback(d3.select(vm).attr('id'));
+                        callback(d3.select(this).attr('id'));
                     })
                 };
             };
@@ -352,28 +346,28 @@
             }
 
             // Undo mapTransformCoords function
-            var undoMapTransformCoords = function (width, oldCoords, isIso, floor) {
+            function undoMapTransformCoords(width, oldCoords, isIso, floor) {
                 var screenScale = getScreenFactor(width);
-                var cosA = Math.cos(isoAngle * Math.PI / 180);
-                var sinA = Math.sin(isoAngle * Math.PI / 180);
+                var cosA = Math.cos(ISO_ANGLE * Math.PI / 180);
+                var sinA = Math.sin(ISO_ANGLE * Math.PI / 180);
 
                 var transformX = oldCoords.x / screenScale;
                 var transformY = oldCoords.y / screenScale;
 
                 if (floor === 2) {
-                    transformX -= secondFloorX;
-                    transformY -= secondFloorY;
+                    transformX -= SECOND_FLOOR_X;
+                    transformY -= SECOND_FLOOR_Y;
                 } else {
-                    transformX -= firstFloorX;
-                    transformY -= firstFloorY;
+                    transformX -= FIRST_FLOOR_X;
+                    transformY -= FIRST_FLOOR_Y;
                 }
 
                 //scaling
-                transformX /= isoMapScale;
+                transformX /= ISO_MAP_SCALE;
                 if (isIso == true) {
-                    transformY /= (isoMapScale * isoVertScale);
+                    transformY /= (ISO_MAP_SCALE * ISO_VERT_SCALE);
                 } else {
-                    transformY /= isoMapScale;
+                    transformY /= ISO_MAP_SCALE;
                 }
 
                 //Rotation
@@ -393,10 +387,10 @@
             }
 
             //Mapping points to map
-            var mapTransformCoords = function (width, oldCoords, isIso, floor) {
+            function mapTransformCoords(width, oldCoords, isIso, floor) {
                 var screenScale = getScreenFactor(width);
-                var cosA = Math.cos(isoAngle * Math.PI / 180);
-                var sinA = Math.sin(isoAngle * Math.PI / 180);
+                var cosA = Math.cos(ISO_ANGLE * Math.PI / 180);
+                var sinA = Math.sin(ISO_ANGLE * Math.PI / 180);
 
                 //Rotation of coordinates
                 if (isIso == true) {
@@ -408,19 +402,19 @@
                 }
 
                 //scaling
-                transformX *= isoMapScale;
+                transformX *= ISO_MAP_SCALE;
                 if (isIso == true) {
-                    transformY *= (isoMapScale * isoVertScale);
+                    transformY *= (ISO_MAP_SCALE * ISO_VERT_SCALE);
                 } else {
-                    transformY *= isoMapScale;
+                    transformY *= ISO_MAP_SCALE;
                 }
                 //Translate back into floor plane
                 if (floor == 2) {
-                    transformX += secondFloorX;
-                    transformY += secondFloorY;
+                    transformX += SECOND_FLOOR_X;
+                    transformY += SECOND_FLOOR_Y;
                 } else {
-                    transformX += firstFloorX;
-                    transformY += firstFloorY;
+                    transformX += FIRST_FLOOR_X;
+                    transformY += FIRST_FLOOR_Y;
                 }
 
                 //screensize scale
@@ -440,7 +434,7 @@
                 return currentWidth / ISO_MAP_WIDTH;
             }
 
-            var addMarker = function (container) {
+            function addMarker (container) {
                 return container
                     .append('svg:image')
                     .attr('xlink:href', MARKER_PATH)
