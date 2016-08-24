@@ -68,11 +68,9 @@
             status = 'edit';
             // check if query or not and assign the q- prefix if it is
             var check = key.slice(0, 2);
-            console.log("check: " + check);
             var tempKey = key;
             if (check === 'q-') {
                 tempKey = key.slice(2, key.length);
-                console.log("TEMP KEY: " + tempKey);
             }
 
             var entry = vm.data.all[tempKey];
@@ -124,45 +122,67 @@
             vm.details.quantity = qty;
         }
 
+        /**
+         * Collects input data and sends to server to write to google sheets
+         */
         function write() {
-            // send the data to the server to write to sheets
-            // make body to send
+            // check if editing or inserting
             if (status === 'edit') {
+                // assign locally
                 vm.data.all[vm.details.key] = vm.details;
-                console.log(vm.details);
-                // TODO: rename category item object
-                // vm.data[vm.details.type][vm.details.key] = vm.details;
+                vm.data[vm.details.type][vm.details.key] = vm.details;
+                $scope.$digest();
             } else {
+                // make new entry
                 var body = [];
                 for (var i in vm.data.minimized) {
                     var key = vm.data.minimized[i];
                     body.push(vm.details[key]);
                 }
 
+                // make the key
                 keyGen(body);
-                console.log(body);
+                console.log("Post Body: ", body);
                 // // make http post request
                 // sheetsWriteService.write(body).then(function (result) {
                 //     console.log(result);
                 // })
 
+                localSave(vm.details);
                 vm.newEntry();
             }
         }
 
+        /**
+         * Saves the new entry to the local database and updates the view after the http request
+         * - must save to data.all, data[type], data.array
+         * @param {object} entry - a new entry made from input form
+         */
+        function localSave(entry) {
+            console.log("FROM LOCALSAVE: ", entry);
+            vm.data.all[entry.key] = entry;
+            vm.data[entry.type][entry.key] = entry;
+            vm.data.array.push(entry);
+        }
+
+        /**
+         * Creates a new key
+         * @param {array} body - an array populated with data from input forms
+         */
         function keyGen(body) {
-            // make key new
-            // KEYGEN (takes last key for new keygen (can cause gaps)
+            // takes last key for new keygen (can cause gaps)
             var tempkey = vm.data.array[vm.data.all.length - 1][vm.data.keyIndex];
             // remove first letter and only get digits
             var slice = tempkey.slice(1, tempkey.length);
-            // TODO: change A to increment
             var newKey = 'A' + (Number(slice) + 1);
 
             // last index is the new key
             body[body.length - 1] = String(newKey);
         }
 
+        /**
+         * Clears the form
+         */
         function newEntry() {
             status = 'new';
             vm.details = {};
@@ -205,7 +225,7 @@
                 const files = document.getElementById('file').files;
                 const file = files[0];
                 if (file != null) {
-                    console.log(file.name);
+                    console.log("FILE NAME: ", file.name);
                     $scope.$digest();
                 } else {
                     console.log("file not uploaded");
