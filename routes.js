@@ -8,8 +8,8 @@ module.exports = function (router, path, serverOps, public_serverOps, s3Ops) {
         res.sendFile(path + '/static/app/makersite/makersite.html');
     });
 
-    router.get('/signin', function ( req, res){
-      res.sendFile(path + '/static/app/signin/signin.html');
+    router.get('/signin', function (req, res) {
+        res.sendFile(path + '/static/app/signin/signin.html');
     })
 
     router.get("/index", function (req, res) {

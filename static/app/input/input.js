@@ -123,6 +123,18 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
 
     var metaObj = [];
 
+    function loading() {
+        // show loading page
+        $("#entryPage").addClass("hidden");
+        $("#loading-page").removeClass("hidden");
+    }
+
+    function loadingComplete() {
+        // show form page
+        $("#loading-page").addClass("hidden");
+        $("#entryPage").removeClass("hidden");
+    }
+
     $scope.insert = function (row, status) {
 
         metaObj = $scope.map.getMarkerLocation();
@@ -163,6 +175,8 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
             // upload image when selected
             fileHandler();
 
+            loading();
+
             adminHttpRequests.insert(values, row).then(function (result) {
                 if (status === 'new') {
                     // fix local length and keys
@@ -187,6 +201,8 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
                 btnGroup.find('div.active').removeClass('active');
                 // uncheck button
                 btnGroup.find('input[name=typeOptions]:checked').prop('checked', false);
+
+                loadingComplete();
             });
         }
     };
@@ -294,6 +310,7 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
         // to account for frozen rows on database
         // TODO: automate in get response
         const offset = 2;
+        loading();
 
         var index = findIndex() + offset;
         adminHttpRequests.delete([index]).then(function (result) {
@@ -307,6 +324,7 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
             $scope.form.units = 'Units';
             $scope.form.weightUnits = 'Units';
             $scope.cancelDelete();
+            loadingComplete();
         });
 
     };
