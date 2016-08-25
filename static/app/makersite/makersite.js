@@ -3,10 +3,12 @@
     $("#iframe-site").css('height', $(window).height() + 'px');
     $("#iframe-site").css('width', $(window).width() + 'px');
 
+    const ONE_MINUTE = 60000;
+    const MINUTES = 5;
     var idleTime = 0;
     $(document).ready(function () {
       //Increment the idle time counter every minute.
-      var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
+      var idleInterval = setInterval(timerIncrement, ONE_MINUTE); // 1 minute
 
       //Zero the idle timer on mouse movement.
       $(this).mousemove(function (e) {
@@ -19,9 +21,10 @@
 
   function timerIncrement() {
       idleTime = idleTime + 1;
-      if (idleTime > 4 ) { // 20 minutes
+      if (idleTime > MINUTES ) {
           window.location.href = '/';
           jQuery("body").load(window.location.href);
       }
-  }
+  };
+
 })();
