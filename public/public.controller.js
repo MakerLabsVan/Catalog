@@ -22,6 +22,7 @@
         vm.sendMetric = analytics();
         vm.select = select;
         vm.mapSelect = mapSelect;
+        vm.switchFloor = switchFloor;
 
         // map service
         var hdn = "hidden";
@@ -64,6 +65,10 @@
             } else {
                 mapService.marker.draw(mapService.map.width(), JSON.parse(entry.metadata))
             }
+        }
+
+        function switchFloor() {
+          mapService.switchFloor();
         }
 
 
