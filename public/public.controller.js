@@ -67,7 +67,7 @@
         }
 
         function switchFloor() {
-          mapService.switchFloor();
+            mapService.switchFloor();
         }
 
 
@@ -104,7 +104,7 @@
             $("#entry-image").addClass(hdn);
             $("#not-found").addClass(hdn);
             $("#loading").removeClass(hdn);
-            $("#subloc-btn").removeClass(hdn);
+            $("#subloc-btn").removeClass(hdn).attr("disabled", false);
             $("#subloc-body").removeClass("in");
         }
 
@@ -132,7 +132,7 @@
 
             // hide subloc-btn on img error
             $("#subloc-img").on("error", function () {
-                $("#subloc-btn").addClass(hdn);
+                $("#subloc-btn").attr("disabled", true);
             });
 
             vm.lastSelected = key;
