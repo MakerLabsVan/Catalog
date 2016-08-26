@@ -11,9 +11,9 @@
         vm.data = {};
         vm.details = {};
         vm.query = '';
-        vm.title = "MakerLabs";
+        vm.title = "Welcome to MakerLabs Catalog";
+        vm.splashText = "Start by searching up an item or browsing through the dropdown menu";
         vm.lastSelected = null;
-
         // functions
 
         vm.clear = clear;
@@ -110,6 +110,7 @@
 
         // TODO: Service?
         function select(key) {
+            $(".splash").addClass(hdn);
             // check if query or not and assign the q- prefix if it is
             var check = key.slice(0, 2);
             var tempKey = key;
