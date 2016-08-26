@@ -144,6 +144,7 @@
                     <h2 ng-model="title" ng-bind="public.title"></h2>
                 </div>
                 <br>
+              <div class= "attr-font splash" ng-bind="public.splashText"> </div>
                 <div ng-repeat="value in public.details track by $index">
                     <div ng-if="public.filter(public.data.minimized[$index], value)">
                         <div class="thin" ng-bind="public.data.display[$index]">
