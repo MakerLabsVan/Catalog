@@ -27,6 +27,9 @@
         vm.search = search;
         vm.select = select;
         vm.write = write;
+        vm.deleteLastMarker = deleteLastMarker;
+        vm.deleteAllMarker = deleteAllMarker;
+        vm.switchFloor = switchFloor;
 
 
         var hdn = "hidden";
@@ -53,6 +56,19 @@
         window.onresize = function () {
             mapService.resize();
         };
+
+        function deleteLastMarker() {
+          mapService.marker.deleteLastMarker();
+        };
+
+        function deleteAllMarker() {
+          mapService.marker.deleteAllMarker();
+        };
+
+        function switchFloor() {
+          mapService.switchFloor();
+        }
+
 
         function auth() {
             oauthService.auth().then(function (url) {
