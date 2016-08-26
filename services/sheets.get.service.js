@@ -2,11 +2,11 @@
     'use strict';
 
     angular.module("app")
-        .factory("dataService", dataService);
+        .factory("sheetsGetService", sheetsGetService);
 
-    dataService.$inject = ["$http"];
+    sheetsGetService.$inject = ["$http"];
 
-    function dataService($http) {
+    function sheetsGetService($http) {
         return {
             get: function () {
                 return $http.get("/publicGet")
@@ -19,21 +19,25 @@
                         object.display = dataArr[0];
                         object.minimized = dataArr[1];
                         object.all = {};
+                        object.all.length = 0;
+                        object.array = [];
+                        object.keyIndex = 0;
 
-                        object.studios = {};
-                        object.tools = {};
-                        object.materials = {};
-                        object.consumables = {};
+                        object.Studio = {};
+                        object.Tool = {};
+                        object.Material = {};
+                        object.Consumable = {};
 
                         // displays number of entries in a category
                         object.badge = {
-                            "studios": 0,
-                            "tools": 0,
-                            "materials": 0,
-                            "consumables": 0
+                            "Studio": 0,
+                            "Tool": 0,
+                            "Material": 0,
+                            "Consumable": 0
                         };
 
-                        var keyIndex = object.minimized.indexOf("key");
+                        // save for keygen in admin.controller.js
+                        object.keyIndex = object.minimized.indexOf("key");
 
                         doubleShift();
                         entries();
@@ -43,6 +47,8 @@
                             // TODO: different way?
                             dataArr.shift();
                             dataArr.shift();
+                            // save for keygen in admin.controller.js
+                            object.array = dataArr;
                         }
 
                         function entries() {
@@ -52,30 +58,17 @@
                                 for (var j in object.minimized) {
                                     temp[object.minimized[j]] = dataArr[i][j];
                                 }
-                                object.all[dataArr[i][keyIndex]] = temp;
+                                object.all[dataArr[i][object.keyIndex]] = temp;
                                 categorize(temp);
+                                // count all entries
+                                object.all.length++;
                             }
                         }
 
                         // parse each entry into their respective categories
                         function categorize(temp) {
-                            switch (temp.type) {
-                                case "Studio":
-                                    object.studios[temp.key] = temp;
-                                    object.badge.studios++;
-                                    break;
-                                case "Tool":
-                                    object.tools[temp.key] = temp;
-                                    object.badge.tools++;
-                                    break;
-                                case "Material":
-                                    object.materials[temp.key] = temp;
-                                    object.badge.materials++;
-                                    break;
-                                case "Consumable":
-                                    object.consumables[temp.key] = temp;
-                                    object.badge.consumables++;
-                            }
+                            object[temp.type][temp.key] = temp;
+                            object.badge[temp.type]++;
                         }
 
                         return object;

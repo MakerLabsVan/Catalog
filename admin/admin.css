@@ -3,8 +3,7 @@
    ========================================================================== */
 
 body {
-    /*overflow: hidden;*/
-    height: 100vh;
+    overflow: auto;
 }
 
 .container-fluid {
@@ -45,6 +44,10 @@ hr {
 
 .no-border {
     border: none;
+}
+
+.no-radius {
+    border-radius: 0;
 }
 
 .no-margin {
@@ -108,6 +111,7 @@ hr {
     border-right: 1px solid #eeeeee;
     padding: 0 15px 0 15px;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 #form {
@@ -125,7 +129,7 @@ hr {
 
 #entry-image {
     /* changed to max-width for input page only */
-    max-width: 10vw;
+    max-width: 20vw;
     border-radius: 40px;
     display: block;
     margin: 0 auto;
@@ -135,7 +139,7 @@ hr {
     text-align: center;
 }
 
-#map {
+#map-container {
     height: 100vh;
     padding: 20px;
 }
@@ -254,4 +258,17 @@ input::-webkit-inner-spin-button {
     /* display: none; <- Crashes Chrome on hover */
     -webkit-appearance: none;
     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+#fab-menu {
+    bottom: 20px;
+    right: 20px;
+}
+
+#auth-modal {
+    margin-top: 0;
+}
+
+#auth-modal, #auth-content {
+    height: 30vh;
 }

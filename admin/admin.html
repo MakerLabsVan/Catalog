@@ -58,13 +58,13 @@
                                 <span>Search Results</span>
                             </h4>
                         </div>
-                        <div id="collapse-search" class="panel-collapse collapse">
+                        <div id="collapse-search" class="panel-collapse collapse in">
                             <div class="panel-body grey-scroll">
                                 <!-- TODO: Why is ng-bind so much faster than ng-if, ng-show -->
                                 <div class="click round-right-edge search-font search-pad"
                                      ng-repeat="entry in admin.data.all"
                                      ng-bind="admin.search(entry)"
-                                     ng-click="admin.querySelect(entry.key)" id="q-{{ entry.key }}">
+                                     ng-click="admin.select('q-' + entry.key)" id="q-{{ entry.key }}">
                                 </div>
                             </div>
                         </div>
@@ -74,12 +74,12 @@
                              data-parent="#accordion"
                              href="#collapse-studio">
                             <h4 class="panel-title white-font">
-                                <span>Studio <span class="badge" ng-bind="admin.data.badge.studios"></span> </span>
+                                <span>Studio <span class="badge" ng-bind="admin.data.badge.Studio"></span> </span>
                             </h4>
                         </div>
-                        <div id="collapse-studio" class="panel-collapse collapse in">
+                        <div id="collapse-studio" class="panel-collapse collapse">
                             <div class="panel-body red-scroll">
-                                <div class="click round-right-edge" ng-repeat="studio in admin.data.studios"
+                                <div class="click round-right-edge" ng-repeat="studio in admin.data.Studio"
                                      id="{{ studio.key }}">
                                     <p class="names" ng-bind="studio.name" ng-click="admin.select(studio.key)"></p>
                                 </div>
@@ -91,12 +91,12 @@
                              data-parent="#accordion"
                              href="#collapse-tool">
                             <h4 class="panel-title white-font">
-                                <span>Tools <span class="badge" ng-bind="admin.data.badge.tools"></span></span>
+                                <span>Tool <span class="badge" ng-bind="admin.data.badge.Tool"></span></span>
                             </h4>
                         </div>
                         <div id="collapse-tool" class="panel-collapse collapse">
                             <div class="panel-body blue-scroll">
-                                <div class="click round-right-edge" ng-repeat="tool in admin.data.tools"
+                                <div class="click round-right-edge" ng-repeat="tool in admin.data.Tool"
                                      id="{{ tool.key }}">
                                     <p class="names" ng-bind="tool.name" ng-click="admin.select(tool.key)"></p>
                                 </div>
@@ -108,13 +108,13 @@
                              data-parent="#accordion"
                              href="#collapse-consumable">
                             <h4 class="panel-title white-font">
-                                <span>Consumables <span class="badge"
-                                                        ng-bind="admin.data.badge.consumables"></span></span>
+                                <span>Consumable <span class="badge"
+                                                       ng-bind="admin.data.badge.Consumable"></span></span>
                             </h4>
                         </div>
                         <div id="collapse-consumable" class="panel-collapse collapse">
                             <div class="panel-body green-scroll">
-                                <div class="click round-right-edge" ng-repeat="consumable in admin.data.consumables"
+                                <div class="click round-right-edge" ng-repeat="consumable in admin.data.Consumable"
                                      id="{{ consumable.key }}">
                                     <p class="names" ng-bind="consumable.name"
                                        ng-click="admin.select(consumable.key)"></p>
@@ -127,12 +127,12 @@
                              data-parent="#accordion"
                              href="#collapse-material">
                             <h4 class="panel-title white-font">
-                                <span>Materials <span class="badge" ng-bind="admin.data.badge.materials"></span></span>
+                                <span>Material <span class="badge" ng-bind="admin.data.badge.Material"></span></span>
                             </h4>
                         </div>
                         <div id="collapse-material" class="panel-collapse collapse">
                             <div class="panel-body orange-scroll">
-                                <div class="click round-right-edge" ng-repeat="material in admin.data.materials"
+                                <div class="click round-right-edge" ng-repeat="material in admin.data.Material"
                                      id="{{ material.key }}">
                                     <p class="names" ng-bind="material.name" ng-click="admin.select(material.key)"></p>
                                 </div>
@@ -143,16 +143,17 @@
             </div>
             <div class="col-md-3 grey-scroll" id="details">
                 <br>
-                <!--<div ng-repeat="value in admin.details track by $index">-->
                 <div class="row">
                     <div class="input-field col s12">
-                        <input placeholder="{{ admin.details.name }}" id="name" type="text" class="validate">
+                        <input placeholder="{{ admin.details.name }}" id="name" type="text"
+                               ng-model="admin.details.name" class="validate">
                         <label for="name">Name</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s8">
-                        <input placeholder="{{ admin.details.quantity }}" id="qty" type="number" class="validate">
+                        <input placeholder="{{ admin.details.quantity }}" id="qty" type="number"
+                               ng-model="admin.details.quantity" class="validate">
                         <label for="qty">Quantity</label>
                     </div>
                     <div class="input-field col s2">
@@ -202,6 +203,7 @@
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <input placeholder="{{ admin.details.subtype }}" id="subtype" type="text"
+                                               ng-model="admin.details.subtype"
                                                class="validate">
                                         <label for="subtype">Subtype</label>
                                     </div>
@@ -209,7 +211,7 @@
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <input placeholder="{{ admin.details.sublocation }}" id="sublocation"
-                                               type="text"
+                                               type="text" ng-model="admin.details.sublocation"
                                                class="validate">
                                         <label for="sublocation">Sublocation</label>
                                     </div>
@@ -229,21 +231,25 @@
                                 <div class="row">
                                     <div class="input-field col s3">
                                         <input placeholder="{{ admin.details.width }}" id="width" type="text"
+                                               ng-model="admin.details.width"
                                                class="validate">
                                         <label for="width">Width</label>
                                     </div>
                                     <div class="input-field col s3">
                                         <input placeholder="{{ admin.details.length }}" id="length" type="text"
+                                               ng-model="admin.details.length"
                                                class="validate">
                                         <label for="length">Length</label>
                                     </div>
                                     <div class="input-field col s3">
                                         <input placeholder="{{ admin.details.height }}" id="height" type="text"
+                                               ng-model="admin.details.height"
                                                class="validate">
                                         <label for="height">Height</label>
                                     </div>
                                     <div class="input-field col s3">
                                         <input placeholder="{{ admin.details.units }}" id="unit" type="text"
+                                               ng-model="admin.details.units"
                                                class="validate">
                                         <label for="unit">Unit</label>
                                     </div>
@@ -251,11 +257,13 @@
                                 <div class="row">
                                     <div class="input-field col s6">
                                         <input placeholder="{{ admin.details.weight }}" id="weight" type="text"
+                                               ng-model="admin.details.weight"
                                                class="validate">
                                         <label for="weight">Weight</label>
                                     </div>
                                     <div class="input-field col s6">
                                         <input placeholder="{{ admin.details.weightunit }}" id="weightunit" type="text"
+                                               ng-model="admin.details.weightunit"
                                                class="validate">
                                         <label for="weightunit">Weight Unit</label>
                                     </div>
@@ -275,13 +283,15 @@
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <textarea id="description" class="materialize-textarea"
-                                                  placeholder="{{ admin.details.description }}"></textarea>
+                                                  placeholder="{{ admin.details.description }}"
+                                                  ng-model="admin.details.description"></textarea>
                                         <label for="description">Description</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <textarea placeholder="{{ admin.details.keywords }}" id="keywords"
+                                                  ng-model="admin.details.keywords"
                                                   class="materialize-textarea"></textarea>
                                         <label for="keywords">Keywords</label>
                                     </div>
@@ -312,7 +322,7 @@
                                     <div class="file-field input-field" id="input-file">
                                         <div class="btn">
                                             <span>File</span>
-                                            <input type="file">
+                                            <input type="file" id="file">
                                         </div>
                                         <div class="file-path-wrapper">
                                             <input class="file-path validate" type="text">
@@ -323,8 +333,69 @@
                         </li>
                     </ul>
                 </div>
+                <div class="row">
+                    <div class="input-field col-md-2 col-md-offset-6">
+                        <a class="btn-floating btn-large waves-effect waves-light green" ng-click="admin.newEntry()">
+                            <i class="material-icons">
+                                create_new_folder
+                            </i>
+                        </a>
+                    </div>
+                    <div class="input-field col-md-2">
+                        <a class="btn-floating btn-large waves-effect waves-light green">
+                            <i class="material-icons">
+                                cancel
+                            </i>
+                        </a>
+                    </div>
+                    <div class="input-field col-md-2">
+                        <a class="btn-floating btn-large waves-effect waves-light green"
+                           ng-click="admin.write()">
+                            <i class="material-icons">
+                                send
+                            </i>
+                        </a>
+                    </div>
+                </div>
             </div>
             <div class="col-md-7" id="map">
+                <div class="row">
+                    <div class="fixed-action-btn horizontal click-to-toggle" id="fab-menu">
+                        <a class="btn-floating btn-large red">
+                            <i class="material-icons">menu</i>
+                        </a>
+                        <ul>
+                            <li>
+                                <a class="btn-floating red modal-trigger" ng-click="admin.auth()" href="#auth-modal">
+                                    <i class="material-icons">lock_open</i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="auth-modal" class="modal">
+                        <div class="modal-content no-radius" id="auth-content">
+                            <h4>Google Sheets Authorization</h4>
+                            <a class="waves-effect waves-light btn btn-block pink lighten-3" href="" target="_blank"
+                               id="auth-link">Open
+                                Authorization Page</a>
+                            <hr/>
+                            <div class="input-field col s12">
+                                <input id="code" type="password" ng-model="admin.authCode">
+                                <label for="code">Code</label>
+                            </div>
+                            <div>
+                                <button class="btn waves-effect waves-light pink accent-2 modal-action modal-close"
+                                        type="button"
+                                        name="submit-code" ng-click="admin.checkCode()">Submit
+                                </button>
+                                <button class="btn waves-effect waves-light pink accent-2 modal-action modal-close"
+                                        type="button"
+                                        name="close-code">Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div id="map-container">
 
                 </div>
@@ -380,12 +451,15 @@
 
 <script src="app.module.js"></script>
 <script src="admin.controller.js"></script>
-<script src="s3.service.js"></script>
-<script src="sheets.get.service.js"></script>
-<script src="refresh.service.js"></script>
-<script src="search.service.js"></script>
-<script src="highlight.service.js"></script>
+<script src="map.service.js"></script>
 <script src="analytics.service.js"></script>
+<script src="highlight.service.js"></script>
+<script src="oauth.service.js"></script>
+<script src="s3.service.js"></script>
+<script src="refresh.service.js"></script>
+<script src="sheets.get.service.js"></script>
+<script src="sheets.write.service.js"></script>
+<script src="search.service.js"></script>
 
 </body>
 </html>

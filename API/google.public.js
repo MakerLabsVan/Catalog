@@ -20,4 +20,3 @@ var PubGetData = function (callback) {
     });
 };
 exports.PubGetData = PubGetData;
-
