@@ -89,9 +89,9 @@
             vm.details.quantity = Number(vm.details.quantity);
 
 
-            if ( entry.type != "Studio"){
-              mapService.marker.draw(mapService.map.width(), JSON.parse(entry.metadata));
-              mapService.marker.onDrag();
+            if (entry.type != "Studio") {
+                mapService.marker.draw(mapService.map.width(), JSON.parse(entry.metadata));
+                mapService.marker.onDrag();
             }
             // uncheck previous type
             $("input[name=radio-type]:checked").prop('checked', false);
@@ -148,15 +148,17 @@
                 $scope.$digest();
             } else {
                 // make new entry
+                vm.details.type = $("input[name=radio-type]:checked").val();
                 var body = [];
                 for (var i in vm.data.minimized) {
                     var key = vm.data.minimized[i];
                     body.push(vm.details[key]);
                 }
 
+                // set type
+
                 // make the key
                 keyGen(body);
-                console.log("Post Body: ", body);
                 // // make http post request
                 // sheetsWriteService.write(body).then(function (result) {
                 //     console.log(result);
@@ -164,6 +166,7 @@
 
                 localSave(vm.details);
                 vm.newEntry();
+                console.log("Post Body: ", body);
             }
         }
 
@@ -177,6 +180,7 @@
             vm.data.all[entry.key] = entry;
             vm.data[entry.type][entry.key] = entry;
             vm.data.array.push(entry);
+            console.log("ALL: ", vm.data.all[entry.key], "CATEGORY: ", vm.data[entry.type][entry.key]);
         }
 
         /**
@@ -192,6 +196,7 @@
 
             // last index is the new key
             body[body.length - 1] = String(newKey);
+            vm.details.key = newKey;
         }
 
         /**

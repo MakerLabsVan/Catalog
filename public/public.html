@@ -107,7 +107,7 @@
                              href="#collapse-consumable">
                             <h4 class="panel-title white-font">
                                 <span>Consumable <span class="badge"
-                                                        ng-bind="public.data.badge.Consumable"></span></span>
+                                                       ng-bind="public.data.badge.Consumable"></span></span>
                             </h4>
                         </div>
                         <div id="collapse-consumable" class="panel-collapse collapse">
@@ -139,7 +139,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3" id="details">
+            <div class="col-md-3 grey-scroll" id="details">
                 <div id="entry-title">
                     <h2 ng-model="title" ng-bind="public.title"></h2>
                 </div>
@@ -153,12 +153,20 @@
                         <hr>
                     </div>
                 </div>
-                <div>
+                <div class="row">
                     <div class="hidden" id="loading">
                         <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
                         <span class="sr-only">Loading...</span>
                     </div>
                     <img class="centerImage hidden" src="" alt="" id="entry-image">
+                </div>
+                <div class="btn btn-block hidden waves-effect waves-light" id="subloc-btn" data-toggle="collapse"
+                     data-target="#subloc-body">
+                    Sublocation
+                </div>
+                <div class="collapse" id="subloc-body">
+                    <br>
+                    <img class="centerImage" src="" alt="" id="subloc-img">
                 </div>
             </div>
             <div class="col-md-7" id="map">

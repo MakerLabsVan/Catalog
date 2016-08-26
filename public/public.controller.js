@@ -23,7 +23,6 @@
         vm.select = select;
         vm.mapSelect = mapSelect;
 
-        // map service
         var hdn = "hidden";
 
         activate();
@@ -83,24 +82,25 @@
             value === '');
         }
 
-        function loadImage(type, name) {
+        function loadImage(type, name, id) {
+            var elem = "#" + id;
             S3Service.getURL(type + "/" + name)
                 .then(function (url) {
-                    $("#entry-image").removeClass(hdn);
+                    $(elem).removeClass(hdn);
                     $("#loading").addClass(hdn);
-                    console.log(url);
-                    $("#entry-image").attr("src", url).on("error", function () {
-                        $("#entry-image").addClass(hdn);
+                    $(elem).attr("src", url).on("error", function () {
+                        $(elem).addClass(hdn);
                     })
                 })
         }
 
-        // show the loading, not-found icons when req'd
+        // hide and show certain elements based on image loading response
         function imageResponse() {
-            // show loading icon when clicked and change on load
             $("#entry-image").addClass(hdn);
             $("#not-found").addClass(hdn);
             $("#loading").removeClass(hdn);
+            $("#subloc-btn").removeClass(hdn);
+            $("#subloc-body").removeClass("in");
         }
 
         // TODO: Service?
@@ -118,13 +118,19 @@
             // convert to num
             vm.details.quantity = Number(vm.details.quantity);
 
-            // highlight
+            // highlight and image
             highlightService.highlight(key, entry.type, vm.lastSelected);
             vm.mapSelect(entry);
-            vm.lastSelected = key;
             imageResponse();
-            loadImage(entry.type, entry.name);
-            console.log(vm.details);
+            loadImage(entry.type, entry.name, "entry-image");
+            loadImage("Sublocation", entry.sublocation, "subloc-img");
+
+            // hide subloc-btn on img error
+            $("#subloc-img").on("error", function () {
+                $("#subloc-btn").addClass(hdn);
+            });
+
+            vm.lastSelected = key;
         }
 
         function search(entry) {

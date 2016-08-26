@@ -3,7 +3,7 @@
    ========================================================================== */
 
 body {
-    /*overflow: hidden;*/
+    overflow: hidden;
     height: 100vh;
 }
 
@@ -110,21 +110,25 @@ hr {
 
 #details {
     height: 100vh;
-    border-right: 1px solid #eeeeee;
-    padding: 0 0 0 10px;
+    padding: 0 10px 0 10px;
+    overflow-y: scroll;
 }
 
 #entry-title {
     border-radius: 10px;
 }
 
-#entry-image {
+#entry-image, #subloc-img {
     /* can change to better fit image */
     max-width: 20vw;
     max-height: 45vh;
     border-radius: 40px;
     display: block;
     margin: 0 auto;
+}
+
+#subloc-img {
+    margin: 10px auto 40px auto;
 }
 
 #loading {
