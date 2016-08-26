@@ -308,7 +308,6 @@ inputApp.controller("inputCtrl", ["$scope", "$http", "mapService", "highlightSer
     // delete an entry
     $scope.delete = function () {
         // to account for frozen rows on database
-        // TODO: automate in get response
         const offset = 2;
         loading();
 

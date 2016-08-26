@@ -88,6 +88,7 @@ small {
     height: 93vh;
     padding: 0;
     margin: -1px 0px -1px 0px;
+    overflow-y: auto;
 }
 
 input[type="file"] {
@@ -324,7 +325,7 @@ input[type="file"] {
     width: 100%;
 }
 
-#entryImg {
+#entryImg, #subloc-image {
     max-height: 50vh;
     border-radius: 40px;
 }

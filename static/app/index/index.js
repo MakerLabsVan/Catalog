@@ -183,14 +183,27 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
             });
     };
 
+    var sublocationImage = function (sublocation) {
+        httpRequests.getImage('Sublocation' + '/' + sublocation)
+            .then(function (url) {
+                $("#subloc-image").attr("src", url).on("error", function () {
+                    $("#subloc-image").addClass("hidden");
+                });
+            });
+    };
+
     // display entry details when clicked
     $scope.showEntryDetails = function (entry) {
         $("#entryImg").addClass("hidden");
         $("#not-found").addClass("hidden");
         $("#loading").removeClass("hidden");
+        $("#subloc-image").removeClass("hidden");
+        $("#sublocation").removeClass("in");
+
 
         // get image
         getImage(entry.type, entry.image);
+        sublocationImage(entry.sublocation);
 
         $scope.selectedObject = entry;
 
