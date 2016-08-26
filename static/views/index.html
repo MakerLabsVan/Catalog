@@ -20,6 +20,13 @@
     <div class="container-fluid view-color" ng-controller="indexCtrl">
         <div class="row">
             <div class="col-sm-2" id="accordion-container">
+                <div class="row">
+                    <a href="/">
+                        <div class="btn btn-block btn-primary round" id="dashboard-btn">
+                            DASHBOARD
+                        </div>
+                    </a>
+                </div>
                 <img class="centerImage" src="assets/makerlabs.png" alt="makerlablogo" id="index-logo">
                 <!-- accordion start -->
                 <div class="panel-group" id="accordion">
@@ -138,7 +145,7 @@
                                     <p ng-bind="panelBodyMessage"></p>
                                 </div>
                             </div>
-                            <div class="panel-body hidden white standardFont" id="entryDetails">
+                            <div class="panel-body hidden white standardFont greyScroll" id="entryDetails">
                                 <div class="col-sm-12">
                                     <div class="container-fluid">
                                         <div class="row" ng-repeat="prop in dataLabels track by $index"
@@ -157,6 +164,17 @@
                                                 </div>
                                                 <img class="centerImage hidden" src="" alt="" id="entryImg">
                                             </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row" id="subloc-image-row">
+                                            <div class="btn btn-block btn-default" data-toggle="collapse"
+                                                 data-target="#sublocation" id="sublock-btn">Show Sublocation
+                                            </div>
+                                            <br>
+                                            <div id="sublocation" class="collapse">
+                                                <img class="centerImage hidden" src="" alt="" id="subloc-image">
+                                            </div>
+                                            <hr>
                                         </div>
                                     </div>
                                 </div>
@@ -180,17 +198,17 @@
     </div>
 </div>
 
-<script src="/app/components/feedback/feedback.js"></script>
-<script src="/app/components/analytics/analytics.js"></script>
+<script src="/app/feedback/feedback.js"></script>
+<script src="/app/analytics/analytics.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
         integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
         crossorigin="anonymous"></script>
 <script src="//d3js.org/d3.v4.js"></script>
-<script src="/app/components/d3/map.js"></script>
-<script src="/app/components/d3/mapController.js"></script>
-<script src="/app/components/index/index.js"></script>
+<script src="/app/d3/map.js"></script>
+<script src="/app/d3/mapController.js"></script>
+<script src="/app/index/index.js"></script>
 
 </body>
 

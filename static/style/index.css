@@ -1,6 +1,6 @@
 body {
     font-family: 'Raleway', sans-serif;
-    /*overflow: hidden;*/
+    overflow: hidden;
 }
 
 #touch-me {
@@ -88,6 +88,7 @@ small {
     height: 93vh;
     padding: 0;
     margin: -1px 0px -1px 0px;
+    overflow-y: scroll;
 }
 
 input[type="file"] {
@@ -324,7 +325,7 @@ input[type="file"] {
     width: 100%;
 }
 
-#entryImg {
+#entryImg, #subloc-image {
     max-height: 50vh;
     border-radius: 40px;
 }
@@ -471,3 +472,7 @@ input[type=number]::-webkit-inner-spin-button {
     -webkit-appearance: none;
 }
 
+#loading-page {
+    left: 230px;
+    top: 230px;
+}

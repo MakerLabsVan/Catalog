@@ -12,14 +12,6 @@ Visit the [Webapp hosted on heroku](https://catalog-makerlabs.herokuapp.com/)
 * Run Server `node server.js `
 * Finally you can open the browser go to localhost:3000
 
-## Using `push.sh`
-This file simplifies the commands required to push to GitHub
-
-* Run `chmod u+x push.sh` to make it executable
-* Run `./push.sh <filename> <commit message>`
-    * For multiple file staging, wrap your `filenames` in quotes or use `.`
-    * `commit message` must be wrapped in quotes
-
 ## Authors
 Sunny Leung &
 Andrew Song
