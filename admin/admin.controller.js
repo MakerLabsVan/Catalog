@@ -58,15 +58,15 @@
         };
 
         function deleteLastMarker() {
-          mapService.marker.deleteLastMarker();
-        };
+            mapService.marker.deleteLastMarker();
+        }
 
         function deleteAllMarker() {
-          mapService.marker.deleteAllMarker();
-        };
+            mapService.marker.deleteAllMarker();
+        }
 
         function switchFloor() {
-          mapService.switchFloor();
+            mapService.switchFloor();
         }
 
 
@@ -163,6 +163,9 @@
                 vm.data[vm.details.type][vm.details.key] = vm.details;
                 $scope.$digest();
             } else {
+                // get map pin locations
+                vm.details.metadata = JSON.stringify(genMetadata());
+
                 // make new entry
                 vm.details.type = $("input[name=radio-type]:checked").val();
                 var body = [];
@@ -171,8 +174,6 @@
                     body.push(vm.details[key]);
                 }
 
-                // set type
-
                 // make the key
                 keyGen(body);
                 // // make http post request
@@ -180,8 +181,9 @@
                 //     console.log(result);
                 // })
 
-                localSave(vm.details);
+                localSave(vm.details, body);
                 vm.newEntry();
+                $scope.$evalAsync();
                 console.log("Post Body: ", body);
             }
         }
@@ -191,12 +193,13 @@
          * - must save to data.all, data[type], data.array
          * @param {object} entry - a new entry made from input form
          */
-        function localSave(entry) {
-            console.log("FROM LOCALSAVE: ", entry);
+        function localSave(entry, body) {
+            console.log(entry);
             vm.data.all[entry.key] = entry;
             vm.data[entry.type][entry.key] = entry;
-            vm.data.array.push(entry);
-            console.log("ALL: ", vm.data.all[entry.key], "CATEGORY: ", vm.data[entry.type][entry.key]);
+            // need to push the array body or else keygen will get an error after the first send
+            vm.data.array.push(body);
+            vm.data.all.length++;
         }
 
         /**
@@ -212,7 +215,16 @@
 
             // last index is the new key
             body[body.length - 1] = String(newKey);
-            vm.details.key = newKey;
+            vm.details.key = String(newKey);
+        }
+
+        /**
+         * Make metadata for map pins
+         */
+        function genMetadata() {
+            return {
+                "points": mapService.getLocation()
+            };
         }
 
         /**
