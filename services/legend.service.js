@@ -40,14 +40,14 @@
               var g = d3.select(this);
               g.append("rect")
                 .attr("x", 0)
-                .attr("y", i*50)
-                .attr("width", 50 + 'px')
+                .attr("y", i*40)
+                .attr("width", 100 + 'px')
                 .attr("height", 25 +'px')
                 .style("fill", d.color);
 
               g.append("text")
-                .attr("x", 50)
-                .attr("y", i * 50 + 15)
+                .attr("x", 0)
+                .attr("y", i * 40 + 15)
                 .attr("height",100)
                 .attr("width",100)
                 .style("fill", 'black')
