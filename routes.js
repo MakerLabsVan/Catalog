@@ -2,6 +2,7 @@ module.exports = function (router, path) {
     var gapiPublic = require(path + "/API/google.public.js");
     var gapiAdmin = require(path + "/API/google.admin.js");
     var s3 = require(path + "/API/s3.public.js");
+    var s3Admin = require(path + "/API/s3.admin.js");
     var oauth = require(path + "/API/oauth.admin.js");
     var auth = oauth.OAuth2Client;
 
@@ -14,9 +15,9 @@ module.exports = function (router, path) {
     router.post("/sendCode", sendCode);
     // gapi
     router.post("/newEntry", newEntry);
+    //s3 admin upload
+    router.get('/sign-s3', signS3);
 
-    // parse post data to send to google api
-    var parse = parse;
 
     ////////////////////////////
     function sendHome(req, res) {
@@ -56,10 +57,17 @@ module.exports = function (router, path) {
     }
 
     function newEntry(req, res) {
-        console.log(req.body[0]);
-        return res.json({"Recieved": "Recieved"});
+        // get body
+        var body = req.body[0][0];
+        var row = Number(req.body[0][1]);
+        console.log("newEntry", row);
+        parse(body, row, function (response) {
+            return res.json(response);
+        })
+
     }
 
+    // parse post data to send to google api
     function parse(values, row, callback) {
         var body = {
             stdData: {
@@ -68,9 +76,17 @@ module.exports = function (router, path) {
             },
             row: row
         };
+        console.log("parse:", row);
 
         gapiAdmin.sheetWrite(auth, body, function (result) {
             callback(result);
+        });
+    }
+
+    function signS3(req, res) {
+        s3Admin.upload(req, res, function (response) {
+            console.log(response);
+            return res.json(response);
         });
     }
 };

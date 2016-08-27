@@ -4,7 +4,7 @@
         .controller("adminController", adminController);
 
     adminController.$inject = ["$scope", "$window", "sheetsGetService", "sheetsWriteService", "highlightService", "searchService", "S3Service", "oauthService", "mapService"];
-    // scope for digest
+    // scope for evalAsync
 
     function adminController($scope, $window, sheetsGetService, sheetsWriteService, highlightService, searchService, S3Service, oauthService, mapService) {
         var vm = this;
@@ -156,36 +156,30 @@
          * Collects input data and sends to server to write to google sheets
          */
         function write() {
-            // check if editing or inserting
-            if (status === 'edit') {
-                // assign locally
-                vm.data.all[vm.details.key] = vm.details;
-                vm.data[vm.details.type][vm.details.key] = vm.details;
-                $scope.$digest();
-            } else {
+            var body = [];
+            if (status === 'new') {
                 // get map pin locations
                 vm.details.metadata = JSON.stringify(genMetadata());
-
-                // make new entry
+                // make the key if new
+                keyGen(vm.details);
                 vm.details.type = $("input[name=radio-type]:checked").val();
-                var body = [];
-                for (var i in vm.data.minimized) {
-                    var key = vm.data.minimized[i];
-                    body.push(vm.details[key]);
-                }
+                vm.details.row = vm.data.all.length + 3;
+            }
 
-                // make the key
-                keyGen(body);
-                // // make http post request
-                // sheetsWriteService.write(body).then(function (result) {
-                //     console.log(result);
-                // })
+            // make new entry
+            for (var i in vm.data.minimized) {
+                var key = vm.data.minimized[i];
+                body.push(vm.details[key]);
+            }
 
+            // make http post request
+            sheetsWriteService.write([body, vm.details.row]).then(function (result) {
+                console.log(body, vm.details.row);
                 localSave(vm.details, body);
                 vm.newEntry();
                 $scope.$evalAsync();
                 console.log("Post Body: ", body);
-            }
+            });
         }
 
         /**
@@ -206,7 +200,7 @@
          * Creates a new key
          * @param {array} body - an array populated with data from input forms
          */
-        function keyGen(body) {
+        function keyGen(entry) {
             // takes last key for new keygen (can cause gaps)
             var tempkey = vm.data.array[vm.data.all.length - 1][vm.data.keyIndex];
             // remove first letter and only get digits
@@ -214,8 +208,7 @@
             var newKey = 'A' + (Number(slice) + 1);
 
             // last index is the new key
-            body[body.length - 1] = String(newKey);
-            vm.details.key = String(newKey);
+            entry.key = String(newKey);
         }
 
         /**
@@ -273,12 +266,65 @@
                 const file = files[0];
                 if (file != null) {
                     console.log("FILE NAME: ", file.name);
-                    $scope.$digest();
+                    $scope.$evalAsync();
                 } else {
                     console.log("file not uploaded");
                 }
             }
         })();
+
+        // default from heroku s3 direct upload docs for nodejs
+        var fileHandler = function () {
+            const files = document.getElementById('file-input').files;
+            const file = files[0];
+            if (file == null) {
+                console.log("No file was selected");
+                return;
+            }
+            getSignedRequest(file);
+        };
+
+        function getSignedRequest(file) {
+            // make path to upload to
+            var folder = $("input[name=radio-type]:checked").val();
+            if (folder == undefined) {
+                alert("Please select a type!");
+                return;
+            }
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', `/sign-s3?file-name=${file.name}&file-type=${file.type}&folder=${folder}`);
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        const response = JSON.parse(xhr.responseText);
+                        uploadFile(file, response.signedRequest, response.url);
+                    }
+                    else {
+                        alert('Could not get signed URL.');
+                    }
+                }
+            };
+            xhr.send();
+        }
+
+        function uploadFile(file, signedRequest, url) {
+            const xhr = new XMLHttpRequest();
+            xhr.open('PUT', signedRequest);
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        // display file name
+
+                        console.log(url);
+                    }
+                    else {
+                        alert('Could not upload file.');
+                    }
+                }
+            };
+            xhr.send(file);
+        }
 
         ////////////////// plugins /////////////////
         // modal plug in for materialize.js

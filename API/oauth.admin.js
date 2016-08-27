@@ -9,8 +9,7 @@ var redirectUrl = process.env["REDIRECT_URL"];
 
 var OAuth2Client = new auth.OAuth2(clientId, clientSecret, redirectUrl);
 var SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
-var TOKEN_DIR = (process.env.HOME || process.env.HOMEPATH ||
-    process.env.USERPROFILE) + '/.credentials/';
+var TOKEN_DIR = (process.env.HOME) + '/.credentials/';
 var TOKEN_PATH = TOKEN_DIR + 'sheets.makerlabs.json';
 
 // get redirect url for auth code

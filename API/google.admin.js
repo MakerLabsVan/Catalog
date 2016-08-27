@@ -3,8 +3,8 @@ var sheetKeyPrivate = process.env["SHEET"] || "1MJpC2n-ekpnRXaLsb7B4dI6VOQIzn1eZ
 var google = require('googleapis');
 
 var sheetWrite = function (auth, body, resCallback) {
-    var offset = 3;
-    var nextRow = 'A' + String(body.row + offset);
+    var nextRow = 'A' + String(body.row);
+    console.log(nextRow);
 
     var sheets = google.sheets('v4');
     sheets.spreadsheets.values.update({
@@ -25,7 +25,6 @@ var sheetWrite = function (auth, body, resCallback) {
 
 var deleteEntry = function (auth, index, resCallback) {
     var row = index[0];
-    var offset = 1;
     var body = {
         "requests": [
             {
@@ -34,7 +33,7 @@ var deleteEntry = function (auth, index, resCallback) {
                         "sheetId": 0,
                         "dimension": "ROWS",
                         "startIndex": row,
-                        "endIndex": row + offset
+                        "endIndex": row
                     }
                 }
             }
