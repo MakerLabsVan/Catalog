@@ -196,7 +196,8 @@
                                         <label for="radio-material">Material</label>
                                     </div>
                                     <div class="col-lg-4">
-                                        <input class="with-gap" name="radio-type" type="radio" id="radio-consumable"/>
+                                        <input class="with-gap" name="radio-type" type="radio" id="radio-consumable"
+                                               value="Consumable"/>
                                         <label for="radio-consumable">Consumable</label>
                                     </div>
                                 </div>
@@ -334,15 +335,8 @@
                     </ul>
                 </div>
                 <div class="row">
-                    <div class="input-field col-md-2 col-md-offset-6">
+                    <div class="input-field col-md-2 col-md-offset-8">
                         <a class="btn-floating btn-large waves-effect waves-light green" ng-click="admin.newEntry()">
-                            <i class="material-icons">
-                                create_new_folder
-                            </i>
-                        </a>
-                    </div>
-                    <div class="input-field col-md-2">
-                        <a class="btn-floating btn-large waves-effect waves-light green">
                             <i class="material-icons">
                                 cancel
                             </i>
@@ -360,17 +354,10 @@
             </div>
             <div class="col-md-7" id="map">
                 <div class="row">
-                    <div class="fixed-action-btn horizontal click-to-toggle" id="fab-menu">
-                        <a class="btn-floating btn-large red">
-                            <i class="material-icons">menu</i>
+                    <div class="fixed-action-btn horizontal" id="fab-menu">
+                        <a class="btn-floating btn-large red modal-trigger" ng-click="admin.auth()" href="#auth-modal">
+                            <i class="material-icons">lock</i>
                         </a>
-                        <ul>
-                            <li>
-                                <a class="btn-floating red modal-trigger" ng-click="admin.auth()" href="#auth-modal">
-                                    <i class="material-icons">lock_open</i>
-                                </a>
-                            </li>
-                        </ul>
                     </div>
                     <div id="auth-modal" class="modal">
                         <div class="modal-content no-radius" id="auth-content">
