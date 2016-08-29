@@ -5,9 +5,16 @@ module.exports = function (router, path) {
     var oauth = require(path + "/API/oauth.admin.js");
     var auth = oauth.OAuth2Client;
 
-    router.get("/", sendHome);
-    router.get("/publicGet", publicGet);
+    // Dashboard
+    router.get("/", sendDashboard);
+    router.get("/site", sendMakerSite);
+    router.get("/signin", sendSignin);
+    router.get("/index", sendCatalog);
+
     router.get("/admin", sendAdmin);
+
+    // data requests
+    router.get("/publicGet", publicGet);
     router.post("/image", image);
     // oauth2
     router.get("/authCode", authCode);
@@ -19,7 +26,19 @@ module.exports = function (router, path) {
     var parse = parse;
 
     ////////////////////////////
-    function sendHome(req, res) {
+    function sendDashboard(req, res) {
+        res.sendFile(path + "/dashboard/dashboard.html");
+    }
+
+    function sendMakerSite(req, res) {
+        res.sendFile(path + "/makersite/makersite.html");
+    }
+
+    function sendSignin(req, res) {
+        res.sendFile(path + "/signin/signin.html");
+    }
+
+    function sendCatalog(req, res) {
         res.sendFile(path + "/public/public.html");
     }
 
