@@ -9,7 +9,7 @@ module.exports = function (router, path) {
     router.get("/", sendDashboard);
     router.get("/site", sendMakerSite);
     router.get("/signin", sendSignin);
-    router.get("/index", sendCatalog);
+    router.get("/public", sendCatalog);
 
     router.get("/admin", sendAdmin);
 
