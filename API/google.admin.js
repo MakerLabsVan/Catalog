@@ -32,8 +32,8 @@ var deleteEntry = function (auth, row, resCallback) {
                     "range": {
                         "sheetId": 0,
                         "dimension": "ROWS",
-                        "startIndex": row[0] - 1,
-                        "endIndex": row[0]
+                        "startIndex": row[0],
+                        "endIndex": row[0] + 1
                     }
                 }
             }

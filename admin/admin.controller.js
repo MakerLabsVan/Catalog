@@ -155,7 +155,7 @@
         }
 
         function deleteEntry() {
-            var row = vm.details.row + 1;
+            var row = vm.details.row;
             sheetsWriteService.deleteEntry([row])
                 .then(function (result) {
                     localDelete(vm.details);
