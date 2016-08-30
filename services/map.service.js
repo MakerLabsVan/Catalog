@@ -13,7 +13,7 @@
         const ISO_MAP_SCALE = 8.5; //database value to isometric map conversion
         const ISO_MAP_WIDTH = 1464; // Width of isometric map, used to dynamically resize map
         const SCROLL_MAP_FLOOR_2 = -100;
-        const SCROLL_MAP_FLOOR_1 = 1375; //Vertical scroll until next floor
+        const SCROLL_MAP_FLOOR_1 = 1350; //Vertical scroll until next floor
         const FIRST_FLOOR_X = 875; //Translate studios into place
         const FIRST_FLOOR_Y = 2365;
         const SECOND_FLOOR_X = 710;

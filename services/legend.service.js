@@ -11,13 +11,13 @@
       ];
       const WIDTH = 100;
       const HEIGHT = 100;
-      const LOC_X = 500;
+      const LOC_X = 0;
       const LOC_Y = 25;
 
-      const BAR_X = 0;
+      const BAR_X = 100;
       const BAR_Y_SPACING = 40;
       const BAR_WIDTH = 100;
-      const BAR_HEIGHT = 25;
+      const BAR_HEIGHT = 40;
       const TEXT_Y_OFFSET = 15;
 
       var service = {
@@ -49,15 +49,15 @@
           .each(function(d, i) {
               var g = d3.select(this);
               g.append("rect")
-                .attr("x", BAR_X)
-                .attr("y", i*BAR_Y_SPACING)
+                .attr("x", LOC_X)
+                .attr("y", i*BAR_Y_SPACING + LOC_Y)
                 .attr("width", BAR_WIDTH + 'px')
                 .attr("height", BAR_HEIGHT +'px')
                 .style("fill", d.color);
 
               g.append("text")
-                .attr("x", BAR_X)
-                .attr("y", i * BAR_Y_SPACING + TEXT_Y_OFFSET)
+                .attr("x", LOC_X)
+                .attr("y", i * BAR_Y_SPACING + LOC_Y + TEXT_Y_OFFSET)
                 .attr("height", BAR_HEIGHT)
                 .attr("width", BAR_WIDTH)
                 .style("fill", 'black')
