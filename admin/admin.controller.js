@@ -58,15 +58,16 @@
         };
 
         function deleteLastMarker() {
-            mapService.marker.deleteLastMarker();
+            mapService.marker.deleteLast();
         }
 
         function deleteAllMarker() {
-            mapService.marker.deleteAllMarker();
+            mapService.marker.deleteAll();
         }
 
         function switchFloor() {
             mapService.switchFloor();
+            mapService.marker.deleteAll();
         }
 
 
