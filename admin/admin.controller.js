@@ -158,6 +158,7 @@
          */
         function write() {
             var body = [];
+            console.log(status);
             if (status === 'new') {
                 // get map pin locations
                 vm.details.metadata = JSON.stringify(genMetadata());
@@ -165,6 +166,10 @@
                 keyGen(vm.details);
                 vm.details.type = $("input[name=radio-type]:checked").val();
                 vm.details.row = vm.data.all.length + 3;
+                console.log(vm.details.row);
+            } else {
+                vm.details.row += 1;
+                console.log(vm.details.row);
             }
 
             // make new entry
@@ -175,8 +180,9 @@
 
             // make http post request
             sheetsWriteService.write([body, vm.details.row]).then(function (result) {
-                console.log(body, vm.details.row);
+                console.log(body, vm.details.row, result);
                 localSave(vm.details, body);
+                deleteAllMarker();
                 vm.newEntry();
                 $scope.$evalAsync();
                 console.log("Post Body: ", body);
@@ -193,8 +199,12 @@
             vm.data.all[entry.key] = entry;
             vm.data[entry.type][entry.key] = entry;
             // need to push the array body or else keygen will get an error after the first send
-            vm.data.array.push(body);
-            vm.data.all.length++;
+            if (status === 'new') {
+                vm.data.array.push(body);
+                vm.data.all.length++;
+            } else {
+                vm.data.array[entry.row - 2] = body;
+            }
         }
 
         /**
@@ -230,6 +240,11 @@
             vm.details.quantity = 0;
             // uncheck button
             $("input[name=radio-type]:checked").prop('checked', false);
+            // clear markers
+            deleteAllMarker();
+            // clear search
+            clear();
+            // clear dehighlight
         }
 
         function decreaseQty() {
