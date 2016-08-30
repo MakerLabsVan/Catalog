@@ -335,10 +335,17 @@
                     </ul>
                 </div>
                 <div class="row">
-                    <div class="input-field col-md-2 col-md-offset-8">
+                    <div class="input-field col-md-2 col-md-offset-6">
                         <a class="btn-floating btn-large waves-effect waves-light green" ng-click="admin.newEntry()">
                             <i class="material-icons">
                                 cancel
+                            </i>
+                        </a>
+                    </div>
+                    <div class="input-field col-md-2">
+                        <a class="btn-floating btn-large waves-effect waves-light green" ng-click="admin.deleteEntry()">
+                            <i class="material-icons">
+                                delete
                             </i>
                         </a>
                     </div>
@@ -384,20 +391,20 @@
                     </div>
                 </div>
                 <div id="map-container">
-                  <div>
-                    <button class="btn blue waves-effect waves-light" ng-click="admin.switchFloor()">Switch Floor
-                        <i class="material-icons left">import_export</i>
-                    </button>
+                    <div>
+                        <button class="btn blue waves-effect waves-light" ng-click="admin.switchFloor()">Switch Floor
+                            <i class="material-icons left">import_export</i>
+                        </button>
 
-                    <button class="btn red waves-effect waves-light" ng-click="admin.deleteLastMarker()">Delete Last
-                        <i class="material-icons left">skip_previous</i>
-                    </button>
+                        <button class="btn red waves-effect waves-light" ng-click="admin.deleteLastMarker()">Delete Last
+                            <i class="material-icons left">skip_previous</i>
+                        </button>
 
 
-                    <button class="btn red waves-effect waves-light" ng-click="admin.deleteAllMarker()">Reset
-                        <i class="material-icons left">clear_all</i>
-                    </button>
-                </div>
+                        <button class="btn red waves-effect waves-light" ng-click="admin.deleteAllMarker()">Reset
+                            <i class="material-icons left">clear_all</i>
+                        </button>
+                    </div>
 
 
                 </div>

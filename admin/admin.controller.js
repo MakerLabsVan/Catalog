@@ -13,23 +13,24 @@
         vm.details = {};
         vm.details.quantity = 0;
         vm.lastSelected = null;
-        vm.title = "MakerLabs";
         vm.query = '';
+        vm.title = "MakerLabs";
 
-        // functions
+        // functions (alphabetized)
         vm.auth = auth;
         vm.checkCode = checkCode;
         vm.clear = clear;
         vm.decreaseQty = decreaseQty;
+        vm.deleteEntry = deleteEntry;
+        vm.deleteLastMarker = deleteLastMarker;
+        vm.deleteAllMarker = deleteAllMarker;
         vm.filter = filter;
         vm.increaseQty = increaseQty;
         vm.newEntry = newEntry;
         vm.search = search;
         vm.select = select;
-        vm.write = write;
-        vm.deleteLastMarker = deleteLastMarker;
-        vm.deleteAllMarker = deleteAllMarker;
         vm.switchFloor = switchFloor;
+        vm.write = write;
 
 
         var hdn = "hidden";
@@ -153,6 +154,15 @@
             vm.details.quantity = qty;
         }
 
+        function deleteEntry() {
+            var row = vm.details.row + 1;
+            sheetsWriteService.deleteEntry([row])
+                .then(function (result) {
+                    localDelete(vm.details);
+                    console.log(result);
+                })
+        }
+
         /**
          * Collects input data and sends to server to write to google sheets
          */
@@ -179,14 +189,15 @@
             }
 
             // make http post request
-            sheetsWriteService.write([body, vm.details.row]).then(function (result) {
-                console.log(body, vm.details.row, result);
-                localSave(vm.details, body);
-                deleteAllMarker();
-                vm.newEntry();
-                $scope.$evalAsync();
-                console.log("Post Body: ", body);
-            });
+            sheetsWriteService.write([body, vm.details.row])
+                .then(function (result) {
+                    fileHandler();
+                    console.log(body, vm.details.row, result);
+                    localSave(vm.details, body);
+                    deleteAllMarker();
+                    $scope.$evalAsync();
+                    console.log("Post Body: ", body);
+                });
         }
 
         /**
@@ -205,6 +216,15 @@
             } else {
                 vm.data.array[entry.row - 2] = body;
             }
+            vm.newEntry();
+        }
+
+        function localDelete(entry) {
+            delete vm.data.all[entry.key];
+            delete vm.data[entry.type][entry.key];
+            vm.data.all.length -= 1;
+            vm.data.array.splice(entry.row - 2, 1);
+            newEntry();
         }
 
         /**
@@ -276,6 +296,7 @@
             $("#loading").removeClass(hdn);
         }
 
+        // change name to file name
         (function () {
             document.getElementById("file").onchange = () => {
                 const files = document.getElementById('file').files;
@@ -291,7 +312,7 @@
 
         // default from heroku s3 direct upload docs for nodejs
         var fileHandler = function () {
-            const files = document.getElementById('file-input').files;
+            const files = document.getElementById('file').files;
             const file = files[0];
             if (file == null) {
                 console.log("No file was selected");

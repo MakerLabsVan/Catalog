@@ -23,8 +23,8 @@ var sheetWrite = function (auth, body, resCallback) {
     });
 };
 
-var deleteEntry = function (auth, index, resCallback) {
-    var row = index[0];
+var deleteEntry = function (auth, row, resCallback) {
+    console.log(row[0]);
     var body = {
         "requests": [
             {
@@ -32,8 +32,8 @@ var deleteEntry = function (auth, index, resCallback) {
                     "range": {
                         "sheetId": 0,
                         "dimension": "ROWS",
-                        "startIndex": row,
-                        "endIndex": row
+                        "startIndex": row[0] - 1,
+                        "endIndex": row[0]
                     }
                 }
             }

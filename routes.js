@@ -11,9 +11,7 @@ module.exports = function (router, path) {
     router.get("/site", sendMakerSite);
     router.get("/signin", sendSignin);
     router.get("/public", sendCatalog);
-
     router.get("/admin", sendAdmin);
-
     // data requests
     router.get("/publicGet", publicGet);
     router.post("/image", image);
@@ -22,6 +20,7 @@ module.exports = function (router, path) {
     router.post("/sendCode", sendCode);
     // gapi
     router.post("/newEntry", newEntry);
+    router.post("/deleteEntry", deleteEntry);
     //s3 admin upload
     router.get('/sign-s3', signS3);
 
@@ -83,7 +82,13 @@ module.exports = function (router, path) {
         parse(body, row, function (response) {
             return res.json(response);
         })
+    }
 
+    function deleteEntry(req, res) {
+        var row = req.body[0];
+        gapiAdmin.deleteEntry(auth, row, function (result) {
+            return res.json(result);
+        })
     }
 
     // parse post data to send to google api
