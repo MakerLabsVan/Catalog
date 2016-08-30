@@ -288,3 +288,7 @@ hr {
     fill: #FF3654;
     opacity: 1;
 }
+
+.legendItem {
+  border-radius: 15px;
+}

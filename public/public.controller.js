@@ -1,9 +1,9 @@
 (function () {
     angular.module("app")
         .controller('publicController', publicController);
-    publicController.$inject = ['$scope', '$interval', 'sheetsGetService', 'searchService', 'highlightService', 'S3Service', 'analytics', 'mapService'];
+    publicController.$inject = ['$scope', '$interval', 'sheetsGetService', 'searchService', 'highlightService', 'S3Service', 'analytics', 'mapService', 'mapLegend'];
 
-    function publicController($scope, $interval, sheetsGetService, searchService, highlightService, S3Service, analytics, mapService) {
+    function publicController($scope, $interval, sheetsGetService, searchService, highlightService, S3Service, analytics, mapService, mapLegend) {
         // use this (avoids using $scope but still allows access)
         // store 'this' in a capture variable so context does not change
         // http://codetunnel.io/angularjs-controller-as-or-scope/
@@ -37,11 +37,13 @@
                 mapService.studio.onClick(function (id) {
                     vm.select(id);
                 });
+                mapLegend.activate('map-container');
                 return vm.data;
             })
         }
 
         //Map Stuff
+
         window.onresize = function () {
             mapService.resize();
         };
