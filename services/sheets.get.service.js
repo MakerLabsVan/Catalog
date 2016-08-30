@@ -39,6 +39,9 @@
                         // save for keygen in admin.controller.js
                         object.keyIndex = object.minimized.indexOf("key");
 
+                        // offset the frozen rows
+                        const rowOffset = 2;
+
                         doubleShift();
                         entries();
 
@@ -56,9 +59,14 @@
                             for (var i in dataArr) {
                                 var temp = {};
                                 for (var j in object.minimized) {
+                                    // make object
                                     temp[object.minimized[j]] = dataArr[i][j];
                                 }
+                                // make the row to remove searching for the row number when writing
+                                temp.row = Number(i) + rowOffset;
+                                // save object in all property
                                 object.all[dataArr[i][object.keyIndex]] = temp;
+                                // put into type categories
                                 categorize(temp);
                                 // count all entries
                                 object.all.length++;
