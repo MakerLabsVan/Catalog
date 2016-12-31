@@ -6,7 +6,7 @@ const floorTransitionDelay = 1000; //1 second
 
 //TODO:Parse as JSON data
 
-// //ISOMETRIC MAP
+//ISOMETRIC MAP
 const isIsometric = true; //Draws 2d map if false
 const mapFilePath = "assets/ISO4.png";
 const isoMapScale = 8.5; //database value to isometric map conversion
@@ -37,60 +37,58 @@ const secondFloorY = 790;
 var mapConstructor = function (containerID, floorNum) {
     //Current Floor
     this.currentFloor = floorNum,
+    this.floorOne = function () {
+        this.currentFloor = 1;
+    },
+    this.floorTwo = function () {
+        this.currentFloor = 2;
+    },
 
-        this.nextFloor = function () {
-            if (this.currentFloor === 1) {
-                this.currentFloor = 2;
-            } else {
-                this.currentFloor = 1;
-            }
-        },
+    //Container for the map svgs and images
+    this.viewport = d3.select('#' + containerID)
+        .append('svg')
+        .attr('id', 'mapContainer' + containerID)
+        .attr('class', 'mapContainer'),
+    //The map img
+    this.map = this.viewport
+        .append("svg:image")
+        .attr("xlink:href", mapFilePath)
+        .attr('preserveAspectRatio', 'xMinYMin meet')
+        .attr('class', 'isoMap')
+        .attr('width', "100%")
+        .attr('height', "1000%")
+        .attr('id', 'map-png'),
 
-        //Container for the map svgs and images
-        this.viewport = d3.select('#' + containerID)
-            .append('svg')
-            .attr('id', 'mapContainer' + containerID)
-            .attr('class', 'mapContainer'),
-        //The map img
-        this.map = this.viewport
-            .append("svg:image")
-            .attr("xlink:href", mapFilePath)
-            .attr('preserveAspectRatio', 'xMinYMin meet')
-            .attr('class', 'isoMap')
-            .attr('width', "100%")
-            .attr('height', "1000%")
-            .attr('id', 'map-png'),
+    // addImgMap( this.viewport, mapFilePath ),
+    //Returns width of the map container
+    this.width = function () {
+        return this.viewport.node().getBoundingClientRect().width;
+    },
+    //Returns height of the map container
+    this.height = function () {
+        return this.viewport.node().getBoundingClientRect().height;
+    },
 
-        // addImgMap( this.viewport, mapFilePath ),
-        //Returns width of the map container
-        this.width = function () {
-            return this.viewport.node().getBoundingClientRect().width;
-        },
-        //Returns height of the map container
-        this.height = function () {
-            return this.viewport.node().getBoundingClientRect().height;
-        },
+    //initialize studios svgs
+    this.studio = new studio(this.viewport, this.map, isIsometric),
+    //Resize all map objects
+    this.markers = new marker(this.studio.building),
 
-        //initialize studios svgs
-        this.studio = new studio(this.viewport, this.map, isIsometric),
-        //Resize all map objects
-        this.markers = new marker(this.studio.building),
-
-        this.resize = function () {
-            this.studio.resize(this.width());
-            this.studio.selectFloor(this.width(), this.currentFloor);
-        },
-        //Move to floor
-        this.selectFloor = function (floor) {
-            this.currentFloor = floor;
-            this.studio.selectFloor(this.width(), floor);
-        },
-        this.swipe = function () {
-            d3.select(this.studio.building)
-                .on("drag", function () {
-                    alert('it works!');
-                });
-        }
+    this.resize = function () {
+        this.studio.resize(this.width());
+        this.studio.selectFloor(this.width(), this.currentFloor);
+    },
+    //Move to floor
+    this.selectFloor = function (floor) {
+        this.currentFloor = floor;
+        this.studio.selectFloor(this.width(), floor);
+    },
+    this.swipe = function () {
+        d3.select(this.studio.building)
+            .on("drag", function () {
+                alert('it works!');
+            });
+    }
     this.getMarkerLocation = function () {
         return this.markers.getLocation(this.width(), this.currentFloor);
     }

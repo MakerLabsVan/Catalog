@@ -3,6 +3,11 @@ body {
     overflow: hidden;
 }
 
+.floor-button {
+    position: absolute; 
+    top: 65%;
+}
+
 #touch-me {
     float: left;
 }

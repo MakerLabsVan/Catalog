@@ -37,7 +37,7 @@ app.controller('mapController', ['$scope', '$window', '$location', function ($sc
     //Resize map objects on window resize
     angular.element($window).bind('resize', function () {
         $scope.map.resize();
-        // manuall $digest required as resize event is outside of angular
+        // manual $digest required as resize event is outside of angular
         $scope.$digest();
     })
 }]);

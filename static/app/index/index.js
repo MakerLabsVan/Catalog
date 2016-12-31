@@ -186,10 +186,8 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
     var sublocationImage = function (sublocation) {
         httpRequests.getImage('Sublocation' + '/' + sublocation)
             .then(function (url) {
-                $("#sublock-btn").removeClass("btn-default btn-danger").addClass("btn-success").attr("disabled", false);
                 $("#subloc-image").attr("src", url).on("error", function () {
                     $("#subloc-image").addClass("hidden");
-                    $("#sublock-btn").removeClass("btn-default").addClass("btn-danger").attr("disabled", true);
                 });
             });
     };
@@ -200,8 +198,6 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
         $("#not-found").addClass("hidden");
         $("#loading").removeClass("hidden");
         $("#subloc-image").removeClass("hidden");
-        $("#sublocation").removeClass("in");
-        $("#sublock-btn").removeClass("btn-danger btn-success").addClass("btn-default").attr("disabled", false);
 
 
         // get image
@@ -277,8 +273,13 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
         $scope.sendClickAnalytic(entry);
     };
 
-    $scope.changeFloor = function () {
-        $scope.map.nextFloor();
+    $scope.toFloorOne = function () {
+        $scope.map.floorOne();
+        $scope.map.resize();
+    };
+
+    $scope.toFloorTwo = function () {
+        $scope.map.floorTwo();
         $scope.map.resize();
     };
 

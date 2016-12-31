@@ -165,29 +165,20 @@
                                                 <img class="centerImage hidden" src="" alt="" id="entryImg">
                                             </div>
                                         </div>
-                                        <hr>
-                                        <div class="row" id="subloc-image-row">
-                                            <div class="btn btn-block btn-default" data-toggle="collapse"
-                                                 data-target="#sublocation" id="sublock-btn">Show Sublocation
-                                            </div>
-                                            <br>
-                                            <div id="sublocation" class="collapse">
-                                                <img class="centerImage hidden" src="" alt="" id="subloc-image">
-                                            </div>
-                                            <hr>
-                                        </div>
+                                        <img class="centerImage hidden" src="" alt="" id="subloc-image">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-8" id="mapContainer" ng-controller="mapController">
-                        <div class="container-fluid" id="floor-button">
-                            <div class="row">
-                                <button class="btn btn-block btn-default lvl1-box-shadow"
-                                        ng-click="changeFloor()" id="markerButtons">Change Floor
-                                </button>
-                            </div>
+                        <div class="btn-group-vertical floor-button">
+                            <button class="btn btn-default pull-left"
+                                    ng-click="toFloorTwo()" id="markerButtons">Floor 2
+                            </button>
+                            <button class="btn btn-default pull-left"
+                                    ng-click="toFloorOne()" id="markerButtons">Floor 1
+                            </button>
                         </div>
                         <div class="well well-lg" id="firstFloorWell">
                         </div>
