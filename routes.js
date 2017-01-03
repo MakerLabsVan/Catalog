@@ -1,20 +1,12 @@
 module.exports = function (router, path, serverOps, public_serverOps, s3Ops) {
 
     router.get('/', function (req, res) {
-        res.sendFile(path + '/static/app/dashboard/dashboard.html');
-    });
-
-    router.get('/site', function (req, res) {
-        res.sendFile(path + '/static/app/makersite/makersite.html');
+        res.sendFile(path + '/static/views/index.html');
     });
 
     router.get('/signin', function (req, res) {
         res.sendFile(path + '/static/app/signin/signin.html');
     })
-
-    router.get("/index", function (req, res) {
-        res.sendFile(path + '/static/views/index.html');
-    });
 
     router.get('/authCode', function (req, res) {
         serverOps.sendUrl(function (result) {
