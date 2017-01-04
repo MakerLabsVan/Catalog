@@ -57,7 +57,7 @@ var mapConstructor = function (containerID, floorNum) {
         .attr('preserveAspectRatio', 'xMinYMin meet')
         .attr('class', 'isoMap')
         .attr('width', "100%")
-        .attr('height', "100%")
+        .attr('height', "1000%")
         .attr('id', 'map-png')
         .attr('style', 'visibility: hidden;'),
 

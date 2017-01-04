@@ -1,5 +1,5 @@
 window.doorbellOptions = {
-    appKey: '3hKfPJss7wisYJT65VGXzcYLFHrxl46aqf4S9lHLjdhb6WSJH8wdxEA59BcTOCtc'
+    appKey: 'L6549boJNypRXj1jVHubdxnjicNVpfEyy2Ta9vW0qRjcQluhkExZdT38qMYyBQz4'
 };
 (function (w, d, t) {
     var hasLoaded = false;
