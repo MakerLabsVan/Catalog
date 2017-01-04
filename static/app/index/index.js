@@ -108,7 +108,7 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
 
     // map controller
     // TODO: Change map to map (error in d3map??)
-    $scope.map = mapService.initMap('firstFloorWell', 1);
+    $scope.map = mapService.initMap('floorDisplay', 1);
     $scope.resizemap = mapService.resize($scope.map);
 
     $scope.queryTerm = '';
@@ -122,7 +122,6 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
         }
     };
 
-    // close result box on panel click
     $scope.forceShrinkSearch = function () {
         var id = $('#searchSection');
         id.addClass('hidden');
@@ -167,17 +166,10 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
         }
     };
 
-    // default panel message
-    $scope.panelBodyMessage = "Select a category to find all its listings. Search for a specific item or keyword through the search bar.";
-
-    $scope.panelTitleName = 'MakerLabs Catalog System';
-    $scope.panelTitleType = '';
-
     var getImage = function (type, image) {
         httpRequests.getImage(type + '/' + image)
             .then(function (url) {
                 $("#entryImg").removeClass("hidden");
-                $("#loading").addClass("hidden");
                 $("#entryImg").attr("src", url).on("error", function () {
                     $("#entryImg").addClass("hidden");
                 });
@@ -195,9 +187,11 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
 
     // display entry details when clicked
     $scope.showEntryDetails = function (entry) {
+        $('#popover').modal({ keyboard: false,
+                           show: true
+        });
         $("#entryImg").addClass("hidden");
         $("#not-found").addClass("hidden");
-        $("#loading").removeClass("hidden");
         $("#subloc-image").removeClass("hidden");
 
 
@@ -208,25 +202,46 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
         $scope.selectedObject = entry;
 
         // initialize title
-        $scope.panelTitleName = entry.name;
-        $scope.panelTitleType = entry.type;
-        $('#panelTitleName').addClass('whiteFont');
+        $('#modalTitleName').html(entry.name);
+        $('#modalTitleName').addClass('whiteFont');
 
-        // change color of panel title
-        var elem = $('#indexPanelHeading');
+        // change color of modal title
+        var elem = $('#indexModalHeading');
         var remove = 'red blue orange green white';
+
+        if (entry.floor != "") {
+            $('#address').html("Floor " + entry.floor);
+        }
+        if (entry.sublocation != "") {
+            $('#address').append(", " + entry.sublocation);
+        }
         switch (entry.type) {
             case 'Studio':
                 elem.removeClass(remove).addClass('red');
+                if (entry.subtype == "common") {
+                    $('#additionalInfo').html("Public");
+                }
+                else {
+                    $('#additionalInfo').html("Private");
+                }
                 break;
             case 'Tool':
                 elem.removeClass(remove).addClass('blue');
+                if (entry.quantity != "") {
+                    $('#additionalInfo').html(entry.quantity + "x")
+                }
                 break;
             case 'Material':
                 elem.removeClass(remove).addClass('orange');
+                if (entry.quantity != "") {
+                    $('#additionalInfo').html(entry.quantity + "x")
+                }
                 break;
             case 'Consumable':
                 elem.removeClass(remove).addClass('green');
+                if (entry.quantity != "") {
+                    $('#additionalInfo').html(entry.quantity + "x")
+                }
         }
 
         $('#entryBody').addClass('hidden');

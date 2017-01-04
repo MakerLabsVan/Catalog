@@ -3,6 +3,18 @@ body {
     overflow: hidden;
 }
 
+.entryInfo{
+    padding-top: 30px;
+}
+
+.modal-backdrop.in {
+    opacity: 0;
+}
+
+.modal-body {
+    max-height: 600px;
+}
+
 .floor-button {
     position: absolute; 
     top: 65%;
@@ -26,7 +38,7 @@ body {
     overflow-y: scroll;
 }
 
-#firstFloorWell {
+#floorDisplay {
     height: 93vh;
     background: white;
     border: none;
