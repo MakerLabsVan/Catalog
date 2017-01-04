@@ -218,7 +218,7 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
         switch (entry.type) {
             case 'Studio':
                 elem.removeClass(remove).addClass('red');
-                if (entry.subtype == "common") {
+                if (entry.subtype == "Common") {
                     $('#additionalInfo').html("Public");
                 }
                 else {
