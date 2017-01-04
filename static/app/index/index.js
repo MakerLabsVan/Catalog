@@ -80,6 +80,7 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
             }
         }
         console.log($scope.entries);
+        $scope.map.setViewable();
 
     });
     // GET END

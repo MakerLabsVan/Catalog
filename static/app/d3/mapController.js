@@ -29,8 +29,8 @@ app.controller('mapController', ['$scope', '$window', '$location', function ($sc
             $scope.$apply();
         });
 
-        // $scope.map.markers.onClick();
-        $scope.map.swipe();
+        // $scope.map.marker.onClick();
+        // $scope.map.swipe();
 
     });
 

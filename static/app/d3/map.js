@@ -40,6 +40,7 @@ var mapConstructor = function (containerID, floorNum) {
     this.floorOne = function () {
         this.currentFloor = 1;
     },
+
     this.floorTwo = function () {
         this.currentFloor = 2;
     },
@@ -56,8 +57,13 @@ var mapConstructor = function (containerID, floorNum) {
         .attr('preserveAspectRatio', 'xMinYMin meet')
         .attr('class', 'isoMap')
         .attr('width', "100%")
-        .attr('height', "1000%")
-        .attr('id', 'map-png'),
+        .attr('height', "100%")
+        .attr('id', 'map-png')
+        .attr('style', 'visibility: hidden;'),
+
+    this.setViewable = function() {
+        this.map.attr('style', 'visibility: visible;')
+    }
 
     // addImgMap( this.viewport, mapFilePath ),
     //Returns width of the map container
@@ -82,13 +88,14 @@ var mapConstructor = function (containerID, floorNum) {
     this.selectFloor = function (floor) {
         this.currentFloor = floor;
         this.studio.selectFloor(this.width(), floor);
+
     },
-    this.swipe = function () {
-        d3.select(this.studio.building)
-            .on("drag", function () {
-                alert('it works!');
-            });
-    }
+    // this.swipe = function () {
+    //     d3.select(this.studio.building)
+    //         .on("drag", function () {
+    //             alert('it works!');
+    //         });
+    // }
     this.getMarkerLocation = function () {
         return this.markers.getLocation(this.width(), this.currentFloor);
     }
@@ -118,85 +125,85 @@ var studio = function (container, map, isIsometric) {
         .append('g')
         .classed('studioGroup', true),
 
-        //The floor is an array of g elements for each floor in the bulding
-        this.floor = [
-            this.building
-                .append('g')
-                .classed('floor1', true),
-            this.building
-                .append('g')
-                .classed('floor2', true)
-        ],
+    //The floor is an array of g elements for each floor in the bulding
+    this.floor = [
+        this.building
+            .append('g')
+            .classed('floor1', true),
+        this.building
+            .append('g')
+            .classed('floor2', true)
+    ],
 
-        /**
-         * This object controls all the interactions of the studio objects
-         *  @param {number} payload.floor, indicates which floor to draw on(required)
-         *  @param {string} payload.id, assigns dom id (required)
-         *  @param {json} payload.metadata, contains points which has an array of points (required)
-         *  @param {string} payload.subtype, adds class for css styling
-         **/
-        this.draw = function (payload) {
-            if ((Number(payload.floor) - 1) < 0) {
-                return
-            }
-            this.floor[Number(payload.floor) - 1]
-                .append('g')
-                .attr('id', payload.id)
-                .classed('studio', true)
-                .classed(payload.subtype, true)
-                .selectAll('polygon')
-                .data(payload.metadata.points)
-                .enter()
-                .append('polygon')
-                .attr("points", function (d) {
-                    return d.polygon.map(function (d) {
-                        return [(d.x), (d.y)].join(",");
-                    }).join(" ");
-                });
-        },
-
-        this.resize = function (mapWidth) {
-            for (var i = 0; i < this.floor.length; i++) {
-                transform = mapTransformStrings(mapWidth, i + 1, isIsometric); //Floor number is i+1
-                this.floor[i].attr('transform', transform);
-            }
-        },
-        this.selectFloor = function (width, floorNum) {
-            var screenScale = getScreenFactor(width);
-            switch (floorNum) {
-                case 1:
-                    var setFloor = 'translate(0,' + -scrollMapY * screenScale + ') ';
-                    break;
-                case 2:
-                    var setFloor = 'translate(0,0) ';
-                    break;
-                default:
-                    var setFloor = 'translate(0,' + -scrollMapY * screenScale + ') ';
-                    break;
-            }
-
-            this.building.transition().attr('transform', setFloor).duration(floorTransitionDelay);
-            map.transition().attr('transform', setFloor).duration(floorTransitionDelay);
-        },
-
-        //Highlight studio
-        this.highlight = function (objID) {
-            this.building.select('#' + objID)
-                .classed('studioHighlight', true)
-        },
-
-        //Dehighlight studio
-        this.dehighlight = function (objID) {
-            this.building.select('#' + objID)
-                .classed('studioHighlight', false)
-        },
-
-        //on studio click, pass the studio's ID to callback function
-        this.onClick = function (callback) {
-            d3.selectAll('.studio').on('click', function () {
-                callback(d3.select(this).attr('id'));
-            })
+    /**
+     * This object controls all the interactions of the studio objects
+     *  @param {number} payload.floor, indicates which floor to draw on(required)
+     *  @param {string} payload.id, assigns dom id (required)
+     *  @param {json} payload.metadata, contains points which has an array of points (required)
+     *  @param {string} payload.subtype, adds class for css styling
+     **/
+    this.draw = function (payload) {
+        if ((Number(payload.floor) - 1) < 0) {
+            return
         }
+        this.floor[Number(payload.floor) - 1]
+            .append('g')
+            .attr('id', payload.id)
+            .classed('studio', true)
+            .classed(payload.subtype, true)
+            .selectAll('polygon')
+            .data(payload.metadata.points)
+            .enter()
+            .append('polygon')
+            .attr("points", function (d) {
+                return d.polygon.map(function (d) {
+                    return [(d.x), (d.y)].join(",");
+                }).join(" ");
+            });
+    },
+
+    this.resize = function (mapWidth) {
+        for (var i = 0; i < this.floor.length; i++) {
+            transform = mapTransformStrings(mapWidth, i + 1, isIsometric); //Floor number is i+1
+            this.floor[i].attr('transform', transform);
+        }
+    },
+    this.selectFloor = function (width, floorNum) {
+        var screenScale = getScreenFactor(width);
+        switch (floorNum) {
+            case 1:
+                var setFloor = 'translate(0,' + -scrollMapY * screenScale + ') ';
+                break;
+            case 2:
+                var setFloor = 'translate(0,0) ';
+                break;
+            default:
+                var setFloor = 'translate(0,' + -scrollMapY * screenScale + ') ';
+                break;
+        }
+
+        this.building.transition().attr('transform', setFloor).duration(floorTransitionDelay);
+        map.transition().attr('transform', setFloor).duration(floorTransitionDelay);
+    },
+
+    //Highlight studio
+    this.highlight = function (objID) {
+        this.building.select('#' + objID)
+            .classed('studioHighlight', true)
+    },
+
+    //Dehighlight studio
+    this.dehighlight = function (objID) {
+        this.building.select('#' + objID)
+            .classed('studioHighlight', false)
+    },
+
+    //on studio click, pass the studio's ID to callback function
+    this.onClick = function (callback) {
+        d3.selectAll('.studio').on('click', function () {
+            callback(d3.select(this).attr('id'));
+        })
+    }
 }
 
 /**
@@ -209,69 +216,69 @@ var marker = function (container) {
     this.markerCluster = [],
         // Draw all markers in the metadata
         // @param {markerData} json which contains points and floor
-        this.draw = function (width, markerData) {
-            var markerNum = markerData.points.length;
-            var currentMarkerNum = this.markerCluster.length;
+    this.draw = function (width, markerData) {
+        var markerNum = markerData.points.length;
+        var currentMarkerNum = this.markerCluster.length;
 
-            //Render new markers when there isnt enough
-            if (currentMarkerNum < markerNum) {
-                for (var j = 0; currentMarkerNum + j < markerNum; j++) {
-                    this.markerCluster.push(addMarker(container, currentMarkerNum + j));
-                }
-            }
-            for (k in markerData.points) {
-                var coords = mapTransformCoords(width, markerData.points[k], isIsometric, markerData.floor)
-
-                //Adjust for marker size
-                coords.x -= Number(this.markerCluster[k].attr('width')) / 2;
-                coords.y -= Number(this.markerCluster[k].attr('height'));
-
-                this.markerCluster[k]
-                    .classed('hide', false)
-                    .classed('floor' + markerData.floor, true)
-                    .attr('x', coords.x)
-                    .attr('y', coords.y)
-            }
-        },
-
-        this.hide = function () {
-            for (i in this.markerCluster) {
-                this.markerCluster[i].classed('hide', true);
-            }
-        },
-
-        this.deleteLast = function () {
-            this.markerCluster.pop().remove();
-        },
-
-        this.deleteAll = function () {
-            while (this.markerCluster.length != 0) {
-                this.markerCluster.pop().remove();
-            }
-        },
-
-        this.onClick = function () {
-            showMarkerOnClick(this.markerCluster, container);
-        },
-
-        this.getLocation = function (width, floor) {
-            var arrayOfPoints = [];
-
-            for (i in this.markerCluster) {
-                var points = {
-                    'x': Number(this.markerCluster[i].attr('x')) + Number(this.markerCluster[i].attr('width')) / 2,
-                    'y': Number(this.markerCluster[i].attr('y')) + Number(this.markerCluster[i].attr('height'))
-                };
-                arrayOfPoints.push(undoMapTransformCoords(width, points, isIsometric, floor));
-            }
-            return arrayOfPoints;
-        },
-
-        this.onDrag = function () {
-            for (i in this.markerCluster) {
-                this.markerCluster[i].call(drag);
+        //Render new markers when there isnt enough
+        if (currentMarkerNum < markerNum) {
+            for (var j = 0; currentMarkerNum + j < markerNum; j++) {
+                this.markerCluster.push(addMarker(container, currentMarkerNum + j));
             }
         }
+        for (k in markerData.points) {
+            var coords = mapTransformCoords(width, markerData.points[k], isIsometric, markerData.floor)
+
+            //Adjust for marker size
+            coords.x -= Number(this.markerCluster[k].attr('width')) / 2;
+            coords.y -= Number(this.markerCluster[k].attr('height'));
+
+            this.markerCluster[k]
+                .classed('hide', false)
+                .classed('floor' + markerData.floor, true)
+                .attr('x', coords.x)
+                .attr('y', coords.y)
+        }
+    },
+
+    this.hide = function () {
+        for (i in this.markerCluster) {
+            this.markerCluster[i].classed('hide', true);
+        }
+    },
+
+    this.deleteLast = function () {
+        this.markerCluster.pop().remove();
+    },
+
+    this.deleteAll = function () {
+        while (this.markerCluster.length != 0) {
+            this.markerCluster.pop().remove();
+        }
+    },
+
+    this.onClick = function () {
+        showMarkerOnClick(this.markerCluster, container);
+    },
+
+    this.getLocation = function (width, floor) {
+        var arrayOfPoints = [];
+
+        for (i in this.markerCluster) {
+            var points = {
+                'x': Number(this.markerCluster[i].attr('x')) + Number(this.markerCluster[i].attr('width')) / 2,
+                'y': Number(this.markerCluster[i].attr('y')) + Number(this.markerCluster[i].attr('height'))
+            };
+            arrayOfPoints.push(undoMapTransformCoords(width, points, isIsometric, floor));
+        }
+        return arrayOfPoints;
+    },
+
+    this.onDrag = function () {
+        for (i in this.markerCluster) {
+            this.markerCluster[i].call(drag);
+        }
+    }
 };
 
 var drag = d3.drag()

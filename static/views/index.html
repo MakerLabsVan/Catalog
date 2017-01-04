@@ -174,10 +174,10 @@
                     <div class="col-sm-8" id="mapContainer" ng-controller="mapController">
                         <div class="btn-group-vertical floor-button">
                             <button class="btn btn-default pull-left"
-                                    ng-click="toFloorTwo()" id="markerButtons">Floor 2
+                                    ng-click="toFloorTwo()" id="markerButtons" ng-class="{active : map.currentFloor === 2}">Floor 2
                             </button>
                             <button class="btn btn-default pull-left"
-                                    ng-click="toFloorOne()" id="markerButtons">Floor 1
+                                    ng-click="toFloorOne()" id="markerButtons" ng-class="{active : map.currentFloor === 1}">Floor 1
                             </button>
                         </div>
                         <div class="well well-lg" id="firstFloorWell">
