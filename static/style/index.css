@@ -4,11 +4,13 @@ body {
 }
 
 .left-modal{
-    left: 10%;
+    left: 0%;
+    top: 5%;
 }
 
 .right-modal{
-    left: 25%
+    top: 5%;
+    left: 25%;
 }
 
 .top-modal{

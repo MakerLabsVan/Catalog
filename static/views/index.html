@@ -201,6 +201,12 @@
                 'max-height':'100%'
             });
         });
+        $(".modal").on("hidden.bs.modal", function(){
+            $(this).find('.modal-dialog').css({
+                left:'',
+                top:''
+            })
+        });
 </script>  
 <script type="text/javascript">
     window.doorbellOptions = {
