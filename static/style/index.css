@@ -3,37 +3,39 @@ body {
     overflow: hidden;
 }
 
-.left-modal{
+.modal { display:none; }
+
+.left-modal {
     left: -20%;
     top: 5%;
 }
 
-.right-modal{
+.right-modal {
     top: 5%;
     left: 25%;
 }
 
-.top-modal{
+.top-modal {
     left: -10% ;
     top: 5%
 }
 
-.bottom-modal{
+.bottom-modal {
     left: -10%;
     top: 50%
 }
 
-.modal-close{
+.modal-close {
     height: 40px;
     width: 32px;
 }
 
-.entryInfo{
+.entryInfo {
     padding-top: 30px;
 }
 
 .modal-backdrop.in {
-    opacity: 0;
+    opacity: 0.15;
 }
 
 .modal-body {

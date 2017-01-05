@@ -187,7 +187,7 @@
 <script src="/app/index/index.js"></script>
 <script src="/app/index/jquery.ui.touch-punch.min.js"></script>
 <script>
-        $('.modal').modal({ keyboard: false,
+        $('.modal').modal({ keyboard: true,
                            show: false
         });
         // Jquery draggable
@@ -200,6 +200,7 @@
                 height:'auto', //probably not needed 
                 'max-height':'100%'
             });
+            $(".modal-backdrop.in").hide();
         });
         $(".modal").on("hidden.bs.modal", function(){
             $(this).find('.modal-dialog').css({
