@@ -227,22 +227,43 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
         ypos = ypos/polygon.length
         console.log(xpos + "; " + ypos)
         var removeModalClass = 'left-modal right-modal top-modal bottom-modal'
-        if (xpos < 75 && ypos < 45) {
-            $('#modalWindow').removeClass(removeModalClass);
-            $('#modalWindow').addClass('top-modal');
-        }
-        else if (xpos < 75 && ypos >= 45){
-            $('#modalWindow').removeClass(removeModalClass);
-            $('#modalWindow').addClass('left-modal');
-        }
-        else if (xpos >= 75 && ypos < 45){
-            $('#modalWindow').removeClass(removeModalClass);
-            $('#modalWindow').addClass('right-modal');
+        if (entry.floor == 1) {
+            if (xpos < 75 && ypos < 45) {
+                $('#modalWindow').removeClass(removeModalClass);
+                $('#modalWindow').addClass('top-modal');
+            }
+            else if (xpos < 75 && ypos >= 45){
+                $('#modalWindow').removeClass(removeModalClass);
+                $('#modalWindow').addClass('left-modal');
+            }
+            else if (xpos >= 75 && ypos < 45){
+                $('#modalWindow').removeClass(removeModalClass);
+                $('#modalWindow').addClass('right-modal');
+            }
+            else {
+                $('#modalWindow').removeClass(removeModalClass);
+                $('#modalWindow').addClass('bottom-modal');
+            }
         }
         else {
-            $('#modalWindow').removeClass(removeModalClass);
-            $('#modalWindow').addClass('bottom-modal');
+            if (xpos < 50 && ypos < 50) {
+                $('#modalWindow').removeClass(removeModalClass);
+                $('#modalWindow').addClass('top-modal');
+            }
+            else if (xpos < 50 && ypos >= 50){
+                $('#modalWindow').removeClass(removeModalClass);
+                $('#modalWindow').addClass('left-modal');
+            }
+            else if (xpos >= 50 && ypos < 50){
+                $('#modalWindow').removeClass(removeModalClass);
+                $('#modalWindow').addClass('right-modal');
+            }
+            else {
+                $('#modalWindow').removeClass(removeModalClass);
+                $('#modalWindow').addClass('bottom-modal');
+            }
         }
+
 
         switch (entry.type) {
             case 'Studio':
