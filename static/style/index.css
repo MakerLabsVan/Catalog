@@ -4,7 +4,7 @@ body {
 }
 
 .left-modal{
-    left: 0%;
+    left: -20%;
     top: 5%;
 }
 
@@ -14,10 +14,12 @@ body {
 }
 
 .top-modal{
+    left: -10% ;
     top: 5%
 }
 
 .bottom-modal{
+    left: -10%;
     top: 50%
 }
 
