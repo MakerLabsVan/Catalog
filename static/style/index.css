@@ -6,7 +6,7 @@ body {
 .modal { display:none; }
 
 .left-modal {
-    left: -5%;
+    left: -10%;
     top: 5%;
 }
 
@@ -16,12 +16,12 @@ body {
 }
 
 .top-modal {
-    left: -5% ;
+    left: -10% ;
     top: 5%
 }
 
 .bottom-modal {
-    left: -5%;
+    left: -10%;
     top: 50%
 }
 
