@@ -3,6 +3,11 @@ body {
     overflow: hidden;
 }
 
+.modal-close{
+    height: 32px;
+    width: 32px;
+}
+
 .entryInfo{
     padding-top: 30px;
 }

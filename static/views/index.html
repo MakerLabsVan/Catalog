@@ -132,7 +132,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-10" id="mapContainer" ng-controller="mapController">
+            <div class="col-sm-9" id="mapContainer" ng-controller="mapController">
                 <div class="btn-group-vertical floor-button">
                     <button class="btn btn-default pull-left"
                             ng-click="toFloorTwo()" id="markerButtons" ng-class="{active : map.currentFloor === 2}">Floor 2
@@ -149,7 +149,7 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header" id="indexModalHeading">
-                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <button type="button" class="close modal-close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                     <h3 class="modal-title" id="modalTitleName"></h3>
                                 </div>
                                 <div class="modal-body white standardFont greyScroll" id="entryDetails">
@@ -195,6 +195,13 @@
         // Jquery draggable
         $('.modal-dialog').draggable({
             handle: ".modal-header"
+        });
+        $('.modal').on('show.bs.modal', function () {
+            $(this).find('.modal-body').css({
+                width:'auto', //probably not needed
+                height:'auto', //probably not needed 
+                'max-height':'100%'
+            });
         });
 </script>  
 <script type="text/javascript">
