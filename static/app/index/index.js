@@ -246,11 +246,11 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
             }
         }
         else {
-            if (xpos < 50 && ypos < 50) {
+            if (xpos < 50 && ypos < 40) {
                 $('#modalWindow').removeClass(removeModalClass);
                 $('#modalWindow').addClass('right-modal');
             }
-            else if (xpos < 50 && ypos >= 50){
+            else if (xpos < 50 && ypos >= 40){
                 $('#modalWindow').removeClass(removeModalClass);
                 $('#modalWindow').addClass('left-modal');
             }
