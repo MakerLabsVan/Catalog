@@ -79,7 +79,6 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
                     $scope.consumableEntries[key] = $scope.entries[key];
             }
         }
-        console.log($scope.entries);
         $scope.map.setViewable();
 
     });
@@ -215,6 +214,36 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
         if (entry.sublocation != "") {
             $('#address').append(", " + entry.sublocation);
         }
+
+
+        var polygon = JSON.parse(entry.metadata).points[0].polygon; //to calculate position of one of polygon's coords
+        var xpos = 1;
+        var ypos = 1;
+        for (var i = 0; i < polygon.length; i++) {
+            xpos += polygon[i].x;
+            ypos += polygon[i].y;
+        }
+        xpos = xpos/polygon.length;
+        ypos = ypos/polygon.length
+        console.log(xpos + "; " + ypos)
+        var removeModalClass = 'left-modal right-modal top-modal bottom-modal'
+        if (xpos < 75 && ypos < 45) {
+            $('#modalWindow').removeClass(removeModalClass);
+            $('#modalWindow').addClass('top-modal');
+        }
+        else if (xpos < 75 && ypos >= 45){
+            $('#modalWindow').removeClass(removeModalClass);
+            $('#modalWindow').addClass('left-modal');
+        }
+        else if (xpos >= 75 && ypos < 45){
+            $('#modalWindow').removeClass(removeModalClass);
+            $('#modalWindow').addClass('right-modal');
+        }
+        else {
+            $('#modalWindow').removeClass(removeModalClass);
+            $('#modalWindow').addClass('bottom-modal');
+        }
+
         switch (entry.type) {
             case 'Studio':
                 elem.removeClass(remove).addClass('red');
