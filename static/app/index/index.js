@@ -30,24 +30,7 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
     $('.modal-dialog').draggable({
         handle: ".modal-header"
     });
-    $('.modal').on('show.bs.modal', function () {
-        if ($("#entryImg").hasClass("hidden") && $("#subloc-image").hasClass("hidden")){
-            $(this).find('.modal-body').css({
-                width:'auto', //probably not needed
-                height:'115px', //probably not needed 
-                'max-height':'100%'
-            });
-        }
-        else {
-            console.log("Triggered")
-            $(this).find('.modal-body').css({
-                width:'auto', //probably not needed
-                height:'auto', //probably not needed 
-                'max-height':'100%'
-            });
-        }
-        
-    });
+
     $(".modal").on("hidden.bs.modal", function(){
         $(this).find('.modal-dialog').css({
             left:'',
@@ -194,6 +177,8 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
         }
     };
 
+
+
     var getImage = function (type, image) {
         httpRequests.getImage(type + '/' + image)
             .then(function (url) {
@@ -207,6 +192,7 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
     var sublocationImage = function (sublocation) {
         httpRequests.getImage('Sublocation' + '/' + sublocation)
             .then(function (url) {
+                $("#subloc-image").removeClass("hidden");
                 $("#subloc-image").attr("src", url).on("error", function () {
                     $("#subloc-image").addClass("hidden");
                 });
@@ -215,16 +201,27 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
 
     // display entry details when clicked
     $scope.showEntryDetails = function (entry) {
-        $('#popover').modal({ keyboard: true,
-                           show: true
-        });
-        $("#entryImg").addClass("hidden");
-        $("#not-found").addClass("hidden");
-        $("#subloc-image").removeClass("hidden");
+        $('#popover').modal({ keyboard: true, show: true});
 
         // get image
         getImage(entry.type, entry.image);
         sublocationImage(entry.sublocation);
+
+        if ($("#entryImg").hasClass("hidden") && $("#subloc-image").hasClass("hidden")){
+            $(this).find('.modal-body').css({
+                width:'auto', //probably not needed
+                height:'115px', //probably not needed 
+                'max-height':'100%'
+            });
+        }
+        else {
+            console.log("Triggered")
+            $(this).find('.modal-body').css({
+                width:'auto', //probably not needed
+                height:'auto', //probably not needed 
+                'max-height':'100%'
+            });
+        }
 
         $scope.selectedObject = entry;
 
@@ -243,7 +240,6 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
             $('#address').append(", " + entry.sublocation);
         }
 
-
         var polygon = JSON.parse(entry.metadata).points[0].polygon; //to calculate position of one of polygon's coords
         var xpos = 1;
         var ypos = 1;
@@ -253,7 +249,7 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
         }
         xpos = xpos/polygon.length;
         ypos = ypos/polygon.length
-        console.log(xpos + "; " + ypos)
+
         var removeModalClass = 'left-modal right-modal top-modal bottom-modal'
         if (entry.floor == 1) {
             if (xpos < 75 && ypos < 45) {
@@ -321,9 +317,6 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
                     $('#additionalInfo').html(entry.quantity + "x")
                 }
         }
-
-        $('#entryBody').addClass('hidden');
-        $('#entryDetails').removeClass('hidden');
 
         $scope.isEmpty = function (prop) {
             return !($scope.selectedObject[prop] === '' ||
