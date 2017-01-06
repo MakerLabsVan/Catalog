@@ -26,6 +26,24 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
         resetCheck();
     });
 
+    // Jquery draggable
+    $('.modal-dialog').draggable({
+        handle: ".modal-header"
+    });
+    $('.modal').on('show.bs.modal', function () {
+        $(this).find('.modal-body').css({
+            width:'auto', //probably not needed
+            height:'115px', //probably not needed 
+            'max-height':'100%'
+        });
+    });
+    $(".modal").on("hidden.bs.modal", function(){
+        $(this).find('.modal-dialog').css({
+            left:'',
+            top:''
+        })
+    });
+
     // request to sheets and parse the data
     httpRequests.pub_getCatalog().then(function (data) {
         $scope.data = data;
@@ -172,6 +190,11 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
                 $("#entryImg").attr("src", url).on("error", function () {
                     $("#entryImg").addClass("hidden");
                 });
+                $(this).find('.modal-body').css({
+                    width:'auto', //probably not needed
+                    height:'90px', //probably not needed 
+                    'max-height':'100%'
+                });
             });
     };
 
@@ -186,13 +209,12 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
 
     // display entry details when clicked
     $scope.showEntryDetails = function (entry) {
-        $('#popover').modal({ keyboard: false,
+        $('#popover').modal({ keyboard: true,
                            show: true
         });
         $("#entryImg").addClass("hidden");
         $("#not-found").addClass("hidden");
         $("#subloc-image").removeClass("hidden");
-
 
         // get image
         getImage(entry.type, entry.image);
