@@ -210,7 +210,7 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
         getImage(entry.type, entry.image);
         sublocationImage(entry.sublocation);
 
-        if (entry.sublocation == "" && entry.image == "") {
+        if (entry.sublocation == "" && entry.image == "") { //no images
             $('.modal-body').css({
                 width:'auto',
                 height:'115px',
@@ -221,7 +221,7 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
             $('.modal-body').css({
                 width:'auto',
                 height:'auto', 
-                'max-height':'100%'
+                'max-height':'510px'
             });
         }
 
