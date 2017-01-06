@@ -224,7 +224,7 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
             $('.modal-body').css({
                 width:'auto',
                 height:'auto', 
-                'max-height':'510px'
+                'max-height':'550px'
             });
         }
 
