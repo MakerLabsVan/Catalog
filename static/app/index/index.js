@@ -185,6 +185,7 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
                 $("#entryImg").removeClass("hidden");
                 $("#entryImg").attr("src", url).on("error", function () {
                     $("#entryImg").addClass("hidden");
+                    return;
                 });
             });
     };
@@ -195,18 +196,13 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
                 $("#subloc-image").removeClass("hidden");
                 $("#subloc-image").attr("src", url).on("error", function () {
                     $("#subloc-image").addClass("hidden");
+                    return;
                 });
             });
     };
 
-    // display entry details when clicked
-    $scope.showEntryDetails = function (entry) {
-        // get image
-        getImage(entry.type, entry.image);
-        sublocationImage(entry.sublocation);
-
-        if ($("#entryImg").hasClass("hidden") && $("#subloc-image").hasClass("hidden")){
-            console.log("hidden")
+    var changeModalHeight = function(isHidden) {
+        if (isHidden) {
             $(this).find('.modal-body').css({
                 width:'auto', //probably not needed
                 height:'115px', //probably not needed 
@@ -214,13 +210,26 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
             });
         }
         else {
-            console.log("Triggered")
             $(this).find('.modal-body').css({
                 width:'auto', //probably not needed
                 height:'auto', //probably not needed 
                 'max-height':'100%'
             });
         }
+        $('#popover').modal({ keyboard: true, show: true});
+    }
+
+    // display entry details when clicked
+    $scope.showEntryDetails = function (entry) {
+        // get image
+
+        var checkImages = function(){
+            getImage(entry.type, entry.image);
+            sublocationImage(entry.sublocation);
+            changeModalHeight($("#subloc-image").hasClass("hidden") && $("entry").hasClass("hidden"))            
+        }
+        checkImages();
+
 
         $scope.selectedObject = entry;
 
@@ -317,7 +326,6 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
                 }
         }
 
-        $('#popover').modal({ keyboard: true, show: true});
 
         $scope.isEmpty = function (prop) {
             return !($scope.selectedObject[prop] === '' ||
