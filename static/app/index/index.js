@@ -181,8 +181,10 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
         httpRequests.getImage(type + '/' + image)
             .then(function (url) {
                 $("#entryImg").removeClass("hidden");
+                $("#imgBreak").removeClass("hidden");
                 $("#entryImg").attr("src", url).on("error", function () {
                     $("#entryImg").addClass("hidden");
+                    $("#imgBreak").addClass("hidden");
                     return;
                 });
             });
@@ -205,6 +207,7 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
         $scope.selectedObject = entry;
         $("#entryImg").addClass("hidden");
         $("#subloc-image").addClass("hidden");
+        $("#imgBreak").addClass("hidden");
 
         // get images
         getImage(entry.type, entry.image);
