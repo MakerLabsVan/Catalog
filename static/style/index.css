@@ -371,7 +371,6 @@ input[type="file"] {
 
 #entryImg, #subloc-image {
     max-height: 50vh;
-    border-radius: 40px;
 }
 
 #entryPage {
