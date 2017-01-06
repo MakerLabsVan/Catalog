@@ -201,13 +201,12 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
 
     // display entry details when clicked
     $scope.showEntryDetails = function (entry) {
-        $('#popover').modal({ keyboard: true, show: true});
-
         // get image
         getImage(entry.type, entry.image);
         sublocationImage(entry.sublocation);
 
         if ($("#entryImg").hasClass("hidden") && $("#subloc-image").hasClass("hidden")){
+            console.log("hidden")
             $(this).find('.modal-body').css({
                 width:'auto', //probably not needed
                 height:'115px', //probably not needed 
@@ -317,6 +316,8 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
                     $('#additionalInfo').html(entry.quantity + "x")
                 }
         }
+
+        $('#popover').modal({ keyboard: true, show: true});
 
         $scope.isEmpty = function (prop) {
             return !($scope.selectedObject[prop] === '' ||
