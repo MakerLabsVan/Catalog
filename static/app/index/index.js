@@ -177,8 +177,6 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
         }
     };
 
-
-
     var getImage = function (type, image) {
         httpRequests.getImage(type + '/' + image)
             .then(function (url) {
@@ -201,8 +199,18 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
             });
     };
 
-    var changeModalHeight = function(isHidden) {
-        if (isHidden) {
+    // display entry details when clicked
+    $scope.showEntryDetails = function (entry) {
+
+        $scope.selectedObject = entry;
+        $("#entryImg").addClass("hidden");
+        $("#subloc-image").addClass("hidden");
+
+        // get images
+        getImage(entry.type, entry.image);
+        sublocationImage(entry.sublocation);
+
+        if (entry.sublocation == "" && entry.image == "") {
             $(this).find('.modal-body').css({
                 width:'auto', //probably not needed
                 height:'115px', //probably not needed 
@@ -216,22 +224,6 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
                 'max-height':'100%'
             });
         }
-        $('#popover').modal({ keyboard: true, show: true});
-    }
-
-    // display entry details when clicked
-    $scope.showEntryDetails = function (entry) {
-        // get image
-
-        var checkImages = function(){
-            getImage(entry.type, entry.image);
-            sublocationImage(entry.sublocation);
-            changeModalHeight($("#subloc-image").hasClass("hidden") && $("entry").hasClass("hidden"))            
-        }
-        checkImages();
-
-
-        $scope.selectedObject = entry;
 
         // initialize title
         $('#modalTitleName').html(entry.name);
@@ -326,6 +318,7 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
                 }
         }
 
+        $('#popover').modal({ keyboard: true, show: true});
 
         $scope.isEmpty = function (prop) {
             return !($scope.selectedObject[prop] === '' ||
