@@ -39,6 +39,7 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
             });
         }
         else {
+            console.log("Triggered")
             $(this).find('.modal-body').css({
                 width:'auto', //probably not needed
                 height:'auto', //probably not needed 
