@@ -3,6 +3,10 @@ body {
     overflow: hidden;
 }
 
+.modal-body {
+    max-height: 600px;
+}
+
 .left-modal {
     left: -15%;
     top: 5%;
@@ -14,13 +18,13 @@ body {
 }
 
 .top-modal {
-    left: -15% ;
-    top: 5%
+    left: -15%;
+    top: 5%;
 }
 
 .bottom-modal {
     left: -15%;
-    top: 50%
+    top: 50%;
 }
 
 .modal-close {
@@ -34,10 +38,6 @@ body {
 
 .modal-backdrop.in {
     opacity: 0.15;
-}
-
-.modal-body {
-    max-height: 600px;
 }
 
 .floor-button {

@@ -211,16 +211,16 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
         sublocationImage(entry.sublocation);
 
         if (entry.sublocation == "" && entry.image == "") {
-            $(this).find('.modal-body').css({
-                width:'auto', //probably not needed
-                height:'115px', //probably not needed 
+            $('.modal-body').css({
+                width:'auto',
+                height:'115px',
                 'max-height':'100%'
             });
         }
         else {
-            $(this).find('.modal-body').css({
-                width:'auto', //probably not needed
-                height:'auto', //probably not needed 
+            $('.modal-body').css({
+                width:'auto',
+                height:'auto', 
                 'max-height':'100%'
             });
         }
