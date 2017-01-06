@@ -31,11 +31,21 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
         handle: ".modal-header"
     });
     $('.modal').on('show.bs.modal', function () {
-        $(this).find('.modal-body').css({
-            width:'auto', //probably not needed
-            height:'115px', //probably not needed 
-            'max-height':'100%'
-        });
+        if ($("#entryImg").hasClass("hidden") && $("#subloc-image").hasClass("hidden")){
+            $(this).find('.modal-body').css({
+                width:'auto', //probably not needed
+                height:'115px', //probably not needed 
+                'max-height':'100%'
+            });
+        }
+        else {
+            $(this).find('.modal-body').css({
+                width:'auto', //probably not needed
+                height:'auto', //probably not needed 
+                'max-height':'100%'
+            });
+        }
+        
     });
     $(".modal").on("hidden.bs.modal", function(){
         $(this).find('.modal-dialog').css({
@@ -189,11 +199,6 @@ indexApp.controller('indexCtrl', ['$scope', '$http', '$interval', "$window", 'ma
                 $("#entryImg").removeClass("hidden");
                 $("#entryImg").attr("src", url).on("error", function () {
                     $("#entryImg").addClass("hidden");
-                });
-                $(this).find('.modal-body').css({
-                    width:'auto', //probably not needed
-                    height:'90px', //probably not needed 
-                    'max-height':'100%'
                 });
             });
     };
